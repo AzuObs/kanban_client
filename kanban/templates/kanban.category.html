@@ -1,0 +1,14 @@
+<div class="category-container">
+  <h4>{{category.name | uppercase}}</h4>
+  <button id='closeCategory' ng-click="$parent.deleteCategory(category._id)"><span class='glyphicon glyphicon-remove'></span></button>
+
+  <div id="c:{{category._id}}" ui-sortable="taskSortOptions" ng-model="category.tasks" class="task-list">
+    <ui-task class="task" ng-repeat="task in category.tasks" ng-click="taskModal(user, board, category, task)">
+    </ui-task>
+  </div>
+
+  <div class="form-group">
+    <input type="text" class="input-md form-control" placeholder="Add a task..." ng-keypress="createTask(taskName, category._id, $event)" ng-model="taskName">
+    <button ng-click="createTask(taskName, category._id)" class="btn btn-black btn-block">Add Task</button>
+  </div>
+</div>

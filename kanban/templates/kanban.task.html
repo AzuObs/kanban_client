@@ -1,0 +1,11 @@
+<div class="task-container">
+
+  <h5><button ng-click="deleteTask(category._id, task._id)" id='closeTask'><span class='glyphicon glyphicon-remove'></span></button>{{task.name}}</h5>
+
+  <span ng-show="task.comments.length" class="glyphicon glyphicon-comment comment text-muted"><span>{{task.comments.length}}</span></span>
+
+  <span id="c:{{category._id}} t:{{task._id}}" ui-sortable="workerSortOpts" ng-model="task.workers" class="worker-list">
+    <ui-worker class="worker" ng-repeat="worker in task.workers">
+    </ui-worker>
+  </span>
+</div>

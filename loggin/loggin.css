@@ -1,0 +1,28 @@
+.loggin-page {
+  display: flex;
+  justify-content: center;
+}
+
+.loggin-container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.loggin-container h2 {
+  align-self: center;
+}
+
+.loggin-help-box {
+  border: 1px dashed #888;
+  padding: 10px 10px;
+  margin: 10px 0px;
+  background-color: #fee;
+}
+
+.loggin-help-box p {
+  margin: 0px;
+}
+
+.loggin-help-box > * {}

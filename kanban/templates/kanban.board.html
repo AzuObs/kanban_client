@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="board-menu">
+    <h4>{{board.name}} Members</h4>
+    <span ui-sortable="workerSortOpts" class="worker-list worker-selection" ng-model="board.workers">
+      <ui-worker class="worker" ng-repeat="worker in board.workers"></ui-worker>
+    </span>
+    <div class="form-group">
+      <input type="text" class="input-md form-control" placeholder="Add a worker..." ng-model="addWkInput">
+      <button class="btn btn-black btn-block" ng-click="addWkInput = ''">Add Worker</button>
+    </div>
+  </div>
+
+  <div class="board-categories">
+    <div ui-sortable="categorySortOptions" class="category-list" ng-model="board.categories">
+      <ui-category ng-repeat="category in board.categories">
+      </ui-category>
+    </div>
+    <div class="category-input">
+      <div class="form-group">
+        <input type="text" class="input-md form-control" placeholder="Add a category..." ng-model="newCat" ng-keypress="createCategory(newCat, $event)">
+        <button ng-click="createCategory(newCat)" class="btn btn-black btn-block">Add Category</button>
+      </div>
+    </div>
+  </div>
+</div>

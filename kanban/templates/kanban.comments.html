@@ -1,0 +1,30 @@
+<div class="modal-close">
+  <span ng-click="closeModal()" class="btn glyphicon glyphicon-remove"></span>
+</div>
+
+<div class="modal-title">
+  <h3>{{task.name}}</h3>
+  <h4 class="text-muted">in list <b>{{category.name | uppercase}}</b></h4>
+</div>
+
+<div class="modal-worker-list">
+  <ui-worker class="modal-worker" ng-repeat="worker in task.workers"></ui-worker>
+</div>
+
+<div class="modal-newcomment">
+  <b>Activity</b>
+  <div class="form-group">
+    <textarea class="form-control" placeholder="Add a comment..." ng-model="commentInput"></textarea>
+    <button ng-click="createComment()" class="btn btn-black btn-block">Add Comment</button>
+  </div>
+</div>
+
+<div class="comments-container" ng-repeat="comment in task.comments">
+  <div class="comment-img"><img src="http://i.imgur.com/enaJkvo.jpg"></div>
+  <div class="comment-content">
+    <div><b>Daniel</b></div>
+    <div>{{comment.content}}</div>
+    <small class="text-muted">{{ageOfPost(comment.date)}}</small>
+  </div>
+  <br>
+</div>

@@ -1,0 +1,76 @@
+.modal-content {
+  padding: 20px;
+  width: 440px;
+}
+
+.modal-close span {
+  background-color: #eee;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  padding: 5px 10px;
+  position: absolute;
+  left: 393px;
+  top: 7px;
+}
+
+.modal-close span:hover {
+  border-color: #aaa;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.modal-title h3 {
+  margin-top: 0px;
+}
+
+.modal-worker-list {
+  margin-top: 15px;
+  display: block;
+  width: 400px;
+  height: 52px;
+}
+
+.modal-worker {
+  float: left;
+  margin-right: 3px;
+}
+
+.modal-worker #workerImg {
+  height: 50px;
+  width: 50px;
+  border: 1px solid #aaa;
+}
+
+.modal-newcomment {
+  margin-top: 20px;
+}
+
+.modal-newcomment textarea {
+  margin-top: 3px;
+  margin-bottom: 2px;
+}
+
+.modal-newcomment .btn {
+  display: none;
+}
+
+.modal-newcomment:hover .btn {
+  display: block;
+}
+
+.modal-newcomment textarea:focus +.btn {
+  display: block;
+}
+
+.comments-container {
+  display: flex;
+}
+
+.comment-img img {
+  height: 45px;
+  width: 45px;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+}
