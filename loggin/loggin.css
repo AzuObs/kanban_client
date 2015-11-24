@@ -4,6 +4,12 @@
 
 .newaccount-container {
   display: flex;
+  flex-direction: column;
+}
+
+.newaccount-container h2 {
+  align-self: center;
+  padding-bottom: 20px;
 }
 
 

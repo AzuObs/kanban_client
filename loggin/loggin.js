@@ -26,6 +26,20 @@
 	logginMod.service("logginService", function($http, $rootScope, $q) {
 		var service = this;
 
+		service.createUser = function(params) {
+			var defer = $q.defer();
+			$http
+				.post($rootScope.endPoint + "/user", params)
+				.success(function(res) {
+					defer.resolve(res);
+				})
+				.error(function(err) {
+					defer.reject(err);
+				});
+
+			return defer.promise;
+		};
+
 		service.authenticate = function(params) {
 			var defer = $q.defer();
 			$http
@@ -45,19 +59,39 @@
 
 
 	logginMod.controller("logginCtrl", function($scope, logginService, $state) {
-		$scope.username = "daniel";
-		$scope.pwd = "123";
+		$scope.newAccUsr = "";
+		$scope.newAccPwd = "";
+		$scope.newAccPwdVerify = "";
+
+		$scope.logginUsername = "daniel";
+		$scope.logginPwd = "123";
+
+		$scope.createUser = function() {
+			logginService
+				.createUser({
+					username: $scope.newAccUsr,
+					pwd: $scope.newAccPwd
+				})
+				.then(function(res) {
+					$state.go("kanban.boardList", {
+						username: $scope.newAccUsr
+					});
+				}, function(err) {
+					console.log(err);
+				});
+		};
+
 
 		$scope.authenticate = function() {
 			logginService
 				.authenticate({
-					username: $scope.username,
-					pwd: $scope.pwd
+					username: $scope.logginUsername,
+					pwd: $scope.logginPwd
 				})
 				.then(function(res) {
 					sessionStorage.token = res.token;
 					$state.go("kanban.boardList", {
-						username: $scope.username
+						username: $scope.logginUsername
 					});
 				}, function(err) {
 					console.log(err);
