@@ -12,7 +12,7 @@
 			var q = $q.defer();
 
 			$http
-				.post($rootScope.endPoint + "/comments", params)
+				.post($rootScope.endPoint + "/comment", params)
 				.success(function(res) {
 					q.resolve(res);
 				})
@@ -23,12 +23,11 @@
 			return q.promise;
 		};
 
-		User.getUser = function() {
-			var userId = "55e75220559835a1048b0291";
+		User.getUser = function(userId) {
 			var defer = $q.defer();
 
 			$http
-				.get($rootScope.endPoint + "/user/" + userId)
+				.get($rootScope.endPoint + "/user/" + sessionStorage.userId)
 				.success(function(res) {
 					for (var i = 0; i < res.boards.length; i++) {
 						for (var x = 0; x < res.boards[i].categories.length; x++) {
@@ -44,6 +43,7 @@
 							}
 						}
 					}
+
 					User.user = res;
 					defer.resolve(res);
 				})
@@ -138,6 +138,7 @@
 							}
 						}
 					}
+
 					defer.resolve(res);
 				})
 				.error(function(err) {
@@ -152,6 +153,21 @@
 
 			$http
 				.post($rootScope.endPoint + "/comments", params)
+				.success(function(res) {
+					defer.resolve(res);
+				})
+				.error(function(err) {
+					defer.reject(err);
+				});
+
+			return defer.promise;
+		};
+
+		User.createBoard = function(params) {
+			var defer = $q.defer();
+
+			$http
+				.post($rootScope.endPoint + "/board", params)
 				.success(function(res) {
 					defer.resolve(res);
 				})

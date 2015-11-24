@@ -24,8 +24,23 @@
 		});
 	});
 
-	kanbanMod.controller("kanbanBoardListCtrl", function($scope, user) {
+	kanbanMod.controller("kanbanBoardListCtrl", function($scope, user, userService) {
 		$scope.user = user;
+		$scope.boardName = "";
+
+		$scope.createBoard = function() {
+			userService
+				.createBoard({
+					userId: sessionStorage.userId,
+					name: $scope.boardName
+				})
+				.then(function(res) {
+					$scope.user.boards.push(res);
+				}, function(err) {
+					console.log(err);
+				});
+
+		};
 	});
 
 })();

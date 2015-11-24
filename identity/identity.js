@@ -73,9 +73,10 @@
 					pwd: $scope.newAccPwd
 				})
 				.then(function(res) {
+					sessionStorage.userId = res.userId;
 					sessionStorage.token = res.token;
 					$state.go("kanban.boardList", {
-						username: $scope.newAccUsr
+						username: res.username
 					});
 				}, function(err) {
 					console.log(err);
@@ -90,9 +91,10 @@
 					pwd: $scope.logginPwd
 				})
 				.then(function(res) {
+					sessionStorage.userId = res.userId;
 					sessionStorage.token = res.token;
 					$state.go("kanban.boardList", {
-						username: $scope.logginUsername
+						username: res.username
 					});
 				}, function(err) {
 					console.log(err);

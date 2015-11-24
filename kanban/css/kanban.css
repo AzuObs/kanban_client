@@ -1,186 +1,193 @@
-.board-menu {
-  height: 150px;
-}
-
-.board-categories {
-  display: flex;
-  align-items: flex-start;
-}
-
-.category-container {
-  width: 240px;
-  margin-right: 10px;
-  padding: 0px 5px 5px 5px;
-  border: 2px solid #aaa;
-  border-radius: 3px;
-  background-color: #eee;
-  display: block;
-  float: left;
-}
-
-.task-list {
-  min-height: 50px;
-}
-
-.task-container {
-  width: 100%;
-  min-height: 70px;
-  margin-bottom: 3px;
-  padding: 0px 5px 0px 5px;
-  border: 1px solid #aaa;
-  border-radius: 3px;
-  box-shadow: 0px 0px 5px #ccc;
-  background-color: #fff;
-}
-
-.comment {
-  float: left;
-  font-size: 0.85em;
-  margin: 21px 0px 0px 2px;
-}
-
-.comment span {
-  position: relative;
-  bottom: 1px;
-  left: 2px;
-}
-
-.worker-list {
-  display: block;
-  width: 210px;
-  height: 40px;
-}
-
-.board-menu .worker {
-  float: left;
-}
-
-.worker {
-  float: right;
-  margin-right: 3px;
-}
-
-.btn-black {
-  border: 1px solid #000;
-  color: #fff !important;
-  background-color: #222 !important;
-}
-
-.btn-black:hover {
-  box-shadow: 0px 0px 7px #888;
-}
-
-
-/*CATEGORY CONTAINER*/
-
-.category-container h4 {
-  margin-bottom: 0px;
-}
-
-.category-container:hover {
-  border: 2px solid #777;
-}
-
-#closeCategory {
-  position: relative;
-  font-size: 0.6em;
-  bottom: 31px;
-  left: 218px;
-  height: 0px;
-  padding: 0px;
-  color: rgba(0, 0, 0, 0);
-  background: rgba(0, 0, 0, 0);
-  border: none;
-}
-
-.category-container:hover #closeCategory {
-  color: #aaa;
-}
-
-.category-container:hover #closeCategory:hover {
-  color: #333;
-}
-
-.category-input {
-  width: 240px;
-  margin-right: 10px;
-  padding: 0px 5px 5px 5px;
-  border: 1px solid #aaa;
-  border-radius: 3px;
-  background-color: #eee;
-}
-
-.board-categories input {
-  margin-top: 10px;
-  margin-bottom: 1px;
-  background-color: #eee;
-}
-
-.board-categories input:hover,
-.board-categories input:focus {
-  background-color: #fff;
-}
-
-.board-categories .form-group button {
-  display: none;
-}
-
-.board-categories .form-group:hover button,
-.board-categories input:focus~button {
-  display: block;
-}
-
-
-/*TASK CONTAINER*/
-
-#closeTask {
-  position: relative;
-  font-size: 0.5em;
-  bottom: 11px;
-  left: 208px;
-  height: 0px;
-  padding: 0px;
-  color: rgba(0, 0, 0, 0);
-  background: rgba(0, 0, 0, 0);
-  border: none;
-}
-
-.task-container:hover #closeTask {
-  color: #aaa;
-}
-
-.category-container h5 {
-  margin-top: 7px;
-  margin-bottom: 7px;
-}
-
-.task-container:hover #closeTask:hover {
-  color: #333;
-}
-
-.task-container:hover {
-  border: 1px solid #777;
-}
-
-
-/* WORKER-CONTAINER */
-
-.worker-container #workerImg {
-  height: 32px;
-  width: 32px;
-  border: 1px solid #aaa;
-}
-
-.board-menu .form-group {
-  margin-top: 10px;
-  width: 190px;
-}
-
-.board-menu button {
-  display: none;
-}
-
-.board-menu .form-group:hover button,
-.board-menu input:focus~button {
-  display: block;
-}
+  .board-menu {
+    height: 150px;
+  }
+  
+  .board-categories {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .category-container {
+    width: 240px;
+    margin-right: 10px;
+    padding: 0px 5px 5px 5px;
+    border: 2px solid #aaa;
+    border-radius: 3px;
+    background-color: #eee;
+    display: block;
+    float: left;
+  }
+  
+  .task-list {
+    min-height: 50px;
+  }
+  
+  .task-container {
+    width: 100%;
+    min-height: 70px;
+    margin-bottom: 3px;
+    padding: 0px 5px 0px 5px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    box-shadow: 0px 0px 5px #ccc;
+    background-color: #fff;
+  }
+  
+  .comment {
+    float: left;
+    font-size: 0.85em;
+    margin: 21px 0px 0px 2px;
+  }
+  
+  .comment span {
+    position: relative;
+    bottom: 1px;
+    left: 2px;
+  }
+  
+  .worker-list {
+    display: block;
+    width: 210px;
+    height: 40px;
+  }
+  
+  .board-menu .worker {
+    float: left;
+  }
+  
+  .worker {
+    float: right;
+    margin-right: 3px;
+  }
+  
+  .btn-black {
+    border: 1px solid #000;
+    color: #fff !important;
+    background-color: #222 !important;
+  }
+  
+  .btn-black:hover {
+    box-shadow: 0px 0px 7px #888;
+  }
+  /*CATEGORY CONTAINER*/
+  
+  .category-container h4 {
+    margin-bottom: 0px;
+  }
+  
+  .category-container:hover {
+    border: 2px solid #777;
+  }
+  
+  #closeCategory {
+    position: relative;
+    font-size: 0.6em;
+    bottom: 31px;
+    left: 218px;
+    height: 0px;
+    padding: 0px;
+    color: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
+    border: none;
+  }
+  
+  .category-container:hover #closeCategory {
+    color: #aaa;
+  }
+  
+  .category-container:hover #closeCategory:hover {
+    color: #333;
+  }
+  
+  .category-input {
+    width: 240px;
+    margin-right: 10px;
+    padding: 0px 5px 5px 5px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    background-color: #eee;
+  }
+  
+  .board-categories input {
+    margin-top: 10px;
+    margin-bottom: 1px;
+    background-color: #eee;
+  }
+  
+  .board-categories input:hover,
+  .board-categories input:focus {
+    background-color: #fff;
+  }
+  
+  .board-categories .form-group button {
+    display: none;
+  }
+  
+  .board-categories .form-group:hover button,
+  .board-categories input:focus~button {
+    display: block;
+  }
+  /*TASK CONTAINER*/
+  
+  #closeTask {
+    position: relative;
+    font-size: 0.5em;
+    bottom: 11px;
+    left: 208px;
+    height: 0px;
+    padding: 0px;
+    color: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
+    border: none;
+  }
+  
+  .task-container:hover #closeTask {
+    color: #aaa;
+  }
+  
+  .category-container h5 {
+    margin-top: 7px;
+    margin-bottom: 7px;
+  }
+  
+  .task-container:hover #closeTask:hover {
+    color: #333;
+  }
+  
+  .task-container:hover {
+    border: 1px solid #777;
+  }
+  /* WORKER-CONTAINER */
+  
+  .worker-container #workerImg {
+    height: 32px;
+    width: 32px;
+    border: 1px solid #aaa;
+  }
+  
+  .board-menu .form-group {
+    margin-top: 10px;
+    width: 190px;
+  }
+  
+  .board-menu button {
+    display: none;
+  }
+  
+  .board-menu .form-group:hover button,
+  .board-menu input:focus~button {
+    display: block;
+  }
+  
+  .board-list-container *[ng-repeat] > a,
+  .board-list-container *[ng-repeat] > span {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 2em;
+  }
+  /*this must be below the other .board-list-container *[ng-repeat] rules */
+  
+  .board-list-container *[ng-repeat] > .glyphicon {
+    font-size: 1.5em;
+    margin-bottom: 3px;
+  }
