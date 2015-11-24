@@ -1,21 +1,47 @@
-<div class="loggin-page">
-  <div class="loggin-container">
-    <h2>Log In</h2>
-    <div class="loggin-help-box">
-      <p><b>Demo Account</b></p>
-      <p>username: daniel</p>
-      <p>password: 123</p>
+<div class="loggin-page container">
+  <div class="row">
+    <div class="newaccount-container col-sm-offset-1 col-sm-4">
+      <h2>Create a new account</h2>
+      <form>
+        <div class="form-group">
+          <div><b>Create Username</b></div>
+          <input type="text" class="form-control" ng-model="">
+        </div>
+        <div class="form-group">
+          <div><b>Password</b></div>
+          <input type="password" class="form-control" ng-model="">
+        </div>
+        <div class="form-group">
+          <div><b>Repeat Password</b></div>
+          <input type="password" class="form-control" ng-model="">
+        </div>
+      </form>
     </div>
-    <form>
-      <div class="form-group">
-        <div><b>Username</b></div>
-        <input type="text" class="form-control" ng-model="username">
+
+    <div class="vertical-divider-container col-sm-2">
+      <div class="vertical-line"></div>
+      <h3 class="vertical-or">OR</h3>
+      <div class="vertical-line"></div>
+    </div>
+
+    <div class="loggin-container col-sm-offset-4">
+      <h2>Log In</h2>
+      <div class="loggin-help-box">
+        <p><b>Demo Account</b></p>
+        <p>username: daniel</p>
+        <p>password: 123</p>
       </div>
-      <div class="form-group">
-        <div><b>Password</b></div>
-        <input type="password" class="form-control" ng-model="pwd">
-      </div>
-      <button class="btn btn-block btn-black" ng-click="authenticate()">Log In</button>
-    </form>
+      <form>
+        <div class="form-group">
+          <div><b>Username</b></div>
+          <input type="text" class="form-control" ng-model="username">
+        </div>
+        <div class="form-group">
+          <div><b>Password</b></div>
+          <input type="password" class="form-control" ng-model="pwd">
+        </div>
+        <button class="btn btn-block btn-black" ng-click="authenticate()">Log In</button>
+      </form>
+    </div>
   </div>
 </div>

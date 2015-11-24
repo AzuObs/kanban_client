@@ -1,10 +1,45 @@
-.loggin-page {
+/*
+* NEW ACCOUNT PANEL
+ */
+
+.newaccount-container {
   display: flex;
-  justify-content: center;
 }
 
+
+/*
+* VERTICAL DIVIDER
+ */
+
+.vertical-divider-container {
+  margin-top: 73px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.vertical-or {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  align-self: center;
+}
+
+.vertical-line {
+  align-self: center;
+  height: 100px;
+  width: 1px;
+  background: #333;
+}
+
+
+/*
+* LOGGIN PANEL
+ */
+
 .loggin-container {
-  width: 300px;
+  padding-left: 30px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -24,5 +59,3 @@
 .loggin-help-box p {
   margin: 0px;
 }
-
-.loggin-help-box > * {}
