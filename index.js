@@ -5,7 +5,7 @@
 		"ui.bootstrap",
 		"ui.router",
 		"kanbanModule",
-		"logginModule",
+		"identityModule",
 		"aboutModule",
 		"stateInfoModule",
 		"angular-loading-bar"
@@ -13,7 +13,7 @@
 
 
 	app.config(function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise("/loggin");
+		$urlRouterProvider.otherwise("/identity");
 	});
 
 	app.run(function($state, $rootScope) {
