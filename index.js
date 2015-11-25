@@ -17,7 +17,8 @@
 	});
 
 	app.run(function($state, $rootScope) {
-		$rootScope.endPoint = "http://bigbangkanban.herokuapp.com/api";
+		// $rootScope.endPoint = "http://bigbangkanban.herokuapp.com/api";
+		$rootScope.endPoint = "http://localhost:8000/api";
 		$rootScope.state = $state;
 	});
 })();

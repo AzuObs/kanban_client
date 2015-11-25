@@ -182,7 +182,7 @@
 			var defer = $q.defer();
 
 			$http
-				.delete($rootScope.endPoint + "/board", params)
+				.delete($rootScope.endPoint + "/board/" + params.userId + "/" + params.boardId)
 				.success(function(res) {
 					defer.resolve(res);
 				})
