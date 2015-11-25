@@ -177,5 +177,20 @@
 
 			return defer.promise;
 		};
+
+		User.deleteBoard = function(params) {
+			var defer = $q.defer();
+
+			$http
+				.delete($rootScope.endPoint + "/board", params)
+				.success(function(res) {
+					defer.resolve(res);
+				})
+				.error(function(err) {
+					defer.reject(err);
+				});
+
+			return defer.promise;
+		};
 	});
 })();

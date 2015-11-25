@@ -188,6 +188,11 @@
   /*this must be below the other .board-list-container *[ng-repeat] rules */
   
   .board-list-container *[ng-repeat] > .glyphicon {
-    font-size: 1.5em;
     margin-bottom: 3px;
+  }
+  
+  #boards-dropdown-menu {
+    color: #000;
+    font-size: 0.7em;
+    text-decoration: none;
   }

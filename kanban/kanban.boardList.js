@@ -39,8 +39,42 @@
 				}, function(err) {
 					console.log(err);
 				});
-
 		};
+
+		$scope.editBoard = function(boardId) {
+			// open modal?
+		};
+
+		$scope.deleteBoard = function(boardId) {
+			var params = {
+				userId: $scope.user._id,
+				boardId: boardId
+			};
+
+			userService
+				.deleteBoard(params)
+				.then(function(res) {
+					var id = findIndexOfBoard($scope.user, boardId);
+					$scope.user.boards.splice(id, 1);
+				}, function(err) {
+					console.log(err);
+				});
+		};
+
 	});
+
+	var findIndexOfBoard = function(user, boardId) {
+		if (user === "undefined" || boardId === "undefined") {
+			throw "user OR boardId undefined @findIndexOfBoard";
+		}
+
+		for (var i = 0; i < user.boards.length; i++) {
+			if (user.boards[i]._id === boardId) {
+				return i;
+			}
+		}
+
+		throw "boardId does not match any boards @findIndexOfBoard";
+	};
 
 })();

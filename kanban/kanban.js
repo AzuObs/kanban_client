@@ -15,5 +15,4 @@
 			templateUrl: "kanban/templates/kanban.html"
 		});
 	});
-
 })();

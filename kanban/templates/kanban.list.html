@@ -5,8 +5,13 @@
       <br>
       <span ng-repeat="board in user.boards">
         <a ui-sref="kanban.board({boardId: board._id})">{{board.name}}</a>
-        <!-- dropdown -->
-        <span class="glyphicon glyphicon-plus"></span>
+        <span dropdown on-toggle="toggle(open)">
+          <a href id="boards-dropdown-menu" dropdown-toggle class="glyphicon glyphicon-plus"></a>
+          <ul class="dropdown-menu">
+            <li><a href ng-click="editBoard(board._id)">Edit</a></li>
+            <li><a href ng-click="deleteBoard(board._id)">Delete</a></li>
+          </ul>
+        </span>
       <span ng-hide="$last">, </span>
       </span>
       <br>
