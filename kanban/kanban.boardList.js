@@ -24,7 +24,7 @@
 		});
 	});
 
-	kanbanMod.controller("kanbanBoardListCtrl", function($scope, user, userService) {
+	kanbanMod.controller("kanbanBoardListCtrl", function($scope, user, userService, $modal) {
 		$scope.user = user;
 		$scope.boardName = "";
 
@@ -41,14 +41,14 @@
 				});
 		};
 
-		$scope.editBoard = function(boardId) {
-			// open modal?
+		$scope.editBoard = function(_board) {
+			openEditBoardModal($scope.user, _board);
 		};
 
-		$scope.deleteBoard = function(boardId) {
+		$scope.deleteBoard = function(_board) {
 			var params = {
 				userId: $scope.user._id,
-				boardId: boardId
+				boardId: _boardId._id
 			};
 
 			userService
@@ -61,7 +61,44 @@
 				});
 		};
 
+		var openEditBoardModal = function(_user, _board) {
+			$modal.open({
+				animation: true,
+				size: "md",
+				templateUrl: "kanban/templates/kanban.boardEdit.html",
+				controller: "editBoardCtrl",
+				resolve: {
+					user: function() {
+						return _user;
+					},
+					board: function() {
+						return _board;
+					}
+				}
+			});
+		};
 	});
+
+
+	kanbanMod.controller("editBoardCtrl", function($scope, $modalInstance, user, board) {
+		$scope.user = user;
+		$scope.board = board;
+		$scope.options = [{
+			name: "change user",
+			type: "text"
+		}, {
+			name: "change name",
+			type: "text"
+		}, {
+			name: "change position in list",
+			type: "text"
+		}];
+
+		$scope.closeModal = function() {
+			$modalInstance.dismiss();
+		};
+	});
+
 
 	var findIndexOfBoard = function(user, boardId) {
 		if (user === "undefined" || boardId === "undefined") {
