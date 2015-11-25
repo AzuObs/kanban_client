@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var kanbanMod = angular.module("kanbanBoardListModule", ["userServiceModule"]);
+	var kanbanMod = angular.module("kanbanBoardListModule", ["APIServiceModule"]);
 
 	kanbanMod.config(function($stateProvider) {
 		$stateProvider.state("kanban.boardList", {
@@ -9,27 +9,47 @@
 			templateUrl: "kanban/templates/kanban.list.html",
 			controller: "kanbanBoardListCtrl",
 			resolve: {
-				user: function($q, userService) {
-					var q = $q.defer();
-					userService
-						.getUser()
-						.then(function(res) {
+				user: function($q, APIService) {
+					var q = $q.defer;
+
+					APIService.getUser(sessionStorage.userId)
+						.success(function(res) {
 							q.resolve(res);
-						}, function(err) {
-							q.reject(err);
+						})
+						.error(function(err) {
+							q.reject(res);
 						});
+
+					return q.promise;
+				},
+				boards: function($q, APIService) {
+					var q = $q.defer();
+
+					APIService.getBoardsForUser(sessionStorage.userId)
+						.success(function(res) {
+							q.resolve(res);
+						})
+						.error(function(err) {
+							q.reject(res);
+						});
+
 					return q.promise;
 				}
+
 			}
 		});
 	});
 
-	kanbanMod.controller("kanbanBoardListCtrl", function($scope, user, userService, $modal) {
+	kanbanMod.controller("kanbanBoardListCtrl", function($scope, $modal, boards, user, APIService) {
+		console.log(APIService);
+		console.log(user);
+		console.log(boards);
+
 		$scope.user = user;
-		$scope.boardName = "";
+		$scope.boards = boards;
 
 		$scope.createBoard = function() {
-			userService
+			APIService
 				.createBoard({
 					userId: sessionStorage.userId,
 					name: $scope.boardName
@@ -51,7 +71,7 @@
 				boardId: _boardId._id
 			};
 
-			userService
+			APIService
 				.deleteBoard(params)
 				.then(function(res) {
 					var id = findIndexOfBoard($scope.user, boardId);
@@ -98,20 +118,5 @@
 			$modalInstance.dismiss();
 		};
 	});
-
-
-	var findIndexOfBoard = function(user, boardId) {
-		if (user === "undefined" || boardId === "undefined") {
-			throw "user OR boardId undefined @findIndexOfBoard";
-		}
-
-		for (var i = 0; i < user.boards.length; i++) {
-			if (user.boards[i]._id === boardId) {
-				return i;
-			}
-		}
-
-		throw "boardId does not match any boards @findIndexOfBoard";
-	};
 
 })();

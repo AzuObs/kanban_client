@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var kanbanMod = angular.module("kanbanBoardModule", ["ui.sortable", "userServiceModule"]);
+	var kanbanMod = angular.module("kanbanBoardModule", ["ui.sortable", "APIServiceModule"]);
 
 
 	kanbanMod.config(function($stateProvider) {
@@ -10,8 +10,8 @@
 			templateUrl: "/kanban/templates/kanban.board.html",
 			controller: "kanbanBoardCtrl",
 			resolve: {
-				userObj: function(userService) {
-					return userService.getUser();
+				userObj: function(APIService) {
+					return APIService.getUser();
 				},
 				boardId: function($stateParams) {
 					return $stateParams.boardId;
@@ -48,7 +48,7 @@
 	});
 
 
-	kanbanMod.controller("kanbanBoardCtrl", function($scope, $log, $modal, userObj, boardId, userService) {
+	kanbanMod.controller("kanbanBoardCtrl", function($scope, $log, $modal, userObj, boardId, APIService) {
 		$scope.user = userObj;
 		$scope.board = $scope.user.boards[findBoardIndex(boardId)];
 		var boardWorkers = $scope.board.workers.slice();
@@ -64,7 +64,7 @@
 					position: $scope.board.categories.length
 				};
 
-				userService
+				APIService
 					.createCategory(params)
 					.then(function(res) {
 						$scope.board.categories.push(res);
@@ -75,7 +75,7 @@
 		};
 
 		$scope.deleteCategory = function(catId) {
-			userService
+			APIService
 				.deleteCategory($scope.board._id, catId)
 				.then(function(res) {
 					for (var i = 0; i < $scope.board.categories.length; i++) {
@@ -107,7 +107,7 @@
 					position: category.tasks.length
 				};
 
-				userService
+				APIService
 					.createTask(params)
 					.then(function(res) {
 						category.tasks.push(res);
@@ -125,7 +125,7 @@
 					category = $scope.board.categories[i];
 			}
 
-			userService
+			APIService
 				.deleteTask(catId, taskId)
 				.then(function(res) {
 					for (var i = 0; i < category.tasks.length; i++) {
@@ -140,7 +140,7 @@
 
 
 		$scope.updateCategories = function() {
-			userService
+			APIService
 				.updateCategories()
 				.then(function(res) {
 					$scope.board.categories = res;
@@ -223,7 +223,7 @@
 
 
 	kanbanMod.controller("kanbanCommentsController",
-		function($scope, $modalInstance, $log, userService, user, board, cat, task) {
+		function($scope, $modalInstance, $log, APIService, user, board, cat, task) {
 			$scope.task = task;
 			$scope.category = cat;
 
@@ -242,7 +242,7 @@
 						taskId: $scope.task._id
 					};
 
-					userService
+					APIService
 						.createComment(params)
 						.then(function(res) {
 							$scope.task.comments.push(res);

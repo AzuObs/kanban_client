@@ -41,6 +41,7 @@
 		};
 
 		service.authenticate = function(params) {
+
 			var defer = $q.defer();
 			$http
 				.post($rootScope.endPoint + "/user/loggin", params)
@@ -73,10 +74,10 @@
 					pwd: $scope.newAccPwd
 				})
 				.then(function(res) {
-					sessionStorage.userId = res.userId;
+					sessionStorage.userId = res.user._id;
 					sessionStorage.token = res.token;
 					$state.go("kanban.boardList", {
-						username: res.username
+						username: res.user.username
 					});
 				}, function(err) {
 					console.log(err);
@@ -91,14 +92,16 @@
 					pwd: $scope.logginPwd
 				})
 				.then(function(res) {
-					sessionStorage.userId = res.userId;
+					sessionStorage.userId = res.user._id;
 					sessionStorage.token = res.token;
+
 					$state.go("kanban.boardList", {
-						username: res.username
+						username: res.user.username
 					});
 				}, function(err) {
 					console.log(err);
 				});
+
 		};
 	});
 })();
