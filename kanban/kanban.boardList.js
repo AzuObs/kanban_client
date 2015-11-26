@@ -26,11 +26,11 @@
 		$scope.createBoard = function() {
 			APIService
 				.createBoard({
-					userId: sessionStorage.userId,
+					userId: $scope.user._id,
 					name: $scope.boardName
 				})
 				.then(function(res) {
-					$scope.user.boards.push(res);
+					$scope.boards.push(res);
 				}, function(err) {
 					console.log(err);
 				});

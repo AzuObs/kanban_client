@@ -3,7 +3,7 @@
   <div class="board-list-container container">
     <div>
       <br>
-      <span ng-repeat="board in user.boards">
+      <span ng-repeat="board in boards">
         <a ui-sref="kanban.board({boardId: board._id})">{{board.name}}</a>
         <span dropdown on-toggle="toggle(open)">
           <a href id="boards-dropdown-menu" dropdown-toggle class="glyphicon glyphicon-plus"></a>
@@ -17,7 +17,7 @@
       <br>
     </div>
     <br>
-    <div>You have <b>{{user.boards.length}} </b>boards.</div>
+    <div>You have <b>{{boards.length}} </b>boards.</div>
     <div class="input-group col-sm-9">
       <div class="input-group-btn">
         <button class="btn btn-sm btn-black" ng-click="createBoard()">Create Board</button>
