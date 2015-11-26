@@ -1,0 +1,19 @@
+.board-list-container *[ng-repeat] > a,
+.board-list-container *[ng-repeat] > span {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 2em;
+}
+
+
+/*this must be below the other .board-list-container *[ng-repeat] rules */
+
+.board-list-container *[ng-repeat] > .glyphicon {
+  margin-bottom: 3px;
+}
+
+#boards-dropdown-menu {
+  color: #000;
+  font-size: 0.7em;
+  text-decoration: none;
+}

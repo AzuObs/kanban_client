@@ -1,0 +1,74 @@
+/*CATEGORY CONTAINER*/
+
+.category-container h4 {
+  margin-bottom: 0px;
+}
+
+.category-container:hover {
+  border: 2px solid #777;
+}
+
+#closeCategory {
+  position: relative;
+  font-size: 0.6em;
+  bottom: 31px;
+  left: 218px;
+  height: 0px;
+  padding: 0px;
+  color: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+.category-container:hover #closeCategory {
+  color: #aaa;
+}
+
+.category-container:hover #closeCategory:hover {
+  color: #333;
+}
+
+.category-input {
+  width: 240px;
+  margin-right: 10px;
+  padding: 0px 5px 5px 5px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  background-color: #eee;
+}
+
+.board-categories input {
+  margin-top: 10px;
+  margin-bottom: 1px;
+  background-color: #eee;
+}
+
+.board-categories input:hover,
+.board-categories input:focus {
+  background-color: #fff;
+}
+
+.board-categories .form-group button {
+  display: none;
+}
+
+.board-categories .form-group:hover button,
+.board-categories input:focus~button {
+  display: block;
+}
+
+.board-categories {
+  display: flex;
+  align-items: flex-start;
+}
+
+.category-container {
+  width: 240px;
+  margin-right: 10px;
+  padding: 0px 5px 5px 5px;
+  border: 2px solid #aaa;
+  border-radius: 3px;
+  background-color: #eee;
+  display: block;
+  float: left;
+}
