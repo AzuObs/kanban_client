@@ -6,15 +6,15 @@
 
 	kanbanMod.config(function($stateProvider) {
 		$stateProvider.state("kanban.board", {
-			url: "/board/:boardId",
+			url: "/board/:boardname",
 			templateUrl: "/kanban/templates/kanban.board.html",
 			controller: "kanbanBoardCtrl",
 			resolve: {
-				userObj: function(APIService) {
-					return APIService.getUser();
+				user: function(APIService) {
+					return APIService.getUser(sessionStorage.userId);
 				},
-				boardId: function($stateParams) {
-					return $stateParams.boardId;
+				board: function(APIService) {
+					return APIService.getBoard(sessionStorage.boardId);
 				}
 			}
 		});
@@ -25,7 +25,8 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/templates/kanban.category.html"
+			templateUrl: "kanban/templates/kanban.category.html",
+			controller: "kanbanCategoryCtrl"
 		};
 	});
 
@@ -39,26 +40,25 @@
 	});
 
 
-	kanbanMod.directive("uiWorker", function() {
+	kanbanMod.directive("uiUser", function() {
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/templates/kanban.worker.html"
+			templateUrl: "kanban/templates/kanban.user.html"
 		};
 	});
 
 
-	kanbanMod.controller("kanbanBoardCtrl", function($scope, $log, $modal, userObj, boardId, APIService) {
-		$scope.user = userObj;
-		$scope.board = $scope.user.boards[findBoardIndex(boardId)];
-		var boardWorkers = $scope.board.workers.slice();
+	kanbanMod.controller("kanbanBoardCtrl", function($scope, $log, $modal, user, board, APIService) {
+		$scope.user = user;
+		$scope.board = board;
+		$scope.users = $scope.board.admins.concat($scope.board.members);
 
 		$scope.createCategory = function(name, keyEvent) {
 			if (!keyEvent || keyEvent.which === 13) {
 				$scope.newCat = "";
 
 				var params = {
-					userId: $scope.user._id,
 					boardId: $scope.board._id,
 					name: name,
 					position: $scope.board.categories.length
@@ -88,60 +88,10 @@
 				});
 		};
 
-		$scope.createTask = function(name, catId, keyEvent) {
-			if (!keyEvent || keyEvent.which === 13) {
-				$scope.newTask = "";
-				var category;
 
-				for (var i = 0; i < $scope.board.categories.length; i++) {
-					if ($scope.board.categories[i]._id === catId) {
-						category = $scope.board.categories[i];
-					}
-				}
-
-				var params = {
-					userId: $scope.user._id,
-					boardId: $scope.board._id,
-					categoryId: catId,
-					name: name,
-					position: category.tasks.length
-				};
-
-				APIService
-					.createTask(params)
-					.then(function(res) {
-						category.tasks.push(res);
-					}, function(err) {
-						$log.log(err);
-					});
-			}
-		};
-
-		$scope.deleteTask = function(catId, taskId) {
-			var category;
-
-			for (var i = 0; i < $scope.board.categories.length; i++) {
-				if ($scope.board.categories[i]._id === catId)
-					category = $scope.board.categories[i];
-			}
-
+		$scope.updateBoard = function() {
 			APIService
-				.deleteTask(catId, taskId)
-				.then(function(res) {
-					for (var i = 0; i < category.tasks.length; i++) {
-						if (category.tasks[i]._id === taskId) {
-							category.tasks.splice(i, 1);
-						}
-					}
-				}, function(err) {
-					$log.log(err);
-				});
-		};
-
-
-		$scope.updateCategories = function() {
-			APIService
-				.updateCategories()
+				.updateBoard($scope.board)
 				.then(function(res) {
 					$scope.board.categories = res;
 				}, function(err) {
@@ -154,25 +104,17 @@
 			placeholder: ".task",
 			connectWith: ".task-list",
 			stop: function(e, ui) {
-				$scope.updateCategories();
+				$scope.updateBoard();
 			}
 		};
 
 
-		$scope.categorySortOptions = {
-			// placeholder: ,
-			stop: function(e, ui) {
-				$scope.updateCategories();
-			}
-		};
-
-
-		$scope.workerSortOpts = {
+		$scope.userSortOpts = {
 			placeholder: "task",
-			connectWith: ".worker-list",
+			connectWith: ".user-list",
 			stop: function(e, ui) {
-				// clone worker and allocate him
-				if ($(e.target).hasClass('worker-selection') &&
+				// clone user and allocate him
+				if ($(e.target).hasClass('user-selection') &&
 					ui.item.sortable.droptarget &&
 					e.target != ui.item.sortable.droptarget[0]) {
 					var ids = ui.item.sortable.droptarget[0].id;
@@ -180,21 +122,12 @@
 					var tId = ids.substring(ids.search("t:") + 2, ids.length);
 					var wId = ui.item.sortable.model._id;
 
-					$scope.user.workers = boardWorkers.slice();
+					$scope.user.users = boardusers.slice();
 					$scope.updateCategories();
 				}
 			}
 		};
 
-
-		//find index of board in user
-		function findBoardIndex(boardId) {
-			for (var i = 0; i < $scope.user.boards.length; i++) {
-				if ($scope.user.boards[i]._id === boardId) {
-					return i;
-				}
-			}
-		}
 
 		$scope.taskModal = function(_user, _board, _cat, _task) {
 			var modalInstance = $modal.open({
@@ -218,7 +151,49 @@
 				}
 			});
 		};
+	});
 
+	kanbanMod.controller("kanbanCategoryCtrl", function($scope, APIService) {
+		$scope.categorySortOptions = {
+			stop: function(e, ui) {
+				$scope.updateBoard();
+			}
+		};
+
+		$scope.deleteTask = function(category, taskId) {
+			APIService
+				.deleteTask($scope.board._id, category._id, taskId)
+				.then(function(res) {
+					for (var i = 0; i < category.tasks.length; i++) {
+						if (category.tasks[i]._id === taskId) {
+							category.tasks.splice(i, 1);
+						}
+					}
+				}, function(err) {
+					$log.log(err);
+				});
+		};
+
+		$scope.createTask = function(name, category, keyEvent) {
+			if (!keyEvent || keyEvent.which === 13) {
+				$scope.taskName = "";
+
+				var params = {
+					boardId: $scope.board._id,
+					categoryId: category._id,
+					name: name,
+					position: category.tasks.length
+				};
+
+				APIService
+					.createTask(params)
+					.then(function(res) {
+						category.tasks.push(res);
+					}, function(err) {
+						$log.log(err);
+					});
+			}
+		};
 	});
 
 
@@ -288,4 +263,6 @@
 				return "no valid timestamp";
 			};
 		});
+
+
 })();

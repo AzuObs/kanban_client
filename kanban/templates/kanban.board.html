@@ -1,12 +1,14 @@
 <div class="container-fluid">
   <div class="board-menu">
     <h4>{{board.name}} Members</h4>
-    <span ui-sortable="workerSortOpts" class="worker-list worker-selection" ng-model="board.workers">
-      <ui-worker class="worker" ng-repeat="worker in board.workers"></ui-worker>
+    <!-- rework this -->
+    <span ui-sortable="userSortOpts" class="user-list user-selection" ng-model="users">
+      <ui-user class="user" ng-repeat="user in users"></ui-user>
     </span>
+
     <div class="form-group">
-      <input type="text" class="input-md form-control" placeholder="Add a worker..." ng-model="addWkInput">
-      <button class="btn btn-black btn-block" ng-click="addWkInput = ''">Add Worker</button>
+      <input type="text" class="input-md form-control" placeholder="Add a member..." ng-model="addMemberInput">
+      <button class="btn btn-black btn-block" ng-click="addMemberToBoard(addMemberInput)">Add Member</button>
     </div>
   </div>
 

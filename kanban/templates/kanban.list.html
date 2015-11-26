@@ -4,7 +4,7 @@
     <div>
       <br>
       <span ng-repeat="board in boards">
-        <a ui-sref="kanban.board({boardId: board._id})">{{board.name}}</a>
+        <a href ng-click="goToBoard(board)">{{board.name}}</a>
         <span dropdown on-toggle="toggle(open)">
           <a href id="boards-dropdown-menu" dropdown-toggle class="glyphicon glyphicon-plus"></a>
           <ul class="dropdown-menu">

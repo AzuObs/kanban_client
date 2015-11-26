@@ -19,7 +19,7 @@
 		});
 	});
 
-	kanbanMod.controller("kanbanBoardListCtrl", function($scope, $modal, user, boards, APIService) {
+	kanbanMod.controller("kanbanBoardListCtrl", function($scope, $modal, $state, user, boards, APIService) {
 		$scope.user = user;
 		$scope.boards = boards;
 
@@ -40,20 +40,23 @@
 			openEditBoardModal($scope.user, _board);
 		};
 
-		$scope.deleteBoard = function(_board) {
-			var params = {
-				userId: $scope.user._id,
-				boardId: _boardId._id
-			};
-
+		$scope.deleteBoard = function(board) {
 			APIService
-				.deleteBoard(params)
+				.deleteBoard(board._id)
 				.then(function(res) {
-					var id = findIndexOfBoard($scope.user, boardId);
-					$scope.user.boards.splice(id, 1);
+					for (var i = 0; i < $scope.boards.length; i++) {
+						if ($scope.boards[i]._id === board._id) {
+							$scope.boards.splice(i, 1);
+						}
+					}
 				}, function(err) {
 					console.log(err);
 				});
+		};
+
+		$scope.goToBoard = function(board) {
+			sessionStorage.boardId = board._id;
+			$state.go("kanban.board", board.name);
 		};
 
 		var openEditBoardModal = function(_user, _board) {

@@ -1,6 +1,6 @@
 <div class="task-container">
 
-  <h5><button ng-click="deleteTask(category._id, task._id)" id='closeTask'><span class='glyphicon glyphicon-remove'></span></button>{{task.name}}</h5>
+  <h5><button ng-click="deleteTask(category, task._id)" id='closeTask'><span class='glyphicon glyphicon-remove'></span></button>{{task.name}}</h5>
 
   <span ng-show="task.comments.length" class="glyphicon glyphicon-comment comment text-muted"><span>{{task.comments.length}}</span></span>
 

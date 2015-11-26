@@ -6,6 +6,21 @@
 
 	apiModule.service("APIService", function($log, $rootScope, $q, $http) {
 
+		this.getBoard = function(boardId) {
+			var q = $q.defer();
+
+			$http
+				.get($rootScope.endPoint + "/board/" + boardId)
+				.success(function(res) {
+					q.resolve(res);
+				})
+				.error(function(err) {
+					q.reject(err);
+				});
+
+			return q.promise;
+		};
+
 		this.getBoardsForUser = function(userId) {
 			var q = $q.defer();
 
@@ -97,10 +112,8 @@
 			return defer.promise;
 		};
 
-		this.deleteTask = function(cId, tId) {
+		this.deleteTask = function(boardId, cId, tId) {
 			var defer = $q.defer();
-			var userId = User.user._id;
-			var boardId = User.user.boards[0]._id;
 
 			$http
 				.delete($rootScope.endPoint + "/task/" + boardId + "/" + cId + "/" + tId)
@@ -118,7 +131,9 @@
 			var defer = $q.defer();
 
 			$http
-				.put($rootScope.endPoint + "/board", board)
+				.put($rootScope.endPoint + "/board", {
+					board: board
+				})
 				.success(function(res) {
 					defer.resolve(res);
 				})
@@ -133,7 +148,7 @@
 			var defer = $q.defer();
 
 			$http
-				.post($rootScope.endPoint + "/comments", params)
+				.post($rootScope.endPoint + "/comment", params)
 				.success(function(res) {
 					defer.resolve(res);
 				})
@@ -159,11 +174,11 @@
 			return defer.promise;
 		};
 
-		this.deleteBoard = function(params) {
+		this.deleteBoard = function(boardId) {
 			var defer = $q.defer();
 
 			$http
-				.delete($rootScope.endPoint + "/board/" + params.userId + "/" + params.boardId)
+				.delete($rootScope.endPoint + "/board/" + boardId)
 				.success(function(res) {
 					defer.resolve(res);
 				})

@@ -45,17 +45,17 @@
     left: 2px;
   }
   
-  .worker-list {
+  .user-list {
     display: block;
     width: 210px;
     height: 40px;
   }
   
-  .board-menu .worker {
+  .board-menu .user {
     float: left;
   }
   
-  .worker {
+  .user {
     float: right;
     margin-right: 3px;
   }
@@ -157,9 +157,9 @@
   .task-container:hover {
     border: 1px solid #777;
   }
-  /* WORKER-CONTAINER */
+  /* user-CONTAINER */
   
-  .worker-container #workerImg {
+  .user-container #userImg {
     height: 32px;
     width: 32px;
     border: 1px solid #aaa;

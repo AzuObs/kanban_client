@@ -36,3 +36,7 @@
 .navbar-fixed-padding {
   padding-top: 65px;
 }
+
+#load-only {
+  display: none;
+}
