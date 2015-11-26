@@ -1,0 +1,20 @@
+<div class="modal-close">
+  <span ng-click="closeModal()" class="btn glyphicon glyphicon-remove"></span>
+</div>
+
+<div class="modal-title">
+  <h3>{{board.name}}</h3>
+  <h4 class="text-muted">in user <b>{{user.username | uppercase}}</b></h4>
+</div>
+<hr>
+<div class="boardEdit-options">
+  <h4>Options</h4>
+  <div ng-repeat="option in options">
+    <div class="input-group">
+      <span class="input-group-addon">
+        {{option.name}}
+      </span>
+      <input type="text" class="form-control">
+    </div>
+  </div>
+</div>

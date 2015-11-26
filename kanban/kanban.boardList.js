@@ -9,42 +9,17 @@
 			templateUrl: "kanban/templates/kanban.list.html",
 			controller: "kanbanBoardListCtrl",
 			resolve: {
-				user: function($q, APIService) {
-					var q = $q.defer;
-
-					APIService.getUser(sessionStorage.userId)
-						.success(function(res) {
-							q.resolve(res);
-						})
-						.error(function(err) {
-							q.reject(res);
-						});
-
-					return q.promise;
+				user: function(APIService) {
+					return APIService.getUser(sessionStorage.userId);
 				},
-				boards: function($q, APIService) {
-					var q = $q.defer();
-
-					APIService.getBoardsForUser(sessionStorage.userId)
-						.success(function(res) {
-							q.resolve(res);
-						})
-						.error(function(err) {
-							q.reject(res);
-						});
-
-					return q.promise;
+				boards: function(APIService) {
+					return APIService.getBoardsForUser(sessionStorage.userId);
 				}
-
 			}
 		});
 	});
 
-	kanbanMod.controller("kanbanBoardListCtrl", function($scope, $modal, boards, user, APIService) {
-		console.log(APIService);
-		console.log(user);
-		console.log(boards);
-
+	kanbanMod.controller("kanbanBoardListCtrl", function($scope, $modal, user, boards, APIService) {
 		$scope.user = user;
 		$scope.boards = boards;
 
