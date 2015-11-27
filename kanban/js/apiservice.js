@@ -5,7 +5,20 @@
 
 
 	apiModule.service("APIService", function($log, $rootScope, $q, $http) {
+		this.removeUserFromBoard = function(board, user) {
+			var q = $q.defer();
 
+			$http
+				.delete($rootScope.endPoint + "/board/" + board._id + "/user/" + user._id)
+				.success(function(res) {
+					q.resolve(res);
+				})
+				.error(function(err) {
+					q.reject(err);
+				});
+
+			return q.promise;
+		};
 
 		this.addMemberToBoard = function(board, userEmail) {
 			var q = $q.defer();

@@ -4,8 +4,8 @@
 
   <span ng-show="task.comments.length" class="glyphicon glyphicon-comment comment text-muted"><span>{{task.comments.length}}</span></span>
 
-  <span id="c:{{category._id}} t:{{task._id}}" ui-sortable="workerSortOpts" ng-model="task.workers" class="worker-list">
-    <ui-worker class="worker" ng-repeat="worker in task.workers">
-    </ui-worker>
+  <span id="c:{{category._id}} t:{{task._id}}" ui-sortable="userSortOpts" ng-model="task.users" class="user-list">
+    <ui-user class="user" ng-repeat="user in task.users">
+    </ui-user>
   </span>
 </div>

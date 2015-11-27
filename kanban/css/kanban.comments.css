@@ -22,19 +22,19 @@
   margin-top: 0px;
 }
 
-.modal-worker-list {
+.modal-user-list {
   margin-top: 15px;
   display: block;
   width: 400px;
   height: 52px;
 }
 
-.modal-worker {
+.modal-user {
   float: left;
   margin-right: 3px;
 }
 
-.modal-worker #workerImg {
+.modal-user #userImg {
   height: 50px;
   width: 50px;
   border: 1px solid #aaa;
@@ -76,7 +76,7 @@
 }
 
 .boardEdit-options .input-group {
-  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .comment {

@@ -6,7 +6,7 @@
 
 	kanbanMod.config(function($stateProvider) {
 		$stateProvider.state("kanban.board", {
-			url: "/board/:boardname",
+			url: "/board/:boardName",
 			templateUrl: "/kanban/templates/kanban.board.html",
 			controller: "kanbanBoardCtrl",
 			resolve: {
@@ -54,7 +54,29 @@
 		$scope.board = board;
 		$scope.users = $scope.board.admins.concat($scope.board.members);
 
-		$scope.setAddMemberInput = function(value) {
+		$scope.editUser = function(user) {
+			openEditUser(board, user);
+		};
+
+		var openEditUser = function(board, user) {
+			$modal.open({
+				animation: true,
+				size: "md",
+				templateUrl: "kanban/templates/kanban.boardUserEdit.html",
+				controller: "editUserCtrl",
+				resolve: {
+					user: function() {
+						return user;
+					},
+					board: function() {
+						return board;
+					}
+				}
+			});
+		};
+
+
+		$scope.setAddMember = function(value) {
 			$scope.addMemberInput = value;
 		};
 
@@ -209,6 +231,42 @@
 						$log.log(err);
 					});
 			}
+		};
+	});
+
+
+	kanbanMod.controller("editUserCtrl", function($scope, $modalInstance, APIService, user, board) {
+		$scope.user = user;
+		$scope.board = board;
+
+		$scope.options = [{
+			name: "change role",
+			type: "text"
+		}, {
+			name: "change position in list",
+			type: "text"
+		}];
+
+		$scope.removeUserFromBoard = function() {
+			APIService.removeUserFromBoard($scope.board, $scope.user)
+				.then(function(res) {
+					var iMember = $scope.board.members.indexOf($scope.user._id);
+					if (iMember >= 0) {
+						$scope.board.members.splice(iMember, 1);
+					}
+
+					var iAdmins = $scope.board.admins.indexOf($scope.user._id);
+					if (iAdmin >= 0) {
+						$scope.board.admins.splice(iAdmin, 1);
+					}
+
+				}, function(err) {
+					console.log(err);
+				});
+		};
+
+		$scope.closeModal = function() {
+			$modalInstance.dismiss();
 		};
 	});
 

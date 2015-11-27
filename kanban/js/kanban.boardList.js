@@ -56,14 +56,16 @@
 
 		$scope.goToBoard = function(board) {
 			sessionStorage.boardId = board._id;
-			$state.go("kanban.board", board.name);
+			$state.go("kanban.board", {
+				boardName: board.name
+			});
 		};
 
 		var openEditBoardModal = function(_user, _board) {
 			$modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: "kanban/templates/kanban.boardEdit.html",
+				templateUrl: "kanban/templates/kanban.boardListEdit.html",
 				controller: "editBoardCtrl",
 				resolve: {
 					user: function() {
