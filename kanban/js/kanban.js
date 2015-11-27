@@ -10,7 +10,9 @@
 		"stateInfoModule",
 		"angular-loading-bar",
 		"kanbanBoardModule",
-		"kanbanBoardListModule"
+		"kanbanBoardListModule",
+		"kanbanCategoryModule",
+		"APIServiceModule"
 	]);
 
 

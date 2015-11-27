@@ -28,7 +28,7 @@
   color: #333;
 }
 
-.category-input {
+.board-categories-create {
   width: 240px;
   margin-right: 10px;
   padding: 0px 5px 5px 5px;
@@ -37,27 +37,27 @@
   background-color: #eee;
 }
 
-.board-categories input {
+.board-categories-container input {
   margin-top: 10px;
   margin-bottom: 1px;
   background-color: #eee;
 }
 
-.board-categories input:hover,
-.board-categories input:focus {
+.board-categories-container input:hover,
+.board-categories-container input:focus {
   background-color: #fff;
 }
 
-.board-categories .form-group button {
+.board-categories-container .form-group button {
   display: none;
 }
 
-.board-categories .form-group:hover button,
-.board-categories input:focus~button {
+.board-categories-container .form-group:hover button,
+.board-categories-container input:focus~button {
   display: block;
 }
 
-.board-categories {
+.board-categories-container {
   display: flex;
   align-items: flex-start;
 }

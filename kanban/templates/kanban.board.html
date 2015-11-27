@@ -21,12 +21,12 @@
     <button class="btn btn-black btn-md" ng-click="addMemberFn()">Add Member</button>
   </div>
 
-  <div class="board-categories">
-    <div ui-sortable="categorySortOptions" class="category-list" ng-model="board.categories">
+  <div class="board-categories-container">
+    <div class="board-categories-list" ui-sortable="categorySortOptions" ng-model="board.categories">
       <ui-category ng-repeat="category in board.categories">
       </ui-category>
     </div>
-    <div class="category-input">
+    <div class="board-categories-create">
       <div class="form-group">
         <input type="text" class="input-md form-control" placeholder="Add a category..." ng-model="newCat" ng-keypress="createCategory(newCat, $event)">
         <button ng-click="createCategory(newCat)" class="btn btn-black btn-block">Add Category</button>
