@@ -7,7 +7,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/html/category.html",
+			templateUrl: "kanban/html/directive.category.html",
 			controller: "kanbanCategoryCtrl"
 		};
 	});

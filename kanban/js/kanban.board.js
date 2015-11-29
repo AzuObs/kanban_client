@@ -25,7 +25,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/html/task.html"
+			templateUrl: "kanban/html/directive.task.html"
 		};
 	});
 
@@ -34,7 +34,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/html/user.html"
+			templateUrl: "kanban/html/directive.user.html"
 		};
 	});
 
@@ -89,7 +89,7 @@
 			$modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: "kanban/html/boardUserEdit.html",
+				templateUrl: "kanban/html/modal.boardUserEdit.html",
 				controller: "editUserCtrl",
 				resolve: {
 					user: function() {
@@ -198,7 +198,7 @@
 			var modalInstance = $modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: 'kanban/html/comments.html',
+				templateUrl: 'kanban/html/modal.comments.html',
 				controller: 'kanbanCommentsController',
 				resolve: {
 					user: function() {

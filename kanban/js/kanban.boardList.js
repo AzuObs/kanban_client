@@ -65,7 +65,8 @@
 			$modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: "kanban/html/boardListEdit.html",
+				templateUrl: "kanban/html/modal.boardListEdit.html",
+				templateUrl: "kanban/html/modal.boardListEdit.html",
 				controller: "editBoardCtrl",
 				resolve: {
 					user: function() {
