@@ -7,19 +7,13 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/templates/kanban.category.html",
+			templateUrl: "kanban/html/category.html",
 			controller: "kanbanCategoryCtrl"
 		};
 	});
 
 
 	CategoryMod.controller("kanbanCategoryCtrl", function($scope, APIService) {
-		$scope.categorySortOptions = {
-			stop: function(e, ui) {
-				$scope.updateBoard();
-			}
-		};
-
 		$scope.deleteTask = function(category, taskId) {
 			APIService
 				.deleteTask($scope.board._id, category._id, taskId)
@@ -55,6 +49,4 @@
 			}
 		};
 	});
-
-
 })();

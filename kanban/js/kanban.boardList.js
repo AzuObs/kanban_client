@@ -6,7 +6,7 @@
 	kanbanMod.config(function($stateProvider) {
 		$stateProvider.state("kanban.boardList", {
 			url: "/user/:username",
-			templateUrl: "kanban/templates/kanban.list.html",
+			templateUrl: "kanban/html/boardList.html",
 			controller: "kanbanBoardListCtrl",
 			resolve: {
 				user: function(APIService) {
@@ -65,7 +65,7 @@
 			$modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: "kanban/templates/kanban.boardListEdit.html",
+				templateUrl: "kanban/html/boardListEdit.html",
 				controller: "editBoardCtrl",
 				resolve: {
 					user: function() {

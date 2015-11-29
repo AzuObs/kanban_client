@@ -1,11 +1,12 @@
 /*CATEGORY CONTAINER*/
 
-.category-container h4 {
-  margin-bottom: 0px;
-}
-
-.category-container:hover {
-  border: 2px solid #777;
+.board-categories-create {
+  width: 240px;
+  margin-right: 10px;
+  padding: 0px 5px 5px 5px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  background-color: #eee;
 }
 
 #closeCategory {
@@ -20,21 +21,9 @@
   border: none;
 }
 
-.category-container:hover #closeCategory {
-  color: #aaa;
-}
-
-.category-container:hover #closeCategory:hover {
-  color: #333;
-}
-
-.board-categories-create {
-  width: 240px;
-  margin-right: 10px;
-  padding: 0px 5px 5px 5px;
-  border: 1px solid #aaa;
-  border-radius: 3px;
-  background-color: #eee;
+.board-categories-container {
+  display: flex;
+  align-items: flex-start;
 }
 
 .board-categories-container input {
@@ -57,18 +46,48 @@
   display: block;
 }
 
-.board-categories-container {
-  display: flex;
-  align-items: flex-start;
+#categories-dropzone {
+  background-color: #ccc;
+  border: none;
+  height: 450px;
+  display: none;
+}
+
+
+/* CATEGORIES CONTAINER */
+
+.board-categories-list {
+  /* float children */
 }
 
 .category-container {
+  float: left;
   width: 240px;
   margin-right: 10px;
   padding: 0px 5px 5px 5px;
   border: 2px solid #aaa;
   border-radius: 3px;
   background-color: #eee;
-  display: block;
-  float: left;
+}
+
+.category-container h4 {
+  margin-bottom: 0px;
+}
+
+.category-container:hover {
+  border: 2px solid #777;
+}
+
+.category-container:hover #closeCategory {
+  color: #aaa;
+}
+
+.category-container:hover #closeCategory:hover {
+  color: #333;
+}
+
+.board-categories-list > .ui-sortable-placeholder {
+  background-color: #ddf;
+  visibility: visible !important;
+  border: none;
 }

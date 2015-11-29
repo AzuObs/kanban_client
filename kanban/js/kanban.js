@@ -31,7 +31,7 @@
 		$stateProvider.state("kanban", {
 			abstract: true,
 			url: "/kanban",
-			templateUrl: "kanban/templates/kanban.html"
+			templateUrl: "kanban/html/index.html"
 		});
 	});
 })();

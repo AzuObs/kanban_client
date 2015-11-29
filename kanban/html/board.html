@@ -22,9 +22,10 @@
   </div>
 
   <div class="board-categories-container">
-    <div class="board-categories-list" ui-sortable="categorySortOptions" ng-model="board.categories">
+    <div class="board-categories-list" ui-sortable="categorySortOpts" ng-model="board.categories">
       <ui-category ng-repeat="category in board.categories">
       </ui-category>
+      <!-- <div class="category-container" id="categories-dropzone"></div> -->
     </div>
     <div class="board-categories-create">
       <div class="form-group">

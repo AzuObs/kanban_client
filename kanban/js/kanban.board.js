@@ -7,7 +7,7 @@
 	kanbanMod.config(function($stateProvider) {
 		$stateProvider.state("kanban.board", {
 			url: "/board/:boardName",
-			templateUrl: "/kanban/templates/kanban.board.html",
+			templateUrl: "/kanban/html/board.html",
 			controller: "kanbanBoardCtrl",
 			resolve: {
 				user: function(APIService) {
@@ -25,7 +25,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/templates/kanban.task.html"
+			templateUrl: "kanban/html/task.html"
 		};
 	});
 
@@ -34,7 +34,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/templates/kanban.user.html"
+			templateUrl: "kanban/html/user.html"
 		};
 	});
 
@@ -44,6 +44,43 @@
 		$scope.board = board;
 		$scope.users = $scope.board.admins.concat($scope.board.members);
 
+		$scope.categorySortOpts = {
+			start: function(e, ui) {
+				// $(e.target).data("ui-sortable").floating = true;
+			},
+			sort: function(e, ui) {
+				//every mouse move (100x times)
+				// console.log("sort");
+			},
+			over: function(e, ui) {
+				//once we enter the list
+				// console.log("over");
+			},
+			out: function(e, ui) {
+				//once we leave the list
+				// console.log("out");
+			},
+			change: function(e, ui) {
+				// console.log("debugger skipped");
+				//once the DOM changes - this is buggy and needs mouse to go up/down to activate
+				// console.log("change");
+			},
+			update: function(e, ui) {
+				// console.log("update");
+			},
+			stop: function(e, ui) {
+				// console.log("stop");
+				// $scope.updateBoard();
+			},
+			horizontal: true,
+			tolerance: "pointer",
+			distance: 1,
+			cursor: "move",
+			opacity: 0.3,
+			scroll: true,
+			scrollSensitivity: 20
+		};
+
 		$scope.editUser = function(user) {
 			openEditUser(board, user);
 		};
@@ -52,7 +89,7 @@
 			$modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: "kanban/templates/kanban.boardUserEdit.html",
+				templateUrl: "kanban/html/boardUserEdit.html",
 				controller: "editUserCtrl",
 				resolve: {
 					user: function() {
@@ -161,7 +198,7 @@
 			var modalInstance = $modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: 'kanban/templates/kanban.comments.html',
+				templateUrl: 'kanban/html/comments.html',
 				controller: 'kanbanCommentsController',
 				resolve: {
 					user: function() {
