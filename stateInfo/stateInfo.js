@@ -1,10 +1,10 @@
 (function() {
 	"use strict";
 
-	var stateInfoModule = angular.module("stateInfoModule", []);
+	var module = angular.module("stateInfoModule", []);
 
 
-	stateInfoModule.controller("stateInfoCtrl", function($rootScope, $scope) {
+	module.controller("stateInfoCtrl", ["$rootScope", "$scope", function($rootScope, $scope) {
 		$scope.alerts = [];
 
 		$scope.closeAlert = function(index) {
@@ -26,14 +26,7 @@
 				msg: "You need to log in to access this content (401)."
 			});
 
-			//404
-			// $scope.alerts.push({
-			// 	type: "danger",
-			// 	msg: "Content not found (404)."
-			// });
-
-
 		});
-	});
+	}]);
 
 })();

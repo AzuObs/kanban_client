@@ -43,3 +43,10 @@
   box-shadow: 0px 0px 5px #ccc;
   background-color: #fff;
 }
+
+.task-list > .ui-sortable-placeholder {
+  background-color: #cec;
+  visibility: visible !important;
+  box-shadow: none;
+  border: none;
+}

@@ -5,6 +5,8 @@
 
 
 	module.service("APIService", ["$rootScope", "$q", "$http", function($rootScope, $q, $http) {
+
+
 		this.removeUserFromBoard = function(board, user) {
 			var q = $q.defer();
 
@@ -20,16 +22,17 @@
 			return q.promise;
 		};
 
+
 		this.addMemberToBoard = function(board, userEmail) {
 			var q = $q.defer();
 
-			var params = {
+			var body = {
 				boardId: board._id,
 				userEmail: userEmail
 			};
 
 			$http
-				.put($rootScope.endPoint + "/board/members", params)
+				.put($rootScope.endPoint + "/board/members", body)
 				.success(function(res) {
 					q.resolve(res);
 				})
@@ -56,6 +59,7 @@
 			return q.promise;
 		};
 
+
 		this.getBoardsForUser = function(userId) {
 			var q = $q.defer();
 
@@ -72,11 +76,19 @@
 		};
 
 
-		this.createComment = function(params) {
+		this.createComment = function(content, userId, catId, boardId, taskId) {
+			var body = {
+				content: content,
+				userId: userId,
+				catId: catId,
+				boardId: boardId,
+				taskId: taskId
+			};
+
 			var q = $q.defer();
 
 			$http
-				.post($rootScope.endPoint + "/comment", params)
+				.post($rootScope.endPoint + "/comment", body)
 				.success(function(res) {
 					q.resolve(res);
 				})
@@ -86,6 +98,7 @@
 
 			return q.promise;
 		};
+
 
 		this.getUser = function(userId) {
 			var defer = $q.defer();
@@ -102,11 +115,18 @@
 			return defer.promise;
 		};
 
-		this.createCategory = function(params) {
+
+		this.createCategory = function(boardId, name, position) {
+			var body = {
+				boardId: boardId,
+				name: name,
+				position: position
+			};
+
 			var defer = $q.defer();
 
 			$http
-				.post($rootScope.endPoint + "/category", params)
+				.post($rootScope.endPoint + "/category", body)
 				.success(function(res) {
 					defer.resolve(res);
 				})
@@ -132,11 +152,19 @@
 			return defer.promise;
 		};
 
-		this.createTask = function(params) {
+
+		this.createTask = function(boardId, categoryId, name, position) {
+			var body = {
+				boardId: boardId,
+				categoryId: categoryId,
+				name: name,
+				position: position
+			};
+
 			var defer = $q.defer();
 
 			$http
-				.post($rootScope.endPoint + "/task/", params)
+				.post($rootScope.endPoint + "/task/", body)
 				.success(function(res) {
 					defer.resolve(res);
 				})
@@ -146,6 +174,7 @@
 
 			return defer.promise;
 		};
+
 
 		this.deleteTask = function(boardId, cId, tId) {
 			var defer = $q.defer();
@@ -161,6 +190,7 @@
 
 			return defer.promise;
 		};
+
 
 		this.updateBoard = function(board) {
 			var defer = $q.defer();
@@ -179,11 +209,17 @@
 			return defer.promise;
 		};
 
-		this.createComment = function(params) {
+
+		this.createBoard = function(userId, name) {
+			var body = {
+				userId: userId,
+				name: name
+			};
+
 			var defer = $q.defer();
 
 			$http
-				.post($rootScope.endPoint + "/comment", params)
+				.post($rootScope.endPoint + "/board", body)
 				.success(function(res) {
 					defer.resolve(res);
 				})
@@ -194,20 +230,6 @@
 			return defer.promise;
 		};
 
-		this.createBoard = function(params) {
-			var defer = $q.defer();
-
-			$http
-				.post($rootScope.endPoint + "/board", params)
-				.success(function(res) {
-					defer.resolve(res);
-				})
-				.error(function(err) {
-					defer.reject(err);
-				});
-
-			return defer.promise;
-		};
 
 		this.deleteBoard = function(boardId) {
 			var defer = $q.defer();

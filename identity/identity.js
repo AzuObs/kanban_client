@@ -1,9 +1,9 @@
 (function() {
 	"use strict";
 
-	var identityMod = angular.module("identityModule", ["ngResource"]);
+	var module = angular.module("identityModule", ["ngResource"]);
 
-	identityMod.config(function($httpProvider, $stateProvider) {
+	module.config(["$httpProvider", "$stateProvider", function($httpProvider, $stateProvider) {
 		$httpProvider.interceptors.push(function() {
 			return {
 				request: function(req) {
@@ -20,16 +20,21 @@
 			templateUrl: "identity/identity.html",
 			controller: "identityCtrl"
 		});
-	});
+	}]);
 
 
-	identityMod.service("identityService", function($http, $rootScope, $q) {
+	module.service("identityService", ["$http", "$rootScope", "$q", function($http, $rootScope, $q) {
 		var service = this;
 
-		service.createUser = function(params) {
+		service.createUser = function(username, pwd) {
+			var body = {
+				username: username,
+				pwd: pwd
+			};
+
 			var defer = $q.defer();
 			$http
-				.post($rootScope.endPoint + "/user", params)
+				.post($rootScope.endPoint + "/user", body)
 				.success(function(res) {
 					defer.resolve(res);
 				})
@@ -40,26 +45,31 @@
 			return defer.promise;
 		};
 
-		service.authenticate = function(params) {
+		service.authenticate = function(username, pwd) {
+			var body = {
+				username: username,
+				pwd: pwd
+			};
 
 			var defer = $q.defer();
 			$http
-				.post($rootScope.endPoint + "/user/loggin", params)
+				.post($rootScope.endPoint + "/user/loggin", body)
 				.success(function(res) {
 					defer.resolve(res);
 				})
 				.error(function(err) {
 					defer.reject(err);
 				});
+
 
 			return defer.promise;
 		};
 
 		return service;
-	});
+	}]);
 
 
-	identityMod.controller("identityCtrl", function($scope, identityService, $state) {
+	module.controller("identityCtrl", ["$scope", "identityService", "$state", function($scope, identityService, $state) {
 		$scope.newAccUsr = "";
 		$scope.newAccPwd = "";
 		$scope.newAccPwdVerify = "";
@@ -69,10 +79,7 @@
 
 		$scope.createUser = function() {
 			identityService
-				.createUser({
-					username: $scope.newAccUsr,
-					pwd: $scope.newAccPwd
-				})
+				.createUser($scope.newAccUsr, $scope.newAccPwd)
 				.then(function(res) {
 					sessionStorage.userId = res.user._id;
 					sessionStorage.token = res.token;
@@ -87,10 +94,7 @@
 
 		$scope.authenticate = function() {
 			identityService
-				.authenticate({
-					username: $scope.logginUsername,
-					pwd: $scope.logginPwd
-				})
+				.authenticate($scope.logginUsername, $scope.logginPwd)
 				.then(function(res) {
 					sessionStorage.userId = res.user._id;
 					sessionStorage.token = res.token;
@@ -103,5 +107,6 @@
 				});
 
 		};
-	});
+	}]);
+
 })();

@@ -28,10 +28,7 @@
 
 			$scope.createBoard = function() {
 				APIService
-					.createBoard({
-						userId: $scope.user._id,
-						name: $scope.boardName
-					})
+					.createBoard($scope.user._id, $scope.boardName)
 					.then(function(res) {
 						$scope.boards.push(res);
 					}, function(err) {

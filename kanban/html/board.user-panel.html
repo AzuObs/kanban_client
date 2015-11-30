@@ -1,9 +1,9 @@
-<h4>{{board.name}} Members</h4>
+<h4>{{board.name | uppercase}} Members</h4>
 
 <div class="board-panel-container">
   <div class="board-member-container">
     <span ui-sortable="userSortOpts" class="user-selection" ng-model="users">
-      <ui-user class="user" ng-repeat="user in users"></ui-user>
+      <kb-user class="user" ng-repeat="user in users"></kb-user>
       </span>
   </div>
 

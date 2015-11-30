@@ -4,7 +4,7 @@
 	var module = angular.module("kanbanTaskModule", []);
 
 
-	module.directive("uiTask", function() {
+	module.directive("kbTask", function() {
 		return {
 			restrict: "E",
 			replace: true,
@@ -15,23 +15,26 @@
 
 	module.controller("kanbanTaskCtrl", ["$scope", "APIService", "$modal", function($scope, APIService, $modal) {
 		// this.$scope child of category.$scope
-
 		$scope.taskSortOptions = {
-			placeholder: ".task",
+			horizontal: false,
+			tolerance: "pointer",
+			opacity: 0.4,
 			connectWith: ".task-list",
 			stop: function(e, ui) {
 				$scope.updateBoard();
 			}
 		};
 
-
-		$scope.taskModal = function(_user, _board, _cat, _task) {
+		$scope.openTaskModal = function(_board, _cat, _task) {
 			var modalInstance = $modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: 'kanban/html/board.comments.modal.html',
-				controller: 'kanbanCommentsModalController',
+				templateUrl: 'kanban/html/board.task.modal.html',
+				controller: 'kanbanTaskModalCtrl',
 				resolve: {
+					user: function() {
+						return $scope.user;
+					},
 					board: function() {
 						return _board;
 					},
@@ -44,75 +47,35 @@
 				}
 			});
 		};
+
+
+		$scope.deleteTask = function(category, taskId) {
+			APIService
+				.deleteTask($scope.board._id, category._id, taskId)
+				.then(function(res) {
+					for (var i = 0; i < category.tasks.length; i++) {
+						if (category.tasks[i]._id === taskId) {
+							category.tasks.splice(i, 1);
+						}
+					}
+				}, function(err) {
+					$log.log(err);
+				});
+		};
+
+		$scope.createTask = function(name, category, keyEvent) {
+			if (!keyEvent || keyEvent.which === 13) {
+				$scope.taskName = "";
+
+				APIService
+					.createTask($scope.board._id, category._id, name, category.tasks.length)
+					.then(function(res) {
+						category.tasks.push(res);
+					}, function(err) {
+						$log.log(err);
+					});
+			}
+		};
+
 	}]);
-
-
-	module.controller("kanbanCommentsModalController", ["$scope", "$modalInstance", "$log", "APIService", "board", "cat", "task",
-		function($scope, $modalInstance, $log, APIService, board, cat, task) {
-			$scope.task = task;
-			$scope.category = cat;
-
-			$scope.closeModal = function() {
-				$modalInstance.dismiss();
-			};
-
-
-			$scope.createComment = function(keyEvent) {
-				if (!keyEvent || keyEvent.which === 13) {
-					var params = {
-						content: $scope.commentInput,
-						userId: user._id,
-						catId: cat._id,
-						boardId: board._id,
-						taskId: $scope.task._id
-					};
-
-					APIService
-						.createComment(params)
-						.then(function(res) {
-							$scope.task.comments.push(res);
-						}, function(err) {
-							$log.log(err);
-						});
-				}
-			};
-
-			$scope.ageOfPost = function(t) {
-				if (!t) return "no timestamp";
-
-				t = Date.parse(t);
-				var now = Date.now();
-				var elapsedSeconds = Math.floor((now.valueOf() - t.valueOf()));
-
-
-				var intervals = {
-					year: 1000 * 3600 * 24 * 30 * 12,
-					month: 1000 * 3600 * 24 * 30,
-					day: 1000 * 3600 * 24,
-					hour: 1000 * 3600,
-					minute: 1000 * 60,
-					second: 1000 * 1,
-					milliseconds: 1
-				};
-
-				for (var timeUnit in intervals) {
-					if (Math.floor(elapsedSeconds / intervals[timeUnit]) === 1) {
-						if (timeUnit === "milliseconds") {
-							return "just now";
-						}
-						return Math.floor(elapsedSeconds / intervals[timeUnit]) + " " + timeUnit + " ago";
-					}
-					if (Math.floor(elapsedSeconds / intervals[timeUnit])) {
-						if (timeUnit === "milliseconds") {
-							return "just now";
-						}
-						return Math.floor(elapsedSeconds / intervals[timeUnit]) + " " + timeUnit + "s ago";
-					}
-				}
-
-				return "no valid timestamp";
-			};
-		}
-	]);
-
 })();

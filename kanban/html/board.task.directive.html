@@ -5,7 +5,7 @@
   <span ng-show="task.comments.length" class="glyphicon glyphicon-comment comment text-muted"><span>{{task.comments.length}}</span></span>
 
   <span id="c:{{category._id}} t:{{task._id}}" ui-sortable="userSortOpts" ng-model="task.users" class="user-list">
-    <ui-user class="user" ng-repeat="user in task.users">
-    </ui-user>
+    <kb-user class="user" ng-repeat="user in task.users">
+    </kb-user>
   </span>
 </div>

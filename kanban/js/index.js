@@ -14,7 +14,8 @@
 		"kanbanBoardModule",
 		"kanbanUserPanelModule",
 		"kanbanCategoryModule",
-		"kanbanTaskModule"
+		"kanbanTaskModule",
+		"kanbanTaskModalModule"
 	]);
 
 	app.run(["$state", "$rootScope", function($state, $rootScope) {

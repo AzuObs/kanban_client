@@ -10,7 +10,7 @@
  
  .board-panel-container {
    width: 300px;
-   height: 140px;
+   height: 100px;
  }
  
  .board-panel-container input[type="text"] {

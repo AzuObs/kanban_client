@@ -37,7 +37,8 @@
 	}]);
 
 
-	module.directive("uiUser", function() {
+	//used by userPanel, task, and comments
+	module.directive("kbUser", function() {
 		return {
 			restrict: "E",
 			replace: true,
@@ -49,6 +50,7 @@
 	module.controller("kanbanBoardCtrl", ["$scope", "$log", "$modal", "user", "board", "APIService",
 		function($scope, $log, $modal, user, board, APIService) {
 
+			// used in categoryCtrl, taskCtrl, userPanerCtrl, commentModalCtrl
 			$scope.user = user;
 			$scope.board = board;
 			$scope.users = $scope.board.admins.concat($scope.board.members);
@@ -58,32 +60,35 @@
 				APIService
 					.updateBoard($scope.board)
 					.then(function(res) {
-						$scope.board.categories = res;
+						$scope.board = res;
 					}, function(err) {
 						$log.log(err);
 					});
 			};
 
+			// used by tasks and userPanel (connectedList)
 			$scope.userSortOpts = {
-				placeholder: "task",
-				connectWith: ".user-list",
+				horizontal: true,
+				placeholder: ".task",
+				connectWith: ".user-list", //OK
+
 				stop: function(e, ui) {
-					// clone user and allocate him
+					// debugger;
 					if ($(e.target).hasClass('user-selection') &&
 						ui.item.sortable.droptarget &&
 						e.target != ui.item.sortable.droptarget[0]) {
+						console.log("ping");
 						var ids = ui.item.sortable.droptarget[0].id;
 						var cId = ids.substring(2, ids.search(" "));
 						var tId = ids.substring(ids.search("t:") + 2, ids.length);
 						var wId = ui.item.sortable.model._id;
 
-						$scope.user.users = boardusers.slice();
-						$scope.updateCategories();
+						// $scope.users = $scope.boardusers.slice();??
+						$scope.updateBoard();
 					}
 				}
 			};
 		}
 	]);
-
 
 })();
