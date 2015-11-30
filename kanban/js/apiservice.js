@@ -1,10 +1,10 @@
 (function() {
 	"use strict";
 
-	var apiModule = angular.module("APIServiceModule", ["ngResource"]);
+	var module = angular.module("APIServiceModule", ["ngResource"]);
 
 
-	apiModule.service("APIService", function($log, $rootScope, $q, $http) {
+	module.service("APIService", ["$rootScope", "$q", "$http", function($rootScope, $q, $http) {
 		this.removeUserFromBoard = function(board, user) {
 			var q = $q.defer();
 
@@ -223,5 +223,5 @@
 
 			return defer.promise;
 		};
-	});
+	}]);
 })();

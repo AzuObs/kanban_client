@@ -1,19 +1,20 @@
 (function() {
 	"use strict";
 
-	var CategoryMod = angular.module("kanbanCategoryModule", []);
+	var module = angular.module("kanbanCategoryModule", []);
 
-	CategoryMod.directive("uiCategory", function() {
+
+	module.directive("uiCategory", function() {
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/html/directive.category.html",
+			templateUrl: "kanban/html/board.category.directive.html",
 			controller: "CategoryDirectiveCtrl"
 		};
 	});
 
 
-	CategoryMod.controller("CategoryDirectiveCtrl", ["$scope", "APIService", function($scope, APIService) {
+	module.controller("CategoryDirectiveCtrl", ["$scope", "APIService", function($scope, APIService) {
 
 		$scope.deleteTask = function(category, taskId) {
 			APIService
@@ -53,7 +54,7 @@
 	}]);
 
 
-	CategoryMod.controller("kanbanCategoryCtrl", ["$scope", "APIService", function($scope, APIService) {
+	module.controller("kanbanCategoryCtrl", ["$scope", "$log", "APIService", function($scope, $log, APIService) {
 		$scope.createCategory = function(name, keyEvent) {
 			if (!keyEvent || keyEvent.which === 13) {
 				$scope.newCat = "";
@@ -88,10 +89,8 @@
 				});
 		};
 
-
 		$scope.categorySortOpts = {
 			stop: function(e, ui) {
-				// console.log("stop");
 				// $scope.updateBoard();
 			},
 			horizontal: true,

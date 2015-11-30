@@ -9,33 +9,30 @@
 		"aboutModule",
 		"stateInfoModule",
 		"angular-loading-bar",
-		"kanbanBoardModule",
+		"APIServiceModule",
 		"kanbanBoardListModule",
-		"kanbanCategoryModule",
+		"kanbanBoardModule",
 		"kanbanUserPanelModule",
-		"APIServiceModule"
+		"kanbanCategoryModule",
+		"kanbanTaskModule"
 	]);
 
-	app.run(["$rootScope", function($rootScope) {
-		$rootScope.$on("$stateChangeError", console.log.bind(console));
-	}]);
-
-	app.config(function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise("/identity");
-	});
-
-	app.run(function($state, $rootScope) {
+	app.run(["$state", "$rootScope", function($state, $rootScope) {
 		// $rootScope.endPoint = "http://bigbangkanban.herokuapp.com/api";
 		$rootScope.endPoint = "http://localhost:8000/api";
 		$rootScope.state = $state;
-	});
+
+		$rootScope.$on("$stateChangeError", console.log.bind(console));
+	}]);
 
 
-	app.config(function($stateProvider) {
+	app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+		$urlRouterProvider.otherwise("/identity");
+
 		$stateProvider.state("kanban", {
 			abstract: true,
 			url: "/kanban",
 			templateUrl: "kanban/html/abstract-index.html"
 		});
-	});
+	}]);
 })();

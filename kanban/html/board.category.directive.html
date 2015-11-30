@@ -1,0 +1,6 @@
+<div class="category-container">
+  <h4>{{category.name | uppercase}}</h4>
+  <button id='closeCategory' ng-click="$parent.deleteCategory(category._id)"><span class='glyphicon glyphicon-remove'></span></button>
+
+  <div ui-view="task-list"></div>
+</div>

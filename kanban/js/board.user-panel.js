@@ -3,7 +3,7 @@
 
 	var module = angular.module("kanbanUserPanelModule", []);
 
-	module.controller("kanbanUserPanelCtrl", ["$scope", "$modal", "APIService", function($scope, $modal, APIService) {
+	module.controller("kanbanUserPanelCtrl", ["$scope", "$modal", "$log", "APIService", function($scope, $modal, $log, APIService) {
 		//this.$scope is child of kanban.board.$scope
 
 		$scope.setAddMember = function(value) {
@@ -17,7 +17,7 @@
 						$scope.board = res;
 						$scope.users = $scope.board.admins.concat($scope.board.members);
 					}, function(err) {
-						console.log(err);
+						$log.log(err);
 					});
 			}
 		};
@@ -31,8 +31,8 @@
 			$modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: "kanban/html/modal.board-user-edit.html",
-				controller: "editUserCtrl",
+				templateUrl: "kanban/html/board.user.modal.html",
+				controller: "editUserModalCtrl",
 				resolve: {
 					user: function() {
 						return user;
@@ -46,7 +46,7 @@
 	}]);
 
 
-	module.controller("editUserCtrl", ["$scope", "$modalInstance", "APIService", "user", "board",
+	module.controller("editUserModalCtrl", ["$scope", "$modalInstance", "APIService", "user", "board",
 		function($scope, $modalInstance, APIService, user, board) {
 
 			$scope.user = user;
@@ -74,7 +74,7 @@
 						}
 
 					}, function(err) {
-						console.log(err);
+						$log.log(err);
 					});
 			};
 
