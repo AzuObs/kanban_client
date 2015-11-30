@@ -4,11 +4,23 @@
 	var kanbanMod = angular.module("kanbanBoardModule", []);
 
 
-	kanbanMod.config(function($stateProvider) {
+	kanbanMod.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.board", {
+			views: {
+				"": {
+					templateUrl: "/kanban/html/abstract-board.html",
+					controller: "kanbanBoardCtrl"
+				},
+				"categories@kanban.board": {
+					templateUrl: "/kanban/html/board.categories.html",
+					controller: "kanbanCategoryCtrl"
+				},
+				"userpanel@kanban.board": {
+					templateUrl: "/kanban/html/board.userpanel.html",
+					controller: "kanbanUserPanelCtrl"
+				}
+			},
 			url: "/board/:boardName",
-			templateUrl: "/kanban/html/board.html",
-			controller: "kanbanBoardCtrl",
 			resolve: {
 				user: function(APIService) {
 					return APIService.getUser(sessionStorage.userId);
@@ -18,7 +30,7 @@
 				}
 			}
 		});
-	});
+	}]);
 
 
 	kanbanMod.directive("uiTask", function() {
@@ -43,115 +55,6 @@
 		$scope.user = user;
 		$scope.board = board;
 		$scope.users = $scope.board.admins.concat($scope.board.members);
-
-		$scope.categorySortOpts = {
-			start: function(e, ui) {
-				// $(e.target).data("ui-sortable").floating = true;
-			},
-			sort: function(e, ui) {
-				//every mouse move (100x times)
-				// console.log("sort");
-			},
-			over: function(e, ui) {
-				//once we enter the list
-				// console.log("over");
-			},
-			out: function(e, ui) {
-				//once we leave the list
-				// console.log("out");
-			},
-			change: function(e, ui) {
-				// console.log("debugger skipped");
-				//once the DOM changes - this is buggy and needs mouse to go up/down to activate
-				// console.log("change");
-			},
-			update: function(e, ui) {
-				// console.log("update");
-			},
-			stop: function(e, ui) {
-				// console.log("stop");
-				// $scope.updateBoard();
-			},
-			horizontal: true,
-			tolerance: "pointer",
-			distance: 1,
-			cursor: "move",
-			opacity: 0.3,
-			scroll: true,
-			scrollSensitivity: 20
-		};
-
-		$scope.editUser = function(user) {
-			openEditUser(board, user);
-		};
-
-		var openEditUser = function(board, user) {
-			$modal.open({
-				animation: true,
-				size: "md",
-				templateUrl: "kanban/html/modal.boardUserEdit.html",
-				controller: "editUserCtrl",
-				resolve: {
-					user: function() {
-						return user;
-					},
-					board: function() {
-						return board;
-					}
-				}
-			});
-		};
-
-
-		$scope.setAddMember = function(value) {
-			$scope.addMemberInput = value;
-		};
-
-		$scope.addMemberFn = function(keyEvent) {
-			if (!keyEvent || keyEvent.which === 13) {
-				APIService.addMemberToBoard(board, $scope.addMemberInput)
-					.then(function(res) {
-						$scope.board = res;
-						$scope.users = $scope.board.admins.concat($scope.board.members);
-					}, function(err) {
-						console.log(err);
-					});
-			}
-		};
-
-		$scope.createCategory = function(name, keyEvent) {
-			if (!keyEvent || keyEvent.which === 13) {
-				$scope.newCat = "";
-
-				var params = {
-					boardId: $scope.board._id,
-					name: name,
-					position: $scope.board.categories.length
-				};
-
-				APIService
-					.createCategory(params)
-					.then(function(res) {
-						$scope.board.categories.push(res);
-					}, function(err) {
-						$log.log(err);
-					});
-			}
-		};
-
-		$scope.deleteCategory = function(catId) {
-			APIService
-				.deleteCategory($scope.board._id, catId)
-				.then(function(res) {
-					for (var i = 0; i < $scope.board.categories.length; i++) {
-						if ($scope.board.categories[i]._id === catId) {
-							$scope.board.categories.splice(i, 1);
-						}
-					}
-				}, function(err) {
-					$log.log(err);
-				});
-		};
 
 
 		$scope.updateBoard = function() {
@@ -215,42 +118,6 @@
 					}
 				}
 			});
-		};
-	});
-
-
-	kanbanMod.controller("editUserCtrl", function($scope, $modalInstance, APIService, user, board) {
-		$scope.user = user;
-		$scope.board = board;
-
-		$scope.options = [{
-			name: "change role",
-			type: "text"
-		}, {
-			name: "change position in list",
-			type: "text"
-		}];
-
-		$scope.removeUserFromBoard = function() {
-			APIService.removeUserFromBoard($scope.board, $scope.user)
-				.then(function(res) {
-					var iMember = $scope.board.members.indexOf($scope.user._id);
-					if (iMember >= 0) {
-						$scope.board.members.splice(iMember, 1);
-					}
-
-					var iAdmins = $scope.board.admins.indexOf($scope.user._id);
-					if (iAdmin >= 0) {
-						$scope.board.admins.splice(iAdmin, 1);
-					}
-
-				}, function(err) {
-					console.log(err);
-				});
-		};
-
-		$scope.closeModal = function() {
-			$modalInstance.dismiss();
 		};
 	});
 

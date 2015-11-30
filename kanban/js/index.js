@@ -12,9 +12,13 @@
 		"kanbanBoardModule",
 		"kanbanBoardListModule",
 		"kanbanCategoryModule",
+		"kanbanUserPanelModule",
 		"APIServiceModule"
 	]);
 
+	app.run(["$rootScope", function($rootScope) {
+		$rootScope.$on("$stateChangeError", console.log.bind(console));
+	}]);
 
 	app.config(function($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise("/identity");
@@ -31,7 +35,7 @@
 		$stateProvider.state("kanban", {
 			abstract: true,
 			url: "/kanban",
-			templateUrl: "kanban/html/index.html"
+			templateUrl: "kanban/html/abstract-index.html"
 		});
 	});
 })();
