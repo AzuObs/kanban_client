@@ -1,11 +1,12 @@
 <div class="task-container">
+  <div>
+    <h5><button ng-click="deleteTask(category, task._id)" id='closeTask'><span class='glyphicon glyphicon-remove'></span></button>{{task.name}}</h5>
 
-  <h5><button ng-click="deleteTask(category, task._id)" id='closeTask'><span class='glyphicon glyphicon-remove'></span></button>{{task.name}}</h5>
+    <span ng-show="task.comments.length" class="glyphicon glyphicon-comment comment text-muted"><span>{{task.comments.length}}</span></span>
+  </div>
 
-  <span ng-show="task.comments.length" class="glyphicon glyphicon-comment comment text-muted"><span>{{task.comments.length}}</span></span>
-
-  <span id="c:{{category._id}} t:{{task._id}}" ui-sortable="userSortOpts" ng-model="task.users" class="user-list">
+  <div id="c:{{category._id}} t:{{task._id}}" ui-sortable="userSortOpts" ng-model="task.users" class="user-list">
     <kb-user class="user" ng-repeat="user in task.users">
     </kb-user>
-  </span>
+  </div>
 </div>

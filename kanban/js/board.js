@@ -60,7 +60,7 @@
 				APIService
 					.updateBoard($scope.board)
 					.then(function(res) {
-						$scope.board = res;
+						$scope.board._v++;
 					}, function(err) {
 						$log.log(err);
 					});

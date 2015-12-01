@@ -74,7 +74,7 @@
 		$scope.newAccPwd = "";
 		$scope.newAccPwdVerify = "";
 
-		$scope.logginUsername = "daniel";
+		$scope.logginUsername = "sheldon";
 		$scope.logginPwd = "123";
 
 		$scope.createUser = function() {

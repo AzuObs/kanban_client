@@ -10,11 +10,7 @@
   <span dropdown on-toggle="dropdown">
     <input dropdown-toggle type="text" class="input-md form-control" placeholder="ex:member@mail.com" ng-model="addMemberInput" ng-keypress="addMemberFn($event)">
     <ul class="dropdown-menu" id="add-member-dropdown">
-    <li ng-click="setAddMember('raj@mail.com')"><a>raj@mail.com</a></li>
-    <li ng-click="setAddMember('hollowitz@mail.com')"><a>hollowitz@mail.com</a></li>
-    <li ng-click="setAddMember('sheldon@mail.com')"><a>sheldon@mail.com</a></li>
-    <li ng-click="setAddMember('penny@mail.com')"><a>penny@mail.com</a></li>
-    <li ng-click="setAddMember('leonard@mail.com')"><a>leonard@mail.com</a></li>
+    <li ng-repeat="member in membersSuggestions" ng-click="setAddMember(member.email)"><a>{{member.email}}</a></li>
     </ul>
     </span>
   <button class="btn btn-black btn-md" ng-click="addMemberFn()">Add Member</button>

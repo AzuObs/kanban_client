@@ -5,6 +5,18 @@
 
 	module.controller("kanbanUserPanelCtrl", ["$scope", "$modal", "$log", "APIService", function($scope, $modal, $log, APIService) {
 		//this.$scope is child of kanban.board.$scope
+		$scope.membersSuggestions = [{
+			email: "sheldon@mail.com"
+		}, {
+			email: "raj@mail.com"
+		}, {
+			email: "penny@mail.com"
+		}, {
+			email: "leonard@mail.com"
+		}, {
+			email: "wolowitz@mail.com"
+		}];
+
 
 		$scope.setAddMember = function(value) {
 			$scope.addMemberInput = value;
@@ -14,8 +26,8 @@
 			if (!keyEvent || keyEvent.which === 13) {
 				APIService.addMemberToBoard($scope.board, $scope.addMemberInput)
 					.then(function(res) {
-						$scope.board = res;
-						$scope.users = $scope.board.admins.concat($scope.board.members);
+						$scope.board.members.push(res);
+						$scope.users.push(res);
 					}, function(err) {
 						$log.log(err);
 					});
