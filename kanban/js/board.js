@@ -83,6 +83,7 @@
 						var tId = ids.substring(ids.search("t:") + 2, ids.length);
 						var wId = ui.item.sortable.model._id;
 
+
 						// $scope.users = $scope.boardusers.slice();??
 						$scope.updateBoard();
 					}
