@@ -69,24 +69,26 @@
 			// used by tasks and userPanel (connectedList)
 			$scope.userSortOpts = {
 				horizontal: true,
-				placeholder: ".task",
-				connectWith: ".user-list", //OK
-
-				stop: function(e, ui) {
-					// debugger;
-					if ($(e.target).hasClass('user-selection') &&
-						ui.item.sortable.droptarget &&
-						e.target != ui.item.sortable.droptarget[0]) {
-						console.log("ping");
-						var ids = ui.item.sortable.droptarget[0].id;
-						var cId = ids.substring(2, ids.search(" "));
-						var tId = ids.substring(ids.search("t:") + 2, ids.length);
-						var wId = ui.item.sortable.model._id;
+				tolerance: "pointer",
+				connectWith: ".user-list",
+				activate: function(e, ui) {
 
 
-						// $scope.users = $scope.boardusers.slice();??
-						$scope.updateBoard();
+				},
+				update: function(e, ui) {
+					for (var i = 0; i < ui.item.sortable.droptargetModel.length; i++) {
+						if (ui.item.sortable.droptargetModel[i]._id === ui.item.sortable.model._id) {
+							$log.log("duplicate already exist in that list of task users");
+							ui.item.sortable.cancel();
+						}
 					}
+				},
+				stop: function(e, ui) {
+
+					//transfer whole use over to duplicate, not just the ID
+					$scope.users = $scope.board.admins.concat($scope.board.members);
+					$scope.updateBoard();
+
 				}
 			};
 		}
