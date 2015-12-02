@@ -67,15 +67,30 @@
 			};
 
 			// used by tasks and userPanel (connectedList)
+			var USER_SELECTION_HEIGHT = 150;
+
 			$scope.userSortOpts = {
 				horizontal: true,
+				cursor: "move",
+				helper: "clone",
 				tolerance: "pointer",
 				connectWith: ".user-list",
 				activate: function(e, ui) {
-
-
+					if (e.clientY < USER_SELECTION_HEIGHT) {
+						$(ui.placeholder[0]).css("display", "none");
+					}
+					// display clone
+					$(ui.helper.prevObject[0]).css("display", "block");
+				},
+				change: function(e, ui) {
+					if (e.clientY < USER_SELECTION_HEIGHT) {
+						$(ui.placeholder[0]).css("display", "none");
+					} else {
+						$(ui.placeholder[0]).css("display", "block");
+					}
 				},
 				update: function(e, ui) {
+					// cancel duplicates
 					for (var i = 0; i < ui.item.sortable.droptargetModel.length; i++) {
 						if (ui.item.sortable.droptargetModel[i]._id === ui.item.sortable.model._id) {
 							$log.log("duplicate already exist in that list of task users");
@@ -84,11 +99,10 @@
 					}
 				},
 				stop: function(e, ui) {
-
-					//transfer whole use over to duplicate, not just the ID
 					$scope.users = $scope.board.admins.concat($scope.board.members);
-					$scope.updateBoard();
 
+
+					$scope.updateBoard();
 				}
 			};
 		}

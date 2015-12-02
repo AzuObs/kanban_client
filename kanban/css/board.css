@@ -39,8 +39,8 @@
      float: left;
    }
    
-   .user {
-     float: right;
+   .user-container {
+     float: left;
      margin-right: 3px;
    }
    /* user-CONTAINER */

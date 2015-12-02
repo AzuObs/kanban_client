@@ -18,6 +18,7 @@
 		$scope.taskSortOptions = {
 			horizontal: false,
 			tolerance: "pointer",
+			cursor: "move",
 			opacity: 0.4,
 			connectWith: ".task-list",
 			stop: function(e, ui) {
