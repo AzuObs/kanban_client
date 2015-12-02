@@ -24,6 +24,14 @@
 
 		$scope.addMemberFn = function(keyEvent) {
 			if (!keyEvent || keyEvent.which === 13) {
+
+				//check member isnt already in the users
+				for (var i = 0; i < $scope.users.length; i++) {
+					if ($scope.addMemberInput === $scope.users[i].email) {
+						return $log.log("avoiding duplicate: user already exists");
+					}
+				}
+
 				APIService.addMemberToBoard($scope.board, $scope.addMemberInput)
 					.then(function(res) {
 						$scope.board.members.push(res);
