@@ -1,14 +1,20 @@
 /*TASK CONTAINER*/
 
 .user-list-container {
-  float: right;
-  max-width: 179px;
-  height: 36px;
+  display: flex;
+  flex-direciton: row;
+  justify-content: flex-end;
+  margin-left: 35px;
+  max-width: 174px;
 }
 
 .user-list {
-  height: 36px;
-  padding: 2px 0px 2px 2px;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  min-width: 10px;
+  min-height: 36px;
+  padding: 2px;
 }
 
 .background {

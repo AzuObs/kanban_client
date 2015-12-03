@@ -1,4 +1,4 @@
-/*! jQuery UI - v1.11.4 - 2015-11-27
+/*! jQuery UI - v1.11.4 - 2015-11-29
  * http://jqueryui.com
  * Includes: core.js, widget.js, mouse.js, sortable.js
  * Copyright jQuery Foundation and other contributors; Licensed MIT */
@@ -1421,9 +1421,7 @@
 				//Cache variables and intersection, continue if no intersection
 				item = this.items[i];
 				itemElement = item.item[0];
-
 				intersection = this._intersectsWithPointer(item);
-
 				if (!intersection) {
 					continue;
 				}
@@ -1440,35 +1438,15 @@
 				}
 
 				// cannot intersect with itself
+				// no useless actions that have been done before
 				// no action if the item moved is the parent of the item checked
 				if (itemElement !== this.currentItem[0] &&
+					this.placeholder[intersection === 1 ? "next" : "prev"]()[0] !== itemElement &&
 					!$.contains(this.placeholder[0], itemElement) &&
 					(this.options.type === "semi-dynamic" ? !$.contains(this.element[0], itemElement) : true)
 				) {
 
-
-					var placeHoldPos = {
-						x: this.placeholder[0].offsetLeft + this.placeholder[0].offsetWidth,
-						y: this.placeholder[0].offsetTop + this.placeholder[0].offsetHeight
-					};
-					var currentItemPos = {
-						x: this.currentItem[0].offsetLeft + this.currentItem[0].offsetWidth,
-						y: this.currentItem[0].offsetTop + this.currentItem[0].offsetHeight
-					};
-
-					if (this.floating) {
-						if (placeHoldPos.x < currentItemPos.x) {
-							this.direction = "up";
-						} else {
-							this.direction = "down";
-						}
-					} else {
-						if (placeHoldPos.y < currentItemPos.y) {
-							this.direction = "up";
-						} else {
-							this.direction = "down";
-						}
-					}
+					this.direction = intersection === 1 ? "down" : "up";
 
 					if (this.options.tolerance === "pointer" || this._intersectsWithSides(item)) {
 						this._rearrange(event, item);
@@ -1652,38 +1630,20 @@
 		},
 
 		_intersectsWithPointer: function(item) {
-			var isOverElementHeight = (this.options.axis === "x") || this._isOverAxis(this.positionAbs.top + this.offset.click.top, item.top, item.height);
-			var isOverElementWidth = (this.options.axis === "y") || this._isOverAxis(this.positionAbs.left + this.offset.click.left, item.left, item.width);
-			return isOverElement = isOverElementHeight && isOverElementWidth;
-		},
 
-		_findDirection: function(item) {
-			var direction = "";
+			var isOverElementHeight = (this.options.axis === "x") || this._isOverAxis(this.positionAbs.top + this.offset.click.top, item.top, item.height),
+				isOverElementWidth = (this.options.axis === "y") || this._isOverAxis(this.positionAbs.left + this.offset.click.left, item.left, item.width),
+				isOverElement = isOverElementHeight && isOverElementWidth,
+				verticalDirection = this._getDragVerticalDirection(),
+				horizontalDirection = this._getDragHorizontalDirection();
 
-			var placeHoldPos = {
-				x: this.placeholder[0].offsetLeft + this.placeholder[0].offsetWidth,
-				y: this.placeholder[0].offsetTop + this.placeholder[0].offsetHeight
-			};
-			var itemPos = {
-				x: item.offsetLeft + item.offsetWidth,
-				y: item.offsetTop + item.offsetHeight
-			};
-
-			if (this.floating) {
-				if (placeHoldPos.x < itemPos.x) {
-					direction = "up";
-				} else {
-					direction = "down";
-				}
-			} else {
-				if (placeHoldPos.y < itemPos.y) {
-					direction = "up";
-				} else {
-					direction = "down";
-				}
+			if (!isOverElement) {
+				return false;
 			}
 
-			return direction;
+			return this.floating ?
+				(((horizontalDirection && horizontalDirection === "right") || verticalDirection === "down") ? 2 : 1) : (verticalDirection && (verticalDirection === "down" ? 2 : 1));
+
 		},
 
 		_intersectsWithSides: function(item) {
@@ -1698,6 +1658,7 @@
 			} else {
 				return verticalDirection && ((verticalDirection === "down" && isOverBottomHalf) || (verticalDirection === "up" && !isOverBottomHalf));
 			}
+
 		},
 
 		_getDragVerticalDirection: function() {
@@ -1826,9 +1787,9 @@
 		refreshPositions: function(fast) {
 
 			// Determine whether items are being displayed horizontally
-
-			// CHANGE NUMBER 1
-			this.floating = this._isFloating();
+			this.floating = this.items.length ?
+				this.options.axis === "x" || this._isFloating(this.items[0].item) :
+				false;
 
 			//This has to be redone because due to the item being moved out/into the offsetParent, the offsetParent's position will change
 			if (this.offsetParent && this.helper) {

@@ -84,7 +84,7 @@
 						$(ui.placeholder[0]).css("display", "none"); //hide placeholder
 						$(ui.helper.prevObject[0]).css("display", "block"); //show clone
 					}
-
+					$(ui.placeholder[0]).css("margin", "0px");
 					$scope.showUserList = true;
 				},
 				change: function(e, ui) {
