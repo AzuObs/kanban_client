@@ -73,14 +73,17 @@
 				horizontal: true,
 				cursor: "move",
 				helper: "clone",
+				cursorAt: {
+					left: 16,
+					top: 16
+				},
 				tolerance: "pointer",
 				connectWith: ".user-list",
 				activate: function(e, ui) {
 					if (e.clientY < USER_SELECTION_HEIGHT) {
-						$(ui.placeholder[0]).css("display", "none");
+						$(ui.placeholder[0]).css("display", "none"); //hide placeholder
+						$(ui.helper.prevObject[0]).css("display", "block"); //show clone
 					}
-					// display clone
-					$(ui.helper.prevObject[0]).css("display", "block");
 
 					$scope.showUserList = true;
 				},
