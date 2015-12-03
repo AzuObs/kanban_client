@@ -1,5 +1,20 @@
 /*TASK CONTAINER*/
 
+.user-list-container {
+  float: right;
+  max-width: 179px;
+  height: 36px;
+}
+
+.user-list {
+  height: 36px;
+  padding: 2px;
+}
+
+.background {
+  background-color: #fdd;
+}
+
 #closeTask {
   position: relative;
   font-size: 0.5em;

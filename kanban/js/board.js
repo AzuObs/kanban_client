@@ -54,7 +54,7 @@
 			$scope.user = user;
 			$scope.board = board;
 			$scope.users = $scope.board.admins.concat($scope.board.members);
-
+			$scope.showUserList = false;
 			// used by categoryCtrl, taskCtrl and userPanelCtrl
 			$scope.updateBoard = function() {
 				APIService
@@ -81,6 +81,8 @@
 					}
 					// display clone
 					$(ui.helper.prevObject[0]).css("display", "block");
+
+					$scope.showUserList = true;
 				},
 				change: function(e, ui) {
 					if (e.clientY < USER_SELECTION_HEIGHT) {
@@ -97,6 +99,9 @@
 							ui.item.sortable.cancel();
 						}
 					}
+				},
+				beforeStop: function(e, ui) {
+					$scope.showUserList = false;
 				},
 				stop: function(e, ui) {
 					$scope.users = $scope.board.admins.concat($scope.board.members);
