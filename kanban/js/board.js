@@ -9,17 +9,18 @@
 			views: {
 				"": {
 					templateUrl: "/kanban/html/abstract-board.html",
-					controller: "kanbanBoardCtrl"
+					controller: "kanbanBoardCtrl",
+					replace: true
 				},
-				"category-list@kanban.board": {
+				"category-view@kanban.board": {
 					templateUrl: "/kanban/html/board.category.html",
 					controller: "kanbanCategoryCtrl"
 				},
-				"userpanel@kanban.board": {
+				"userpanel-view@kanban.board": {
 					templateUrl: "/kanban/html/board.user-panel.html",
 					controller: "kanbanUserPanelCtrl"
 				},
-				"task-list@kanban.board": {
+				"task-view@kanban.board": {
 					templateUrl: "/kanban/html/board.task.html",
 					controller: "kanbanTaskCtrl"
 				}

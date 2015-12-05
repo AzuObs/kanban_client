@@ -4,7 +4,7 @@
 <head>
   <title>Kanban - {{state.current.name}}</title>
   <meta charset="UTF-8">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" type="text/css" href="vendors/bootstrap-3.3.5.css">
   <link rel="stylesheet" type="text/css" href="kanban/css/index.css">
   <link rel="stylesheet" type="text/css" href="kanban/css/board-list.css">
@@ -62,7 +62,7 @@
   <div class="navbar-fixed-padding"></div>
 
   <div ng-include="'stateInfo/stateInfo.html'"></div>
-  <div ui-view></div>
+  <div ui-view class="app-view"></div>
 </body>
 
 </html>

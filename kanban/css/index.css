@@ -1,3 +1,73 @@
+/*POSITIONING MAIN ELEMENTS*/
+
+.app-view {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  padding-top: 55px;
+}
+
+.board-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.userpanel-view {
+  flex: 1 0 auto;
+  height: 129px;
+}
+
+.category-view {
+  flex: 0 1 auto;
+  min-height: 0px;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.category-list {
+  display: flex;
+  flex: 0 1 auto;
+  min-height: 0px;
+  align-items: flex-start;
+}
+
+.category-container {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
+  min-height: 0px;
+  min-width: 0px;
+  width: 240px;
+  margin-right: 10px;
+  padding: 5px;
+  border: 2px solid #aaa;
+  border-radius: 3px;
+  background-color: #eee;
+}
+
+.category-header {
+  flex: 1 0 auto;
+  height: 32px;
+}
+
+.category-create {
+  flex: 1 0 auto;
+  width: 240px;
+  height: 90px;
+  padding: 5px 5px 5px 5px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  background-color: #eee;
+}
+
+
+/* other stuff */
+
 .btn-black {
   border: 1px solid #000;
   color: #fff !important;

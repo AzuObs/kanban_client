@@ -1,12 +1,10 @@
-<div class="board-categories-container">
-  <div class="board-categories-list" ui-sortable="categorySortOpts" ng-model="board.categories">
-    <kb-category ng-repeat="category in board.categories">
-    </kb-category>
-  </div>
-  <div class="board-categories-create">
-    <div class="form-group">
-      <input type="text" class="input-md form-control" placeholder="Add a category..." ng-model="newCat" ng-keypress="createCategory(newCat, $event)">
-      <button ng-click="createCategory(newCat)" class="btn btn-black btn-block">Add Category</button>
-    </div>
+<div class="category-list" ui-sortable="categorySortOpts" ng-model="board.categories">
+  <kb-category ng-repeat="category in board.categories">
+  </kb-category>
+</div>
+<div class="category-create">
+  <div class="form-group">
+    <input type="text" class="input-md form-control" placeholder="Add a category..." ng-model="newCat" ng-keypress="createCategory(newCat, $event)">
+    <button ng-click="createCategory(newCat)" class="btn btn-black btn-block">Add Category</button>
   </div>
 </div>

@@ -1,60 +1,62 @@
-   .board-panel-container input::-webkit-input-placeholder {
-     font-style: italic;
-     font-size: .9em;
-   }
-   
-   #add-member-dropdown {
-     margin-top: 13px;
-     width: 180px;
-   }
-   
-   .board-panel-container {
-     width: 300px;
-     height: 100px;
-   }
-   
-   .board-panel-container input[type="text"] {
-     display: inline;
-     width: 180px;
-   }
-   
-   .board-panel-container button {
-     display: inline;
-     width: 100px;
-   }
-   
-   .board-member-container {
-     display: block;
-     height: 40px;
-   }
-   
-   .board-member-container .user {
-     float: left;
-   }
-   
-   .user-container {
-     float: left;
-     margin: 0px 1px;
-   }
-   /* user-CONTAINER */
-   
-   .user-container #userImg {
-     height: 32px;
-     width: 32px;
-     border: 1px solid #aaa;
-   }
-   
-   .board-member-container .form-group {
-     margin-top: 10px;
-     width: 190px;
-   }
-   
-   .board-member-container button {
-     display: none;
-     -memb
-   }
-   
-   .board-member-container .form-group:hover button,
-   .board-member-container input:focus~button {
-     display: block;
-   }
+.userpanel-container input::-webkit-input-placeholder {
+  font-style: italic;
+  font-size: .9em;
+}
+
+#add-member-dropdown {
+  margin-top: 13px;
+  width: 180px;
+}
+
+.userpanel-container {
+  width: 300px;
+  height: 90px;
+}
+
+.userpanel-container input[type="text"] {
+  display: inline;
+  width: 180px;
+}
+
+.userpanel-container button {
+  display: inline;
+  width: 100px;
+}
+
+.board-member-container {
+  display: block;
+  height: 40px;
+}
+
+.board-member-container .user {
+  float: left;
+}
+
+.user-container {
+  float: left;
+  margin: 0px 1px;
+}
+
+
+/* user-CONTAINER */
+
+.user-container #userImg {
+  height: 32px;
+  width: 32px;
+  border: 1px solid #aaa;
+}
+
+.board-member-container .form-group {
+  margin-top: 10px;
+  width: 190px;
+}
+
+.board-member-container button {
+  display: none;
+  -memb
+}
+
+.board-member-container .form-group:hover button,
+.board-member-container input:focus~button {
+  display: block;
+}

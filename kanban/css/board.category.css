@@ -1,15 +1,39 @@
 /*CATEGORY CONTAINER*/
 
-.board-categories-create {
-  width: 240px;
-  margin-right: 10px;
-  padding: 0px 5px 5px 5px;
-  border: 1px solid #aaa;
-  border-radius: 3px;
+.category-create input {
+  margin-bottom: 1px;
+}
+
+.category-container input {
+  margin-top: 10px;
+  margin-bottom: 1px;
   background-color: #eee;
 }
 
-#closeCategory {
+.category-container input:hover,
+.category-container input:focus {
+  background-color: #fff;
+}
+
+.category-container .form-group button {
+  display: none;
+}
+
+.category-container .form-group:hover button,
+.category-container input:focus~button {
+  display: block;
+}
+
+
+/* category CONTAINER */
+
+.category-header h4 {
+  margin-top: 5px;
+  margin-bottom: 0px;
+  min-height: 19px;
+}
+
+.category-header #closeCategory {
   position: relative;
   font-size: 0.6em;
   bottom: 31px;
@@ -19,59 +43,6 @@
   color: rgba(0, 0, 0, 0);
   background: rgba(0, 0, 0, 0);
   border: none;
-}
-
-.board-categories-container {
-  display: flex;
-  align-items: flex-start;
-}
-
-.board-categories-container input {
-  margin-top: 10px;
-  margin-bottom: 1px;
-  background-color: #eee;
-}
-
-.board-categories-container input:hover,
-.board-categories-container input:focus {
-  background-color: #fff;
-}
-
-.board-categories-container .form-group button {
-  display: none;
-}
-
-.board-categories-container .form-group:hover button,
-.board-categories-container input:focus~button {
-  display: block;
-}
-
-#categories-dropzone {
-  background-color: #ccc;
-  border: none;
-  height: 450px;
-  display: none;
-}
-
-
-/* CATEGORIES CONTAINER */
-
-.board-categories-list {
-  /* float children */
-}
-
-.category-container {
-  float: left;
-  width: 240px;
-  margin-right: 10px;
-  padding: 0px 5px 5px 5px;
-  border: 2px solid #aaa;
-  border-radius: 3px;
-  background-color: #eee;
-}
-
-.category-container h4 {
-  margin-bottom: 0px;
 }
 
 .category-container:hover {
@@ -86,7 +57,7 @@
   color: #333;
 }
 
-.board-categories-list > .ui-sortable-placeholder {
+.category-list > .ui-sortable-placeholder {
   background-color: #ddf;
   visibility: visible !important;
   border: none;
