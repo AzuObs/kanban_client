@@ -33,21 +33,33 @@
   display: flex;
   flex: 0 1 auto;
   min-height: 0px;
-  align-items: flex-start;
+  align-items: start;
+}
+
+.category-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  min-height: 0px;
+  width: 240px;
+  margin-right: 10px;
 }
 
 .category-container {
   display: flex;
   flex-direction: column;
   flex: 0 1 auto;
-  min-height: 0px;
-  min-width: 0px;
+  min-height: 1px;
   width: 240px;
-  margin-right: 10px;
   padding: 5px;
   border: 2px solid #aaa;
   border-radius: 3px;
   background-color: #eee;
+  overflow: hidden;
+}
+
+.white-space {
+  flex: 1 0 auto;
 }
 
 .category-header {
