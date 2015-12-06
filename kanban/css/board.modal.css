@@ -1,7 +1,76 @@
+/* POSITIONING */
+
+.modal {
+  height: 100%;
+}
+
+
+/* -lg is for task modal */
+
+.modal-lg {
+  height: 100%;
+  width: 600px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
 .modal-content {
   padding: 20px;
-  width: 440px;
+  display: flex;
+  flex-direction: column;
+  width: 450px;
 }
+
+.modal-lg > .modal-content {
+  height: 100%;
+  min-height: 450px;
+  width: 600px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-close {
+  height: 0px;
+  flex: 1 0 auto;
+}
+
+.modal-title {
+  flex: 1 0 auto;
+}
+
+.modal-content-container {
+  flex: 0 1 auto;
+  min-height: 0px;
+}
+
+.modal-left-content {
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.comment-list {
+  flex: 0 1 auto;
+  min-height: 0px;
+  overflow-x: auto;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-container {
+  display: flex;
+  flex: 0 1 auto;
+  max-width: 100%;
+  min-width: 0px;
+}
+
+
+/*OTHER*/
 
 .modal-close span {
   background-color: #eee;
@@ -9,8 +78,15 @@
   border-radius: 5px;
   padding: 5px 10px;
   position: absolute;
-  left: 393px;
+  left: 403px;
   top: 7px;
+}
+
+
+/* -lg is for task modal*/
+
+.modal-lg .modal-close span {
+  left: 553px;
 }
 
 .modal-close span:hover {
@@ -25,7 +101,6 @@
 .modal-user-list {
   margin-top: 15px;
   display: block;
-  width: 400px;
   height: 52px;
 }
 
@@ -40,30 +115,19 @@
   border: 1px solid #aaa;
 }
 
-
 .modal-newcomment {
   margin-top: 20px;
 }
 
 .modal-newcomment textarea {
+  flex: 1 0 auto;
   margin-top: 3px;
   margin-bottom: 2px;
-}
-
-.modal-newcomment .btn {
-  display: none;
-}
-
-.modal-newcomment:hover .btn {
-  display: block;
-}
-
-.modal-newcomment textarea:focus +.btn {
-  display: block;
-}
-
-.comments-container {
-  display: flex;
+  width: 380px;
+  max-width: 380px;
+  height: 50px;
+  max-height: 200px;
+  min-height: 50px;
 }
 
 .comment-img img {
@@ -74,6 +138,15 @@
 .comment-content {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  flex: 0 1 auto;
+  min-width: 0px;
+  overflow: hidden;
+}
+
+.comment-content:nth-child(2) {
+  white-space: pre-line;
+  text-overflow: ellipsis;
 }
 
 .boardEdit-options .input-group {
@@ -90,4 +163,13 @@
   position: relative;
   bottom: 1px;
   left: 2px;
+}
+
+.modal-content-container {
+  display: flex;
+  max-width: 560px;
+}
+
+.modal-right-content {
+  width: 180px;
 }

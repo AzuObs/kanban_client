@@ -51,12 +51,17 @@
   width: 190px;
 }
 
-.board-member-container button {
-  display: none;
-  -memb
+.ui-fancy-scroll::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
 }
 
-.board-member-container .form-group:hover button,
-.board-member-container input:focus~button {
-  display: block;
+.ui-fancy-scroll::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: #ddd;
+}
+
+.ui-fancy-scroll::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #aaa;
 }

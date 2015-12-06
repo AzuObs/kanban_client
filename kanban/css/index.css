@@ -71,7 +71,7 @@
 }
 
 .category-create {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   width: 240px;
   height: 90px;
   padding: 5px 5px 5px 5px;
@@ -91,6 +91,16 @@
 
 .btn-black:hover {
   box-shadow: 0px 0px 7px #888;
+}
+
+.btn-grey {
+  border: 1px solid #666;
+  background-color: #ddd;
+}
+
+.btn-grey:hover {
+  /*box-shadow: ;*/
+  background-color: #fff;
 }
 
 
@@ -137,22 +147,4 @@
 
 #load-only {
   display: none;
-}
-
-
-/* SCROLL BARS */
-
-::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
-}
-
-::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background-color: #ddd;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background: #aaa;
 }

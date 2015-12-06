@@ -15,15 +15,6 @@
   background-color: #fff;
 }
 
-.category-container .form-group button {
-  display: none;
-}
-
-.category-container .form-group:hover button,
-.category-container input:focus~button {
-  display: block;
-}
-
 
 /* category CONTAINER */
 

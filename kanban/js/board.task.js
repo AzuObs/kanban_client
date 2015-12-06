@@ -26,10 +26,14 @@
 			}
 		};
 
-		$scope.openTaskModal = function(_board, _cat, _task) {
+		$scope.openTaskModal = function(e, _board, _cat, _task) {
+			if (angular.element(e.target).hasClass("glyphicon-remove")) {
+				return;
+			}
+
 			var modalInstance = $modal.open({
 				animation: true,
-				size: "md",
+				size: "lg",
 				templateUrl: 'kanban/html/board.task.modal.html',
 				controller: 'kanbanTaskModalCtrl',
 				resolve: {

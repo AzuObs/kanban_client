@@ -1,5 +1,5 @@
-<div ui-sortable="taskSortOptions" ng-model="category.tasks" class="task-list">
-  <kb-task ng-repeat="task in category.tasks" ng-click="openTaskModal(board, category, task)">
+<div ui-sortable="taskSortOptions" ng-model="category.tasks" class="task-list ui-fancy-scroll">
+  <kb-task ng-repeat="task in category.tasks" ng-click="openTaskModal($event, board, category, task)">
   </kb-task>
 </div>
 

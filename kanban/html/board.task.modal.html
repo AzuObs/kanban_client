@@ -7,24 +7,39 @@
   <h4 class="text-muted">in list <b>{{category.name | uppercase}}</b></h4>
 </div>
 
-<div class="modal-user-list">
-  <kb-user class="modal-user" ng-repeat="user in task.users"></kb-user>
-</div>
+<div class="modal-content-container">
+  <div class="modal-left-content">
+    <div class="modal-user-list">
+      <kb-user class="modal-user" ng-repeat="user in task.users"></kb-user>
+    </div>
 
-<div class="modal-newcomment">
-  <b>Activity</b>
-  <div class="form-group">
-    <textarea class="form-control" placeholder="Add a comment..." ng-model="commentInput"></textarea>
-    <button ng-click="createComment()" class="btn btn-black btn-block">Add Comment</button>
-  </div>
-</div>
+    <div class="modal-newcomment">
+      <b>Activity</b>
+      <div class="form-group">
+        <textarea class="form-control" placeholder="Add a comment..." ng-model="commentInput"></textarea>
+        <button ng-click="createComment()" class="btn btn-black btn-block">Add Comment</button>
+      </div>
+    </div>
 
-<div class="comments-container" ng-repeat="comment in task.comments">
-  <div class="comment-img"><img src="http://i.imgur.com/enaJkvo.jpg"></div>
-  <div class="comment-content">
-    <div><b>Daniel</b></div>
-    <div>{{comment.content}}</div>
-    <small class="text-muted">{{ageOfPost(comment.date)}}</small>
+    <div class="comment-list ui-fancy-scroll">
+      <div class="comment-container" ng-repeat="comment in task.comments">
+        <div class="comment-img"><img src="http://i.imgur.com/enaJkvo.jpg"></div>
+        <div class="comment-content">
+          <div><b>Daniel</b></div>
+          <div>{{comment.content}}</div>
+          <small class="text-muted">{{ageOfPost(comment.date)}}</small>
+        </div>
+        <br>
+      </div>
+    </div>
   </div>
-  <br>
+
+  <div class="modal-right-content">
+    <button class="btn btn-grey btn-block">Add Member</button>
+    <button class="btn btn-grey btn-block">Rename Task</button>
+    <button class="btn btn-grey btn-block">Change Category</button>
+    <hr>
+    <button class="btn btn-danger btn-block">Remove Member</button>
+    <button class="btn btn-danger btn-block">Delete Task</button>
+  </div>
 </div>
