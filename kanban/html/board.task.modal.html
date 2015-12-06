@@ -3,7 +3,8 @@
 </div>
 
 <div class="modal-title">
-  <h3>{{task.name}}</h3>
+  <input type="text" ng-model="task.name" class="form-control" ng-show="isEdittingTaskName" ng-keypress="editTaskName($event)">
+  <h3 ng-hide="isEdittingTaskName" ng-click="editTaskName()">{{task.name}}</h3>
   <h4 class="text-muted">in list <b>{{category.name | uppercase}}</b></h4>
 </div>
 

@@ -4,14 +4,41 @@
 	var module = angular.module("kanbanTaskModalModule", []);
 
 
-	module.controller("kanbanTaskModalCtrl", ["$scope", "$modalInstance", "$log", "APIService", "user", "board", "cat", "task",
-		function($scope, $modalInstance, $log, APIService, user, board, cat, task) {
-			$scope.task = task;
-			$scope.category = cat;
+	module.controller("kanbanTaskModalCtrl", ["$scope", "$modalInstance", "$log", "APIService", "user", "board", "catId", "taskId",
+		function($scope, $modalInstance, $log, APIService, user, board, catId, taskId) {
 
+			var iCat = board.categories.findIndex(function(element, i, array) {
+				if (element._id === catId) return true;
+			});
+
+			var iTask = board.categories[iCat].tasks.findIndex(function(element, i, array) {
+				if (element._id === taskId) return true;
+			});
+
+			$scope.board = board;
+			$scope.category = $scope.board.categories[iCat];
+			$scope.task = $scope.category.tasks[iTask];
+			$scope.isEdittingTaskName = false;
+
+			$scope.editTaskName = function(e) {
+				if (!e || e.which === 13) {
+					if (!$scope.isEdittingTaskName) {
+						$scope.isEdittingTaskName = true;
+					} else {
+						$scope.isEdittingTaskName = false;
+						APIService
+							.updateTask($scope.board._id, $scope.category._id, $scope.task)
+							.then(function(res) {
+								$scope.board._v++;
+							}, function(err) {
+								$log.log(err);
+							});
+					}
+				}
+			};
 
 			$scope.closeModal = function() {
-				$modalInstance.dismiss();
+				$modalInstance.close($scope.board);
 			};
 
 
@@ -19,7 +46,7 @@
 				if (!keyEvent || keyEvent.which === 13) {
 
 					APIService
-						.createComment($scope.commentInput, user._id, cat._id, board._id, $scope.task._id)
+						.createComment($scope.commentInput, user._id, $scope.category._id, $scope.board._id, $scope.task._id)
 						.then(function(res) {
 							$scope.task.comments.push(res);
 						}, function(err) {

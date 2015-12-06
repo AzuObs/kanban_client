@@ -33,6 +33,7 @@
 
 			var modalInstance = $modal.open({
 				animation: true,
+				backdrop: "static",
 				size: "lg",
 				templateUrl: 'kanban/html/board.task.modal.html',
 				controller: 'kanbanTaskModalCtrl',
@@ -43,14 +44,21 @@
 					board: function() {
 						return _board;
 					},
-					cat: function() {
-						return _cat;
+					catId: function() {
+						return _cat._id;
 					},
-					task: function() {
-						return _task;
+					taskId: function() {
+						return _task._id;
 					}
 				}
 			});
+
+			modalInstance.result.then(function(board) {
+				$scope.board = board;
+			}, function(err) {
+				$log.log("modal dismissed: " + err);
+			});
+
 		};
 
 

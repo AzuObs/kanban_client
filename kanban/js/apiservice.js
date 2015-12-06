@@ -191,6 +191,25 @@
 			return defer.promise;
 		};
 
+		this.updateTask = function(boardId, catId, task) {
+			var defer = $q.defer();
+			var params = {
+				boardId: boardId,
+				catId: catId,
+				task: task
+			};
+
+			$http
+				.put($rootScope.endPoint + "/task", params)
+				.success(function(res) {
+					defer.resolve(res);
+				})
+				.error(function(err) {
+					defer.reject(err);
+				});
+
+			return defer.promise;
+		};
 
 		this.updateBoard = function(board) {
 			var defer = $q.defer();
