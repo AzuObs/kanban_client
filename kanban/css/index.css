@@ -58,7 +58,7 @@
   overflow: hidden;
 }
 
-.white-space {
+.category-container .white-space {
   flex: 1 0 auto;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .category-create {
-  flex: 1 0 auto;
+  flex: 0 1 auto;
   width: 240px;
   height: 90px;
   padding: 5px 5px 5px 5px;
