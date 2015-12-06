@@ -14,6 +14,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  padding-bottom: 4px;
 }
 
 .userpanel-view {
@@ -27,6 +28,7 @@
   display: flex;
   overflow-x: auto;
   overflow-y: hidden;
+  padding-bottom: 4px;
 }
 
 .category-list {
@@ -134,4 +136,22 @@
 
 #load-only {
   display: none;
+}
+
+
+/* SCROLL BARS */
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #aaa;
 }
