@@ -20,10 +20,11 @@
 .userpanel-view {
   flex: 1 0 auto;
   height: 129px;
+  max-height: 129px;
 }
 
 .category-view {
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   min-height: 0px;
   display: flex;
   overflow-x: auto;
