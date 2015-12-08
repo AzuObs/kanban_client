@@ -105,6 +105,9 @@
 				if ((e.type === "keypress" && e.which === 13) || e.type === "click") {
 					if (!$scope.isEdittingTaskName) {
 						$scope.isEdittingTaskName = true;
+						setTimeout(function() {
+							angular.element(".modal-title input").focus();
+						}, 0);
 					} else {
 						$scope.isEdittingTaskName = false;
 						APIService

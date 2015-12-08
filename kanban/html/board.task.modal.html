@@ -37,7 +37,6 @@
 
   <div class="modal-right-content">
     <button ng-click="editTaskName($event)" class="btn btn-grey btn-block">Rename Task</button>
-    <!-- dropdown -->
     <div class="button-group" dropdown is-open="status.aMemIsOpen">
       <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="task.users.length===5">Add Member
         <span ng-hide="status.aMemIsOpen" class="caret"></span>
@@ -48,7 +47,6 @@
       </ul>
     </div>
 
-    <!-- dropdown -->
     <div class="button-group" dropdown is-open="status.cCatIsOpen">
       <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="!changeableCategories.length">Change Category
         <span ng-hide="status.cCatIsOpen" class="caret"></span>
@@ -60,7 +58,7 @@
     </div>
 
     <hr>
-    <!-- dropdown -->
+
     <div class="button-group" dropdown is-open="status.rMemIsOpen">
       <button class="btn btn-danger btn-block" dropdown-toggle ng-disabled="!task.users.length">Remove Member
         <span ng-hide="status.rMemIsOpen" class="caret"></span>
