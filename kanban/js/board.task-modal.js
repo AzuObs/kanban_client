@@ -4,24 +4,46 @@
 	var module = angular.module("kanbanTaskModalModule", []);
 
 
-	module.controller("kanbanTaskModalCtrl", ["$scope", "$modalInstance", "$log", "APIService", "user", "board", "catId", "taskId",
-		function($scope, $modalInstance, $log, APIService, user, board, catId, taskId) {
+	module.controller("kanbanTaskModalCtrl", ["$scope", "$modalInstance", "$log", "APIService", "catId", "taskId",
+		function($scope, $modalInstance, $log, APIService, catId, taskId) {
 
-			var iCat = board.categories.findIndex(function(element, i, array) {
+			var iCat = $scope.board.categories.findIndex(function(element, i, array) {
 				if (element._id === catId) return true;
 			});
 
-			var iTask = board.categories[iCat].tasks.findIndex(function(element, i, array) {
+			var iTask = $scope.board.categories[iCat].tasks.findIndex(function(element, i, array) {
 				if (element._id === taskId) return true;
 			});
 
-			$scope.board = board;
 			$scope.category = $scope.board.categories[iCat];
 			$scope.task = $scope.category.tasks[iTask];
 			$scope.isEdittingTaskName = false;
+			$scope.isDeletingTask = false;
+			$scope.repeatTaskName = '';
+
+			$scope.removeUserFromTask = function(user) {
+
+			};
+
+			$scope.moveTaskToCategory = function(category) {
+
+			};
+
+			$scope.addUserToTask = function(user) {
+
+			};
+
+			$scope.deleteTask = function(e) {
+
+			};
+
+
+			$scope.endAllEditting = function(e) {
+				$scope.editTaskName(e);
+			};
 
 			$scope.editTaskName = function(e) {
-				if (!e || e.which === 13) {
+				if (e.which === 13 || e.type === "click") {
 					if (!$scope.isEdittingTaskName) {
 						$scope.isEdittingTaskName = true;
 					} else {
@@ -35,10 +57,6 @@
 							});
 					}
 				}
-			};
-
-			$scope.closeModal = function() {
-				$modalInstance.close($scope.board);
 			};
 
 

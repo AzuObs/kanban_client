@@ -13,7 +13,7 @@
 	});
 
 
-	module.controller("kanbanTaskCtrl", ["$scope", "APIService", "$modal", function($scope, APIService, $modal) {
+	module.controller("kanbanTaskCtrl", ["$scope", "APIService", "$modal", "$log", function($scope, APIService, $modal, $log) {
 		// this.$scope child of category.$scope
 		$scope.taskSortOptions = {
 			horizontal: false,
@@ -33,17 +33,11 @@
 
 			var modalInstance = $modal.open({
 				animation: true,
-				backdrop: "static",
+				scope: $scope,
 				size: "lg",
 				templateUrl: 'kanban/html/board.task.modal.html',
 				controller: 'kanbanTaskModalCtrl',
 				resolve: {
-					user: function() {
-						return $scope.user;
-					},
-					board: function() {
-						return _board;
-					},
 					catId: function() {
 						return _cat._id;
 					},
@@ -52,13 +46,6 @@
 					}
 				}
 			});
-
-			modalInstance.result.then(function(board) {
-				$scope.board = board;
-			}, function(err) {
-				$log.log("modal dismissed: " + err);
-			});
-
 		};
 
 

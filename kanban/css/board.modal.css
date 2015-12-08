@@ -34,15 +34,15 @@
 
 .modal-close {
   height: 0px;
-  flex: 1 0 auto;
+  flex: 0 1 auto;
 }
 
 .modal-title {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
 }
 
 .modal-content-container {
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   min-height: 0px;
 }
 
@@ -56,8 +56,8 @@
 .comment-list {
   flex: 0 1 auto;
   min-height: 0px;
-  overflow-x: auto;
-  overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
@@ -70,7 +70,7 @@
 }
 
 
-/*OTHER*/
+/*STYLING*/
 
 .modal-close span {
   background-color: #eee;
@@ -80,6 +80,11 @@
   position: absolute;
   left: 403px;
   top: 7px;
+}
+
+.modal-title > input {
+  width: 40%;
+  height: 26px;
 }
 
 
@@ -130,6 +135,10 @@
   min-height: 50px;
 }
 
+.modal .input-group {
+  margin-top: 2px;
+}
+
 .comment-img img {
   height: 45px;
   width: 45px;
@@ -172,4 +181,10 @@
 
 .modal-right-content {
   width: 180px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-right-content > * {
+  margin-bottom: 5px;
 }
