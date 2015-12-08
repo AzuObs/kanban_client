@@ -34,7 +34,25 @@
 			};
 
 			$scope.deleteTask = function(e) {
-
+				if (e.type === "click") {
+					$scope.isDeletingTask = !$scope.isDeletingTask;
+				} else {
+					if (e.which === 13) {
+						if ($scope.repeatTaskName === $scope.task.name) {
+							$scope.category.tasks.splice(iTask, 1);
+							APIService
+								.updateBoard($scope.board)
+								.then(function() {
+									$scope.board._v++;
+									$modalInstance.dismiss();
+								}, function(err) {
+									$log.log(err);
+								});
+						} else {
+							$log.log("your input does not match the task's name");
+						}
+					}
+				}
 			};
 
 
