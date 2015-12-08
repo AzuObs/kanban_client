@@ -20,6 +20,9 @@
 			$scope.isEdittingTaskName = false;
 			$scope.isDeletingTask = false;
 			$scope.repeatTaskName = '';
+			$scope.addableUsers = [];
+			calculateAddableUsers($scope);
+
 
 			$scope.removeUserFromTask = function(user) {
 
@@ -30,7 +33,16 @@
 			};
 
 			$scope.addUserToTask = function(user) {
+				$scope.task.users.push(user);
 
+				APIService
+					.updateBoard($scope.board)
+					.then(function() {
+						calculateAddableUsers($scope);
+						$scope.board._v++;
+					}, function(err) {
+						$log.log(err);
+					});
 			};
 
 			$scope.deleteTask = function(e) {
@@ -128,4 +140,20 @@
 			};
 		}
 	]);
+
+
+	var calculateAddableUsers = function($scope) {
+		$scope.addableUsers = JSON.parse(JSON.stringify($scope.users));
+
+		for (var i = 0; i < $scope.addableUsers.length; i++) {
+			for (var j = 0; j < $scope.task.users.length; j++) {
+				if ($scope.addableUsers[i]._id === $scope.task.users[j]._id) {
+					$scope.addableUsers.splice(i, 1);
+					i--;
+					break;
+				}
+			}
+		}
+	};
+
 })();

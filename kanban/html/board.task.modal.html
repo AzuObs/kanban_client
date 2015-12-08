@@ -44,7 +44,7 @@
         <span ng-show="status.aMemIsOpen" class="dropup"><span class="caret"></span></span>
       </button>
       <ul class="dropdown-menu">
-        <li ng-repeat="user in users" ng-click="addUserToTask(user)"><a href>{{user.username}}</a></li>
+        <li ng-repeat="user in addableUsers" ng-click="addUserToTask(user)"><a href>{{user.username}}</a></li>
       </ul>
     </div>
 
