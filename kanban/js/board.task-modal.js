@@ -7,21 +7,17 @@
 	module.controller("kanbanTaskModalCtrl", ["$scope", "$modalInstance", "$log", "APIService", "catId", "taskId",
 		function($scope, $modalInstance, $log, APIService, catId, taskId) {
 
-			var iCat = $scope.board.categories.findIndex(function(element, i, array) {
-				if (element._id === catId) return true;
-			});
-
-			var iTask = $scope.board.categories[iCat].tasks.findIndex(function(element, i, array) {
-				if (element._id === taskId) return true;
-			});
-
+			var iCat = findCatIndex($scope, catId);
+			var iTask = findTaskIndex($scope, taskId, iCat);
 			$scope.category = $scope.board.categories[iCat];
-			$scope.task = $scope.board.categories[iCat].tasks[iTask];
+			$scope.task = $scope.category.tasks[iTask];
 			$scope.isEdittingTaskName = false;
 			$scope.isDeletingTask = false;
 			$scope.repeatTaskName = '';
 			$scope.addableUsers = [];
+			$scope.changeableCategories = [];
 			calculateAddableUsers($scope);
+			calculateChangeableCategories($scope);
 
 
 			$scope.removeUserFromTask = function(user) {
@@ -35,7 +31,6 @@
 				APIService
 					.updateBoard($scope.board)
 					.then(function() {
-						console.log("boardupdated");
 						calculateAddableUsers($scope);
 						$scope.board._v++;
 					}, function(err) {
@@ -44,7 +39,26 @@
 			};
 
 			$scope.moveTaskToCategory = function(category) {
+				// debugger;
+				var oldiTask = iTask;
 
+				catId = category._id;
+				iCat = findCatIndex($scope, catId);
+
+				$scope.category.tasks.splice(oldiTask, 1);
+				$scope.category = $scope.board.categories[iCat]; //pass by ref should be fine
+				$scope.category.tasks.push($scope.task);
+
+				iTask = findTaskIndex($scope, taskId, iCat);
+				calculateChangeableCategories($scope);
+
+				APIService
+					.updateBoard($scope.board)
+					.then(function() {
+						$scope.board._v++;
+					}, function(err) {
+						$log.log(err);
+					});
 			};
 
 			$scope.addUserToTask = function(user) {
@@ -156,6 +170,14 @@
 		}
 	]);
 
+	var calculateChangeableCategories = function($scope) {
+		var i = $scope.board.categories.findIndex(function(e) {
+			return e._id === $scope.category._id;
+		});
+
+		$scope.changeableCategories = JSON.parse(JSON.stringify($scope.board.categories));
+		$scope.changeableCategories.splice(i, 1);
+	};
 
 	var calculateAddableUsers = function($scope) {
 		$scope.addableUsers = JSON.parse(JSON.stringify($scope.users));
@@ -169,7 +191,17 @@
 				}
 			}
 		}
-
 	};
 
+	var findCatIndex = function($scope, catId) {
+		return $scope.board.categories.findIndex(function(element, i, array) {
+			if (element._id === catId) return true;
+		});
+	};
+
+	var findTaskIndex = function($scope, taskId, iCat) {
+		return $scope.board.categories[iCat].tasks.findIndex(function(element, i, array) {
+			if (element._id === taskId) return true;
+		});
+	};
 })();

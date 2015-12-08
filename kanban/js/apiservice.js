@@ -199,7 +199,6 @@
 					board: board
 				})
 				.success(function(res) {
-					console.log("updateBoard resolved");
 					defer.resolve(res);
 				})
 				.error(function(err) {

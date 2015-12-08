@@ -50,12 +50,12 @@
 
     <!-- dropdown -->
     <div class="button-group" dropdown is-open="status.cCatIsOpen">
-      <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="board.categories.length < 2">Change Category
+      <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="!changeableCategories.length">Change Category
         <span ng-hide="status.cCatIsOpen" class="caret"></span>
         <span ng-show="status.cCatIsOpen" class="dropup"><span class="caret"></span></span>
       </button>
       <ul class="dropdown-menu">
-        <li ng-repeat="category in board.categories" ng-click="moveTaskToCategory(category)"><a href>{{category.name}}</a></li>
+        <li ng-repeat="category in changeableCategories" ng-click="moveTaskToCategory(category)"><a href>{{category.name}}</a></li>
       </ul>
     </div>
 
