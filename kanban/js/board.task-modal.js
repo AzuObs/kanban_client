@@ -57,17 +57,17 @@
 
 
 			$scope.endAllEditting = function(e) {
-				$scope.editTaskName(e);
+				// $scope.editTaskName(e);
 			};
 
 			$scope.editTaskName = function(e) {
-				if (e.which === 13 || e.type === "click") {
+				if ((e.type === "keypress" && e.which === 13) || e.type === "click") {
 					if (!$scope.isEdittingTaskName) {
 						$scope.isEdittingTaskName = true;
 					} else {
 						$scope.isEdittingTaskName = false;
 						APIService
-							.updateTask($scope.board._id, $scope.category._id, $scope.task)
+							.updateBoard($scope.board)
 							.then(function(res) {
 								$scope.board._v++;
 							}, function(err) {

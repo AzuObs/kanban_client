@@ -4,7 +4,7 @@
 
 <div class="modal-title">
   <input type="text" ng-model="task.name" class="form-control" ng-show="isEdittingTaskName" ng-keypress="editTaskName($event)">
-  <h3 ng-hide="isEdittingTaskName" ng-click="editTaskName()">{{task.name}}</h3>
+  <h3 ng-hide="isEdittingTaskName" ng-click="editTaskName($event)">{{task.name}}</h3>
   <h4 class="text-muted">in list <b>{{category.name | uppercase}}</b></h4>
 </div>
 
@@ -39,7 +39,7 @@
     <button ng-click="editTaskName($event)" class="btn btn-grey btn-block">Rename Task</button>
     <!-- dropdown -->
     <div class="button-group" dropdown is-open="status.aMemIsOpen">
-      <button class="btn btn-grey btn-block" dropdown-toggle>Add Member
+      <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="task.users.length===5">Add Member
         <span ng-hide="status.aMemIsOpen" class="caret"></span>
         <span ng-show="status.aMemIsOpen" class="dropup"><span class="caret"></span></span>
       </button>
@@ -50,7 +50,7 @@
 
     <!-- dropdown -->
     <div class="button-group" dropdown is-open="status.cCatIsOpen">
-      <button class="btn btn-grey btn-block" dropdown-toggle>Change Category
+      <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="board.categories.length < 2">Change Category
         <span ng-hide="status.cCatIsOpen" class="caret"></span>
         <span ng-show="status.cCatIsOpen" class="dropup"><span class="caret"></span></span>
       </button>
@@ -62,12 +62,12 @@
     <hr>
     <!-- dropdown -->
     <div class="button-group" dropdown is-open="status.rMemIsOpen">
-      <button class="btn btn-danger btn-block" dropdown-toggle>Remove Member
+      <button class="btn btn-danger btn-block" dropdown-toggle ng-disabled="!task.users.length">Remove Member
         <span ng-hide="status.rMemIsOpen" class="caret"></span>
         <span ng-show="status.rMemIsOpen" class="dropup"><span class="caret"></span></span>
       </button>
       <ul class="dropdown-menu">
-        <li ng-repeat="user in users" ng-click="removeUserFromTask(user)"><a href>{{user.username}}</a></li>
+        <li ng-repeat="user in task.users" ng-click="removeUserFromTask(user)"><a href>{{user.username}}</a></li>
       </ul>
     </div>
 
