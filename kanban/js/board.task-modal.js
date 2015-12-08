@@ -16,7 +16,7 @@
 			});
 
 			$scope.category = $scope.board.categories[iCat];
-			$scope.task = $scope.category.tasks[iTask];
+			$scope.task = $scope.board.categories[iCat].tasks[iTask];
 			$scope.isEdittingTaskName = false;
 			$scope.isDeletingTask = false;
 			$scope.repeatTaskName = '';
@@ -25,7 +25,22 @@
 
 
 			$scope.removeUserFromTask = function(user) {
+				var iUser = -1;
+				iUser = $scope.task.users.findIndex(function(e) {
+					return e._id === user._id;
+				});
 
+				$scope.task.users.splice(iUser, 1);
+
+				APIService
+					.updateBoard($scope.board)
+					.then(function() {
+						console.log("boardupdated");
+						calculateAddableUsers($scope);
+						$scope.board._v++;
+					}, function(err) {
+						$log.log(err);
+					});
 			};
 
 			$scope.moveTaskToCategory = function(category) {
@@ -154,6 +169,7 @@
 				}
 			}
 		}
+
 	};
 
 })();
