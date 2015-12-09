@@ -126,9 +126,9 @@
 				if (!keyEvent || keyEvent.which === 13) {
 
 					APIService
-						.createComment($scope.commentInput, user._id, $scope.category._id, $scope.board._id, $scope.task._id)
+						.createComment($scope.commentInput, $scope.user.username, $scope.user.pictureUrl, $scope.board._id, $scope.category._id, $scope.task._id)
 						.then(function(res) {
-							$scope.task.comments.push(res);
+							$scope.task.comments.unshift(res);
 						}, function(err) {
 							$log.log(err);
 						});

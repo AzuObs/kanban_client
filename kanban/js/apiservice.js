@@ -76,10 +76,11 @@
 		};
 
 
-		this.createComment = function(content, userId, catId, boardId, taskId) {
+		this.createComment = function(content, username, userPicUrl, boardId, catId, taskId) {
 			var body = {
 				content: content,
-				userId: userId,
+				username: username,
+				userPicUrl: userPicUrl,
 				catId: catId,
 				boardId: boardId,
 				taskId: taskId

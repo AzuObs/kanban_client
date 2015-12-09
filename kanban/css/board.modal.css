@@ -23,6 +23,14 @@
   width: 450px;
 }
 
+.task-modal {
+  padding: 0px;
+  margin: 0px;
+  flex: 0 1 auto;
+  min-height: 0px;
+  flex-direction: column;
+}
+
 .modal-lg > .modal-content {
   height: 100%;
   min-height: 450px;

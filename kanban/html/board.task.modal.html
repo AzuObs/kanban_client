@@ -1,81 +1,83 @@
-<div class="modal-close">
-  <span ng-click="closeModal()" class="btn glyphicon glyphicon-remove"></span>
-</div>
-
-<div class="modal-title">
-  <input type="text" ng-model="task.name" class="form-control" ng-show="isEdittingTaskName" ng-keypress="editTaskName($event)">
-  <h3 ng-hide="isEdittingTaskName" ng-click="editTaskName($event)">{{task.name}}</h3>
-  <h4 class="text-muted">in list <b>{{category.name | uppercase}}</b></h4>
-</div>
-
-<div class="modal-content-container" ng-click="endAllEditting($event)">
-  <div class="modal-left-content">
-    <div class="modal-user-list">
-      <kb-user class="modal-user" ng-repeat="user in task.users"></kb-user>
-    </div>
-
-    <div class="modal-newcomment">
-      <b>Activity</b>
-      <div class="form-group">
-        <textarea class="form-control" placeholder="Add a comment..." ng-model="commentInput"></textarea>
-        <button ng-click="createComment()" class="btn btn-black btn-block">Add Comment</button>
-      </div>
-    </div>
-
-    <div class="comment-list ui-fancy-scroll">
-      <div class="comment-container" ng-repeat="comment in task.comments">
-        <div class="comment-img"><img src="http://i.imgur.com/enaJkvo.jpg"></div>
-        <div class="comment-content">
-          <div><b>Daniel</b></div>
-          <div>{{comment.content}}</div>
-          <small class="text-muted">{{ageOfPost(comment.date)}}</small>
-        </div>
-        <br>
-      </div>
-    </div>
+<div class="task-modal" ng-click="endAllEditting($event)">
+  <div class="modal-close">
+    <span ng-click="closeModal()" class="btn glyphicon glyphicon-remove"></span>
   </div>
 
-  <div class="modal-right-content">
-    <button ng-click="editTaskName($event)" class="btn btn-grey btn-block">Rename Task</button>
-    <div class="button-group" dropdown is-open="status.aMemIsOpen">
-      <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="task.users.length===5">Add Member
-        <span ng-hide="status.aMemIsOpen" class="caret"></span>
-        <span ng-show="status.aMemIsOpen" class="dropup"><span class="caret"></span></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li ng-repeat="user in addableUsers" ng-click="addUserToTask(user)"><a href>{{user.username}}</a></li>
-      </ul>
+  <div class="modal-title">
+    <input type="text" ng-model="task.name" class="form-control" ng-show="isEdittingTaskName" ng-keypress="editTaskName($event)">
+    <h3 ng-hide="isEdittingTaskName" ng-click="editTaskName($event)">{{task.name}}</h3>
+    <h4 class="text-muted">in list <b>{{category.name | uppercase}}</b></h4>
+  </div>
+
+  <div class="modal-content-container">
+    <div class="modal-left-content">
+      <div class="modal-user-list">
+        <kb-user class="modal-user" ng-repeat="user in task.users"></kb-user>
+      </div>
+
+      <div class="modal-newcomment">
+        <b>Activity</b>
+        <div class="form-group">
+          <textarea class="form-control" placeholder="Add a comment..." ng-model="commentInput"></textarea>
+          <button ng-click="createComment()" class="btn btn-black btn-block">Add Comment</button>
+        </div>
+      </div>
+
+      <div class="comment-list ui-fancy-scroll">
+        <div class="comment-container" ng-repeat="comment in task.comments">
+          <div class="comment-img"><img ng-src="{{comment.userPicUrl}}"></div>
+          <div class="comment-content">
+            <div><b>{{comment.username}}</b></div>
+            <div>{{comment.content}}</div>
+            <small class="text-muted">{{ageOfPost(comment.date)}}</small>
+          </div>
+          <br>
+        </div>
+      </div>
     </div>
 
-    <div class="button-group" dropdown is-open="status.cCatIsOpen">
-      <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="!changeableCategories.length">Change Category
-        <span ng-hide="status.cCatIsOpen" class="caret"></span>
-        <span ng-show="status.cCatIsOpen" class="dropup"><span class="caret"></span></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li ng-repeat="category in changeableCategories" ng-click="moveTaskToCategory(category)"><a href>{{category.name}}</a></li>
-      </ul>
-    </div>
+    <div class="modal-right-content">
+      <button ng-click="editTaskName($event)" class="btn btn-grey btn-block">Rename Task</button>
+      <div class="button-group" dropdown is-open="status.aMemIsOpen">
+        <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="task.users.length===5">Add Member
+          <span ng-hide="status.aMemIsOpen" class="caret"></span>
+          <span ng-show="status.aMemIsOpen" class="dropup"><span class="caret"></span></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="user in addableUsers" ng-click="addUserToTask(user)"><a href>{{user.username}}</a></li>
+        </ul>
+      </div>
 
-    <hr>
+      <div class="button-group" dropdown is-open="status.cCatIsOpen">
+        <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="!changeableCategories.length">Change Category
+          <span ng-hide="status.cCatIsOpen" class="caret"></span>
+          <span ng-show="status.cCatIsOpen" class="dropup"><span class="caret"></span></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="category in changeableCategories" ng-click="moveTaskToCategory(category)"><a href>{{category.name}}</a></li>
+        </ul>
+      </div>
 
-    <div class="button-group" dropdown is-open="status.rMemIsOpen">
-      <button class="btn btn-danger btn-block" dropdown-toggle ng-disabled="!task.users.length">Remove Member
-        <span ng-hide="status.rMemIsOpen" class="caret"></span>
-        <span ng-show="status.rMemIsOpen" class="dropup"><span class="caret"></span></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li ng-repeat="user in task.users" ng-click="removeUserFromTask(user)"><a href>{{user.username}}</a></li>
-      </ul>
-    </div>
+      <hr>
 
-    <button ng-click="deleteTask($event)" class="btn btn-danger btn-block">Delete Task</button>
-    <div class="input-group" ng-show="isDeletingTask">
-      <span class="input-group-btn">
+      <div class="button-group" dropdown is-open="status.rMemIsOpen">
+        <button class="btn btn-danger btn-block" dropdown-toggle ng-disabled="!task.users.length">Remove Member
+          <span ng-hide="status.rMemIsOpen" class="caret"></span>
+          <span ng-show="status.rMemIsOpen" class="dropup"><span class="caret"></span></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="user in task.users" ng-click="removeUserFromTask(user)"><a href>{{user.username}}</a></li>
+        </ul>
+      </div>
+
+      <button ng-click="deleteTask($event)" class="btn btn-danger btn-block">Delete Task</button>
+      <div class="input-group" ng-show="isDeletingTask">
+        <span class="input-group-btn">
         <button ng-click="deleteTask($event)" class="btn btn-black">!</button>
       </span>
-      <input ng-model="repeatTaskName" ng-keypress="deleteTask($event)" type="text" class="form-control" placeholder="enter task name">
-    </div>
+        <input ng-model="repeatTaskName" ng-keypress="deleteTask($event)" type="text" class="form-control" placeholder="enter task name">
+      </div>
 
+    </div>
   </div>
 </div>
