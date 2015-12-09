@@ -9,12 +9,9 @@
 <hr>
 <div class="boardEdit-options">
   <h4>Options</h4>
-  <div ng-repeat="option in options">
-    <div class="input-group">
-      <span class="input-group-addon">
-        {{option.name}}
-      </span>
-      <input type="text" class="form-control">
-    </div>
-  </div>
+
+  <button class="btn btn-danger btn-block" ng-click="deleteBoard($event)">Delete Board</button>
+  <p ng-show="isDeletingBoard" class="text-danger"><em>Are you sure? Deleting a board is permanent. To be sure, please enter the name of the board below followed be enter.</em>
+  </p>
+  <input ng-model="repeatBoardName" ng-show="isDeletingBoard" type="text" class="delete-board form-control" placeholder="enter board name" ng-keypress="deleteBoard($event)">
 </div>

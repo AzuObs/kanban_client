@@ -75,10 +75,13 @@
 			};
 
 			$scope.deleteTask = function(e) {
-				if (e.type === "click") {
+				if (e.type === "click" && !angular.element(e.target).hasClass("delete-task-button")) {
 					$scope.isDeletingTask = !$scope.isDeletingTask;
+					setTimeout(function() {
+						angular.element("input.delete-task").focus();
+					}, 0);
 				} else {
-					if (e.which === 13) {
+					if ((e.type = "keypress" && e.which === 13) || angular.element(e.target).hasClass("delete-task-button")) {
 						if ($scope.repeatTaskName === $scope.task.name) {
 							$scope.category.tasks.splice(iTask, 1);
 							APIService
@@ -98,7 +101,18 @@
 
 
 			$scope.endAllEditting = function(e) {
-				// $scope.editTaskName(e);
+				if (!e || !(e.type === "click")) {
+					$log.log("no event was passed to endAllEditting");
+				}
+
+				if ($scope.isEdittingTaskName && !angular.element(e.target).hasClass("task-name-edit")) {
+					$scope.editTaskName(e);
+				}
+
+				if ($scope.isDeletingTask && !angular.element(e.target).hasClass("delete-task")) {
+					$scope.isDeletingTask = false;
+					$scope.repeatTaskName = "";
+				}
 			};
 
 			$scope.editTaskName = function(e) {

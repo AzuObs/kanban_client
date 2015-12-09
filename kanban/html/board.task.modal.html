@@ -5,7 +5,7 @@
 
   <div class="modal-title">
     <input type="text" ng-model="task.name" class="form-control" ng-show="isEdittingTaskName" ng-keypress="editTaskName($event)">
-    <h3 ng-hide="isEdittingTaskName" ng-click="editTaskName($event)">{{task.name}}</h3>
+    <h3 ng-hide="isEdittingTaskName" class="task-name-edit" ng-click="editTaskName($event)">{{task.name}}</h3>
     <h4 class="text-muted">in list <b>{{category.name | uppercase}}</b></h4>
   </div>
 
@@ -37,7 +37,7 @@
     </div>
 
     <div class="modal-right-content">
-      <button ng-click="editTaskName($event)" class="btn btn-grey btn-block">Rename Task</button>
+      <button ng-click="editTaskName($event)" class="btn btn-grey btn-block task-name-edit">Rename Task</button>
       <div class="button-group" dropdown is-open="status.aMemIsOpen">
         <button class="btn btn-grey btn-block" dropdown-toggle ng-disabled="task.users.length===5">Add Member
           <span ng-hide="status.aMemIsOpen" class="caret"></span>
@@ -70,12 +70,12 @@
         </ul>
       </div>
 
-      <button ng-click="deleteTask($event)" class="btn btn-danger btn-block">Delete Task</button>
+      <button ng-click="deleteTask($event)" class="btn btn-danger btn-block delete-task">Delete Task</button>
       <div class="input-group" ng-show="isDeletingTask">
         <span class="input-group-btn">
-        <button ng-click="deleteTask($event)" class="btn btn-black">!</button>
+        <button ng-click="deleteTask($event)" class="btn btn-black delete-task delete-task-button">!</button>
       </span>
-        <input ng-model="repeatTaskName" ng-keypress="deleteTask($event)" type="text" class="form-control" placeholder="enter task name">
+        <input ng-model="repeatTaskName" ng-keypress="deleteTask($event)" type="text" class="form-control delete-task" placeholder="enter task name">
       </div>
 
     </div>

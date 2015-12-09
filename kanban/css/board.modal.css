@@ -25,9 +25,10 @@
 
 .modal-lg > .modal-content {
   height: 100%;
-  min-height: 450px;
+  min-height: 400px;
   width: 600px;
   padding: 20px;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
 }
@@ -35,7 +36,7 @@
 .task-modal {
   padding: 0px;
   margin: 0px;
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   min-height: 0px;
   display: flex;
   flex-direction: column;
@@ -47,11 +48,11 @@
 }
 
 .modal-title {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
 }
 
 .modal-content-container {
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   min-height: 250px;
   display: flex;
   max-width: 560px;

@@ -1,8 +1,8 @@
-.board-list-container *[ng-repeat] > a,
-.board-list-container *[ng-repeat] > span {
+.board-list > * {
   display: inline-block;
   margin-top: 10px;
   font-size: 2em;
+  white-space: pre;
 }
 
 

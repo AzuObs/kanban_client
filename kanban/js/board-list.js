@@ -36,23 +36,21 @@
 					});
 			};
 
-			$scope.editBoard = function(_board) {
-				openEditBoardModal($scope.user, _board);
+			$scope.openBoardModal = function(board) {
+				$modal.open({
+					animation: true,
+					size: "md",
+					templateUrl: "kanban/html/list-board.modal.html",
+					controller: "editBoardModalCtrl",
+					scope: $scope,
+					resolve: {
+						board: function() {
+							return board;
+						}
+					}
+				});
 			};
 
-			$scope.deleteBoard = function(board) {
-				APIService
-					.deleteBoard(board._id)
-					.then(function(res) {
-						for (var i = 0; i < $scope.boards.length; i++) {
-							if ($scope.boards[i]._id === board._id) {
-								$scope.boards.splice(i, 1);
-							}
-						}
-					}, function(err) {
-						$log.log(err);
-					});
-			};
 
 			$scope.goToBoard = function(board) {
 				sessionStorage.boardId = board._id;
@@ -60,44 +58,56 @@
 					boardName: board.name
 				});
 			};
-
-			var openEditBoardModal = function(_user, _board) {
-				$modal.open({
-					animation: true,
-					size: "md",
-					templateUrl: "kanban/html/list-board.modal.html",
-					controller: "editBoardModalCtrl",
-					resolve: {
-						user: function() {
-							return _user;
-						},
-						board: function() {
-							return _board;
-						}
-					}
-				});
-			};
 		}
 	]);
 
 
-	module.controller("editBoardModalCtrl", ["$scope", "$modalInstance", "user", "board", function($scope, $modalInstance, user, board) {
-		$scope.user = user;
-		$scope.board = board;
-		$scope.options = [{
-			name: "change user",
-			type: "text"
-		}, {
-			name: "change name",
-			type: "text"
-		}, {
-			name: "change position in list",
-			type: "text"
-		}];
+	module.controller("editBoardModalCtrl", ["$log", "APIService", "$scope", "$modalInstance", "board",
+		function($log, APIService, $scope, $modalInstance, board) {
+			$scope.board = board;
+			$scope.repeatBoardName = "";
+			$scope.isDeletingBoard = false;
 
-		$scope.closeModal = function() {
-			$modalInstance.dismiss();
-		};
-	}]);
+			$scope.deleteBoard = function(e) {
+				if (!e) {
+					return $log.log("no event passed to deleteBoard");
+				}
+
+				if (e.type === "click" && !angular.element(e.target).hasClass("delete-board")) {
+					$scope.isDeletingBoard = !$scope.isDeletingBoard;
+					angular.element("delete-board").focus();
+					$scope.repeatBoardName = "";
+				}
+
+				if (e.type === "keypress" && e.which === 13) {
+					if ($scope.repeatBoardName === $scope.board.name) {
+						APIService
+							.deleteBoard($scope.board._id)
+							.then(function(res) {
+								for (var i = 0; i < $scope.boards.length; i++) {
+									if ($scope.boards[i]._id === $scope.board._id) {
+										$scope.boards.splice(i, 1);
+									}
+								}
+								$modalInstance.dismiss();
+							}, function(err) {
+								$log.log(err);
+							});
+					} else {
+						$log.log("board name does not match input");
+					}
+				}
+			};
+
+			$scope.renameBoard = function(newname) {
+
+			};
+
+
+			$scope.closeModal = function() {
+				$modalInstance.dismiss();
+			};
+		}
+	]);
 
 })();
