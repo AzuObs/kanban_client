@@ -68,7 +68,6 @@
 
 	module.controller("editUserModalCtrl", ["$scope", "$modalInstance", "APIService", "user", "board",
 		function($scope, $modalInstance, APIService, user, board) {
-
 			$scope.user = user;
 			$scope.board = board;
 
