@@ -1,19 +1,23 @@
+.board-list {
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
 .board-list > * {
   display: inline-block;
   margin-top: 10px;
-  font-size: 2em;
-  white-space: pre;
 }
 
-
-/*this must be below the other .board-list-container *[ng-repeat] rules */
-
-.board-list-container *[ng-repeat] > .glyphicon {
-  margin-bottom: 3px;
+.board-list > span > a:first-child {
+  font-size: 25px;
 }
 
-#boards-dropdown-menu {
+.board-list > span > a:nth-child(2) {
+  font-size: 14px;
   color: #000;
-  font-size: 0.7em;
   text-decoration: none;
+}
+
+span[ng-hide="$last"] {
+  white-space: pre;
 }

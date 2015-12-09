@@ -71,6 +71,7 @@
       </div>
 
       <button ng-click="deleteTask($event)" class="btn btn-danger btn-block delete-task">Delete Task</button>
+      <em ng-show="isDeletingTask" class="text-danger">Please enter board name to confirm.</em>
       <div class="input-group" ng-show="isDeletingTask">
         <span class="input-group-btn">
         <button ng-click="deleteTask($event)" class="btn btn-black delete-task delete-task-button">!</button>

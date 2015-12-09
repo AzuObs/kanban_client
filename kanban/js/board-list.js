@@ -66,17 +66,40 @@
 		function($log, APIService, $scope, $modalInstance, board) {
 			$scope.board = board;
 			$scope.repeatBoardName = "";
+			$scope.isEditingName = false;
 			$scope.isDeletingBoard = false;
+
+			$scope.cancelEditing = function(e) {
+				if (!e) {
+					$log.log("no event passed to cancel editing");
+				}
+
+				if ($scope.isEditingName) {
+					if (!angular.element(e.target).hasClass("edit-board")) {
+						$scope.isEditingName = false;
+					}
+				}
+
+				if ($scope.isDeletingBoard) {
+					if (!angular.element(e.target).hasClass("delete-board")) {
+						$scope.isDeletingBoard = false;
+						$scope.repeatBoardName = "";
+					}
+				}
+			};
+
 
 			$scope.deleteBoard = function(e) {
 				if (!e) {
 					return $log.log("no event passed to deleteBoard");
 				}
 
-				if (e.type === "click" && !angular.element(e.target).hasClass("delete-board")) {
+				if (e.type === "click" && !angular.element(e.target).hasClass("delete-board-input")) {
 					$scope.isDeletingBoard = !$scope.isDeletingBoard;
-					angular.element("delete-board").focus();
 					$scope.repeatBoardName = "";
+					setTimeout(function() {
+						angular.element(".delete-board-input").focus();
+					}, 0);
 				}
 
 				if (e.type === "keypress" && e.which === 13) {
@@ -99,8 +122,28 @@
 				}
 			};
 
-			$scope.renameBoard = function(newname) {
+			$scope.renameBoard = function(e) {
+				if (!e) {
+					return $log.log("no event passed to renameBoard");
+				}
 
+				if (e.type === "click" && !$scope.isEditingName) {
+					$scope.isEditingName = true;
+					setTimeout(function() {
+						angular.element(".board-name").focus();
+					}, 0);
+				}
+
+				if (e.type === "keypress" & e.which === 13) {
+					APIService
+						.updateBoard($scope.board)
+						.then(function() {
+							board._v++;
+							$scope.isEditingName = false;
+						}, function(err) {
+							$log.log(err);
+						});
+				}
 			};
 
 

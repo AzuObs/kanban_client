@@ -3,8 +3,8 @@
   <div class="board-list-container container">
     <div class="board-list">
       <span ng-repeat="board in boards">
-<!-- --><a href ng-click="goToBoard(board)">{{board.name}}</a
-        ><a href id="boards-dropdown-menu" class="open-board-modal glyphicon glyphicon-plus" ng-click="openBoardModal(board)"></a
+        <a href ng-click="goToBoard(board)"> {{board.name}}</a>
+        <a href class="open-board-modal glyphicon glyphicon-pencil" ng-click="openBoardModal(board)"></a
         ><span ng-hide="$last">, </span>
       </span>
     </div>
@@ -13,7 +13,7 @@
       <div class="input-group-btn">
         <button class="btn btn-sm btn-black" ng-click="createBoard()">Create Board</button>
       </div>
-      <input ng-model="boardName" class="form-control input-sm" type="text" placeholder="type here the name of your billboard">
+      <input ng-model="boardName" class="form-control input-sm" type="text" placeholder="type in the name of your board">
     </div>
   </div>
   <hr>
