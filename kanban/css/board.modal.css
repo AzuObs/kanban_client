@@ -170,7 +170,7 @@
   text-overflow: ellipsis;
 }
 
-.boardEdit-options .input-group {
+.boardEdit-options > * {
   margin-bottom: 3px;
 }
 

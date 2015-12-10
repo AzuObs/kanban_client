@@ -1,28 +1,39 @@
-<div class="user-modal">
+<div class="user-modal" ng-click="cancelEditing($event)">
   <div class="modal-close">
     <span ng-click="closeModal()" class="btn glyphicon glyphicon-remove"></span>
   </div>
 
   <div class="modal-title">
-    <h3>{{user.username}}</h3>
+    <h3>{{modalUser.username}}</h3>
     <h4 class="text-muted">in board <b>{{board.name | uppercase}}</b></h4>
   </div>
 
   <div class="modal-user-list">
-    <kb-user class="modal-user"></kb-user>
+    <kb-user class="modal-user" ng-repeat="user in [modalUser]"></kb-user>
   </div>
 
   <hr>
   <div class="boardEdit-options">
     <h4>Options</h4>
-    <div ng-repeat="option in options">
-      <div class="input-group">
-        <span class="input-group-addon">
-        {{option.name}}
-      </span>
-        <input type="text" class="form-control">
+
+    <button class="btn btn-default btn-block change-rbac" ng-click="changeUserRBAC($event)">Change Priviledges</button>
+    <div ng-show="isEditingRBAC" class="change-rbac">
+      <div class="checkbox change-rbac">
+        <label class="change-rbac">
+          <input class="change-rbac" type="checkbox" ng-model="userRBAC" ng-true-value="'admin'" ng-false-value="'member'">Admin
+        </label>
       </div>
+      <div class="checkbox change-rbac">
+        <label class="change-rbac">
+          <input class="change-rbac" type="checkbox" ng-model="userRBAC" ng-true-value="'member'" ng-false-value="'admin'">Member
+        </label>
+      </div>
+      <em class="text-muted change-rbac">This feature is under development and is currently unavailable.</em>
+      <button ng-disabled="true" class="btn btn-default btn-block change-rbac" ng-click="changeUserRBAC($event)">Submit</button>
     </div>
-    <button class="btn btn-danger btn-block" ng-click="removeUserFromBoard()">Remove User</button>
+
+    <button class="remove-user btn btn-danger btn-block" ng-click="removeUser($event)">Remove User</button>
+    <em ng-show="isDeleting" class="remove-user text-danger">You are about to remove the user "{{modalUser.username}}" from your board. To confirm, please type the name of the user followed by enter.</em>
+    <input ng-show="isDeleting" type="text" class="remove-user form-control" placeholder="name of user" ng-keypress="removeUser($event)" ng-model="repeatUsername">
   </div>
 </div>

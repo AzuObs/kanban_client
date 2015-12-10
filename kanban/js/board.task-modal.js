@@ -74,6 +74,11 @@
 					});
 			};
 
+
+			$scope.closeModal = function() {
+				$modalInstance.close();
+			};
+
 			$scope.deleteTask = function(e) {
 				if (e.type === "click" && !angular.element(e.target).hasClass("delete-task-button")) {
 					$scope.isDeletingTask = !$scope.isDeletingTask;
@@ -101,7 +106,7 @@
 
 
 			$scope.endAllEditting = function(e) {
-				if (!e || !(e.type === "click")) {
+				if (!e || (e.type != "click")) {
 					$log.log("no event was passed to endAllEditting");
 				}
 
