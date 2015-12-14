@@ -23,6 +23,7 @@
 
 .task-container {
   width: 100%;
+  flex: 1 0 auto;
   min-height: 70px;
   margin-bottom: 3px;
   padding: 0px 5px 0px 5px;
