@@ -4,15 +4,6 @@
 	var module = angular.module("categoryModule", []);
 
 
-	module.directive("kbCategory", function() {
-		return {
-			restrict: "E",
-			replace: true,
-			templateUrl: "app/board-page/category/category-directive.html"
-		};
-	});
-
-
 	module.controller("categoryCtrl", ["$scope", "$log", "boardAPI", function($scope, $log, boardAPI) {
 
 		$scope.createCategory = function(name, keyEvent) {

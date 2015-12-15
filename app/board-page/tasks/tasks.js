@@ -4,15 +4,6 @@
 	var module = angular.module("taskModule", []);
 
 
-	module.directive("kbTask", function() {
-		return {
-			restrict: "E",
-			replace: true,
-			templateUrl: "app/board-page/task/task-directive.html"
-		};
-	});
-
-
 	module.controller("taskCtrl", ["$scope", "boardAPI", "$modal", "$log", function($scope, boardAPI, $modal, $log) {
 		// this.$scope child of category.$scope
 		$scope.taskSortOptions = {
@@ -35,7 +26,7 @@
 				animation: true,
 				scope: $scope,
 				size: "lg",
-				templateUrl: "app/board-page/task-modal/task-modal.html",
+				templateUrl: "app/board-page/tasks/task-modal/task-modal.html",
 				controller: "taskModalCtrl",
 				resolve: {
 					catId: function() {

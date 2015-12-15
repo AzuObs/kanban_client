@@ -27,31 +27,21 @@
 					}
 				},
 				"category-view@kanban.board": {
-					templateUrl: "app/board-page/category/category.html",
+					templateUrl: "app/board-page/categories/categories.html",
 					controller: "categoryCtrl"
 				},
 				"user-menu-view@kanban.board": {
-					templateUrl: "app/board-page/user-menu/user-menu.html",
+					templateUrl: "app/board-page/users/users.html",
 					controller: "userMenuCtrl"
 				},
 				"task-view@kanban.board": {
-					templateUrl: "app/board-page/task/task.html",
+					templateUrl: "app/board-page/tasks/tasks.html",
 					controller: "taskCtrl"
 				}
 			},
 			url: "/board/:boardName"
 		});
 	}]);
-
-
-	//used by userMenu, task, and comments
-	module.directive("kbUser", function() {
-		return {
-			restrict: "E",
-			replace: true,
-			templateUrl: "app/board-page/user-menu/user-directive.html"
-		};
-	});
 
 
 	module.controller("boardCtrl", ["$scope", "$log", "$modal", "user", "board", "boardAPI",

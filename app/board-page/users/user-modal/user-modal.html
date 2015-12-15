@@ -33,7 +33,7 @@
     </div>
 
     <button class="remove-user btn btn-danger btn-block" ng-click="removeUser($event)">Remove User</button>
-    <em ng-show="isDeleting" class="remove-user text-danger">You are about to remove the user "{{modalUser.username}}" from your board. To confirm, please type the name of the user followed by enter.</em>
+    <em ng-show="isDeleting" class="remove-user text-danger">You are about to remove the user "{{modalUser.username}}" from your board. Confirm by typing the name of the user and press by enter.</em>
     <input ng-show="isDeleting" type="text" class="remove-user form-control" placeholder="name of user" ng-keypress="removeUser($event)" ng-model="repeatUsername">
   </div>
 </div>

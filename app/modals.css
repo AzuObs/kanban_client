@@ -126,7 +126,10 @@
   margin-right: 3px;
 }
 
-.modal-user #userImg {
+
+/*increase specificity*/
+
+.modal-user[ng-click="editUser(user)"] img {
   height: 50px;
   width: 50px;
   border: 1px solid #aaa;

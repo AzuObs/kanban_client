@@ -40,7 +40,7 @@
 
 /* user-CONTAINER */
 
-.user-container #userImg {
+.user-container img {
   height: 32px;
   width: 32px;
   border: 1px solid #aaa;

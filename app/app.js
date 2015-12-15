@@ -12,10 +12,15 @@
 		"oauthServiceModule",
 		"boardAPIModule",
 		"boardListModule",
+		"boardModalModule",
 		"boardModule",
-		"userMenuModule",
 		"categoryModule",
+		"categoryDirectiveModule",
+		"userMenuModule",
+		"userDirectiveModule",
+		"userModalModule",
 		"taskModule",
+		"taskDirectiveModule",
 		"taskModalModule"
 	]);
 
