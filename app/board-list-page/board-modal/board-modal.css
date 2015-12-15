@@ -1,0 +1,6 @@
+.board-modal {
+  flex: 0 1 auto;
+  width: 410px;
+  display: flex;
+  flex-direction: column;
+}

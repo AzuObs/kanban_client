@@ -5,7 +5,6 @@
 
 
 	module.controller("taskCtrl", ["$scope", "boardAPI", "$modal", "$log", function($scope, boardAPI, $modal, $log) {
-		// this.$scope child of category.$scope
 		$scope.taskSortOptions = {
 			horizontal: false,
 			tolerance: "pointer",

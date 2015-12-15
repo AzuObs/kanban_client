@@ -1,0 +1,102 @@
+/* hack: can't set min-height of .task-modal; .modal-content will go lower than min-height*/
+
+.modal-lg > .modal-content {
+  flex: 0 1 auto;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-modal {
+  width: 560px;
+  flex: 0 1 auto;
+  min-height: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content-container {
+  flex: 1 1 auto;
+  min-height: 250px;
+  display: flex;
+  max-width: 560px;
+}
+
+.modal-left-content {
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.modal-right-content {
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-list {
+  flex: 0 1 auto;
+  min-height: 0px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-container {
+  display: flex;
+  flex: 0 1 auto;
+  max-width: 100%;
+  min-width: 0px;
+}
+
+.modal-newcomment {
+  margin-top: 20px;
+}
+
+.modal-newcomment textarea {
+  flex: 1 0 auto;
+  margin-top: 3px;
+  margin-bottom: 2px;
+  width: 380px;
+  max-width: 380px;
+  height: 50px;
+  max-height: 200px;
+  min-height: 50px;
+}
+
+.modal .input-group {
+  margin-top: 2px;
+}
+
+.comment-img img {
+  height: 45px;
+  width: 45px;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 0 1 auto;
+  min-width: 0px;
+  overflow: hidden;
+}
+
+.comment-content:nth-child(2) {
+  white-space: pre-line;
+  text-overflow: ellipsis;
+}
+
+.comment {
+  float: left;
+  font-size: 0.85em;
+  margin: 21px 0px 0px 2px;
+}
+
+.comment span {
+  position: relative;
+  bottom: 1px;
+  left: 2px;
+}

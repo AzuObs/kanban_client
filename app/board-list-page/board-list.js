@@ -50,7 +50,6 @@
 			$scope.openBoardModal = function(board) {
 				$modal.open({
 					animation: true,
-					size: "md",
 					templateUrl: "app/board-list-page/board-modal/board-modal.html",
 					controller: "boardModalCtrl",
 					scope: $scope,
