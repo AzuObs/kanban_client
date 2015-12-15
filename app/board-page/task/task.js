@@ -1,19 +1,19 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("kanbanTaskModule", []);
+	var module = angular.module("taskModule", []);
 
 
 	module.directive("kbTask", function() {
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "app/board/html/board.task.directive.html"
+			templateUrl: "app/board-page/task/task-directive.html"
 		};
 	});
 
 
-	module.controller("kanbanTaskCtrl", ["$scope", "APIService", "$modal", "$log", function($scope, APIService, $modal, $log) {
+	module.controller("taskCtrl", ["$scope", "boardAPI", "$modal", "$log", function($scope, boardAPI, $modal, $log) {
 		// this.$scope child of category.$scope
 		$scope.taskSortOptions = {
 			horizontal: false,
@@ -35,8 +35,8 @@
 				animation: true,
 				scope: $scope,
 				size: "lg",
-				templateUrl: "app/board/html/board.task.modal.html",
-				controller: "kanbanTaskModalCtrl",
+				templateUrl: "app/board-page/task-modal/task-modal.html",
+				controller: "taskModalCtrl",
 				resolve: {
 					catId: function() {
 						return _cat._id;
@@ -50,7 +50,7 @@
 
 
 		$scope.deleteTask = function(category, taskId) {
-			APIService
+			boardAPI
 				.deleteTask($scope.board._id, category._id, taskId)
 				.then(function(res) {
 					for (var i = 0; i < category.tasks.length; i++) {
@@ -67,7 +67,7 @@
 			if (!keyEvent || keyEvent.which === 13) {
 				$scope.taskName = "";
 
-				APIService
+				boardAPI
 					.createTask($scope.board._id, category._id, name, category.tasks.length)
 					.then(function(res) {
 						category.tasks.push(res);

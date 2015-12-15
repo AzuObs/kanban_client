@@ -1,11 +1,10 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("APIServiceModule", ["ngResource"]);
+	var module = angular.module("boardAPIModule", ["ngResource"]);
 
 
-	module.service("APIService", ["$rootScope", "$q", "$http", function($rootScope, $q, $http) {
-
+	module.service("boardAPI", ["$rootScope", "$q", "$http", function($rootScope, $q, $http) {
 
 		this.removeUserFromBoard = function(board, user) {
 			var q = $q.defer();

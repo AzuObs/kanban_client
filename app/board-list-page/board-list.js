@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("kanbanBoardListModule", ["APIServiceModule"]);
+	var module = angular.module("boardListModule", ["boardAPIModule"]);
 
 
 	module.config(["$stateProvider", function($stateProvider) {
@@ -15,14 +15,14 @@
 					controller: "stateInfoCtrl"
 				},
 				"body@": {
-					templateUrl: "app/board-list/board-list.html",
-					controller: "kanbanBoardListCtrl",
+					templateUrl: "app/board-list-page/board-list.html",
+					controller: "boardListCtrl",
 					resolve: {
-						user: ["APIService", function(APIService) {
-							return APIService.getUser(sessionStorage.userId);
+						user: ["boardAPI", function(boardAPI) {
+							return boardAPI.getUser(sessionStorage.userId);
 						}],
-						boards: ["APIService", function(APIService) {
-							return APIService.getBoardsForUser(sessionStorage.userId);
+						boards: ["boardAPI", function(boardAPI) {
+							return boardAPI.getBoardsForUser(sessionStorage.userId);
 						}]
 					}
 				}
@@ -32,15 +32,13 @@
 	}]);
 
 
-	module.controller("kanbanBoardListCtrl", ["$scope", "$modal", "$state", "$log", "user", "boards", "APIService",
-		function($scope, $modal, $state, $log, user, boards, APIService) {
-			console.log("ping");
-
+	module.controller("boardListCtrl", ["$scope", "$modal", "$state", "$log", "user", "boards", "boardAPI",
+		function($scope, $modal, $state, $log, user, boards, boardAPI) {
 			$scope.user = user;
 			$scope.boards = boards;
 
 			$scope.createBoard = function() {
-				APIService
+				boardAPI
 					.createBoard($scope.user._id, $scope.boardName)
 					.then(function(res) {
 						$scope.boards.push(res);
@@ -53,7 +51,7 @@
 				$modal.open({
 					animation: true,
 					size: "md",
-					templateUrl: "app/board-list/board-list-modal.html",
+					templateUrl: "app/board-list-page/board-list-modal.html",
 					controller: "editBoardModalCtrl",
 					scope: $scope,
 					resolve: {
@@ -75,8 +73,8 @@
 	]);
 
 
-	module.controller("editBoardModalCtrl", ["$log", "APIService", "$scope", "$modalInstance", "board",
-		function($log, APIService, $scope, $modalInstance, board) {
+	module.controller("editBoardModalCtrl", ["$log", "boardAPI", "$scope", "$modalInstance", "board",
+		function($log, boardAPI, $scope, $modalInstance, board) {
 			$scope.board = board;
 			$scope.repeatBoardName = "";
 			$scope.isEditingName = false;
@@ -117,7 +115,7 @@
 
 				if (e.type === "keypress" && e.which === 13) {
 					if ($scope.repeatBoardName === $scope.board.name) {
-						APIService
+						boardAPI
 							.deleteBoard($scope.board._id)
 							.then(function(res) {
 								for (var i = 0; i < $scope.boards.length; i++) {
@@ -148,7 +146,7 @@
 				}
 
 				if (e.type === "keypress" & e.which === 13) {
-					APIService
+					boardAPI
 						.updateBoard($scope.board)
 						.then(function() {
 							board._v++;

@@ -5,17 +5,18 @@
 		"ui.bootstrap",
 		"ui.router",
 		"ui.sortable",
-		"identityModule",
 		"aboutModule",
 		"stateInfoModule",
 		"angular-loading-bar",
-		"APIServiceModule",
-		"kanbanBoardListModule",
-		"kanbanBoardModule",
-		"kanbanUserPanelModule",
-		"kanbanCategoryModule",
-		"kanbanTaskModule",
-		"kanbanTaskModalModule"
+		"oauthModule",
+		"oauthServiceModule",
+		"boardAPIModule",
+		"boardListModule",
+		"boardModule",
+		"userMenuModule",
+		"categoryModule",
+		"taskModule",
+		"taskModalModule"
 	]);
 
 	app.run(["$state", "$rootScope", function($state, $rootScope) {

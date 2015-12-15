@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("kanbanBoardModule", []);
+	var module = angular.module("boardModule", []);
 
 
 	module.config(["$stateProvider", function($stateProvider) {
@@ -15,28 +15,28 @@
 					controller: "stateInfoCtrl"
 				},
 				"body@": {
-					templateUrl: "app/board/html/abstract-board.html",
-					controller: "kanbanBoardCtrl",
+					templateUrl: "app/board-page/board.html",
+					controller: "boardCtrl",
 					resolve: {
-						user: ["APIService", function(APIService) {
-							return APIService.getUser(sessionStorage.userId);
+						user: ["boardAPI", function(boardAPI) {
+							return boardAPI.getUser(sessionStorage.userId);
 						}],
-						board: ["APIService", function(APIService) {
-							return APIService.getBoard(sessionStorage.boardId);
+						board: ["boardAPI", function(boardAPI) {
+							return boardAPI.getBoard(sessionStorage.boardId);
 						}]
 					}
 				},
 				"category-view@kanban.board": {
-					templateUrl: "app/board/html/board.category.html",
-					controller: "kanbanCategoryCtrl"
+					templateUrl: "app/board-page/category/category.html",
+					controller: "categoryCtrl"
 				},
-				"userpanel-view@kanban.board": {
-					templateUrl: "app/board/html/board.user-panel.html",
-					controller: "kanbanUserPanelCtrl"
+				"user-menu-view@kanban.board": {
+					templateUrl: "app/board-page/user-menu/user-menu.html",
+					controller: "userMenuCtrl"
 				},
 				"task-view@kanban.board": {
-					templateUrl: "app/board/html/board.task.html",
-					controller: "kanbanTaskCtrl"
+					templateUrl: "app/board-page/task/task.html",
+					controller: "taskCtrl"
 				}
 			},
 			url: "/board/:boardName"
@@ -44,27 +44,27 @@
 	}]);
 
 
-	//used by userPanel, task, and comments
+	//used by userMenu, task, and comments
 	module.directive("kbUser", function() {
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "app/board/html/board.user.directive.html"
+			templateUrl: "app/board-page/user-menu/user-directive.html"
 		};
 	});
 
 
-	module.controller("kanbanBoardCtrl", ["$scope", "$log", "$modal", "user", "board", "APIService",
-		function($scope, $log, $modal, user, board, APIService) {
+	module.controller("boardCtrl", ["$scope", "$log", "$modal", "user", "board", "boardAPI",
+		function($scope, $log, $modal, user, board, boardAPI) {
 
 			// used in categoryCtrl, taskCtrl, userPanerCtrl, commentModalCtrl
 			$scope.user = user;
 			$scope.board = board;
 			$scope.users = $scope.board.admins.concat($scope.board.members);
 			$scope.showUserList = false;
-			// used by categoryCtrl, taskCtrl and userPanelCtrl
+			// used by categoryCtrl, taskCtrl and userMenuCtrl
 			$scope.updateBoard = function() {
-				APIService
+				boardAPI
 					.updateBoard($scope.board)
 					.then(function(res) {
 						$scope.board._v++;
@@ -73,7 +73,7 @@
 					});
 			};
 
-			// used by tasks and userPanel (connectedList)
+			// used by tasks and userMenu (connectedList)
 			var USER_SELECTION_HEIGHT = 150;
 
 			$scope.userSortOpts = {

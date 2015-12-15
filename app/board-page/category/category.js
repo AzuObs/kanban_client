@@ -1,25 +1,25 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("kanbanCategoryModule", []);
+	var module = angular.module("categoryModule", []);
 
 
 	module.directive("kbCategory", function() {
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "app/board/html/board.category.directive.html"
+			templateUrl: "app/board-page/category/category-directive.html"
 		};
 	});
 
 
-	module.controller("kanbanCategoryCtrl", ["$scope", "$log", "APIService", function($scope, $log, APIService) {
+	module.controller("categoryCtrl", ["$scope", "$log", "boardAPI", function($scope, $log, boardAPI) {
 
 		$scope.createCategory = function(name, keyEvent) {
 			if (!keyEvent || keyEvent.which === 13) {
 				$scope.newCat = "";
 
-				APIService
+				boardAPI
 					.createCategory($scope.board._id, name, $scope.board.categories.length)
 					.then(function(res) {
 						$scope.board.categories.push(res);
@@ -30,7 +30,7 @@
 		};
 
 		$scope.deleteCategory = function(catId) {
-			APIService
+			boardAPI
 				.deleteCategory($scope.board._id, catId)
 				.then(function(res) {
 					for (var i = 0; i < $scope.board.categories.length; i++) {

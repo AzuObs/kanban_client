@@ -1,4 +1,4 @@
-.userpanel-container input::-webkit-input-placeholder {
+.user-menu-container input::-webkit-input-placeholder {
   font-style: italic;
   font-size: .9em;
 }
@@ -8,17 +8,17 @@
   width: 180px;
 }
 
-.userpanel-container {
+.user-menu-container {
   width: 300px;
   height: 90px;
 }
 
-.userpanel-container input[type="text"] {
+.user-menu-container input[type="text"] {
   display: inline;
   width: 180px;
 }
 
-.userpanel-container button {
+.user-menu-container button {
   display: inline;
   width: 100px;
 }

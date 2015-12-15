@@ -1,9 +1,10 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("kanbanUserPanelModule", []);
+	var module = angular.module("userMenuModule", []);
 
-	module.controller("kanbanUserPanelCtrl", ["$scope", "$modal", "$log", "APIService", function($scope, $modal, $log, APIService) {
+
+	module.controller("userMenuCtrl", ["$scope", "$modal", "$log", "boardAPI", function($scope, $modal, $log, boardAPI) {
 		$scope.membersSuggestions = [{
 			email: "sheldon@mail.com"
 		}, {
@@ -31,7 +32,7 @@
 					}
 				}
 
-				APIService.addMemberToBoard($scope.board, $scope.addMemberInput)
+				boardAPI.addMemberToBoard($scope.board, $scope.addMemberInput)
 					.then(function(res) {
 						$scope.board.members.push(res);
 						$scope.users.push(res);
@@ -49,7 +50,7 @@
 			$modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: "app/board/html/board.user.modal.html",
+				templateUrl: "app/board-page/user-modal/user-modal.html",
 				controller: "editUserModalCtrl",
 				scope: $scope,
 				resolve: {
@@ -62,8 +63,8 @@
 	}]);
 
 
-	module.controller("editUserModalCtrl", ["$state", "$log", "$scope", "$modalInstance", "APIService", "user",
-		function($state, $log, $scope, $modalInstance, APIService, user) {
+	module.controller("editUserModalCtrl", ["$state", "$log", "$scope", "$modalInstance", "boardAPI", "user",
+		function($state, $log, $scope, $modalInstance, boardAPI, user) {
 			$scope.modalUser = user;
 			$scope.isEditingRBAC = false;
 			$scope.isDeleting = false;
@@ -141,7 +142,7 @@
 						}
 
 						if ($scope.users.length) {
-							APIService
+							boardAPI
 								.updateBoard($scope.board)
 								.then(function(res) {
 									$scope.board._v++;
@@ -151,7 +152,7 @@
 								});
 						} else {
 							// no users left
-							APIService
+							boardAPI
 								.deleteBoard($scope.board._id)
 								.then(function() {
 									$state.go("kanban.boardList", {

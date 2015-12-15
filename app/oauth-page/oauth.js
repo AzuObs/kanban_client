@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("identityModule", ["ngResource"]);
+	var module = angular.module("oauthModule", []);
 
 
 	module.config(["$httpProvider", "$stateProvider", function($httpProvider, $stateProvider) {
@@ -16,7 +16,7 @@
 			};
 		});
 
-		$stateProvider.state("identity", {
+		$stateProvider.state("kanban.oauth", {
 			views: {
 				"header@": {
 					templateUrl: "app/common/header/header.html"
@@ -26,8 +26,8 @@
 					controller: "stateInfoCtrl"
 				},
 				"body@": {
-					templateUrl: "app/identity/identity.html",
-					controller: "identityCtrl"
+					templateUrl: "app/oauth-page/oauth.html",
+					controller: "oauthCtrl"
 				}
 			},
 			url: "/identity"
@@ -35,52 +35,8 @@
 	}]);
 
 
-	module.service("identityService", ["$http", "$rootScope", "$q", function($http, $rootScope, $q) {
-		this.createUser = function(username, pwd) {
-			var body = {
-				username: username,
-				pwd: pwd
-			};
-
-			var defer = $q.defer();
-			$http
-				.post($rootScope.endPoint + "/user", body)
-				.success(function(res) {
-					defer.resolve(res);
-				})
-				.error(function(err) {
-					defer.reject(err);
-				});
-
-			return defer.promise;
-		};
-
-		this.authenticate = function(username, pwd) {
-			var body = {
-				username: username,
-				pwd: pwd
-			};
-
-			var defer = $q.defer();
-			$http
-				.post($rootScope.endPoint + "/user/loggin", body)
-				.success(function(res) {
-					defer.resolve(res);
-				})
-				.error(function(err) {
-					defer.reject(err);
-				});
-
-
-			return defer.promise;
-		};
-
-		return this;
-	}]);
-
-
-	module.controller("identityCtrl", ["$scope", "identityService", "$state",
-		function($scope, identityService, $state) {
+	module.controller("oauthCtrl", ["$scope", "oauthService", "$state",
+		function($scope, oauthService, $state) {
 			$scope.newAccUsr = "";
 			$scope.newAccPwd = "";
 			$scope.newAccPwdVerify = "";
@@ -89,7 +45,7 @@
 			$scope.logginPwd = "123";
 
 			$scope.createUser = function() {
-				identityService
+				oauthService
 					.createUser($scope.newAccUsr, $scope.newAccPwd)
 					.then(function(res) {
 						sessionStorage.userId = res.user._id;
@@ -104,7 +60,7 @@
 
 
 			$scope.authenticate = function() {
-				identityService
+				oauthService
 					.authenticate($scope.logginUsername, $scope.logginPwd)
 					.then(function(res) {
 						sessionStorage.userId = res.user._id;

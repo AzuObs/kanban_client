@@ -4,7 +4,7 @@
 	var module = angular.module("aboutModule", []);
 
 	module.config(["$stateProvider", function($stateProvider) {
-		$stateProvider.state("about", {
+		$stateProvider.state("kanban.about", {
 			views: {
 				"header@": {
 					templateUrl: "app/common/header/header.html"
@@ -14,7 +14,7 @@
 					controller: "stateInfoCtrl"
 				},
 				"body@": {
-					templateUrl: "app/about/about.html",
+					templateUrl: "app/about-page/about.html",
 					controller: "aboutCtrl"
 				}
 			},

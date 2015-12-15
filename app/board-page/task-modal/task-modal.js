@@ -1,11 +1,11 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("kanbanTaskModalModule", []);
+	var module = angular.module("taskModalModule", []);
 
 
-	module.controller("kanbanTaskModalCtrl", ["$scope", "$modalInstance", "$log", "APIService", "catId", "taskId",
-		function($scope, $modalInstance, $log, APIService, catId, taskId) {
+	module.controller("taskModalCtrl", ["$scope", "$modalInstance", "$log", "boardAPI", "catId", "taskId",
+		function($scope, $modalInstance, $log, boardAPI, catId, taskId) {
 
 			var iCat = findCatIndex($scope, catId);
 			var iTask = findTaskIndex($scope, taskId, iCat);
@@ -28,7 +28,7 @@
 
 				$scope.task.users.splice(iUser, 1);
 
-				APIService
+				boardAPI
 					.updateBoard($scope.board)
 					.then(function() {
 						calculateAddableUsers($scope);
@@ -52,7 +52,7 @@
 				iTask = findTaskIndex($scope, taskId, iCat);
 				calculateChangeableCategories($scope);
 
-				APIService
+				boardAPI
 					.updateBoard($scope.board)
 					.then(function() {
 						$scope.board._v++;
@@ -64,7 +64,7 @@
 			$scope.addUserToTask = function(user) {
 				$scope.task.users.push(user);
 
-				APIService
+				boardAPI
 					.updateBoard($scope.board)
 					.then(function() {
 						calculateAddableUsers($scope);
@@ -89,7 +89,7 @@
 					if ((e.type = "keypress" && e.which === 13) || angular.element(e.target).hasClass("delete-task-button")) {
 						if ($scope.repeatTaskName === $scope.task.name) {
 							$scope.category.tasks.splice(iTask, 1);
-							APIService
+							boardAPI
 								.updateBoard($scope.board)
 								.then(function() {
 									$scope.board._v++;
@@ -129,7 +129,7 @@
 						}, 0);
 					} else {
 						$scope.isEdittingTaskName = false;
-						APIService
+						boardAPI
 							.updateBoard($scope.board)
 							.then(function(res) {
 								$scope.board._v++;
@@ -144,7 +144,7 @@
 			$scope.createComment = function(keyEvent) {
 				if (!keyEvent || keyEvent.which === 13) {
 
-					APIService
+					boardAPI
 						.createComment($scope.commentInput, $scope.user.username, $scope.user.pictureUrl, $scope.board._id, $scope.category._id, $scope.task._id)
 						.then(function(res) {
 							$scope.task.comments.unshift(res);
