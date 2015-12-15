@@ -35,7 +35,7 @@
 
 
 	app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise("/identity");
+		$urlRouterProvider.otherwise("/kanban/identity");
 
 		$stateProvider.state("kanban", {
 			abstract: true,

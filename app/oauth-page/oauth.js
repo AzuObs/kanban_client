@@ -16,10 +16,11 @@
 			};
 		});
 
+
 		$stateProvider.state("kanban.oauth", {
 			views: {
-				"header@": {
-					templateUrl: "app/common/header/header.html"
+				"navbar@": {
+					templateUrl: "app/common/navbar/navbar.html"
 				},
 				"state-info@": {
 					templateUrl: "app/common/state-info/state-info.html",
