@@ -8,7 +8,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/html/board.category.directive.html"
+			templateUrl: "app/board/html/board.category.directive.html"
 		};
 	});
 

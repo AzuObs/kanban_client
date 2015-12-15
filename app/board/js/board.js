@@ -7,33 +7,39 @@
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.board", {
 			views: {
-				"": {
-					templateUrl: "/kanban/html/abstract-board.html",
+				"header@": {
+					templateUrl: "app/common/header/header.html"
+				},
+				"state-info@": {
+					templateUrl: "app/common/state-info/state-info.html",
+					controller: "stateInfoCtrl"
+				},
+				"body@": {
+					templateUrl: "app/board/html/abstract-board.html",
 					controller: "kanbanBoardCtrl",
-					replace: true
+					resolve: {
+						user: ["APIService", function(APIService) {
+							return APIService.getUser(sessionStorage.userId);
+						}],
+						board: ["APIService", function(APIService) {
+							return APIService.getBoard(sessionStorage.boardId);
+						}]
+					}
 				},
 				"category-view@kanban.board": {
-					templateUrl: "/kanban/html/board.category.html",
+					templateUrl: "app/board/html/board.category.html",
 					controller: "kanbanCategoryCtrl"
 				},
 				"userpanel-view@kanban.board": {
-					templateUrl: "/kanban/html/board.user-panel.html",
+					templateUrl: "app/board/html/board.user-panel.html",
 					controller: "kanbanUserPanelCtrl"
 				},
 				"task-view@kanban.board": {
-					templateUrl: "/kanban/html/board.task.html",
+					templateUrl: "app/board/html/board.task.html",
 					controller: "kanbanTaskCtrl"
 				}
 			},
-			url: "/board/:boardName",
-			resolve: {
-				user: ["APIService", function(APIService) {
-					return APIService.getUser(sessionStorage.userId);
-				}],
-				board: ["APIService", function(APIService) {
-					return APIService.getBoard(sessionStorage.boardId);
-				}]
-			}
+			url: "/board/:boardName"
 		});
 	}]);
 
@@ -43,7 +49,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/html/board.user.directive.html"
+			templateUrl: "app/board/html/board.user.directive.html"
 		};
 	});
 

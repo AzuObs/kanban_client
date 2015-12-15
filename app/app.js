@@ -23,6 +23,7 @@
 		$rootScope.endPoint = "http://localhost:8000/api";
 		$rootScope.state = $state;
 
+		// log ui-router routing errors
 		$rootScope.$on("$stateChangeError", console.log.bind(console));
 	}]);
 
@@ -32,8 +33,7 @@
 
 		$stateProvider.state("kanban", {
 			abstract: true,
-			url: "/kanban",
-			templateUrl: "kanban/html/abstract-index.html"
+			url: "/kanban"
 		});
 	}]);
 })();

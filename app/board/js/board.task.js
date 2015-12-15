@@ -8,7 +8,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "kanban/html/board.task.directive.html"
+			templateUrl: "app/board/html/board.task.directive.html"
 		};
 	});
 
@@ -35,8 +35,8 @@
 				animation: true,
 				scope: $scope,
 				size: "lg",
-				templateUrl: 'kanban/html/board.task.modal.html',
-				controller: 'kanbanTaskModalCtrl',
+				templateUrl: "app/board/html/board.task.modal.html",
+				controller: "kanbanTaskModalCtrl",
 				resolve: {
 					catId: function() {
 						return _cat._id;

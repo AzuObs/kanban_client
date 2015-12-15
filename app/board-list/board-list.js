@@ -6,23 +6,36 @@
 
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.boardList", {
+			views: {
+				"header@": {
+					templateUrl: "app/common/header/header.html"
+				},
+				"state-info@": {
+					templateUrl: "app/common/state-info/state-info.html",
+					controller: "stateInfoCtrl"
+				},
+				"body@": {
+					templateUrl: "app/board-list/board-list.html",
+					controller: "kanbanBoardListCtrl",
+					resolve: {
+						user: ["APIService", function(APIService) {
+							return APIService.getUser(sessionStorage.userId);
+						}],
+						boards: ["APIService", function(APIService) {
+							return APIService.getBoardsForUser(sessionStorage.userId);
+						}]
+					}
+				}
+			},
 			url: "/user/:username",
-			templateUrl: "kanban/html/list-board.html",
-			controller: "kanbanBoardListCtrl",
-			resolve: {
-				user: ["APIService", function(APIService) {
-					return APIService.getUser(sessionStorage.userId);
-				}],
-				boards: ["APIService", function(APIService) {
-					return APIService.getBoardsForUser(sessionStorage.userId);
-				}]
-			}
 		});
 	}]);
 
 
 	module.controller("kanbanBoardListCtrl", ["$scope", "$modal", "$state", "$log", "user", "boards", "APIService",
 		function($scope, $modal, $state, $log, user, boards, APIService) {
+			console.log("ping");
+
 			$scope.user = user;
 			$scope.boards = boards;
 
@@ -40,7 +53,7 @@
 				$modal.open({
 					animation: true,
 					size: "md",
-					templateUrl: "kanban/html/list-board.modal.html",
+					templateUrl: "app/board-list/board-list-modal.html",
 					controller: "editBoardModalCtrl",
 					scope: $scope,
 					resolve: {

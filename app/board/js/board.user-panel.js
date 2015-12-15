@@ -49,7 +49,7 @@
 			$modal.open({
 				animation: true,
 				size: "md",
-				templateUrl: "kanban/html/board.user.modal.html",
+				templateUrl: "app/board/html/board.user.modal.html",
 				controller: "editUserModalCtrl",
 				scope: $scope,
 				resolve: {

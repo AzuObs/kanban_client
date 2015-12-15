@@ -5,9 +5,20 @@
 
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("about", {
-			url: "/about",
-			templateUrl: "about/about.html",
-			controller: "aboutCtrl"
+			views: {
+				"header@": {
+					templateUrl: "app/common/header/header.html"
+				},
+				"state-info@": {
+					templateUrl: "app/common/state-info/state-info.html",
+					controller: "stateInfoCtrl"
+				},
+				"body@": {
+					templateUrl: "app/about/about.html",
+					controller: "aboutCtrl"
+				}
+			},
+			url: "/about"
 		});
 	}]);
 
