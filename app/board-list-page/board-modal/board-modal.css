@@ -4,3 +4,7 @@
   flex-direction: column;
   width: 410px;
 }
+
+.board-modal .modal-title h3:hover {
+  cursor: pointer;
+}

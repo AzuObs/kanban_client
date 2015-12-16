@@ -36,8 +36,8 @@
 	}]);
 
 
-	module.controller("oauthCtrl", ["$scope", "oauthService", "$state",
-		function($scope, oauthService, $state) {
+	module.controller("oauthCtrl", ["$scope", "oauthAPI", "$state",
+		function($scope, oauthAPI, $state) {
 			$scope.newAccUsr = "";
 			$scope.newAccPwd = "";
 			$scope.newAccPwdVerify = "";
@@ -46,7 +46,7 @@
 			$scope.logginPwd = "123";
 
 			$scope.createUser = function() {
-				oauthService
+				oauthAPI
 					.createUser($scope.newAccUsr, $scope.newAccPwd)
 					.then(function(res) {
 						sessionStorage.userId = res.user._id;
@@ -61,7 +61,7 @@
 
 
 			$scope.authenticate = function() {
-				oauthService
+				oauthAPI
 					.authenticate($scope.logginUsername, $scope.logginPwd)
 					.then(function(res) {
 						sessionStorage.userId = res.user._id;

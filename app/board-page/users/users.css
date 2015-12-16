@@ -1,26 +1,6 @@
-.user-menu-container input::-webkit-input-placeholder {
-  font-size: 13px;
-  font-style: italic;
-}
-
-.add-member-dropdown {
-  margin-top: 13px;
-  width: 180px;
-}
-
 .user-menu-container {
   height: 90px;
   width: 300px;
-}
-
-.user-menu-container input[type="text"] {
-  display: inline;
-  width: 180px;
-}
-
-.user-menu-container button {
-  display: inline;
-  width: 100px;
 }
 
 .board-member-container {
@@ -28,22 +8,32 @@
   height: 40px;
 }
 
-.board-member-container .user {
-  float: left;
+.add-member-dropdown {
+  margin-top: 13px;
+  width: 180px;
 }
 
-.user-container {
-  float: left;
-  margin: 0px 1px;
-}
-
-.user-container img {
-  border: 1px solid #aaa;
-  height: 32px;
-  width: 32px;
+.user-selection > .user-container:hover {
+  cursor: -webkit-grab;
+  cursor: grab;
 }
 
 .board-member-container .form-group {
   margin-top: 10px;
   width: 190px;
+}
+
+.user-menu-container input {
+  display: inline;
+  width: 180px;
+}
+
+.user-menu-container input::-webkit-input-placeholder {
+  font-size: 13px;
+  font-style: italic;
+}
+
+.user-menu-container button {
+  display: inline;
+  width: 100px;
 }

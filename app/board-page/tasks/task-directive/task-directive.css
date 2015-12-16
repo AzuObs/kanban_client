@@ -12,6 +12,7 @@
 
 .task-container:hover {
   border: 1px solid #777;
+  cursor: pointer;
 }
 
 .close-task {
@@ -53,4 +54,9 @@
 
 .task-container .background {
   background-color: #fdd;
+}
+
+.user-list > .user-container:hover {
+  cursor: -webkit-grab;
+  cursor: drag;
 }

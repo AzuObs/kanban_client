@@ -3909,7 +3909,8 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate)
     restrict: 'ECA',
     terminal: true,
     priority: 400,
-    transclude: 'element',
+    transclude: 'element'
+,
     compile: function (tElement, tAttrs, $transclude) {
       return function (scope, $element, attrs) {
         var previousEl, currentEl, currentScope, latestLocals,

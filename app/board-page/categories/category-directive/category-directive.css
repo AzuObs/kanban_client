@@ -29,6 +29,11 @@
   height: 32px;
 }
 
+.category-header:hover {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
 .category-header > h4 {
   margin: 5px 0px 0px 0px;
   height: 19px;

@@ -1,10 +1,10 @@
 (function() {
 	"user strict";
 
-	var module = angular.module("oauthServiceModule", ["ngResource"]);
+	var module = angular.module("oauthAPIModule", ["ngResource"]);
 
 
-	module.service("oauthService", ["$http", "$rootScope", "$q", function($http, $rootScope, $q) {
+	module.service("oauthAPI", ["$http", "$rootScope", "$q", function($http, $rootScope, $q) {
 		this.createUser = function(username, pwd) {
 			var body = {
 				username: username,

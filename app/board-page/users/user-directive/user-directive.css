@@ -1,0 +1,10 @@
+.user-container {
+  float: left;
+  margin: 0px 1px;
+}
+
+.user-container img {
+  border: 1px solid #aaa;
+  height: 32px;
+  width: 32px;
+}

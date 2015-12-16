@@ -26,6 +26,10 @@ div[ui-view="body"] {
   min-height: 0px;
 }
 
+.page {
+  margin: 0px 10px;
+}
+
 .btn-black {
   background-color: #222 !important;
   border: 1px solid #000;
@@ -59,4 +63,10 @@ div[ui-view="body"] {
 .ui-fancy-scroll::-webkit-scrollbar-thumb {
   background: #aaa;
   border-radius: 5px;
+}
+
+.no-script {
+  border: 3px solid #f00;
+  margin: 50px auto;
+  padding: 20px;
 }
