@@ -1,0 +1,66 @@
+.category-wrapper {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  margin-right: 10px;
+  min-height: 0px;
+  width: 240px;
+}
+
+.category-container {
+  background-color: #eee;
+  border: 2px solid #aaa;
+  border-radius: 3px;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-height: 1px;
+  overflow: hidden;
+  padding: 5px;
+  width: 240px;
+}
+
+.category-container:hover {
+  border: 2px solid #777;
+}
+
+.category-header {
+  flex: 1 0 auto;
+  height: 32px;
+}
+
+.category-header > h4 {
+  margin: 5px 0px 0px 0px;
+  height: 19px;
+}
+
+.category-header > .close-category {
+  position: relative;
+  bottom: 31px;
+  left: 218px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  color: rgba(0, 0, 0, 0);
+  font-size: 10px;
+  height: 0px;
+  padding: 0px;
+}
+
+.category-container:hover .close-category {
+  color: #aaa;
+}
+
+.category-container:hover .close-category:hover {
+  color: #333;
+}
+
+.task-view {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-height: 0px;
+}
+
+.category-container > .white-space {
+  flex: 1 0 auto;
+}

@@ -95,7 +95,7 @@
 }
 
 .comment span {
+  position: relative;
   bottom: 1px;
   left: 2px;
-  position: relative;
 }

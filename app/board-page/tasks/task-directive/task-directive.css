@@ -15,15 +15,15 @@
 }
 
 .close-task {
+  position: relative;
+  left: 97%;
+  top: -10px;
   background: rgba(0, 0, 0, 0);
   border: none;
   color: rgba(0, 0, 0, 0);
   font-size: 8px;
   height: 0px;
-  left: 97%;
   padding: 0px;
-  position: relative;
-  top: -10px;
 }
 
 .task-container:hover .close-task {

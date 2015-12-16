@@ -4,18 +4,18 @@
 }
 
 .modal-dialog {
-  width: auto;
-  flex: 0 1 auto;
-  min-height: 0px;
   display: flex;
+  flex: 0 1 auto;
   flex-direction: column;
+  min-height: 0px;
+  width: auto;
 }
 
 .modal-content {
-  flex: 0 0 auto;
-  padding: 20px;
   display: flex;
+  flex: 0 0 auto;
   flex-direction: column;
+  padding: 20px;
 }
 
 .modal-title {
@@ -23,8 +23,8 @@
 }
 
 .modal-close {
-  height: 0px;
   flex: 0 1 auto;
+  height: 0px;
 }
 
 .modal-close span {
@@ -43,8 +43,8 @@
 }
 
 .modal-title > input {
-  width: 40%;
   height: 26px;
+  width: 40%;
 }
 
 .modal-title h3 {
@@ -52,9 +52,9 @@
 }
 
 .modal-user-list {
-  margin-top: 15px;
   display: block;
   height: 52px;
+  margin-top: 15px;
 }
 
 .modal-user {
@@ -63,9 +63,9 @@
 }
 
 .modal-user[ng-click="editUser(user)"] img {
+  border: 1px solid #aaa;
   height: 50px;
   width: 50px;
-  border: 1px solid #aaa;
 }
 
 .modal-options > * {

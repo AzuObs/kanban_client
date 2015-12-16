@@ -1,119 +1,26 @@
-/*CATEGORY CONTAINER*/
-
-.category-container h5 {
-  margin: 7px 0px;
-}
-
-.category-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
-  min-height: 0px;
-  width: 240px;
-  margin-right: 10px;
-}
-
-.category-container {
-  display: flex;
-  flex-direction: column;
-  flex: 0 1 auto;
-  min-height: 1px;
-  width: 240px;
-  padding: 5px;
-  border: 2px solid #aaa;
-  border-radius: 3px;
-  background-color: #eee;
-  overflow: hidden;
-}
-
-.category-container .white-space {
-  flex: 1 0 auto;
-}
-
-.category-header {
-  flex: 1 0 auto;
-  height: 32px;
-}
-
-.category-create {
-  flex: 0 0 auto;
-  width: 240px;
-  height: 90px;
-  padding: 5px 5px 5px 5px;
-  border: 1px solid #aaa;
-  border-radius: 3px;
-  background-color: #eee;
-}
-
 .category-list {
+  align-items: start;
   display: flex;
   flex: 0 1 auto;
   min-height: 0px;
-  align-items: start;
-}
-
-.category-create input {
-  margin-bottom: 1px;
-}
-
-.category-container input {
-  margin-top: 10px;
-  margin-bottom: 1px;
-  background-color: #eee;
-}
-
-.category-container input:hover,
-.category-container input:focus {
-  background-color: #fff;
-}
-
-
-/* category CONTAINER */
-
-.category-header h4 {
-  margin-top: 5px;
-  margin-bottom: 0px;
-  min-height: 19px;
-}
-
-.category-header #closeCategory {
-  position: relative;
-  font-size: 0.6em;
-  bottom: 31px;
-  left: 218px;
-  height: 0px;
-  padding: 0px;
-  color: rgba(0, 0, 0, 0);
-  background: rgba(0, 0, 0, 0);
-  border: none;
-}
-
-.category-container:hover {
-  border: 2px solid #777;
-}
-
-.category-container:hover #closeCategory {
-  color: #aaa;
-}
-
-.category-container:hover #closeCategory:hover {
-  color: #333;
 }
 
 .category-list > .ui-sortable-placeholder {
   background-color: #ddf;
-  visibility: visible !important;
   border: none;
+  visibility: visible !important;
 }
 
-.task-view {
-  display: flex;
-  flex: 0 1 auto;
-  flex-direction: column;
-  min-height: 0px;
-}
-
-.task-view input {
+.category-create {
+  background-color: #eee;
+  border: 1px solid #aaa;
+  border-radius: 3px;
   flex: 0 0 auto;
-  height: 32px;
+  height: 90px;
+  padding: 5px 5px 5px 5px;
+  width: 240px;
+}
+
+.category-create > .form-group > input {
+  margin-bottom: 1px;
 }
