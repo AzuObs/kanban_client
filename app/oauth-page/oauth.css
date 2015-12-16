@@ -1,7 +1,3 @@
-/*
-* NEW ACCOUNT PANEL
- */
-
 .newaccount-container {
   display: flex;
   flex-direction: column;
@@ -12,43 +8,32 @@
   padding-bottom: 20px;
 }
 
-
-/*
-* VERTICAL DIVIDER
- */
-
 .vertical-divider-container {
-  margin-top: 73px;
-  height: 300px;
+  align-content: space-between;
   display: flex;
   flex-direction: column;
+  height: 300px;
   justify-content: space-between;
-  align-content: space-between;
+  margin-top: 73px;
 }
 
 .vertical-or {
-  margin-top: 20px;
-  margin-bottom: 20px;
   align-self: center;
+  margin: 20px 0;
 }
 
 .vertical-line {
   align-self: center;
+  background: #333;
   height: 100px;
   width: 1px;
-  background: #333;
 }
 
-
-/*
-* LOGGIN PANEL
- */
-
 .loggin-container {
-  padding-left: 30px;
+  align-items: stretch;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  padding-left: 30px;
 }
 
 .loggin-container h2 {
@@ -56,12 +41,12 @@
 }
 
 .loggin-help-box {
-  border: 1px dashed #888;
-  padding: 10px 10px;
-  margin: 10px 0px;
   background-color: #fee;
+  border: 1px dashed #888;
+  margin: 10px 0;
+  padding: 10px 10px;
 }
 
 .loggin-help-box p {
-  margin: 0px;
+  margin: 0;
 }

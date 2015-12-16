@@ -1,6 +1,6 @@
 .user-modal {
-  flex: 0 1 auto;
-  width: 410px;
   display: flex;
+  flex: 0 1 auto;
   flex-direction: column;
+  width: 410px;
 }

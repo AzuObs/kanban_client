@@ -1,91 +1,17 @@
-.task-view {
-  display: flex;
-  flex-direction: column;
-  flex: 0 1 auto;
-  min-height: 0px;
-}
-
-.task-view input {
-  max-height: 32px;
-  min-height: 32px;
-}
-
 .task-list {
-  padding-right: 3px;
-  width: 226px;
-  min-height: 50px;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  max-height: 100%;
+  min-height: 50px;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-.task-container {
-  width: 100%;
-  flex: 1 0 auto;
-  min-height: 70px;
-  margin-bottom: 3px;
-  padding: 0px 5px 0px 5px;
-  border: 1px solid #aaa;
-  border-radius: 3px;
-  box-shadow: 0px 0px 5px #ccc;
-  background-color: #fff;
+  padding-right: 3px;
+  width: 226px;
 }
 
 .task-list > .ui-sortable-placeholder {
   background-color: #cec;
-  visibility: visible !important;
+  border: none;
   box-shadow: none;
-  border: none;
-}
-
-.user-list-container {
-  display: flex;
-  flex-direciton: row;
-  justify-content: flex-end;
-  margin-left: 35px;
-  max-width: 174px;
-}
-
-.user-list {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  min-width: 10px;
-  min-height: 36px;
-  padding: 2px;
-}
-
-.background {
-  background-color: #fdd;
-}
-
-#closeTask {
-  position: relative;
-  font-size: 0.5em;
-  top: -10px;
-  left: 97%;
-  height: 0px;
-  padding: 0px;
-  color: rgba(0, 0, 0, 0);
-  background: rgba(0, 0, 0, 0);
-  border: none;
-}
-
-.task-container:hover #closeTask {
-  color: #aaa;
-}
-
-.category-container h5 {
-  margin-top: 7px;
-  margin-bottom: 7px;
-}
-
-.task-container:hover #closeTask:hover {
-  color: #333;
-}
-
-.task-container:hover {
-  border: 1px solid #777;
+  visibility: visible !important;
 }

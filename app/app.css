@@ -1,7 +1,35 @@
+html {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0px;
+}
+
+div[ui-view="navbar"] {
+  flex: 0 0 auto;
+}
+
+div[ui-view="state-info"] {
+  flex: 0 0 auto;
+}
+
+div[ui-view="body"] {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0px;
+}
+
 .btn-black {
+  background-color: #222 !important;
   border: 1px solid #000;
   color: #fff !important;
-  background-color: #222 !important;
 }
 
 .btn-black:hover {
@@ -9,11 +37,26 @@
 }
 
 .btn-grey {
-  border: 1px solid #666;
   background-color: #ddd;
+  border: 1px solid #666;
 }
 
 .btn-grey:hover {
-  box-shadow: 0 0 7px #888;
   background-color: #fff;
+  box-shadow: 0px 0px 7px #888;
+}
+
+.ui-fancy-scroll::-webkit-scrollbar {
+  height: 9px;
+  width: 9px;
+}
+
+.ui-fancy-scroll::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 5px;
+}
+
+.ui-fancy-scroll::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 5px;
 }

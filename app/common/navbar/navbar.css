@@ -1,31 +1,32 @@
-.nav,
-.pagination,
-.carousel,
-.panel-title a {
+.nav {
   cursor: pointer;
 }
 
-.navbar a {
-  font-size: 2em;
+.navbar .navbar-nav .navbar-link {
+  color: #fff;
+  font-size: 32px;
   text-decoration: none;
-  color: #fff !important;
 }
 
-.navbar a:hover {
+.navbar .navbar-nav .navbar-link {
   color: #fff;
 }
 
-.navbar .dropdown-menu a {
-  font-size: 1.3em;
-  text-decoration: none;
-  color: #000 !important;
-}
-
 .glyphicon-menu-hamburger {
-  font-size: 0.9em;
-  padding: 3px;
   border: 2px solid #fff;
   border-radius: 5px;
+  font-size: 24px;
+  padding: 3px;
+}
+
+.navbar .navbar-nav .dropdown-toggle {
+  padding: 8px 10px;
+}
+
+.navbar .navbar-nav .dropdown-menu {
+  color: #000;
+  font-size: 20px;
+  text-decoration: none;
 }
 
 .navbar-fixed-padding {

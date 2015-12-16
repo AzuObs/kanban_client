@@ -1,0 +1,56 @@
+.task-container {
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px #ccc;
+  flex: 1 0 auto;
+  min-height: 70px;
+  margin-bottom: 3px;
+  padding: 0px 5px 0px 5px;
+  width: 100%;
+}
+
+.task-container:hover {
+  border: 1px solid #777;
+}
+
+.close-task {
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  color: rgba(0, 0, 0, 0);
+  font-size: 8px;
+  height: 0px;
+  left: 97%;
+  padding: 0px;
+  position: relative;
+  top: -10px;
+}
+
+.task-container:hover .close-task {
+  color: #aaa;
+}
+
+.task-container:hover .close-task:hover {
+  color: #333;
+}
+
+.task-container .user-list-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-direciton: row;
+  margin: 0px 0px 2px 35px;
+  max-width: 174px;
+}
+
+.task-container .user-list {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  min-width: 15px;
+  min-height: 36px;
+  padding: 2px;
+}
+
+.task-container .background {
+  background-color: #fdd;
+}

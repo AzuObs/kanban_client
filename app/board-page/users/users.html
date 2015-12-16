@@ -9,7 +9,7 @@
 
   <span dropdown on-toggle="dropdown">
     <input dropdown-toggle type="text" class="input-md form-control" placeholder="ex:member@mail.com" ng-model="addMemberInput" ng-keypress="addMemberFn($event)">
-    <ul class="dropdown-menu" id="add-member-dropdown">
+    <ul class="dropdown-menu add-member-dropdown">
     <li ng-repeat="member in membersSuggestions" ng-click="setAddMember(member.email)"><a>{{member.email}}</a></li>
     </ul>
     </span>
