@@ -1,47 +1,47 @@
 /* hack: can't set min-height of .task-modal; .modal-content will go lower than min-height*/
 
 .modal-lg > .modal-content {
-  flex: 0 1 auto;
-  min-height: 400px;
   display: flex;
+  flex: 0 1 auto;
   flex-direction: column;
+  min-height: 400px;
 }
 
 .task-modal {
-  width: 560px;
-  flex: 0 1 auto;
-  min-height: 0px;
   display: flex;
+  flex: 0 1 auto;
   flex-direction: column;
+  min-height: 0px;
+  width: 560px;
 }
 
 .modal-content-container {
   flex: 1 1 auto;
-  min-height: 250px;
   display: flex;
   max-width: 560px;
+  min-height: 250px;
 }
 
 .modal-left-content {
-  width: 380px;
   display: flex;
   flex-direction: column;
   margin-right: 20px;
+  width: 380px;
 }
 
 .modal-right-content {
-  width: 180px;
   display: flex;
   flex-direction: column;
+  width: 180px;
 }
 
 .comment-list {
+  display: flex;
   flex: 0 1 auto;
+  flex-direction: column;
   min-height: 0px;
   overflow-x: hidden;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
 }
 
 .comment-container {
@@ -57,13 +57,12 @@
 
 .modal-newcomment textarea {
   flex: 1 0 auto;
-  margin-top: 3px;
-  margin-bottom: 2px;
-  width: 380px;
-  max-width: 380px;
   height: 50px;
+  margin: 3px 0px;
+  max-width: 380px;
   max-height: 200px;
   min-height: 50px;
+  width: 380px;
 }
 
 .modal .input-group {
@@ -76,17 +75,17 @@
 }
 
 .comment-content {
-  display: flex;
-  flex-direction: column;
   align-items: stretch;
+  display: flex;
   flex: 0 1 auto;
+  flex-direction: column;
   min-width: 0px;
   overflow: hidden;
 }
 
 .comment-content:nth-child(2) {
-  white-space: pre-line;
   text-overflow: ellipsis;
+  white-space: pre-line;
 }
 
 .comment {
@@ -96,7 +95,7 @@
 }
 
 .comment span {
-  position: relative;
   bottom: 1px;
   left: 2px;
+  position: relative;
 }
