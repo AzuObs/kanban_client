@@ -1,6 +1,13 @@
 .oauth-container {
   display: flex;
+  flex: 0 1 auto;
   justify-content: space-around;
+  min-height: 295px;
+}
+
+h3 {
+  align-self: center;
+  margin-bottom: 15px;
 }
 
 .newaccount-container {
@@ -10,28 +17,21 @@
   width: 37%;
 }
 
-.newaccount-container > h2 {
-  align-self: center;
-  padding-bottom: 20px;
-}
-
 .vertical-divider-container {
   display: flex;
   flex-direction: column;
-  height: 300px;
-  justify-content: space-between;
-  margin-top: 73px;
+  height: 295px;
+  justify-content: space-around;
 }
 
 .vertical-or {
   align-self: center;
-  margin: 20px 0;
 }
 
 .vertical-line {
   align-self: center;
   background: #333;
-  height: 100px;
+  height: 60px;
   width: 1px;
 }
 
@@ -42,17 +42,28 @@
   width: 37%;
 }
 
-.login-container > h2 {
-  align-self: center;
-}
-
 .login-help-box {
   background-color: #fee;
   border: 1px dashed #888;
-  margin: 10px 0;
-  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  margin-bottom: 15px;
+  min-width: 0px;
 }
 
-.login-help-box p {
-  margin: 0;
+.login-help-title {
+  align-self: center;
+  flex: 0 1 auto;
+}
+
+.login-help-credentials {
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+.oauth-container .form-group {
+  margin-bottom: 5px;
 }
