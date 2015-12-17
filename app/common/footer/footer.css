@@ -1,6 +1,6 @@
 .footer-view > h6 {
   align-self: center;
-  border-top: 3px dashed #333;
-  margin: 5px 0px 0px 0px;
-  padding: 5px 10px 2px 0px;
+  font-size: 11px;
+  margin: 2px 0px 4px 0px;
+  padding: 0px;
 }

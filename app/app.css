@@ -1,5 +1,4 @@
-/*
-* POSITIONING
+/**
 * body-height : 100% viewport height;
  */
 
@@ -28,13 +27,12 @@ body {
 .footer-view {
   display: flex;
   flex: 0 1 auto;
-  min-height: 28px;
+  min-height: 18px;
   flex-direction: column;
 }
 
 
-/*
-* STYLING;
+/**
 * ui-fancy-scrollbarbar only available in webkit 
  */
 

@@ -15,7 +15,7 @@
 					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
-					templateUrl: "app/board-page/board.html",
+					templateUrl: "app/board/board.html",
 					controller: "boardCtrl",
 					resolve: {
 						user: ["boardAPI", function(boardAPI) {
@@ -27,15 +27,15 @@
 					}
 				},
 				"category-view@kanban.board": {
-					templateUrl: "app/board-page/categories/categories.html",
+					templateUrl: "app/board/categories/categories.html",
 					controller: "categoryCtrl"
 				},
 				"user-menu-view@kanban.board": {
-					templateUrl: "app/board-page/users/users.html",
+					templateUrl: "app/board/users/users.html",
 					controller: "userMenuCtrl"
 				},
 				"task-view@kanban.board": {
-					templateUrl: "app/board-page/tasks/tasks.html",
+					templateUrl: "app/board/tasks/tasks.html",
 					controller: "taskCtrl"
 				},
 				"footer-view@": {

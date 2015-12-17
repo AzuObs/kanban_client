@@ -9,6 +9,11 @@
   width: 226px;
 }
 
+
+/**
+ * !important to overwrite HTML style attrb that's populated by ui-sortable
+ */
+
 .task-list > .ui-sortable-placeholder {
   background-color: #cec;
   border: none;

@@ -1,0 +1,24 @@
+.about-container {
+  flex: 1 1 auto;
+  margin: 10px 0px;
+  min-height: 0px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.about-column-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.about-left-column {
+  flex: 0 0 auto;
+  min-width: 300px;
+  width: 40%;
+}
+
+.about-right-column {
+  min-width: 300px;
+  flex: 0 0 auto;
+  width: 40%;
+}

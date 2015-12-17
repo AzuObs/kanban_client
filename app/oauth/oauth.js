@@ -27,7 +27,7 @@
 					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
-					templateUrl: "app/oauth-page/oauth.html",
+					templateUrl: "app/oauth/oauth.html",
 					controller: "oauthCtrl"
 				},
 				"footer-view@": {

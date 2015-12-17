@@ -7,7 +7,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "app/board-page/users/user-directive/user-directive.html"
+			templateUrl: "app/board/users/user-directive/user-directive.html"
 		};
 	});
 })();

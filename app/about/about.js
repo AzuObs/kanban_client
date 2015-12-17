@@ -14,11 +14,12 @@
 					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
-					templateUrl: "app/about-page/about.html",
+					templateUrl: "app/about/about.html",
 					controller: "aboutCtrl"
-				},"footer-view@": {
-	templateUrl: "app/common/footer/footer.html"
-}
+				},
+				"footer-view@": {
+					templateUrl: "app/common/footer/footer.html"
+				}
 
 			},
 			url: "/about"

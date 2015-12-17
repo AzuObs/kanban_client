@@ -49,7 +49,7 @@
 		var openEditUser = function(board, user) {
 			$modal.open({
 				animation: true,
-				templateUrl: "app/board-page/users/user-modal/user-modal.html",
+				templateUrl: "app/board/users/user-modal/user-modal.html",
 				controller: "userModalCtrl",
 				scope: $scope,
 				resolve: {
