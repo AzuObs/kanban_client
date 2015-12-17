@@ -34,12 +34,28 @@
 	}]);
 
 
-	app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise("/kanban/identity");
+	app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
+		function($stateProvider, $urlRouterProvider, $httpProvider) {
+			$urlRouterProvider.otherwise("/kanban/identity");
 
-		$stateProvider.state("kanban", {
-			abstract: true,
-			url: "/kanban"
-		});
-	}]);
+			$stateProvider.state("kanban", {
+				abstract: true,
+				url: "/kanban"
+			});
+
+			// send the token with everyrequest if it is present
+			$httpProvider.interceptors.push(function() {
+				return {
+					request: function(req) {
+						if (sessionStorage.token) {
+							req.headers.token = sessionStorage.token;
+						}
+						return req;
+					}
+				};
+			});
+
+		}
+
+	]);
 })();

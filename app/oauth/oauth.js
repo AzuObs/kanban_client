@@ -4,19 +4,7 @@
 	var module = angular.module("oauthModule", []);
 
 
-	module.config(["$httpProvider", "$stateProvider", function($httpProvider, $stateProvider) {
-		$httpProvider.interceptors.push(function() {
-			return {
-				request: function(req) {
-					if (sessionStorage.token) {
-						req.headers.token = sessionStorage.token;
-					}
-					return req;
-				}
-			};
-		});
-
-
+	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.oauth", {
 			views: {
 				"navbar-view@": {
