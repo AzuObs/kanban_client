@@ -1,26 +1,24 @@
-<div class="board-modal" ng-click="cancelEditing($event)">
+<div class="board-modal modal-container" ng-click="cancelEditing($event)">
   <div class="modal-close">
-    <span ng-click="closeModal()" class="btn glyphicon glyphicon-remove"></span>
+    <span class="btn glyphicon glyphicon-remove" ng-click="closeModal()"></span>
   </div>
 
   <div class="modal-title">
-    <h3 ng-hide="isEditingName" class="edit-board" ng-click="renameBoard($event)">{{board.name}}</h3>
-    <input ng-show="isEditingName" ng-keypress="renameBoard($event)" type="text" class="edit-board board-name form-control" ng-model="board.name">
+    <h3 class="edit-board" ng-click="renameBoard($event)" ng-hide="isEditingName">{{board.name}}</h3>
+    <input class="board-name edit-board form-control" ng-keypress="renameBoard($event)" ng-model="board.name" ng-show="isEditingName" type="text">
     <h4 class="text-muted">in user <b>{{user.username | uppercase}}</b></h4>
   </div>
   <div class="modal-user-list">
     <kb-user class="modal-user"></kb-user>
   </div>
-
   <hr>
+
   <div class="modal-options">
     <h4>Options</h4>
-
-    <button class="btn btn-default btn-block edit-board" ng-click="renameBoard($event)">Rename Board</button>
+    <button class="btn btn-block btn-default edit-board" ng-click="renameBoard($event)">Rename Board</button>
     <button class="btn btn-block btn-danger" ng-disabled="true">Transfer Ownership</button>
-    <button class="btn btn-danger btn-block delete-board" ng-click="deleteBoard($event)">Delete Board</button>
-    <p ng-show="isDeletingBoard"><em class="delete-board text-danger">Are you sure? Deleting a board is permanent. Confirm by typing the name of the board and press enter.</em>
-    </p>
-    <input ng-model="repeatBoardName" ng-show="isDeletingBoard" type="text" class="delete-board-input delete-board form-control" placeholder="enter board name" ng-keypress="deleteBoard($event)">
+    <button class="btn btn-block btn-danger delete-board" ng-click="deleteBoard($event)">Delete Board</button>
+    <p ng-show="isDeletingBoard"><em class="delete-board text-danger">Are you sure? Deleting a board is permanent. Confirm by typing the name of the board and press enter.</em></p>
+    <input class="delete-board delete-board-input form-control" ng-keypress="deleteBoard($event)" ng-model="repeatBoardName" ng-show="isDeletingBoard" placeholder="enter board name" type="text">
   </div>
 </div>

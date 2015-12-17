@@ -8,10 +8,6 @@
 }
 
 .task-modal {
-  display: flex;
-  flex: 0 1 auto;
-  flex-direction: column;
-  min-height: 0px;
   width: 560px;
 }
 
@@ -90,16 +86,4 @@
 .comment-content:nth-child(2) {
   text-overflow: ellipsis;
   white-space: pre-line;
-}
-
-.comment {
-  float: left;
-  font-size: 0.85em;
-  margin: 21px 0px 0px 2px;
-}
-
-.comment span {
-  position: relative;
-  bottom: 1px;
-  left: 2px;
 }

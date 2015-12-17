@@ -1,48 +1,46 @@
-<div class="page">
-  <div class="row">
-    <div class="newaccount-container col-sm-offset-1 col-sm-4">
-      <h2>Create a new account</h2>
-      <form>
-        <div class="form-group">
-          <div><b>Create Username</b></div>
-          <input type="text" class="form-control" ng-model="newAccUsr">
-        </div>
-        <div class="form-group">
-          <div><b>Password</b></div>
-          <input type="password" class="form-control" ng-model="newAccPwd">
-        </div>
-        <div class="form-group">
-          <div><b>Verify Password</b></div>
-          <input type="password" class="form-control" ng-model="newAccPwdVerify">
-        </div>
-        <button class="btn btn-block btn-black" ng-click="createUser()">Create User</button>
-      </form>
-    </div>
-
-    <div class="vertical-divider-container col-sm-2">
-      <div class="vertical-line"></div>
-      <h3 class="vertical-or">OR</h3>
-      <div class="vertical-line"></div>
-    </div>
-
-    <div class="loggin-container col-sm-4">
-      <h2>Log In</h2>
-      <div class="loggin-help-box">
-        <p><b>Demo Account</b></p>
-        <p>username: sheldon</p>
-        <p>password: 123</p>
+<div class="page row">
+  <div class="newaccount-container f_y col-sm-offset-1 col-sm-4">
+    <h2 class="i_center_x">Create a new account</h2>
+    <form>
+      <div class="form-group">
+        <div><b>Create Username</b></div>
+        <input type="text" class="form-control" ng-model="newAccUsr">
       </div>
-      <form>
-        <div class="form-group">
-          <div><b>Username</b></div>
-          <input type="text" class="form-control" ng-model="logginUsername">
-        </div>
-        <div class="form-group">
-          <div><b>Password</b></div>
-          <input type="password" class="form-control" ng-model="logginPwd">
-        </div>
-        <button class="btn btn-block btn-black" ng-click="authenticate()">Log In</button>
-      </form>
+      <div class="form-group">
+        <div><b>Password</b></div>
+        <input type="password" class="form-control" ng-model="newAccPwd">
+      </div>
+      <div class="form-group">
+        <div><b>Verify Password</b></div>
+        <input type="password" class="form-control" ng-model="newAccPwdVerify">
+      </div>
+      <button class="btn btn-block btn-black" ng-click="createUser()">Create User</button>
+    </form>
+  </div>
+
+  <div class="vertical-divider-container f_y col-sm-2">
+    <div class="vertical-line i_center_x"></div>
+    <h3 class="vertical-or i_center_x">OR</h3>
+    <div class="vertical-line i_center_x"></div>
+  </div>
+
+  <div class="loggin-container f_y col-sm-4">
+    <h2 class="i_center_x">Log In</h2>
+    <div class="loggin-help-box">
+      <p><b>Demo Account</b></p>
+      <p>username: sheldon</p>
+      <p>password: 123</p>
     </div>
+    <form>
+      <div class="form-group">
+        <div><b>Username</b></div>
+        <input type="text" class="form-control" ng-model="logginUsername">
+      </div>
+      <div class="form-group">
+        <div><b>Password</b></div>
+        <input type="password" class="form-control" ng-model="logginPwd">
+      </div>
+      <button class="btn btn-block btn-black" ng-click="authenticate()">Log In</button>
+    </form>
   </div>
 </div>

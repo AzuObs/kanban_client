@@ -1,34 +1,87 @@
-html {
-  display: flex;
-  height: 100vh;
-  flex-direction: column;
-}
+/*
+* POSITIONING
+* body-height : 100% viewport height;
+ */
 
 body {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0px;
-}
-
-div[ui-view="navbar"] {
-  flex: 0 0 auto;
-}
-
-div[ui-view="state-info"] {
-  flex: 0 0 auto;
-}
-
-div[ui-view="body"] {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  min-height: 0px;
+  height: 100vh;
 }
 
 .page {
   margin: 0px 10px;
 }
+
+
+/*
+* Shorthand expressions:
+* f_x : flexbox x-axis;
+* f_y : flexbox y-axis;
+* i_gr : item-grow - grow outside the bounds of your parent as needed;
+* i_sh : item-shrink - shrink to fit inside your parent container;
+* i_fit : item-fit - grow as long as you do not overflow;
+* i_fix: item-fix - take the size of your contents;
+* i_center_x : item-center x-axis;
+ */
+
+.f_x {
+  display: flex;
+}
+
+.f_y {
+  display: flex;
+  flex-direction: column;
+}
+
+.f_x > .i_gr {
+  flex: 1 0 auto;
+}
+
+.f_x > .i_sh {
+  flex: 0 1 auto;
+  min-width: 0px;
+}
+
+.f_x > .i_fit {
+  flex: 1 1 auto;
+  min-width: 0px;
+}
+
+.f_x > .i_fix {
+  flex: 0 0 auto;
+}
+
+.f_y > .i_gr {
+  flex: 1 0 auto;
+}
+
+.f_y > .i_sh {
+  flex: 0 1 auto;
+  min-height: 0px;
+}
+
+.f_y > .i_fit {
+  flex: 1 1 auto;
+  min-height: 0px;
+}
+
+.f_y > .i_fix {
+  flex: 0 0 auto;
+}
+
+.f_x > .i_center_x {
+  align-self: center;
+}
+
+.f_y > .i_center_x {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/*
+* STYLING;
+* ui-fancy-scrollbarbar only available in webkit 
+ */
 
 .btn-black {
   background-color: #222 !important;
@@ -50,17 +103,17 @@ div[ui-view="body"] {
   box-shadow: 0px 0px 7px #888;
 }
 
-.ui-fancy-scroll::-webkit-scrollbar {
+.ui-fancy-scrollbar::-webkit-scrollbar {
   height: 9px;
   width: 9px;
 }
 
-.ui-fancy-scroll::-webkit-scrollbar-track {
+.ui-fancy-scrollbar::-webkit-scrollbar-track {
   background: #ddd;
   border-radius: 5px;
 }
 
-.ui-fancy-scroll::-webkit-scrollbar-thumb {
+.ui-fancy-scrollbar::-webkit-scrollbar-thumb {
   background: #aaa;
   border-radius: 5px;
 }

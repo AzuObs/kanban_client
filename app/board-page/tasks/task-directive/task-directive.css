@@ -1,10 +1,11 @@
 .task-container {
+  position: relative;
   background-color: #fff;
   border: 1px solid #aaa;
   border-radius: 3px;
   box-shadow: 0px 0px 5px #ccc;
   flex: 1 0 auto;
-  min-height: 70px;
+  min-height: 60px;
   margin-bottom: 3px;
   padding: 0px 5px 0px 5px;
   width: 100%;
@@ -16,9 +17,9 @@
 }
 
 .close-task {
-  position: relative;
-  left: 97%;
-  top: -10px;
+  position: absolute;
+  top: 1px;
+  right: 3px;
   background: rgba(0, 0, 0, 0);
   border: none;
   color: rgba(0, 0, 0, 0);
@@ -59,4 +60,17 @@
 .user-list > .user-container:hover {
   cursor: -webkit-grab;
   cursor: drag;
+}
+
+.task-comment {
+  position: absolute;
+  bottom: 2px;
+  top: auto;
+  font-size: 12px;
+}
+
+.task-comment span {
+  position: relative;
+  bottom: 1px;
+  left: 2px;
 }

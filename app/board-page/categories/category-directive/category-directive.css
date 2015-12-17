@@ -59,7 +59,7 @@
   color: #333;
 }
 
-.task-view {
+div[ui-view="task-view"] {
   display: flex;
   flex: 0 1 auto;
   flex-direction: column;

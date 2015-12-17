@@ -18,6 +18,13 @@
   padding: 20px;
 }
 
+.modal-container {
+  display: flex;
+  flex: 0 1 auto;
+  min-height: 0px;
+  flex-direction: column;
+}
+
 .modal-title {
   flex: 0 0 auto;
 }
@@ -61,6 +68,11 @@
   float: left;
   margin-right: 3px;
 }
+
+
+/*
+* .modal-user[ng-click="editUser"] used for specificity reason only
+ */
 
 .modal-user[ng-click="editUser(user)"] img {
   border: 1px solid #aaa;

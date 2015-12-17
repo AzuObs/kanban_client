@@ -1,21 +1,14 @@
 .board-page {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
   margin: 0px 10px 2px 10px;
-  min-height: 0px;
+}
+
+.user-menu-view {
+  height: 129px;
 }
 
 .category-view {
-  display: flex;
-  flex: 1 1 auto;
   min-height: 150px;
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 2px;
-}
-
-.user-menu-view {
-  flex: 0 0 auto;
-  height: 129px;
 }

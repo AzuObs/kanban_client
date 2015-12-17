@@ -1,41 +1,21 @@
-.newaccount-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.newaccount-container h2 {
-  align-self: center;
+.newaccount-container > h2 {
   padding-bottom: 20px;
 }
 
 .vertical-divider-container {
-  align-content: space-between;
-  display: flex;
-  flex-direction: column;
   height: 300px;
   justify-content: space-between;
   margin-top: 73px;
 }
 
 .vertical-or {
-  align-self: center;
   margin: 20px 0;
 }
 
 .vertical-line {
-  align-self: center;
   background: #333;
   height: 100px;
   width: 1px;
-}
-
-.loggin-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.loggin-container h2 {
-  align-self: center;
 }
 
 .loggin-help-box {

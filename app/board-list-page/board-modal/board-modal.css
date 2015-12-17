@@ -1,10 +1,7 @@
 .board-modal {
-  display: flex;
-  flex: 0 1 auto;
-  flex-direction: column;
   width: 410px;
 }
 
-.board-modal .modal-title h3:hover {
+.board-modal .edit-board:hover {
   cursor: pointer;
 }

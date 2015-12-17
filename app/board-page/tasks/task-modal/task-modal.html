@@ -1,4 +1,4 @@
-<div class="task-modal" ng-click="endAllEditting($event)">
+<div class="task-modal modal-container" ng-click="endAllEditting($event)">
   <div class="modal-close">
     <span ng-click="closeModal()" class="btn glyphicon glyphicon-remove"></span>
   </div>
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="comment-list ui-fancy-scroll">
+      <div class="comment-list ui-fancy-scrollbar">
         <div class="comment-container" ng-repeat="comment in task.comments">
           <div class="comment-img"><img ng-src="{{comment.userPicUrl}}"></div>
           <div class="comment-content">

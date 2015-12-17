@@ -1,21 +1,23 @@
 <div class="page">
   <h3>{{user.username | uppercase}}'s Boards</h3>
+
   <div class="board-list-container container">
     <div class="board-list">
       <span ng-repeat="board in boards">
         <a href ng-click="goToBoard(board)"> {{board.name}}</a
-        ><a href class="open-board-modal glyphicon glyphicon-pencil" ng-click="openBoardModal(board)"></a
+        ><a class="glyphicon glyphicon-pencil open-board-modal" href ng-click="openBoardModal(board)"></a
         ><span ng-hide="$last">, </span>
       </span>
     </div>
     <div>You have <b>{{boards.length}} </b>boards.</div>
-    <div class="input-group col-sm-9">
+    <div class="col-sm-9 input-group">
       <div class="input-group-btn">
-        <button class="btn btn-sm btn-black" ng-click="createBoard()">Create Board</button>
+        <button class="btn btn-black btn-sm" ng-click="createBoard()">Create Board</button>
       </div>
-      <input ng-model="boardName" class="form-control input-sm" type="text" placeholder="type in the name of your board">
+      <input class="form-control input-sm" ng-model="boardName" placeholder="type in the name of your board" type="text">
     </div>
   </div>
   <hr>
+
   <p>App created in AngularJS, NodeJS, Express and MongoDB by Daniel Leaver. Repo available <a href="https://github.com/AzuObs/kanban" target="_blank ">here</a>.</p>
 </div>
