@@ -2,7 +2,7 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  min-height: 78px;
+  min-height: 50px;
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 3px;
@@ -16,15 +16,15 @@
   visibility: visible !important;
 }
 
-.task-view > input {
-  flex: 0 0 auto;
-  height: 32px;
-  margin-top: 10px;
+div[ui-view="task-view"] > input {
+  flex: 0 1 auto;
+  min-height: 32px;
+  margin-top: 5px;
   margin-bottom: 1px;
   background-color: #eee;
 }
 
-.task-view > input:hover,
-.task-view > input:focus {
+div[ui-view="task-view"] > input:hover,
+div[ui-view="task-view"] > input:focus {
   background-color: #fff;
 }

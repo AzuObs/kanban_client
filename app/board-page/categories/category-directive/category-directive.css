@@ -14,7 +14,7 @@
   display: flex;
   flex: 0 1 auto;
   flex-direction: column;
-  min-height: 1px;
+  min-height: 90px;
   overflow: hidden;
   padding: 5px;
   width: 240px;
@@ -67,5 +67,6 @@ div[ui-view="task-view"] {
 }
 
 .category-container > .white-space {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
+  min-height: 0px;
 }
