@@ -1,6 +1,6 @@
-<div ui-sortable="taskSortOptions" ng-model="category.tasks" class="task-list ui-fancy-scrollbar">
-  <kb-task ng-repeat="task in category.tasks" ng-click="openTaskModal($event, board, category, task)">
+<div class="ui-fancy-scrollbar task-list" ng-model="category.tasks" ui-sortable="taskSortOptions">
+  <kb-task ng-click="openTaskModal($event, board, category, task)" ng-repeat="task in category.tasks">
   </kb-task>
 </div>
 
-<input type="text" class="input-md form-control" placeholder="Add a task..." ng-keypress="createTask(taskName, category, $event)" ng-model="taskName">
+<input class="input-md form-control" ng-keypress="createTask(taskName, category, $event)" ng-model="taskName" placeholder="Add a task..." type="text">

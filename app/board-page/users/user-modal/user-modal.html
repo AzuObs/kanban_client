@@ -1,6 +1,6 @@
-<div class="user-modal modal-container" ng-click="cancelEditing($event)">
+<div class="modal-container user-modal" ng-click="cancelEditing($event)">
   <div class="modal-close">
-    <span ng-click="closeModal()" class="btn glyphicon glyphicon-remove"></span>
+    <span class="btn glyphicon glyphicon-remove" ng-click="closeModal()"></span>
   </div>
 
   <div class="modal-title">
@@ -16,24 +16,24 @@
   <div class="modal-options">
     <h4>Options</h4>
 
-    <button class="btn btn-default btn-block change-rbac" ng-click="changeUserRBAC($event)">Change Priviledges</button>
-    <div ng-show="isEditingRBAC" class="change-rbac">
-      <div class="checkbox change-rbac">
+    <button class="btn btn-block btn-default change-rbac" ng-click="changeUserRBAC($event)">Change Priviledges</button>
+    <div class="change-rbac" ng-show="isEditingRBAC">
+      <div class="change-rbac checkbox">
         <label class="change-rbac">
-          <input class="change-rbac" type="checkbox" ng-model="userRBAC" ng-true-value="'admin'" ng-false-value="'member'">Admin
+          <input class="change-rbac" ng-false-value="'member'" ng-model="userRBAC" ng-true-value="'admin'" type="checkbox">Admin
         </label>
       </div>
-      <div class="checkbox change-rbac">
+      <div class="change-rbac checkbox">
         <label class="change-rbac">
-          <input class="change-rbac" type="checkbox" ng-model="userRBAC" ng-true-value="'member'" ng-false-value="'admin'">Member
+          <input class="change-rbac" ng-false-value="'admin'" ng-model="userRBAC" ng-true-value="'member'" type="checkbox">Member
         </label>
       </div>
-      <em class="text-muted change-rbac">This feature is under development and is currently unavailable.</em>
-      <button ng-disabled="true" class="btn btn-default btn-block change-rbac" ng-click="changeUserRBAC($event)">Submit</button>
+      <em class="change-rbac text-muted">This feature is under development and is currently unavailable.</em>
+      <button class="btn btn-block btn-default change-rbac" ng-click="changeUserRBAC($event)" ng-disabled="true">Submit</button>
     </div>
 
-    <button class="remove-user btn btn-danger btn-block" ng-click="removeUser($event)">Remove User</button>
-    <em ng-show="isDeleting" class="remove-user text-danger">You are about to remove the user "{{modalUser.username}}" from your board. Confirm by typing the name of the user and press by enter.</em>
-    <input ng-show="isDeleting" type="text" class="remove-user form-control" placeholder="name of user" ng-keypress="removeUser($event)" ng-model="repeatUsername">
+    <button class="btn btn-block btn-danger remove-user" ng-click="removeUser($event)">Remove User</button>
+    <em class="remove-user text-danger" ng-show="isDeleting">You are about to remove the user "{{modalUser.username}}" from your board. Confirm by typing the name of the user and press by enter.</em>
+    <input class="remove-user form-control" ng-keypress="removeUser($event)" ng-model="repeatUsername" ng-show="isDeleting" placeholder="name of user" type="text">
   </div>
 </div>

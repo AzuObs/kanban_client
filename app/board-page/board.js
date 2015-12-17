@@ -7,14 +7,14 @@
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.board", {
 			views: {
-				"navbar@": {
+				"navbar-view@": {
 					templateUrl: "app/common/navbar/navbar.html"
 				},
-				"state-info@": {
+				"state-info-view@": {
 					templateUrl: "app/common/state-info/state-info.html",
 					controller: "stateInfoCtrl"
 				},
-				"body@": {
+				"body-view@": {
 					templateUrl: "app/board-page/board.html",
 					controller: "boardCtrl",
 					resolve: {
@@ -37,6 +37,9 @@
 				"task-view@kanban.board": {
 					templateUrl: "app/board-page/tasks/tasks.html",
 					controller: "taskCtrl"
+				},
+				"footer-view@": {
+					templateUrl: "app/common/footer/footer.html"
 				}
 			},
 			url: "/board/:boardName"

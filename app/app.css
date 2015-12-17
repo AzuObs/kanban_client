@@ -4,77 +4,32 @@
  */
 
 body {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
 }
 
-.page {
-  margin: 0px 10px;
+.navbar-view {
+  flex: 0 0 auto;
 }
 
-
-/*
-* Shorthand expressions:
-* f_x : flexbox x-axis;
-* f_y : flexbox y-axis;
-* i_gr : item-grow - grow outside the bounds of your parent as needed;
-* i_sh : item-shrink - shrink to fit inside your parent container;
-* i_fit : item-fit - grow as long as you do not overflow;
-* i_fix: item-fix - take the size of your contents;
-* i_center_x : item-center x-axis;
- */
-
-.f_x {
-  display: flex;
+.state-info-view {
+  flex: 0 0 auto;
 }
 
-.f_y {
+.body-view {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
+  min-height: 295px;
+  padding: 0px 10px 2px 10px;
 }
 
-.f_x > .i_gr {
-  flex: 1 0 auto;
-}
-
-.f_x > .i_sh {
+.footer-view {
+  display: flex;
   flex: 0 1 auto;
-  min-width: 0px;
-}
-
-.f_x > .i_fit {
-  flex: 1 1 auto;
-  min-width: 0px;
-}
-
-.f_x > .i_fix {
-  flex: 0 0 auto;
-}
-
-.f_y > .i_gr {
-  flex: 1 0 auto;
-}
-
-.f_y > .i_sh {
-  flex: 0 1 auto;
-  min-height: 0px;
-}
-
-.f_y > .i_fit {
-  flex: 1 1 auto;
-  min-height: 0px;
-}
-
-.f_y > .i_fix {
-  flex: 0 0 auto;
-}
-
-.f_x > .i_center_x {
-  align-self: center;
-}
-
-.f_y > .i_center_x {
-  margin-left: auto;
-  margin-right: auto;
+  min-height: 28px;
+  flex-direction: column;
 }
 
 

@@ -6,17 +6,20 @@
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.about", {
 			views: {
-				"navbar@": {
+				"navbar-view@": {
 					templateUrl: "app/common/navbar/navbar.html"
 				},
-				"state-info@": {
+				"state-info-view@": {
 					templateUrl: "app/common/state-info/state-info.html",
 					controller: "stateInfoCtrl"
 				},
-				"body@": {
+				"body-view@": {
 					templateUrl: "app/about-page/about.html",
 					controller: "aboutCtrl"
-				}
+				},"footer-view@": {
+	templateUrl: "app/common/footer/footer.html"
+}
+
 			},
 			url: "/about"
 		});

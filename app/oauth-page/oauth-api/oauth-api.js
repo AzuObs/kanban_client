@@ -32,7 +32,7 @@
 
 			var defer = $q.defer();
 			$http
-				.post($rootScope.endPoint + "/user/loggin", body)
+				.post($rootScope.endPoint + "/user/login", body)
 				.success(function(res) {
 					defer.resolve(res);
 				})

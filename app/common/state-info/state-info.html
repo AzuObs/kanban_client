@@ -1,5 +1,5 @@
 <div class="container-fluid" ng-controller="stateInfoCtrl">
-  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+  <alert close="closeAlert($index)" ng-repeat="alert in alerts" type="{{alert.type}}">
     {{alert.msg}}
   </alert>
 </div>

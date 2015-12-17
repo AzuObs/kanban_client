@@ -19,16 +19,19 @@
 
 		$stateProvider.state("kanban.oauth", {
 			views: {
-				"navbar@": {
+				"navbar-view@": {
 					templateUrl: "app/common/navbar/navbar.html"
 				},
-				"state-info@": {
+				"state-info-view@": {
 					templateUrl: "app/common/state-info/state-info.html",
 					controller: "stateInfoCtrl"
 				},
-				"body@": {
+				"body-view@": {
 					templateUrl: "app/oauth-page/oauth.html",
 					controller: "oauthCtrl"
+				},
+				"footer-view@": {
+					templateUrl: "app/common/footer/footer.html"
 				}
 			},
 			url: "/identity"
@@ -42,8 +45,8 @@
 			$scope.newAccPwd = "";
 			$scope.newAccPwdVerify = "";
 
-			$scope.logginUsername = "sheldon";
-			$scope.logginPwd = "123";
+			$scope.loginUsername = "sheldon";
+			$scope.loginPwd = "123";
 
 			$scope.createUser = function() {
 				oauthAPI
@@ -62,7 +65,7 @@
 
 			$scope.authenticate = function() {
 				oauthAPI
-					.authenticate($scope.logginUsername, $scope.logginPwd)
+					.authenticate($scope.loginUsername, $scope.loginPwd)
 					.then(function(res) {
 						sessionStorage.userId = res.user._id;
 						sessionStorage.token = res.token;

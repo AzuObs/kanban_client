@@ -4,59 +4,61 @@
 <head>
   <title>Kanban - {{state.current.name}}</title>
   <meta charset="UTF-8">
-  <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
-  <link href="app/app.css" rel="stylesheet" type="text/css">
-  <link href="app/modals.css" rel="stylesheet" type="text/css">
-  <link href="app/oauth-page/oauth.css" rel="stylesheet" type="text/css">
-  <link href="app/board-list-page/board-list.css" rel="stylesheet" type="text/css">
-  <link href="app/board-list-page/board-modal/board-modal.css" rel="stylesheet" type="text/css">
-  <link href="app/board-page/board.css" rel="stylesheet" type="text/css">
-  <link href="app/board-page/users/users.css" rel="stylesheet" type="text/css">
-  <link href="app/board-page/users/user-directive/user-directive.css" rel="stylesheet" type="text/css">
-  <link href="app/board-page/users/user-modal/user-modal.css" rel="stylesheet" type="text/css">
-  <link href="app/board-page/categories/categories.css" rel="stylesheet" type="text/css">
-  <link href="app/board-page/categories/category-directive/category-directive.css" rel="stylesheet" type="text/css">
-  <link href="app/board-page/tasks/tasks.css" rel="stylesheet" type="text/css">
-  <link href="app/board-page/tasks/task-directive/task-directive.css" rel="stylesheet" type="text/css">
-  <link href="app/board-page/tasks/task-modal/task-modal.css" rel="stylesheet" type="text/css">
-  <link href="app/common/navbar/navbar.css" rel="stylesheet" type="text/css">
-  <link href="app/common/loading-bar/loading-bar.css" rel="stylesheet" type="text/css">
-  <link href="favicon.png" rel="icon" type="image/png">
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="app/app.css">
+  <link rel="stylesheet" type="text/css" href="app/modals.css">
+  <link rel="stylesheet" type="text/css" href="app/oauth-page/oauth.css">
+  <link rel="stylesheet" type="text/css" href="app/board-list-page/board-list.css">
+  <link rel="stylesheet" type="text/css" href="app/board-list-page/board-modal/board-modal.css">
+  <link rel="stylesheet" type="text/css" href="app/board-page/board.css">
+  <link rel="stylesheet" type="text/css" href="app/board-page/users/users.css">
+  <link rel="stylesheet" type="text/css" href="app/board-page/users/user-directive/user-directive.css">
+  <link rel="stylesheet" type="text/css" href="app/board-page/users/user-modal/user-modal.css">
+  <link rel="stylesheet" type="text/css" href="app/board-page/categories/categories.css">
+  <link rel="stylesheet" type="text/css" href="app/board-page/categories/category-directive/category-directive.css">
+  <link rel="stylesheet" type="text/css" href="app/board-page/tasks/tasks.css">
+  <link rel="stylesheet" type="text/css" href="app/board-page/tasks/task-directive/task-directive.css">
+  <link rel="stylesheet" type="text/css" href="app/board-page/tasks/task-modal/task-modal.css">
+  <link rel="stylesheet" type="text/css" href="app/common/navbar/navbar.css">
+  <link rel="stylesheet" type="text/css" href="app/common/footer/footer.css">
+  <link rel="stylesheet" type="text/css" href="app/common/loading-bar/loading-bar.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 
-  <script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
-  <script src="non-bower_components/jquery-ui/jquery-ui-fixed.js" type="text/javascript"></script>
-  <script src="bower_components/angular/angular.js" type="text/javascript"></script>
-  <script src="bower_components/angular-ui-router/release/angular-ui-router.js" type="text/javascript"></script>
-  <script src="bower_components/angular-resource/angular-resource.js" type="text/javascript"></script>
-  <script src="bower_components/angular-ui-sortable/sortable.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js" type="text/javascript"></script>
-  <script src="app/app.js" type="text/javascript"></script>
-  <script src="app/common/state-info/state-info.js" type="text/javascript"></script>
-  <script src="app/common/loading-bar/loading-bar.js" type="text/javascript"></script>
-  <script src="app/about-page/about.js" type="text/javascript"></script>
-  <script src="app/oauth-page/oauth.js" type="text/javascript"></script>
-  <script src="app/oauth-page/oauth-api/oauth-api.js" type="text/javascript"></script>
-  <script src="app/board-list-page/board-list.js" type="text/javascript"></script>
-  <script src="app/board-list-page/board-modal/board-modal.js" type="text/javascript"></script>
-  <script src="app/board-page/board.js" type="text/javascript"></script>
-  <script src="app/board-page/users/users.js" type="text/javascript"></script>
-  <script src="app/board-page/users/user-directive/user-directive.js" type="text/javascript"></script>
-  <script src="app/board-page/users/user-modal/user-modal.js" type="text/javascript"></script>
-  <script src="app/board-page/tasks/tasks.js" type="text/javascript"></script>
-  <script src="app/board-page/tasks/task-directive/task-directive.js" type="text/javascript"></script>
-  <script src="app/board-page/tasks/task-modal/task-modal.js" type="text/javascript"></script>
-  <script src="app/board-page/categories/categories.js" type="text/javascript"></script>
-  <script src="app/board-page/categories/category-directive/category-directive.js" type="text/javascript"></script>
-  <script src="app/board-page/board-api/board-api.js" type="text/javascript"></script>
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+  <script type="text/javascript" src="non-bower_components/jquery-ui/jquery-ui-fixed.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+  <script type="text/javascript" src="bower_components/angular-ui-sortable/sortable.js"></script>
+  <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script type="text/javascript" src="app/app.js"></script>
+  <script type="text/javascript" src="app/common/state-info/state-info.js"></script>
+  <script type="text/javascript" src="app/common/loading-bar/loading-bar.js"></script>
+  <script type="text/javascript" src="app/about-page/about.js"></script>
+  <script type="text/javascript" src="app/oauth-page/oauth.js"></script>
+  <script type="text/javascript" src="app/oauth-page/oauth-api/oauth-api.js"></script>
+  <script type="text/javascript" src="app/board-list-page/board-list.js"></script>
+  <script type="text/javascript" src="app/board-list-page/board-modal/board-modal.js"></script>
+  <script type="text/javascript" src="app/board-page/board-api/board-api.js"></script>
+  <script type="text/javascript" src="app/board-page/board.js"></script>
+  <script type="text/javascript" src="app/board-page/users/users.js"></script>
+  <script type="text/javascript" src="app/board-page/users/user-directive/user-directive.js"></script>
+  <script type="text/javascript" src="app/board-page/users/user-modal/user-modal.js"></script>
+  <script type="text/javascript" src="app/board-page/tasks/tasks.js"></script>
+  <script type="text/javascript" src="app/board-page/tasks/task-directive/task-directive.js"></script>
+  <script type="text/javascript" src="app/board-page/tasks/task-modal/task-modal.js"></script>
+  <script type="text/javascript" src="app/board-page/categories/categories.js"></script>
+  <script type="text/javascript" src="app/board-page/categories/category-directive/category-directive.js"></script>
 </head>
 
-<body class="f_y">
+<body>
   <noscript class="no-script">
     <h1>To use the Kanban app, please enable JavaScript.</h1>
   </noscript>
-  <div class="i_fix" ui-view="navbar"></div>
-  <div class="i_fix" ui-view="state-info"></div>
-  <div class="f_y i_fit" ui-view="body"></div>
+  <div class="navbar-view" ui-view="navbar-view"></div>
+  <div class="state-info-view" ui-view="state-info-view"></div>
+  <div class="body-view" ui-view="body-view"></div>
+  <div class="footer-view" ui-view="footer-view"></div>
 </body>
 
 </html>

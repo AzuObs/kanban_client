@@ -16,7 +16,7 @@
   visibility: visible !important;
 }
 
-div[ui-view="task-view"] > input {
+.task-view > input {
   flex: 0 1 auto;
   min-height: 32px;
   margin-top: 5px;
@@ -24,7 +24,7 @@ div[ui-view="task-view"] > input {
   background-color: #eee;
 }
 
-div[ui-view="task-view"] > input:hover,
-div[ui-view="task-view"] > input:focus {
+.task-view > input:hover,
+.task-view > input:focus {
   background-color: #fff;
 }

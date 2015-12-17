@@ -7,14 +7,14 @@
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.boardList", {
 			views: {
-				"navbar@": {
+				"navbar-view@": {
 					templateUrl: "app/common/navbar/navbar.html"
 				},
-				"state-info@": {
+				"state-info-view@": {
 					templateUrl: "app/common/state-info/state-info.html",
 					controller: "stateInfoCtrl"
 				},
-				"body@": {
+				"body-view@": {
 					templateUrl: "app/board-list-page/board-list.html",
 					controller: "boardListCtrl",
 					resolve: {
@@ -25,6 +25,9 @@
 							return boardAPI.getBoardsForUser(sessionStorage.userId);
 						}]
 					}
+				},
+				"footer-view@": {
+					templateUrl: "app/common/footer/footer.html"
 				}
 			},
 			url: "/user/:username",
