@@ -8,18 +8,18 @@
 		$stateProvider.state("kanban.oauth", {
 			views: {
 				"navbar-view@": {
-					templateUrl: "app/common/navbar/navbar.html"
+					templateUrl: "common/navbar/navbar.html"
 				},
 				"state-info-view@": {
-					templateUrl: "app/common/state-info/state-info.html",
+					templateUrl: "common/state-info/state-info.html",
 					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
-					templateUrl: "app/oauth/oauth.html",
+					templateUrl: "oauth/oauth.html",
 					controller: "oauthCtrl"
 				},
 				"footer-view@": {
-					templateUrl: "app/common/footer/footer.html"
+					templateUrl: "common/footer/footer.html"
 				}
 			},
 			url: "/identity"

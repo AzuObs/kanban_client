@@ -7,7 +7,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "app/board/tasks/task-directive/task-directive.html"
+			templateUrl: "board/tasks/task-directive/task-directive.html"
 		};
 	});
 

@@ -7,7 +7,7 @@
 		return {
 			restrict: "E",
 			replace: true,
-			templateUrl: "app/board/categories/category-directive/category-directive.html"
+			templateUrl: "board/categories/category-directive/category-directive.html"
 		};
 	});
 

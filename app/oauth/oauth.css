@@ -5,7 +5,7 @@
   min-height: 295px;
 }
 
-h3 {
+.oauth-container h3 {
   align-self: center;
   margin-bottom: 15px;
 }

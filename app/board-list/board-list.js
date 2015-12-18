@@ -8,14 +8,14 @@
 		$stateProvider.state("kanban.boardList", {
 			views: {
 				"navbar-view@": {
-					templateUrl: "app/common/navbar/navbar.html"
+					templateUrl: "common/navbar/navbar.html"
 				},
 				"state-info-view@": {
-					templateUrl: "app/common/state-info/state-info.html",
+					templateUrl: "common/state-info/state-info.html",
 					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
-					templateUrl: "app/board-list/board-list.html",
+					templateUrl: "board-list/board-list.html",
 					controller: "boardListCtrl",
 					resolve: {
 						user: ["boardAPI", function(boardAPI) {
@@ -27,7 +27,7 @@
 					}
 				},
 				"footer-view@": {
-					templateUrl: "app/common/footer/footer.html"
+					templateUrl: "common/footer/footer.html"
 				}
 			},
 			url: "/user/:username",
@@ -53,7 +53,7 @@
 			$scope.openBoardModal = function(board) {
 				$modal.open({
 					animation: true,
-					templateUrl: "app/board-list/board-modal/board-modal.html",
+					templateUrl: "board-list/board-modal/board-modal.html",
 					controller: "boardModalCtrl",
 					scope: $scope,
 					resolve: {
