@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start",
-    "server": "http-server -a localhost -p 3000"
+    "start": "http-server -a localhost -p 3000"
   },
   "repository": {
     "type": "git",
