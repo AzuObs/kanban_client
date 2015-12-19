@@ -1,11 +1,12 @@
 {
   "name": "kanban_client",
+  "private": true,
   "version": "1.0.0",
   "description": "Demo App",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server -a localhost -p 3000"
+    "test": "karma start",
+    "server": "http-server -a localhost -p 3000"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,11 @@
   },
   "homepage": "https://github.com/AzuObs/kanban_client",
   "devDependencies": {
-    "http-server": "^0.8.5"
+    "grunt": "^0.4.5",
+    "grunt-karma": "^0.12.1",
+    "http-server": "^0.8.5",
+    "karma": "^0.13.15",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.6"
   }
 }
