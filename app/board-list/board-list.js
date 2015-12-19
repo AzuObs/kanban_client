@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("boardListModule", ["boardAPIModule"]);
+	var module = angular.module("boardListModule", ["boardAPIModule", "stateInfoModule", "ui.bootstrap", "ui.router"]);
 
 
 	module.config(["$stateProvider", function($stateProvider) {

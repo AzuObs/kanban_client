@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("taskModule", []);
+	var module = angular.module("taskModule", ["boardAPIModule", "ui.bootstrap", "ui.sortable", "taskDirectiveModule", "taskModalModule"]);
 
 
 	module.controller("taskCtrl", ["$scope", "boardAPI", "$modal", "$log", function($scope, boardAPI, $modal, $log) {
@@ -38,20 +38,6 @@
 			});
 		};
 
-
-		$scope.deleteTask = function(category, taskId) {
-			boardAPI
-				.deleteTask($scope.board._id, category._id, taskId)
-				.then(function(res) {
-					for (var i = 0; i < category.tasks.length; i++) {
-						if (category.tasks[i]._id === taskId) {
-							category.tasks.splice(i, 1);
-						}
-					}
-				}, function(err) {
-					$log.log(err);
-				});
-		};
 
 		$scope.createTask = function(name, category, keyEvent) {
 			if (!keyEvent || keyEvent.which === 13) {

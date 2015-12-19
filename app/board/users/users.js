@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("userMenuModule", []);
+	var module = angular.module("userMenuModule", ["boardAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule", "userModalModule"]);
 
 
 	module.controller("userMenuCtrl", ["$scope", "$modal", "$log", "boardAPI", function($scope, $modal, $log, boardAPI) {
@@ -17,6 +17,23 @@
 			email: "wolowitz@mail.com"
 		}];
 
+		$scope.editUser = function(user) {
+			openEditUser($scope.board, user);
+		};
+
+		var openEditUser = function(board, user) {
+			$modal.open({
+				animation: true,
+				templateUrl: "board/users/user-modal/user-modal.html",
+				controller: "userModalCtrl",
+				scope: $scope,
+				resolve: {
+					user: function() {
+						return user;
+					}
+				}
+			});
+		};
 
 		$scope.setAddMember = function(value) {
 			$scope.addMemberInput = value;
@@ -40,24 +57,6 @@
 						$log.log(err);
 					});
 			}
-		};
-
-		$scope.editUser = function(user) {
-			openEditUser($scope.board, user);
-		};
-
-		var openEditUser = function(board, user) {
-			$modal.open({
-				animation: true,
-				templateUrl: "board/users/user-modal/user-modal.html",
-				controller: "userModalCtrl",
-				scope: $scope,
-				resolve: {
-					user: function() {
-						return user;
-					}
-				}
-			});
 		};
 	}]);
 

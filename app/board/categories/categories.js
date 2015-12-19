@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("categoryModule", []);
+	var module = angular.module("categoryModule", ["boardAPIModule", "categoryDirectiveModule", "ui.bootstrap", "ui.sortable"]);
 
 
 	module.controller("categoryCtrl", ["$scope", "$log", "boardAPI", function($scope, $log, boardAPI) {

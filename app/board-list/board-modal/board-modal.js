@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("boardModalModule", []);
+	var module = angular.module("boardModalModule", ["boardAPIModule", "ui.bootstrap"]);
 
 
 	module.controller("boardModalCtrl", ["$log", "boardAPI", "$scope", "$modalInstance", "board",
@@ -10,6 +10,7 @@
 			$scope.repeatBoardName = "";
 			$scope.isEditingName = false;
 			$scope.isDeletingBoard = false;
+
 
 			$scope.cancelEditing = function(e) {
 				if (!e) {
@@ -63,6 +64,7 @@
 					}
 				}
 			};
+
 
 			$scope.renameBoard = function(e) {
 				if (!e) {

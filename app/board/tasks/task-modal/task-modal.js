@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("taskModalModule", []);
+	var module = angular.module("taskModalModule", ["boardAPIModule", "ui.bootstrap", "userDirectiveModule"]);
 
 
 	module.controller("taskModalCtrl", ["$scope", "$modalInstance", "$log", "boardAPI", "catId", "taskId",

@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("oauthModule", ["ui.router", "oauthAPIModule"]);
+	var module = angular.module("oauthModule", ["oauthAPIModule", "stateInfoModule", "ui.bootstrap", "ui.router"]);
 
 
 	module.config(["$stateProvider", function($stateProvider) {

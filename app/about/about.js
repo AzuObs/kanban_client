@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("aboutModule", []);
+	var module = angular.module("aboutModule", ["stateInfoModule", "ui.router"]);
 
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.about", {

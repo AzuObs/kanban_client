@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("userDirectiveModule", []);
+	var module = angular.module("userDirectiveModule", ["ui.bootstrap"]);
 
 	module.directive("kbUser", function() {
 		return {

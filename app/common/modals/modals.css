@@ -69,12 +69,7 @@
   margin-right: 3px;
 }
 
-
-/*
-* .modal-user[ng-click="editUser"] used for specificity reason only
- */
-
-.modal-user[ng-click="editUser(user)"] img {
+#modal-user img {
   border: 1px solid #aaa;
   height: 50px;
   width: 50px;

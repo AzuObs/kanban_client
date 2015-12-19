@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("userModalModule", []);
+	var module = angular.module("userModalModule", ["boardAPIModule", "ui.bootstrap", "userDirectiveModule"]);
 
 	module.controller("userModalCtrl", ["$state", "$log", "$scope", "$modalInstance", "boardAPI", "user",
 		function($state, $log, $scope, $modalInstance, boardAPI, user) {
