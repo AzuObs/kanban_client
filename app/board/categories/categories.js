@@ -15,7 +15,7 @@
 					.then(function(res) {
 						$scope.board.categories.push(res);
 					}, function(err) {
-						$log.log(err);
+						$log.error(err);
 					});
 			}
 		};
@@ -30,7 +30,7 @@
 						}
 					}
 				}, function(err) {
-					$log.log(err);
+					$log.error(err);
 				});
 		};
 

@@ -24,7 +24,7 @@
 						}
 					}
 				}, function(err) {
-					$log.log(err);
+					$log.error(err);
 				});
 		};
 	}]);

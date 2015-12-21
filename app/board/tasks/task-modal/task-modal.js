@@ -34,7 +34,7 @@
 						calculateAddableUsers($scope);
 						$scope.board._v++;
 					}, function(err) {
-						$log.log(err);
+						$log.error(err);
 					});
 			};
 
@@ -57,7 +57,7 @@
 					.then(function() {
 						$scope.board._v++;
 					}, function(err) {
-						$log.log(err);
+						$log.error(err);
 					});
 			};
 
@@ -70,7 +70,7 @@
 						calculateAddableUsers($scope);
 						$scope.board._v++;
 					}, function(err) {
-						$log.log(err);
+						$log.error(err);
 					});
 			};
 
@@ -95,10 +95,10 @@
 									$scope.board._v++;
 									$modalInstance.dismiss();
 								}, function(err) {
-									$log.log(err);
+									$log.error(err);
 								});
 						} else {
-							$log.log("your input does not match the task's name");
+							$log.error("your input does not match the task's name");
 						}
 					}
 				}
@@ -107,7 +107,7 @@
 
 			$scope.endAllEditting = function(e) {
 				if (!e || (e.type != "click")) {
-					$log.log("no event was passed to endAllEditting");
+					$log.error("no event was passed to endAllEditting");
 				}
 
 				if ($scope.isEdittingTaskName && !angular.element(e.target).hasClass("task-name-edit")) {
@@ -134,7 +134,7 @@
 							.then(function(res) {
 								$scope.board._v++;
 							}, function(err) {
-								$log.log(err);
+								$log.error(err);
 							});
 					}
 				}
@@ -149,7 +149,7 @@
 						.then(function(res) {
 							$scope.task.comments.unshift(res);
 						}, function(err) {
-							$log.log(err);
+							$log.error(err);
 						});
 				}
 			};

@@ -88,7 +88,7 @@
 									$scope.board._v++;
 									$modalInstance.close();
 								}, function(err) {
-									$log.log(err);
+									$log.error(err);
 								});
 						} else {
 							// no users left
@@ -99,13 +99,13 @@
 										username: $scope.user.username
 									});
 								}, function(err) {
-									$log.log("could not delete last user and board");
+									$log.error("could not delete last user and board");
 								});
 						}
 
 					} else {
 						$scope.isDeleting = false;
-						$log.log("username incorrect");
+						$log.error("username incorrect");
 					}
 				}
 			};
@@ -133,7 +133,7 @@
 			}
 		}
 
-		$log.log("user does not have RBAC");
+		$log.error("user does not have RBAC");
 		throw "user does not have RBAC";
 	};
 

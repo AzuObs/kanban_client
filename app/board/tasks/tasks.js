@@ -48,7 +48,7 @@
 					.then(function(res) {
 						category.tasks.push(res);
 					}, function(err) {
-						$log.log(err);
+						$log.error(err);
 					});
 			}
 		};

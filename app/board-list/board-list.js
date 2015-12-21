@@ -46,7 +46,7 @@
 					.then(function(res) {
 						$scope.boards.push(res);
 					}, function(err) {
-						$log.log(err);
+						$log.error(err);
 					});
 			};
 

@@ -14,7 +14,7 @@
 
 			$scope.cancelEditing = function(e) {
 				if (!e) {
-					$log.log("no event passed to cancel editing");
+					$log.error("no event passed to cancel editing");
 				}
 
 				if ($scope.isEditingName) {
@@ -34,7 +34,7 @@
 
 			$scope.deleteBoard = function(e) {
 				if (!e) {
-					return $log.log("no event passed to deleteBoard");
+					return $log.error("no event passed to deleteBoard");
 				}
 
 				if (e.type === "click" && !angular.element(e.target).hasClass("delete-board-input")) {
@@ -57,10 +57,10 @@
 								}
 								$modalInstance.dismiss();
 							}, function(err) {
-								$log.log(err);
+								$log.error(err);
 							});
 					} else {
-						$log.log("board name does not match input");
+						$log.error("board name does not match input");
 					}
 				}
 			};
@@ -68,7 +68,7 @@
 
 			$scope.renameBoard = function(e) {
 				if (!e) {
-					return $log.log("no event passed to renameBoard");
+					return $log.error("no event passed to renameBoard");
 				}
 
 				if (e.type === "click" && !$scope.isEditingName) {
@@ -85,7 +85,7 @@
 							board._v++;
 							$scope.isEditingName = false;
 						}, function(err) {
-							$log.log(err);
+							$log.error(err);
 						});
 				}
 			};

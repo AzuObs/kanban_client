@@ -62,7 +62,7 @@
 					.then(function(res) {
 						$scope.board._v++;
 					}, function(err) {
-						$log.log(err);
+						$log.error(err);
 					});
 			};
 
@@ -98,7 +98,7 @@
 					// cancel duplicates
 					for (var i = 0; i < ui.item.sortable.droptargetModel.length; i++) {
 						if (ui.item.sortable.droptargetModel[i]._id === ui.item.sortable.model._id) {
-							$log.log("duplicate already exist in that list of task users");
+							$log.error("duplicate already exist in that list of task users");
 							ui.item.sortable.cancel();
 						}
 					}

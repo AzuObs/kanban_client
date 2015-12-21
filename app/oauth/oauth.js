@@ -27,8 +27,8 @@
 	}]);
 
 
-	module.controller("oauthCtrl", ["$scope", "oauthAPI", "$state",
-		function($scope, oauthAPI, $state) {
+	module.controller("oauthCtrl", ["$log", "$scope", "oauthAPI", "$state",
+		function($log, $scope, oauthAPI, $state) {
 			$scope.newAccUsr = "";
 			$scope.newAccPwd = "";
 			$scope.newAccPwdVerify = "";
@@ -45,8 +45,9 @@
 						$state.go("kanban.boardList", {
 							username: res.user.username
 						});
+
 					}, function(err) {
-						console.log(err);
+						$log.error(err);
 					});
 			};
 
@@ -62,11 +63,9 @@
 							username: res.user.username
 						});
 					}, function(err) {
-						console.log(err);
+						$log.error(err);
 					});
-
 			};
 		}
 	]);
-
 })();

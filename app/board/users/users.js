@@ -45,7 +45,7 @@
 				//check member isnt already in the users
 				for (var i = 0; i < $scope.users.length; i++) {
 					if ($scope.addMemberInput === $scope.users[i].email) {
-						return $log.log("avoiding duplicate: user already exists");
+						return $log.error("avoiding duplicate: user already exists");
 					}
 				}
 
@@ -54,7 +54,7 @@
 						$scope.board.members.push(res);
 						$scope.users.push(res);
 					}, function(err) {
-						$log.log(err);
+						$log.error(err);
 					});
 			}
 		};
