@@ -1,4 +1,57 @@
 (function() {
+	"use strict";
+	describe("oauthModule.config $stateProvider", function() {
+		var stateProviderArgs;
+
+		// the following is a hack
+		// in order the to test the config phase of aouthModule $stateProvider
+		// I need to set the spy up before aouthModule.config has been executed
+		beforeEach(function() {
+			module("boardModule", function($stateProvider) {
+				spyOn($stateProvider, "state").and.callFake(function() {
+					stateProviderArgs = arguments;
+				});
+			});
+			module("oauthModule");
+		});
+
+		beforeEach(inject(function() {}));
+
+		it("exists", function() {
+			expect(stateProviderArgs).not.toBe(undefined);
+		});
+
+		it("sets the state to kanban.oauth", function() {
+			expect(stateProviderArgs[0]).toEqual("kanban.oauth");
+		});
+
+		it("sets the url to identity", function() {
+			expect(stateProviderArgs[1].url).toEqual("/identity");
+		});
+
+		it("sets all the views", function() {
+			var views = {
+				"navbar-view@": {
+					templateUrl: "common/navbar/navbar.html"
+				},
+				"state-info-view@": {
+					templateUrl: "common/state-info/state-info.html",
+					controller: "stateInfoCtrl"
+				},
+				"body-view@": {
+					templateUrl: "oauth/oauth.html",
+					controller: "oauthCtrl"
+				},
+				"footer-view@": {
+					templateUrl: "common/footer/footer.html"
+				}
+			};
+
+			expect(stateProviderArgs[1].views).toEqual(views);
+		});
+	});
+
+
 	describe("oauthCtrl", function() {
 		var defer, $log, $scope, stateArgs;
 
