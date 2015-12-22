@@ -178,8 +178,9 @@
 				delete sessionStorage.token;
 
 				$scope.createUser();
-				defer.resolve(res);
-				$scope.$apply();
+				$scope.$apply(function() {
+					defer.resolve(res);
+				});
 
 				expect(sessionStorage.userId).toEqual(res.user._id);
 			});
@@ -188,8 +189,9 @@
 				delete sessionStorage.token;
 
 				$scope.createUser();
-				defer.resolve(res);
-				$scope.$apply();
+				$scope.$apply(function() {
+					defer.resolve(res);
+				});
 
 				expect(sessionStorage.token).toEqual(res.token);
 			});
@@ -207,9 +209,9 @@
 
 				var res = "error: failure";
 				$scope.createUser();
-				defer.reject(res);
-
-				$scope.$apply();
+				$scope.$apply(function() {
+					defer.reject(res);
+				});
 
 				expect($log.error.logs[0][0]).toEqual(res);
 			});
@@ -241,8 +243,9 @@
 				delete sessionStorage.userId;
 
 				$scope.authenticate();
-				defer.resolve(res);
-				$scope.$apply();
+				$scope.$apply(function() {
+					defer.resolve(res);
+				});
 
 				expect(sessionStorage.userId).toEqual(res.user._id);
 			});
@@ -251,8 +254,9 @@
 				delete sessionStorage.token;
 
 				$scope.createUser();
-				defer.resolve(res);
-				$scope.$apply();
+				$scope.$apply(function() {
+					defer.resolve(res);
+				});
 
 				expect(sessionStorage.token).toEqual(res.token);
 			});
@@ -270,9 +274,9 @@
 
 				var res = "error: failure";
 				$scope.createUser();
-				defer.reject(res);
-
-				$scope.$apply();
+				$scope.$apply(function() {
+					defer.reject(res);
+				});
 
 				expect($log.error.logs[0][0]).toEqual(res);
 			});

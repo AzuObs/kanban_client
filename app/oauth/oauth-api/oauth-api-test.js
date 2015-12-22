@@ -30,8 +30,9 @@
 
 			it("sends a POST request to '$rootScope.endPoint' + '/user'", function() {
 				$httpBackend.expect("POST", $rootScope.endPoint + "/user").respond();
-				oauthAPI.createUser();
-				$rootScope.$apply();
+				$rootScope.$apply(function() {
+					oauthAPI.createUser();
+				});
 			});
 
 			it("sends a body containing object with keys ['username', 'pwd']", function() {
@@ -41,8 +42,9 @@
 				};
 
 				$httpBackend.expectPOST($rootScope.endPoint + "/user", req).respond();
-				oauthAPI.createUser(req.username, req.pwd);
-				$rootScope.$apply();
+				$rootScope.$apply(function() {
+					oauthAPI.createUser(req.username, req.pwd);
+				});
 			});
 
 			it("resolves on success", function() {
@@ -50,13 +52,14 @@
 
 				$httpBackend.whenPOST().respond(200, "");
 				defer = oauthAPI.createUser();
-				defer.then(function(res) {
-					test = true;
-				}, function(err) {
-					test = false;
+				$rootScope.$apply(function() {
+					defer.then(function(res) {
+						test = true;
+					}, function(err) {
+						test = false;
+					});
 				});
 				test = false;
-				$rootScope.$apply();
 				$httpBackend.flush();
 
 				expect(test).toEqual(true);
@@ -67,13 +70,14 @@
 
 				$httpBackend.whenPOST().respond(404, "");
 				defer = oauthAPI.createUser();
-				defer.then(function(res) {
-					test = true;
-				}, function(err) {
-					test = false;
+				$rootScope.$apply(function() {
+					defer.then(function(res) {
+						test = true;
+					}, function(err) {
+						test = false;
+					});
 				});
 				test = false;
-				$rootScope.$apply();
 				$httpBackend.flush();
 
 				expect(test).toEqual(false);

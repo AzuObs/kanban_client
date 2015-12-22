@@ -72,8 +72,9 @@
 					foo: "foo"
 				});
 
-				$http.get("http://foo.com").then(function() {}, function() {});
-				$rootScope.$apply();
+				$rootScope.$apply(function() {
+					$http.get("http://foo.com").then(function() {}, function() {});
+				});
 			});
 
 			it("doesn't send the token on any request if token is absent", function() {
@@ -83,8 +84,9 @@
 					foo: "foo"
 				});
 
-				$http.get("http://foo.com").then(function() {}, function() {});
-				$rootScope.$apply();
+				$rootScope.$apply(function() {
+					$http.get("http://foo.com").then(function() {}, function() {});
+				});
 			});
 		});
 	});

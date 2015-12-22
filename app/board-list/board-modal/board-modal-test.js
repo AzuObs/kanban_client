@@ -107,8 +107,9 @@
 
 				$scope.board._v = 0;
 				$scope.renameBoard(e);
-				deferAPI.resolve();
-				$scope.$apply();
+				$scope.$apply(function() {
+					deferAPI.resolve();
+				});
 				expect($scope.board._v).toEqual(1);
 			});
 
@@ -124,8 +125,9 @@
 
 				$scope.board._v = 0;
 				$scope.renameBoard(e);
-				deferAPI.reject(msg);
-				$scope.$apply();
+				$scope.$apply(function() {
+					deferAPI.reject(msg);
+				});
 
 				expect($log.error.logs[0][0]).toEqual(msg);
 			});

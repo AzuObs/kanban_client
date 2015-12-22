@@ -47,13 +47,17 @@
 	}]);
 
 
+	module.constant("USER_SELECTION_HEIGHT", 150);
+
+
 	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "user", "boardAPI",
-		function($scope, $log, $modal, board, user, boardAPI) {
+		function($scope, $log, $modal, board, user, boardAPI, USER_SELECTION_HEIGHT) {
 			// used in categoryCtrl, taskCtrl, userPanerCtrl, commentModalCtrl
 			$scope.user = user;
 			$scope.board = board;
 			$scope.users = $scope.board.admins.concat($scope.board.members);
 			$scope.showUserList = false;
+
 			// used by categoryCtrl, taskCtrl and userMenuCtrl
 			$scope.updateBoard = function() {
 				boardAPI
@@ -66,8 +70,6 @@
 			};
 
 			// used by tasks and userMenu (connectedList)
-			var USER_SELECTION_HEIGHT = 150;
-
 			$scope.userSortOpts = {
 				horizontal: true,
 				cursor: "move",
@@ -107,12 +109,9 @@
 				},
 				stop: function(e, ui) {
 					$scope.users = $scope.board.admins.concat($scope.board.members);
-
-
 					$scope.updateBoard();
 				}
 			};
 		}
 	]);
-
 })();
