@@ -14,7 +14,7 @@
 
 			$scope.cancelEditing = function(e) {
 				if (!e) {
-					$log.error("no event passed to cancel editing");
+					return $log.error("no event passed to cancel editing");
 				}
 
 				if ($scope.isEditingName) {

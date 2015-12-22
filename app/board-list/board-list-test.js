@@ -59,7 +59,11 @@
 					expect($scope.user).toBeDefined();
 				});
 
-				it("is equal to the resolved user passed to the controller", function() {
+				it("is an object", function() {
+					expect(Object.prototype.toString.call($scope.user)).toEqual("[object Object]");
+				});
+
+				it("is equal to the user injected into the controller", function() {
 					expect($scope.user).toEqual(user);
 				});
 			});
@@ -70,7 +74,11 @@
 					expect($scope.boards).toBeDefined();
 				});
 
-				it("is equal to the resolved boards passed to the controller", function() {
+				it("is an array", function() {
+					expect(Object.prototype.toString.call($scope.boards)).toEqual("[object Array]");
+				});
+
+				it("is equal to the boards injected into the controller", function() {
 					expect($scope.boards).toEqual(boards);
 				});
 			});
