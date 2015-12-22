@@ -2,10 +2,10 @@
 	"use strict";
 
 	describe("stateInfoCtrl", function() {
-		var $scope, $state;
+		var $scope;
 
 		beforeEach(module("stateInfoModule"));
-		beforeEach(inject(function($controller, _$state_) {
+		beforeEach(inject(function($controller) {
 			$scope = {};
 			$controller("stateInfoCtrl", {
 				$scope: $scope

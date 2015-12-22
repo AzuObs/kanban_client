@@ -4,10 +4,10 @@
 		var stateProviderArgs;
 
 		// the following is a hack
-		// in order the to test the config phase of aouthModule $stateProvider
-		// I need to set the spy up before aouthModule.config has been executed
+		// in order to test the config phase of my target module 
+		// I need to set the spies up before .config has been executed		
 		beforeEach(function() {
-			module("boardModule", function($stateProvider) {
+			module("aboutModule", function($stateProvider) {
 				spyOn($stateProvider, "state").and.callFake(function() {
 					stateProviderArgs = arguments;
 				});

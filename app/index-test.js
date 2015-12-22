@@ -5,8 +5,8 @@
 		var stateArgs, urlRouterArgs, $http, $httpBackend, $rootScope;
 
 		// the following is a hack
-		// in order the to test the config phase of kanbanApp 
-		// I need to set the spies up before kanbanApp.config has been executed
+		// in order to test the config phase of my target module 
+		// I need to set the spies up before .config has been executed		
 		beforeEach(function() {
 			module("boardModule", function($stateProvider, $urlRouterProvider) {
 				spyOn($stateProvider, "state").and.callFake(function() {

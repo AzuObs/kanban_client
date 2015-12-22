@@ -38,6 +38,7 @@
 	module.controller("boardListCtrl", ["$scope", "$modal", "$state", "$log", "user", "boards", "boardAPI",
 		function($scope, $modal, $state, $log, user, boards, boardAPI) {
 			$scope.user = user;
+			$scope.boardName = "";
 			$scope.boards = boards;
 
 			$scope.createBoard = function() {
@@ -64,7 +65,6 @@
 				});
 			};
 
-
 			$scope.goToBoard = function(board) {
 				sessionStorage.boardId = board._id;
 				$state.go("kanban.board", {
@@ -73,5 +73,4 @@
 			};
 		}
 	]);
-
 })();

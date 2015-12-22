@@ -42,14 +42,13 @@
 					templateUrl: "common/footer/footer.html"
 				}
 			},
-			url: "/board/:boardName"
+			url: "/board/:boardName",
 		});
 	}]);
 
 
-	module.controller("boardCtrl", ["$scope", "$log", "$modal", "user", "board", "boardAPI",
-		function($scope, $log, $modal, user, board, boardAPI) {
-
+	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "user", "boardAPI",
+		function($scope, $log, $modal, board, user, boardAPI) {
 			// used in categoryCtrl, taskCtrl, userPanerCtrl, commentModalCtrl
 			$scope.user = user;
 			$scope.board = board;
