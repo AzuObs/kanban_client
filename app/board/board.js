@@ -4,6 +4,9 @@
 	var module = angular.module("boardModule", ["boardAPIModule", "stateInfoModule", "ui.bootstrap", "ui.router", "ui.sortable"]);
 
 
+	module.constant("USER_SELECTION_HEIGHT", 150);
+
+
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.board", {
 			views: {
@@ -45,9 +48,6 @@
 			url: "/board/:boardName",
 		});
 	}]);
-
-
-	module.constant("USER_SELECTION_HEIGHT", 150);
 
 
 	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "user", "boardAPI",

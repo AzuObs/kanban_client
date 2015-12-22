@@ -8,7 +8,7 @@
 		// in order to test the config phase of my target module 
 		// I need to set the spies up before .config has been executed		
 		beforeEach(function() {
-			module("boardModule", function($stateProvider, $urlRouterProvider) {
+			module("aboutModule", function($stateProvider, $urlRouterProvider) {
 				spyOn($stateProvider, "state").and.callFake(function() {
 					stateArgs = arguments;
 				});

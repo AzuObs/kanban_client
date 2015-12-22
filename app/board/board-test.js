@@ -2,6 +2,19 @@
 	"use strict";
 
 	describe("boardModule", function() {
+
+		describe("USER_SELECTION_HEIGHT constant", function() {
+			beforeEach(module("boardModule"));
+
+			it("is defined", inject(function(USER_SELECTION_HEIGHT) {
+				expect(USER_SELECTION_HEIGHT).toBeDefined();
+			}));
+
+			it("equals 150", inject(function(USER_SELECTION_HEIGHT) {
+				expect(USER_SELECTION_HEIGHT).toEqual(150);
+			}));
+		});
+
 		describe("boardCtrl", function() {
 			var $scope, user, board;
 
@@ -154,18 +167,6 @@
 					expect($scope.showUserList).toEqual(false);
 				});
 			});
-		});
-
-		describe("USER_SELECTION_HEIGHT", function() {
-			beforeEach(module("boardModule"));
-
-			it("is defined", inject(function(USER_SELECTION_HEIGHT) {
-				expect(USER_SELECTION_HEIGHT).toBeDefined();
-			}));
-
-			it("equals 150", inject(function(USER_SELECTION_HEIGHT) {
-				expect(USER_SELECTION_HEIGHT).toEqual(150);
-			}));
 		});
 
 

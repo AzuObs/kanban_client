@@ -32,8 +32,11 @@
 		describe("$stateProvider", function() {
 			var stateArgs;
 
+			// the following is a hack
+			// in order to test the config phase of my target module 
+			// I need to set the spies up before .config has been executed	
 			beforeEach(function() {
-				module("boardModule", function($stateProvider) {
+				module("oauthModule", function($stateProvider) {
 					stateArgs = undefined;
 					spyOn($stateProvider, "state").and.callFake(function() {
 						stateArgs = arguments;

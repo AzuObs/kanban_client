@@ -8,12 +8,12 @@
   </div>
 
   <span dropdown on-toggle="dropdown">
-    <input class="form-control input-md" dropdown-toggle ng-keypress="addMemberFn($event)" ng-model="addMemberInput" placeholder="ex:member@mail.com" type="text">
+    <input class="form-control input-md" dropdown-toggle ng-keypress="addMember($event)" ng-model="addMemberInput" placeholder="ex:member@mail.com" type="text">
     <ul class="add-member-dropdown dropdown-menu">
       <li ng-click="setAddMember(member.email)" ng-repeat="member in membersSuggestions">
         <a>{{member.email}}</a>
       </li>
     </ul>
   </span>
-  <button class="btn btn-black btn-md" ng-click="addMemberFn()">Add Member</button>
+  <button class="btn btn-black btn-md" ng-click="addMember($event)">Add Member</button>
 </div>

@@ -46,7 +46,6 @@
 		}
 	]);
 
-
 	module.run(["$rootScope", "$state", function($rootScope, $state) {
 		// $rootScope.endPoint = "http://bigbangkanban.herokuapp.com/api";
 		$rootScope.endPoint = "http://localhost:8000/api";
