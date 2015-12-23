@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("userModalModule", ["boardAPIModule", "ui.bootstrap", "userDirectiveModule"]);
+	var module = angular.module("userModalModule", ["boardAPIModule", "ui.bootstrap", "ui.router", "userDirectiveModule"]);
 
 	module.controller("userModalCtrl", ["$state", "$log", "$scope", "$modalInstance", "boardAPI", "user",
 		function($state, $log, $scope, $modalInstance, boardAPI, user) {
@@ -9,13 +9,17 @@
 			$scope.isEditingRBAC = false;
 			$scope.isDeleting = false;
 			$scope.repeatUsername = "";
-			$scope.userRBAC = getUserRBAC($scope);
+			$scope.userRBAC = undefined; // initialized at the bottom of this block
 
 
 			$scope.cancelEditing = function(e) {
+				if (!e) {
+					return $log.error("no event passed to userModalCtrl.cancelEditing");
+				}
+
 				if (!angular.element(e.target).hasClass("change-rbac")) {
 					$scope.isEditingRBAC = false;
-					$scope.userRBAC = getUserRBAC($scope);
+					$scope.userRBAC = $scope.getUserRBAC();
 				}
 
 				if (!angular.element(e.target).hasClass("remove-user")) {
@@ -26,11 +30,18 @@
 
 
 			$scope.changeUserRBAC = function(e) {
+				if (!e) {
+					return $log.error("no event received @changeUserRBAC @userModalCtrl");
+				}
 				$scope.isEditingRBAC = !$scope.isEditingRBAC;
 			};
 
 
 			$scope.removeUser = function(e) {
+				if (!e) {
+					return $log.error("no $event received @removeUser");
+				}
+
 				if (e.type === "click") {
 					$scope.isDeleting = !$scope.isDeleting;
 					$scope.repeatUsername = "";
@@ -86,7 +97,7 @@
 								.updateBoard($scope.board)
 								.then(function(res) {
 									$scope.board._v++;
-									$modalInstance.close();
+									$modalInstance.dismiss();
 								}, function(err) {
 									$log.error(err);
 								});
@@ -99,7 +110,8 @@
 										username: $scope.user.username
 									});
 								}, function(err) {
-									$log.error("could not delete last user and board");
+									$log.error(err);
+									$log.error("could not delete last user and/or board");
 								});
 						}
 
@@ -114,28 +126,29 @@
 			$scope.closeModal = function() {
 				$modalInstance.dismiss();
 			};
+
+
+			$scope.getUserRBAC = function() {
+				var user = $scope.modalUser;
+
+				for (var i = 0; i < $scope.board.members.length; i++) {
+					if ($scope.board.members[i]._id === user._id) {
+						return "member";
+					}
+				}
+
+				for (i = 0; i < $scope.board.admins.length; i++) {
+					if ($scope.board.admins[i]._id === user._id) {
+						return "admin";
+					}
+				}
+
+				$log.error("user does not have RBAC");
+				throw "user does not have RBAC";
+			};
+
+			$scope.userRBAC = $scope.getUserRBAC();
 		}
 	]);
-
-
-	var getUserRBAC = function($scope) {
-		var user = $scope.modalUser;
-
-		for (var i = 0; i < $scope.board.members.length; i++) {
-			if ($scope.board.members[i]._id === user._id) {
-				return "member";
-			}
-		}
-
-		for (i = 0; i < $scope.board.admins.length; i++) {
-			if ($scope.board.admins[i]._id === user._id) {
-				return "admin";
-			}
-		}
-
-		$log.error("user does not have RBAC");
-		throw "user does not have RBAC";
-	};
-
 
 })();
