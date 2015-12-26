@@ -10,5 +10,4 @@
 			templateUrl: "board/categories/category-directive/category-directive.html"
 		};
 	});
-
 })();

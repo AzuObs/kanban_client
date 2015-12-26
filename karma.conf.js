@@ -12,15 +12,26 @@ module.exports = function(config) {
 			"app/bower_components/angular-ui-router/release/angular-ui-router.js",
 			"app/bower_components/angular-ui-sortable/sortable.js",
 			"app/!(bower_components)/**/*.js",
-			"app/!(bower_components)/*.js",
 			"app/*.js",
-			"tests/*/*.js"
+			"app/**/*.html",
+			"tests/**/*.js"
 		],
 
 		frameworks: ["jasmine"],
 
 		plugins: [
-			"karma-jasmine"
-		]
+			"karma-jasmine",
+			"karma-chrome-launcher",
+			"karma-ng-html2js-preprocessor"
+		],
+
+		preprocessors: {
+			"app/**/*.html": ["ng-html2js"]
+		},
+
+		ngHtml2JsPreprocessor: {
+			stripPrefix: "app/",
+			moduleName: "html2JsModule"
+		}
 	});
 };
