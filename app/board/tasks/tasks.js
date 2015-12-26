@@ -5,7 +5,9 @@
 
 
 	module.controller("taskCtrl", ["$scope", "boardAPI", "$modal", "$log", function($scope, boardAPI, $modal, $log) {
-		$scope.taskSortOptions = {
+		$scope.taskName = "";
+
+		$scope.taskSortOpts = {
 			horizontal: false,
 			tolerance: "pointer",
 			cursor: "move",
@@ -17,11 +19,11 @@
 		};
 
 		$scope.openTaskModal = function(e, _board, _cat, _task) {
-			if (angular.element(e.target).hasClass("glyphicon-remove")) {
-				return;
+			if (!e || e.type != "click" || angular.element(e.target).hasClass("glyphicon-remove")) {
+				return $log.error("invalid input @openTaskModal");
 			}
 
-			var modalInstance = $modal.open({
+			$modal.open({
 				animation: true,
 				scope: $scope,
 				size: "lg",
@@ -38,20 +40,34 @@
 			});
 		};
 
-
 		$scope.createTask = function(name, category, keyEvent) {
-			if (!keyEvent || keyEvent.which === 13) {
-				$scope.taskName = "";
+			if (!keyEvent || keyEvent.type != "keypress" || !name || !category) {
+				return $log.error("invalid input @createTask");
+			}
+
+			if (keyEvent.which === 13) {
+				$scope.resetTaskName();
 
 				boardAPI
 					.createTask($scope.board._id, category._id, name, category.tasks.length)
 					.then(function(res) {
-						category.tasks.push(res);
+						$scope.addTask(category, res);
 					}, function(err) {
 						$log.error(err);
 					});
 			}
 		};
 
+		$scope.resetTaskName = function() {
+			$scope.taskName = "";
+		};
+
+		$scope.addTask = function(category, task) {
+			if (!category || !task) {
+				return $log.error("invalid input @addTask");
+			}
+
+			category.tasks.push(task);
+		};
 	}]);
 })();
