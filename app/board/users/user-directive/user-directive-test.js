@@ -8,7 +8,7 @@
 			module("userDirectiveModule");
 			module("html2JsModule");
 
-			inject(function(_$compile_, _$rootScope_, $templateCache) {
+			inject(function(_$compile_, _$rootScope_) {
 				$compile = _$compile_;
 				$rootScope = _$rootScope_;
 			});
@@ -52,7 +52,7 @@
 			expect(text.search("foobar")).toEqual(-1);
 		});
 
-		it("replaces it's element wit it's own html", function() {
+		it("replaces it's element with it's own html", function() {
 			var element;
 
 			$rootScope.$apply(function() {

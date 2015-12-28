@@ -12,8 +12,7 @@
 		};
 	});
 
-	module.controller("kbTaskCtrl", ["boardAPI", "$scope", function(boardAPI, $scope) {
-
+	module.controller("kbTaskCtrl", ["boardAPI", "$scope", "$log", function(boardAPI, $scope, $log) {
 		$scope.deleteTask = function(category, taskId) {
 			boardAPI
 				.deleteTask($scope.board._id, category._id, taskId)
@@ -28,6 +27,4 @@
 				});
 		};
 	}]);
-
-
 })();
