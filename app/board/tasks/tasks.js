@@ -19,8 +19,12 @@
 		};
 
 		$scope.openTaskModal = function(e, _board, _cat, _task) {
-			if (!e || e.type != "click" || angular.element(e.target).hasClass("glyphicon-remove")) {
+			if (!e || e.type != "click") {
 				return $log.error("invalid input @openTaskModal");
+			}
+
+			if (angular.element(e.target).hasClass("glyphicon-remove")) {
+				return;
 			}
 
 			$modal.open({
@@ -40,21 +44,21 @@
 			});
 		};
 
-		$scope.createTask = function(name, category, keyEvent) {
-			if (!keyEvent || keyEvent.type != "keypress" || !name || !category) {
+		$scope.createTask = function(category, keyEvent) {
+			if (!keyEvent || keyEvent.type != "keypress" || !category) {
 				return $log.error("invalid input @createTask");
 			}
 
 			if (keyEvent.which === 13) {
-				$scope.resetTaskName();
-
 				boardAPI
-					.createTask($scope.board._id, category._id, name, category.tasks.length)
+					.createTask($scope.board._id, category._id, $scope.taskName, category.tasks.length)
 					.then(function(res) {
 						$scope.addTask(category, res);
 					}, function(err) {
 						$log.error(err);
 					});
+
+				$scope.resetTaskName();
 			}
 		};
 

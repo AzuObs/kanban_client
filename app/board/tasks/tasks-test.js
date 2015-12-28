@@ -91,18 +91,14 @@
 				expect($log.error.logs[0][0]).toBeDefined();
 
 				$log.reset();
-				$scope.createTask("foo");
-				expect($log.error.logs[0][0]).toBeDefined();
-
-				$log.reset();
-				$scope.createTask("foo", $scope.board.categories);
+				$scope.createTask($scope.board.categories);
 				expect($log.error.logs[0][0]).toBeDefined();
 
 				$log.reset();
 				e = {
 					type: "click"
 				};
-				$scope.createTask("foo", $scope.board.categories, e);
+				$scope.createTask($scope.board.categories, e);
 				expect($log.error.logs[0][0]).toBeDefined();
 			}));
 
@@ -118,7 +114,7 @@
 					type: "keypress",
 					which: 13
 				};
-				$scope.createTask("foo", $scope.board.categories, e);
+				$scope.createTask($scope.board.categories, e);
 				expect(called).toEqual(true);
 			});
 
@@ -135,7 +131,7 @@
 					type: "keypress",
 					which: 13
 				};
-				$scope.createTask("foo", $scope.board.categories, e);
+				$scope.createTask($scope.board.categories, e);
 				expect(called).toEqual(true);
 			}));
 
@@ -155,7 +151,7 @@
 					type: "keypress",
 					which: 13
 				};
-				$scope.createTask("foo", $scope.board.categories, e);
+				$scope.createTask($scope.board.categories, e);
 				task = "foo";
 				$scope.$apply(function() {
 					defer.resolve(task);
@@ -175,7 +171,7 @@
 					type: "keypress",
 					which: 13
 				};
-				$scope.createTask("foo", $scope.board.categories, e);
+				$scope.createTask($scope.board.categories, e);
 				msg = "error";
 				$scope.$apply(function() {
 					defer.reject(msg);
