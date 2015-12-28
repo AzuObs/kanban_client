@@ -5,18 +5,27 @@
 
 
 	module.controller("categoryCtrl", ["$scope", "$log", "boardAPI", function($scope, $log, boardAPI) {
+		$scope.newCat = "";
 
-		$scope.createCategory = function(name, keyEvent) {
+		$scope.createCategory = function(keyEvent) {
 			if (!keyEvent || keyEvent.which === 13) {
-				$scope.newCat = "";
-
 				boardAPI
-					.createCategory($scope.board._id, name, $scope.board.categories.length)
+					.createCategory($scope.board._id, $scope.newCat)
 					.then(function(res) {
 						$scope.board.categories.push(res);
 					}, function(err) {
 						$log.error(err);
 					});
+
+				$scope.newCat = "";
+			}
+		};
+
+		$scope.deleteLocalCategory = function(catId) {
+			for (var i = 0; i < $scope.board.categories.length; i++) {
+				if ($scope.board.categories[i]._id === catId) {
+					$scope.board.categories.splice(i, 1);
+				}
 			}
 		};
 
@@ -24,11 +33,7 @@
 			boardAPI
 				.deleteCategory($scope.board._id, catId)
 				.then(function(res) {
-					for (var i = 0; i < $scope.board.categories.length; i++) {
-						if ($scope.board.categories[i]._id === catId) {
-							$scope.board.categories.splice(i, 1);
-						}
-					}
+					$scope.deleteLocalCategory(catId);
 				}, function(err) {
 					$log.error(err);
 				});

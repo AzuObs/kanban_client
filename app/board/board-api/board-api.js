@@ -116,11 +116,10 @@
 		};
 
 
-		this.createCategory = function(boardId, name, position) {
+		this.createCategory = function(boardId, name) {
 			var body = {
 				boardId: boardId,
-				name: name,
-				position: position
+				name: name
 			};
 
 			var defer = $q.defer();
