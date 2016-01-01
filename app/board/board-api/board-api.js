@@ -80,8 +80,8 @@
 				content: content,
 				username: username,
 				userPicUrl: userPicUrl,
-				catId: catId,
 				boardId: boardId,
+				catId: catId,
 				taskId: taskId
 			};
 
