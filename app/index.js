@@ -5,6 +5,7 @@
 		"ui.bootstrap",
 		"ui.router",
 		"ui.sortable",
+		"navbarModule",
 		"aboutModule",
 		"stateInfoModule",
 		"angular-loading-bar",

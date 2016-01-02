@@ -1,7 +1,14 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("boardModule", ["boardAPIModule", "stateInfoModule", "ui.bootstrap", "ui.router", "ui.sortable"]);
+	var module = angular.module("boardModule", [
+		"boardAPIModule",
+		"navbarModule",
+		"stateInfoModule",
+		"ui.bootstrap",
+		"ui.router",
+		"ui.sortable"
+	]);
 
 
 	module.constant("USER_SELECTION_HEIGHT", 150);
@@ -11,7 +18,8 @@
 		$stateProvider.state("kanban.board", {
 			views: {
 				"navbar-view@": {
-					templateUrl: "common/navbar/navbar.html"
+					templateUrl: "common/navbar/navbar.html",
+					controller: "navbarCtrl"
 				},
 				"state-info-view@": {
 					templateUrl: "common/state-info/state-info.html",

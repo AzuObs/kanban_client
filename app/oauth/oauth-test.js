@@ -32,7 +32,8 @@
 		it("sets all the views", function() {
 			var views = {
 				"navbar-view@": {
-					templateUrl: "common/navbar/navbar.html"
+					templateUrl: "common/navbar/navbar.html",
+					controller: "navbarCtrl"
 				},
 				"state-info-view@": {
 					templateUrl: "common/state-info/state-info.html",

@@ -13,8 +13,7 @@ module.exports = function(config) {
 			"app/bower_components/angular-ui-sortable/sortable.js",
 			"app/!(bower_components)/**/*.js",
 			"app/*.js",
-			"app/**/*.html",
-			"tests/**/*.js"
+			"app/**/*.html"
 		],
 
 		frameworks: ["jasmine"],

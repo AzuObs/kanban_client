@@ -1,14 +1,21 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("oauthModule", ["oauthAPIModule", "stateInfoModule", "ui.bootstrap", "ui.router"]);
+	var module = angular.module("oauthModule", [
+		"oauthAPIModule",
+		"navbarModule",
+		"stateInfoModule",
+		"ui.bootstrap",
+		"ui.router"
+	]);
 
 
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.oauth", {
 			views: {
 				"navbar-view@": {
-					templateUrl: "common/navbar/navbar.html"
+					templateUrl: "common/navbar/navbar.html",
+					controller: "navbarCtrl"
 				},
 				"state-info-view@": {
 					templateUrl: "common/state-info/state-info.html",
