@@ -3,7 +3,8 @@ exports.config = {
 	seleniumAddress: "http://localhost:4444/wd/hub",
 	suites: {
 		navbar: "suites/navbar-e2e.js",
-		footer: "suites/footer-e2e.js"
+		footer: "suites/footer-e2e.js",
+		about: "suites/about-e2e.js"
 	},
 	capabilities: {
 		browserName: "chrome"
