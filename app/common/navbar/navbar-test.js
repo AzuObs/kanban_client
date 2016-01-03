@@ -63,6 +63,22 @@
 		});
 
 
+		describe("$scope.navLinks", function() {
+			it("is defined", function() {
+				expect($scope.navLinks).toBeDefined();
+			});
+
+			it("is an array of objects", function() {
+				expect(Object.prototype.toString.call($scope.navLinks)).toEqual("[object Array]");
+				expect(Object.prototype.toString.call($scope.navLinks[0])).toEqual("[object Object]");
+			});
+
+			it("is not empty", function() {
+				expect($scope.navLinks.length).toBeGreaterThan(0);
+			});
+		});
+
+
 		describe("$scope.appName", function() {
 			it("is defined", function() {
 				expect($scope.appName).toBeDefined();

@@ -1,8 +1,9 @@
 exports.config = {
-	framework: 'jasmine',
-	seleniumAddress: 'http://localhost:4444/wd/hub',
+	framework: "jasmine",
+	seleniumAddress: "http://localhost:4444/wd/hub",
 	suites: {
-		navbar: 'suites/navbar-test.js'
+		navbar: "suites/navbar-e2e.js",
+		footer: "suites/footer-e2e.js"
 	},
 	capabilities: {
 		browserName: "chrome"

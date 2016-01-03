@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <ul class="nav navbar-nav">
       <li>
-        <a class="navbar-link" ui-sref="kanban.boardList">{{appName | uppercase}} <span>{{jpAppName}}</span></a>
+        <a class="navbar-link app-title" ui-sref="kanban.boardList">{{appName | uppercase}} <span class="app-subtitle">{{jpAppName}}</span></a>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
@@ -11,9 +11,7 @@
           <span class="glyphicon glyphicon-menu-hamburger"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><a ui-sref="kanban.oauth">My Identity</a></li>
-          <li><a ui-sref="kanban.boardList">Kanban Boards</a></li>
-          <li><a ui-sref="kanban.about">About</a></li>
+          <li ng-repeat="link in navLinks"><a ui-sref="{{link.state}}">{{link.name}}</a></li>
         </ul>
       </li>
     </ul>

@@ -8,5 +8,15 @@
 	module.controller("navbarCtrl", function($scope, APP_NAME, JP_APP_NAME) {
 		$scope.appName = APP_NAME;
 		$scope.jpAppName = JP_APP_NAME;
+		$scope.navLinks = [{
+			state: "kanban.oauth",
+			name: "Login"
+		}, {
+			state: "kanban.boardList",
+			name: "Visit Boards"
+		}, {
+			state: "kanban.about",
+			name: "About"
+		}];
 	});
 })();
