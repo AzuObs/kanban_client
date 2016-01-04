@@ -43,7 +43,7 @@
 
 			it("link 'My Boards' redirects to #/kanban/user without prior login", function() {
 				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/identity");
-
+				browser.executeScript('window.sessionStorage.clear();');
 				navbar.clickDropdown();
 				expect(navbar.getLinkName(1)).toEqual("Visit Boards");
 				navbar.clickLink(1);

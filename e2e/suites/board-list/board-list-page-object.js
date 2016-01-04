@@ -5,6 +5,10 @@
 	var BoardListPageObject = function() {
 		var boardList, createBoardButton, createBoardInput, config;
 
+		boardList = $(".board-list-container");
+		createBoardButton = boardList.element(by.css("button[ng-click='createBoard()']"));
+		createBoardInput = boardList.element(by.model("boardName"));
+
 		config = {
 			identityPageUrl: "http://localhost:3000/app/#/kanban/identity",
 			boardListPageUrl: "http://localhost:3000/app/#/kanban/user/sheldon"
@@ -13,10 +17,6 @@
 		this.get = function() {
 			browser.get(config.identityPageUrl);
 			$("button[ng-click='authenticate()']").click();
-
-			boardList = $(".board-list-container");
-			createBoardButton = boardList.element(by.css("button[ng-click='createBoard()']"));
-			createBoardInput = boardList.element(by.model("boardName"));
 		};
 
 		this.isPresent = function() {

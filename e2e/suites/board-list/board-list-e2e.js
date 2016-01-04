@@ -7,7 +7,9 @@
 	boardListPO = new BoardListPageObject();
 
 	describe("The board list page", function() {
-		boardListPO.get();
+		beforeEach(function() {
+			boardListPO.get();
+		});
 
 		it("is present", function() {
 			expect(boardListPO.isPresent()).toEqual(true);
@@ -43,6 +45,7 @@
 
 		it("can redirect to app/#/board/:boardname after clicking on a board", function() {
 			browser.refresh();
+			boardListPO.get();
 			expect(browser.getCurrentUrl()).toEqual(boardListPO.getBoardListPageUrl());
 			boardListPO.clickBoard("foobar");
 			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/board/foobar");
