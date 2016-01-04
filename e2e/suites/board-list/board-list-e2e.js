@@ -39,7 +39,7 @@
 		});
 
 		it("can open a modal by clicking on a board edit button", function() {
-			boardListPO.clickEditBoard();
+			boardListPO.clickEditBoard("foobar");
 			expect(boardListPO.hasModal()).toEqual(true);
 		});
 

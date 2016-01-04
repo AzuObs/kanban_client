@@ -34,7 +34,7 @@
   height: 0px;
 }
 
-.modal-close span {
+.modal-close button {
   position: absolute;
   top: 7px;
   right: 7px;
@@ -44,7 +44,7 @@
   padding: 5px 10px;
 }
 
-.modal-close span:hover {
+.modal-close button:hover {
   border-color: #aaa;
   box-shadow: 0 0 10px #ccc;
 }

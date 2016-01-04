@@ -35,14 +35,20 @@
 			return boardList.element(by.className("board-list")).isPresent();
 		};
 
-		this.boardContains = function(boardname) {
-			boardList.all(by.repeater("board in boards")).each(function(boardElement) {
-				boardElement.getText().then(function(boardText) {
-					if (boardText.match(boardname)) {
-						return true;
-					}
+		this.boardsContain = function(boardname) {
+			var boardsContain = false;
+
+			return boardList.all(by.repeater("board in boards"))
+				.each(function(boardElement) {
+					boardElement.evaluate("board.name").then(function(res) {
+						if (res === boardname) {
+							boardsContain = true;
+						}
+					});
+				})
+				.then(function(res) {
+					return boardsContain;
 				});
-			});
 		};
 
 		this.hasCreateBoardButton = function() {
@@ -74,8 +80,20 @@
 				});
 		};
 
-		this.clickEditBoard = function() {
-			boardList.element(by.css("a[ng-click='openBoardModal(board)']")).click();
+		this.clickEditBoard = function(boardname) {
+			var board;
+
+			boardList.all(by.repeater("board in boards"))
+				.each(function(boardElement) {
+					boardElement.evaluate("board.name").then(function(res) {
+						if (res === boardname && !board) {
+							board = boardElement;
+						}
+					});
+				})
+				.then(function() {
+					board.element(by.css("a[ng-click='openBoardModal(board)']")).click();
+				});
 		};
 
 		this.hasModal = function() {

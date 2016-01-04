@@ -20,6 +20,9 @@
 				if ($scope.isEditingName) {
 					if (!angular.element(e.target).hasClass("edit-board")) {
 						$scope.isEditingName = false;
+						e.type = "keypress";
+						e.which = 13;
+						$scope.renameBoard(e);
 					}
 				}
 

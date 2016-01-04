@@ -16,6 +16,11 @@ module.exports = function(config) {
 			"app/**/*.html"
 		],
 
+		browsers: [
+			"Chrome"
+		],
+
+
 		frameworks: ["jasmine"],
 
 		plugins: [
