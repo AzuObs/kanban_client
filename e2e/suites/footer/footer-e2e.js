@@ -4,35 +4,7 @@
 	describe("Footer", function() {
 
 		var footer, FooterObject;
-
-		FooterObject = function() {
-			var footer = $(".footer-view");
-			var footerAnchor = footer.element(by.css("a"));
-
-			this.get = function() {
-				browser.get("http://localhost:3000/app/#/kanban/identity");
-			};
-
-			this.getFooterText = function() {
-				return footer.getText();
-			};
-
-			this.isPresent = function() {
-				return footer.isPresent();
-			};
-
-			this.getFooter = function() {
-				return footer;
-			};
-
-			this.anchorIsPresent = function() {
-				return footerAnchor.isPresent();
-			};
-
-			this.getAnchorLink = function() {
-				return footerAnchor.getAttribute("href");
-			};
-		};
+		FooterObject = require(process.cwd() + "/e2e/suites/footer/footer-page-object.js");
 
 		beforeEach(function() {
 			footer = new FooterObject();
