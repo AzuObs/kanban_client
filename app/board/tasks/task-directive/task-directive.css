@@ -48,7 +48,7 @@
   display: inline-flex;
   flex-direction: row;
   justify-content: flex-end;
-  min-width: 15px;
+  min-width: 17px;
   min-height: 36px;
   padding: 2px;
 }

@@ -8,9 +8,9 @@
 
 
 	describe("The board modal", function() {
-		boardModalPO.get();
 
 		it("is present after clicking on a board in the boardlist screen", function() {
+			boardModalPO.get();
 			expect(boardModalPO.boardsContain("foobar")).toEqual(true);
 			boardModalPO.clickEditBoard("foobar");
 			expect(boardModalPO.modalIsPresent()).toEqual(true);

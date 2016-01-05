@@ -14,6 +14,11 @@
 			boardListPageUrl: "http://localhost:3000/app/#/kanban/user/sheldon"
 		};
 
+
+		this.getUrl = function() {
+			return config.boardListPageUrl;
+		};
+
 		this.get = function() {
 			browser.get(config.identityPageUrl);
 			$("button[ng-click='authenticate()']").click();
