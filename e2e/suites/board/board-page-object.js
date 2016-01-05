@@ -246,6 +246,53 @@
 		};
 
 
+		this.getTaskCount = function() {
+			return $$(".task-container").count();
+		};
+
+
+		this.taskModalIsOpen = function() {
+			return $(".task-modal").isPresent();
+		};
+
+
+		this.clickTask = function() {
+			$$(".task-container").first().click();
+		};
+
+
+		this.clickCloseTaskModal = function() {
+			$("button[ng-click='closeModal()']").click();
+		};
+
+
+		this.closeTask = function(taskName) {
+			var task;
+
+			$$(".task-container")
+				.each(function(t) {
+					t
+						.evaluate("task.name")
+						.then(function(res) {
+							if (taskName === res) {
+								task = t;
+							}
+						});
+				})
+				.then(function() {
+					task.element(by.css(".close-task")).click();
+				});
+		};
+
+
+		this.taskHasCloseButton = function() {
+			return $$(".task-container")
+				.first()
+				.element(by.css("button.close-task"))
+				.isPresent();
+		};
+
+
 		this.getNameOfCategoryInFirstPosition = function() {
 			return $$(".category-container")
 				.first()
@@ -262,6 +309,58 @@
 
 		this.getUserMenuSelection = function(menu) {
 			return $(".user-menu-container .user-selection");
+		};
+
+
+		this.getTaskUsersCount = function(taskName) {
+			var task;
+
+			return $$(".task-container")
+				.each(function(t) {
+					t
+						.evaluate("task.name")
+						.then(function(res) {
+							if (taskName === res) {
+								task = t;
+							}
+						});
+				})
+				.then(function() {
+					return task.all(by.css(".user-container")).count();
+				});
+		};
+
+
+		this.getTask = function(task) {
+			$$(".task-container")
+				.each(function(t) {
+					t
+						.evaluate("task.name")
+						.then(function(res) {
+							if (task.name === res) {
+								task.element = t;
+							}
+						});
+				});
+		};
+
+
+		this.getTaskList = function(category) {
+			$$(".category-container")
+				.each(function(c) {
+					c
+						.evaluate("category.name")
+						.then(function(res) {
+							if (category.name === res) {
+								category.element = c.element(by.css(".task-list"));
+							}
+						});
+				});
+		};
+
+
+		this.tasksHaveCommentsSection = function() {
+			return $$(".task-container").first().element(by.css(".task-comment")).isPresent();
 		};
 
 

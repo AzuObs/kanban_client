@@ -8,7 +8,6 @@
 
 
 	describe("The board page", function() {
-
 		it("exists", function() {
 			boardPO.get();
 			expect(boardPO.isPresent()).toEqual(true);
@@ -241,37 +240,66 @@
 
 		describe("tasks", function() {
 			it("are present", function() {
-
+				expect(boardPO.categoryHasTask("0- foobar", "new task"));
 			});
 
 			it("have a close button", function() {
-
+				expect(boardPO.taskHasCloseButton()).toEqual(true);
 			});
 
 			it("can be deleted", function() {
-
+				expect(boardPO.getTaskCount()).toEqual(10);
+				boardPO.closeTask("new task");
+				expect(boardPO.getTaskCount()).toEqual(9);
 			});
 
 			it("open a modal when clicked", function() {
-
+				expect(boardPO.taskModalIsOpen()).toEqual(false);
+				boardPO.clickTask();
+				expect(boardPO.taskModalIsOpen()).toEqual(true);
+				boardPO.clickCloseTaskModal();
+				expect(boardPO.taskModalIsOpen()).toEqual(false);
 			});
 
 			it("contain users", function() {
-
+				expect(boardPO.getTaskUsersCount("new task destination")).toEqual(1);
 			});
 
-			it("contain comments", function() {
-
+			it("contain a comments section", function() {
+				expect(boardPO.tasksHaveCommentsSection()).toEqual(true);
 			});
 
-			it("can be dragged", function() {
+			it("can be dropped between category task lists", function() {
+				var task, category;
 
-			});
+				task = {
+					name: "new task destination",
+					element: undefined
+				};
 
-			it("can be dropped between categories", function() {
+				category = {
+					name: "1- foobar",
+					element: undefined
+				};
+
+				expect(boardPO.categoryHasTask("0- foobar", "new task destination")).toEqual(true);
+				expect(boardPO.categoryHasTask("1- foobar", "new task destination")).toEqual(false);
+
+				boardPO.getTask(task);
+				boardPO.getTaskList(category);
+
+				browser.controlFlow().execute(function() {
+					boardPO.dragAndDrop(task.element, category.element);
+				});
+
+				expect(boardPO.categoryHasTask("0- foobar", "new task destination")).toEqual(false);
+				expect(boardPO.categoryHasTask("1- foobar", "new task destination")).toEqual(true);
 
 			});
 		});
-		boardPO.deleteFoobarBoard();
+
+		it("deletes the board after all tests are completed", function() {
+			boardPO.deleteFoobarBoard();
+		});
 	});
 })();
