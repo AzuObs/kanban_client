@@ -134,6 +134,46 @@
 		};
 
 
+		this.getCategoryXCoordinate = function(categoryName) {
+			var category;
+
+			return $$(".category-container")
+				.each(function(cat) {
+					cat
+						.evaluate("category.name")
+						.then(function(res) {
+							if (categoryName === res) {
+								category = cat;
+							}
+						});
+				})
+				.then(function() {
+					return category.getLocation().then(function(res) {
+						return res.x;
+					});
+				});
+		};
+
+
+		this.xScroll = function(element, distance) {
+			browser.executeScript(element + ".scrollLeft(" + distance + ");");
+		};
+
+
+		this.yScroll = function(element, distance) {
+			browser.executeScript(element + ".scrollTop(" + distance + ");");
+			browser.executeScript("$('.task-list').scrollTop(1000);");
+		};
+
+
+		this.categoryHasCreateTaskInput = function() {
+			return $$(".category-container")
+				.first()
+				.element(by.css("input[ng-keypress='createTask(category, $event)']"))
+				.isPresent();
+		};
+
+
 		this.getMenuUserCount = function(username) {
 			var userMenuCount = 0;
 
@@ -150,6 +190,73 @@
 				.then(function() {
 					return userMenuCount;
 				});
+		};
+
+
+		this.getTaskYCoordinate = function(taskName) {
+			var task;
+
+			return $$(".task-container")
+				.each(function(_task_) {
+					_task_
+						.evaluate("task.name")
+						.then(function(res) {
+							if (taskName === res) {
+								task = _task_;
+							}
+						});
+				})
+				.then(function() {
+					return task.getLocation().then(function(res) {
+						return res.y;
+					});
+				});
+		};
+
+		this.deleteCategory = function(categoryName) {
+			var category;
+
+			$$(".category-container")
+				.each(function(cat) {
+					cat
+						.evaluate("category.name")
+						.then(function(res) {
+							if (categoryName === res) {
+								category = cat;
+							}
+						});
+				})
+				.then(function() {
+					category.element(by.css(".close-category")).click();
+				});
+		};
+
+
+		this.getCategory = function(category) {
+			return $$(".category-container")
+				.each(function(cat) {
+					cat
+						.evaluate("category.name")
+						.then(function(res) {
+							if (category.name === res) {
+								category.element = cat;
+							}
+						});
+				});
+		};
+
+
+		this.getNameOfCategoryInFirstPosition = function() {
+			return $$(".category-container")
+				.first()
+				.evaluate("category.name")
+				.then(function(res) {
+					return res;
+				});
+		};
+
+		this.categoryHasCloseButton = function() {
+			return $$(".category-container button.close-category").first().isPresent();
 		};
 
 

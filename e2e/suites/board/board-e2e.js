@@ -1,5 +1,5 @@
 (function() {
-	"use stric";
+	"use strict";
 
 	var boardPO, BoardPageObject;
 
@@ -30,7 +30,7 @@
 
 		it("creates categories", function() {
 			expect(boardPO.getCategoryCount()).toEqual(0);
-			boardPO.createCategory("foobar");
+			boardPO.createCategory("0- foobar");
 			expect(boardPO.getCategoryCount()).toEqual(1);
 		});
 
@@ -65,8 +65,8 @@
 					element: undefined
 				};
 
-				boardPO.createTask("foobar", "new task");
-				expect(boardPO.categoryHasTask("foobar", "new task")).toEqual(true);
+				boardPO.createTask("0- foobar", "new task");
+				expect(boardPO.categoryHasTask("0- foobar", "new task")).toEqual(true);
 				expect(boardPO.taskHasUser("new task", "raj")).toEqual(false);
 
 				boardPO.getMenuUser(user);
@@ -93,8 +93,8 @@
 					element: undefined
 				};
 
-				boardPO.createTask("foobar", "new task destination");
-				expect(boardPO.categoryHasTask("foobar", "new task destination")).toEqual(true);
+				boardPO.createTask("0- foobar", "new task destination");
+				expect(boardPO.categoryHasTask("0- foobar", "new task destination")).toEqual(true);
 				expect(boardPO.taskHasUser("new task", "raj")).toEqual(true);
 
 				boardPO.getTaskUser("new task", userr);
@@ -121,7 +121,7 @@
 					element: undefined
 				};
 
-				expect(boardPO.categoryHasTask("foobar", "new task destination")).toEqual(true);
+				expect(boardPO.categoryHasTask("0- foobar", "new task destination")).toEqual(true);
 				expect(boardPO.taskHasUser("new task destination", "raj")).toEqual(true);
 
 				boardPO.getMenuUser(user);
@@ -136,7 +136,7 @@
 			});
 
 			it("cannot be dropped in the user section", function() {
-				var user, task;
+				var user, menu;
 
 				user = {
 					username: "raj",
@@ -147,7 +147,7 @@
 					element: undefined
 				};
 
-				expect(boardPO.categoryHasTask("foobar", "new task destination")).toEqual(true);
+				expect(boardPO.categoryHasTask("0- foobar", "new task destination")).toEqual(true);
 				expect(boardPO.taskHasUser("new task destination", "raj")).toEqual(true);
 
 				boardPO.getTaskUser("new task destination", user);
@@ -165,43 +165,76 @@
 
 		describe("categories", function() {
 			it("are present", function() {
-
+				expect(boardPO.getCategoryCount()).toEqual(1);
 			});
 
 			it("can be scrolled horizontally", function() {
+				expect(boardPO.getCategoryXCoordinate("0- foobar")).toBeGreaterThan(0);
 
+				for (var i = 1; i < 6; i++) {
+					boardPO.createCategory(i + "- foobar");
+				}
+
+				expect(boardPO.getCategoryCount()).toEqual(6);
+				expect(boardPO.getCategoryXCoordinate("0- foobar")).toBeLessThan(0);
+				boardPO.xScroll("$('.category-view')", 0);
+				expect(boardPO.getCategoryXCoordinate("0- foobar")).toBeGreaterThan(0);
 			});
 
 			it("can contain tasks", function() {
-
+				expect(boardPO.categoryHasTask("0- foobar", "new task")).toEqual(true);
 			});
 
-			it("have an add task button", function() {
-
+			it("have add task input", function() {
+				expect(boardPO.categoryHasCreateTaskInput()).toEqual(true);
 			});
 
 			it("can add tasks", function() {
-
+				expect(boardPO.categoryHasTask("0- foobar", "2- foo")).toEqual(false);
+				boardPO.createTask("0- foobar", "2- foo");
+				expect(boardPO.categoryHasTask("0- foobar", "2- foo")).toEqual(true);
 			});
 
-			it("can scroll vertically through their tasks container", function() {
-
+			it("can scroll vertically through their tasks list", function() {
+				for (var i = 3; i < 10; i++) {
+					boardPO.createTask("0- foobar", i + "- foo");
+				}
+				expect(boardPO.getTaskYCoordinate("new task")).toBeGreaterThan(0);
+				boardPO.yScroll("$('.task-list')", 1000);
+				expect(boardPO.getTaskYCoordinate("new task")).toBeLessThan(0);
 			});
 
 			it("have a close button", function() {
-
+				expect(boardPO.getCategoryCount()).toEqual(6);
+				expect(boardPO.categoryHasCloseButton()).toEqual(true);
 			});
 
 			it("can be deleted", function() {
-
-			});
-
-			it("can be dragged", function() {
-
+				expect(boardPO.getCategoryCount()).toEqual(6);
+				boardPO.deleteCategory("5- foobar");
+				expect(boardPO.getCategoryCount()).toEqual(5);
 			});
 
 			it("can be dropped into the category container", function() {
+				var category, categoryContainer;
 
+				category = {
+					name: "2- foobar",
+					element: undefined
+				};
+
+				expect(boardPO.getNameOfCategoryInFirstPosition()).toEqual("0- foobar");
+
+				boardPO.getCategory(category);
+				categoryContainer = $(".category-list");
+
+				boardPO.getCategory(category);
+
+				browser.controlFlow().execute(function() {
+					boardPO.dragAndDrop(category.element, categoryContainer);
+				});
+
+				expect(boardPO.getNameOfCategoryInFirstPosition()).toEqual("2- foobar");
 			});
 		});
 
@@ -236,11 +269,9 @@
 			});
 
 			it("can be dropped between categories", function() {
-				// DELETE AND REPLACE THIS WITH A REAL TEST, 
-				// CURRENTLY THIS IS ONLY SOMETHING TO TIDYKEEP WHILE I DEBUG THE TEST
-				boardPO.deleteFoobarBoard();
-				expect(true).toEqual(true);
+
 			});
 		});
+		boardPO.deleteFoobarBoard();
 	});
 })();
