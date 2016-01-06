@@ -1,11 +1,11 @@
-<div class="modal-container task-modal" ng-click="endAllEditting($event)">
+<div class="modal-container task-modal" ng-click="endAllEditing($event)">
   <div class="modal-close">
     <button class="btn glyphicon glyphicon-remove" ng-click="closeModal()"></button>
   </div>
 
   <div class="modal-title">
-    <input class="form-control task-name-edit" ng-keypress="editTaskName($event)" ng-model="task.name" ng-show="isEdittingTaskName" type="text">
-    <h3 class="task-name-edit" ng-click="editTaskName($event)" ng-hide="isEdittingTaskName">{{task.name}}</h3>
+    <input class="form-control task-name-edit" ng-keypress="editTaskName($event)" ng-model="task.name" ng-show="isEditingTaskName" type="text">
+    <h3 class="task-name-edit" ng-click="editTaskName($event)" ng-hide="isEditingTaskName">{{task.name}}</h3>
     <h4 class="text-muted">in list <b>{{category.name | uppercase}}</b></h4>
   </div>
 

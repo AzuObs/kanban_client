@@ -8,7 +8,9 @@ exports.config = {
 		oauth: "suites/oauth/oauth-e2e.js",
 		boardList: "suites/board-list/board-list-e2e.js",
 		boardModal: "suites/board-modal/board-modal-e2e.js",
-		board: "suites/board/board-e2e.js"
+		board: "suites/board/board-e2e.js",
+		taskModal: "suites/task-modal/task-modal-e2e.js",
+		userModal: "suites/user-modal/user-modal-e2e.js"
 	},
 	capabilities: {
 		browserName: "chrome"

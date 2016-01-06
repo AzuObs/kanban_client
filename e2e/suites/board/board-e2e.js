@@ -254,11 +254,11 @@
 			});
 
 			it("open a modal when clicked", function() {
-				expect(boardPO.taskModalIsOpen()).toEqual(false);
+				expect(boardPO.taskModalIsPresent()).toEqual(false);
 				boardPO.clickTask();
-				expect(boardPO.taskModalIsOpen()).toEqual(true);
+				expect(boardPO.taskModalIsPresent()).toEqual(true);
 				boardPO.clickCloseTaskModal();
-				expect(boardPO.taskModalIsOpen()).toEqual(false);
+				expect(boardPO.taskModalIsPresent()).toEqual(false);
 			});
 
 			it("contain users", function() {

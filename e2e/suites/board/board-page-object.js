@@ -251,7 +251,7 @@
 		};
 
 
-		this.taskModalIsOpen = function() {
+		this.taskModalIsPresent = function() {
 			return $(".task-modal").isPresent();
 		};
 
