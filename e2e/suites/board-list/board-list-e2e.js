@@ -25,17 +25,9 @@
 		});
 
 		it("shows more boards after creating a board", function() {
-			var n;
-
-			boardListPO.getBoardsCount().then(function(res) {
-				n = res;
-			});
-
+			expect(boardListPO.getBoardsCount()).toEqual(1);
 			boardListPO.createBoard();
-
-			boardListPO.getBoardsCount().then(function(res) {
-				expect(res).toEqual(n + 1);
-			});
+			expect(boardListPO.getBoardsCount()).toEqual(2);
 		});
 
 		it("can open a modal by clicking on a board edit button", function() {
@@ -44,11 +36,14 @@
 		});
 
 		it("can redirect to app/#/board/:boardname after clicking on a board", function() {
-			browser.refresh();
-			boardListPO.get();
-			expect(browser.getCurrentUrl()).toEqual(boardListPO.getBoardListPageUrl());
 			boardListPO.clickBoard("foobar");
 			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/board/foobar");
+		});
+
+		it("cleans up and exits after the test is done", function() {
+			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/user/sheldon");
+			boardListPO.clickEditBoard("foobar");
+			boardListPO.cleanUpAndExit();
 		});
 	});
 })();
