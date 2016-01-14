@@ -7,12 +7,11 @@
 	pageObject = new NavbarObject();
 
 
-	beforeEach(function() {
-		pageObject.get();
-	});
-
-
 	describe("The navbar", function() {
+		beforeEach(function() {
+			pageObject.get();
+		});
+
 		describe("title", function() {
 			it("exists", function() {
 				expect(pageObject.hasTitle()).toEqual(true);
