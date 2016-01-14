@@ -15,6 +15,7 @@
 		};
 
 		this.cleanUpAndExit = function() {
+			this.clickEditBoard("foobar");
 			$(".modal-options button.delete-board").click();
 			$(".modal-options input.delete-board-input").sendKeys("foobar" + "\n");
 		};

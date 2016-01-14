@@ -41,8 +41,6 @@
 		});
 
 		it("cleans up and exits after the test is done", function() {
-			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/user/sheldon");
-			boardListPO.clickEditBoard("foobar");
 			boardListPO.cleanUpAndExit();
 		});
 	});
