@@ -14,6 +14,16 @@
 			boardListPageUrl: "http://localhost:3000/app/#/kanban/user/sheldon"
 		};
 
+		this.cleanUpAndExit = function() {
+			$(".modal-options button.delete-board").click();
+			$(".modal-options input.delete-board-input").sendKeys("foobar" + "\n");
+		};
+
+
+		this.closeModal = function() {
+			$("button.glyphicon-remove").click();
+		};
+
 
 		this.getUrl = function() {
 			return config.boardListPageUrl;
