@@ -32,8 +32,9 @@
       <button class="btn btn-block btn-default change-rbac" ng-click="changeUserRBAC($event)" ng-disabled="true">Submit</button>
     </div>
 
-    <button class="btn btn-block btn-danger remove-user" ng-click="removeUser($event)">Remove User</button>
-    <em class="remove-user text-danger" ng-show="isDeleting">You are about to remove the user "{{modalUser.username}}" from your board. Confirm by typing the name of the user and press by enter.</em>
+    <em class="remove-user text-muted" ng-show="userIsAdmin()">Cannot remove an admin from the board.</em>
+    <button class="btn btn-block btn-danger remove-user" ng-click="removeUser($event)" ng-disabled="userIsAdmin()">Remove User</button>
+    <em class="remove-user text-danger" ng-show="isDeleting && !userIsAdmin()">You are about to remove the user "{{modalUser.username}}" from your board. Confirm by typing the name of the user and press by enter.</em>
     <input class="remove-user form-control" ng-keypress="removeUser($event)" ng-model="repeatUsername" ng-show="isDeleting" placeholder="name of user" type="text">
   </div>
 </div>

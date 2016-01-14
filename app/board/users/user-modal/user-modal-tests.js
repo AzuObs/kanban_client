@@ -35,6 +35,27 @@
 			});
 		}));
 
+		describe("$scope.userIsAdmin()", function() {
+			it("should be defined", function() {
+				expect($scope.userIsAdmin).toBeDefined();
+			});
+
+			it("should be a function", function() {
+				expect(typeof $scope.userIsAdmin).toEqual("function");
+			});
+
+			it("should return true is a user is an admin", function() {
+				expect($scope.userIsAdmin()).toEqual(true);
+			});
+
+			it("should return false is a user is a member", function() {
+				$scope.board.admins = [];
+				$scope.board.members = [{
+					_id: user._id
+				}];
+				expect($scope.userIsAdmin()).toEqual(false);
+			});
+		});
 
 		describe("$scope.removeUser", function() {
 			it("is defined", function() {

@@ -12,6 +12,10 @@
 			$scope.userRBAC = undefined; // initialized at the bottom of this block
 
 
+			$scope.userIsAdmin = function() {
+				return $scope.getUserRBAC() === "admin";
+			};
+
 			$scope.cancelEditing = function(e) {
 				if (!e) {
 					return $log.error("no event passed to userModalCtrl.cancelEditing");

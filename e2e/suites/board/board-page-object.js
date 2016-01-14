@@ -4,9 +4,7 @@
 	var boardListPO,
 		BoardListPageObject,
 		boardModalPO,
-		BoardModalPageObject,
-		userModalPO,
-		UserModalPageObject;
+		BoardModalPageObject;
 
 	BoardModalPageObject = require(process.cwd() + "/e2e/suites/board-modal/board-modal-page-object.js");
 	BoardListPageObject = require(process.cwd() + "/e2e/suites/board-list/board-list-page-object.js");
@@ -77,7 +75,7 @@
 
 
 		this.clickUser = function() {
-			element.all(by.css(".user-container")).first().click();
+			$$(".user-container").first().click();
 		};
 
 
