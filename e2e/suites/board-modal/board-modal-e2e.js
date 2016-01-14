@@ -8,11 +8,12 @@
 
 
 	describe("The board modal", function() {
+		beforeEach(function() {
+			boardModalPO.get();
+		});
+
 
 		it("is present after clicking on a board in the boardlist screen", function() {
-			boardModalPO.get();
-			expect(boardModalPO.boardsContain("foobar")).toEqual(true);
-			boardModalPO.clickEditBoard("foobar");
 			expect(boardModalPO.modalIsPresent()).toEqual(true);
 		});
 
@@ -51,12 +52,17 @@
 		});
 
 		it("title takes input and saves it", function() {
+			boardModalPO.clickEditBoardOption();
 			expect(boardModalPO.getTitleValue()).toEqual("foobar");
 			boardModalPO.clearTitleValue();
 			boardModalPO.setTitleValue("foo");
 			boardModalPO.clickOutsideOfTitle();
-			browser.waitForAngular();
 			expect(boardModalPO.getTitleValue()).toEqual("foo");
+
+			//reset it to how it was before test
+			boardModalPO.clickEditBoardOption();
+			boardModalPO.clearTitleValue();
+			boardModalPO.setTitleValue("foobar");
 		});
 
 		it("has a delete option", function() {
@@ -69,9 +75,10 @@
 		});
 
 		it("exists the modal and deletes the board after deletion confirmation", function() {
-			boardModalPO.confirmDeletion("foo");
+			boardModalPO.clickDeleteButton();
+			boardModalPO.confirmDeletion("foobar");
 			expect(boardModalPO.modalIsPresent()).toEqual(false);
-			expect(boardModalPO.boardsContain("foo")).toEqual(false);
+			expect(boardModalPO.boardsContain("foobar")).toEqual(false);
 		});
 	});
 

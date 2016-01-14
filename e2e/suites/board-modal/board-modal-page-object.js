@@ -9,6 +9,12 @@
 	var BoardModalPageObject = function() {
 		this.get = function() {
 			boardListPO.get();
+			boardListPO.boardsContain("foobar").then(function(res) {
+				if (!res) {
+					boardListPO.createBoard("foobar");
+				}
+			});
+			this.clickEditBoard("foobar");
 		};
 
 		this.boardsContain = function(boardname) {
