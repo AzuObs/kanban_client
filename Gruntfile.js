@@ -16,7 +16,8 @@ module.exports = function(grunt) {
           "src/**/*.css",
           "!src/bower_components/**/*.css"
         ],
-        dest: "release/main.css"
+        dest: "release/main.css",
+        stripBanners: true
       },
       js: {
         src: [
@@ -24,15 +25,19 @@ module.exports = function(grunt) {
           "!src/**/*test.js",
           "!src/bower_components/**/*.js"
         ],
-        dest: "release/main.js"
+        dest: "release/main.js",
+        stripBanners: true
+
       }
     },
     uglify: {
-      js: {
-        src: "release/main.js"
-      },
-      css: {
-        src: "release/main.css"
+      src: "release/main.js",
+      dest: "release/main.js"
+    },
+    cssmin: {
+      target: {
+        src: "release/main.css",
+        dest: "release/main.css"
       }
     }
   });
@@ -45,4 +50,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-watch");
 
   grunt.registerTask("unit-test", ["karma"]);
+  grunt.registarTask("build", ["concat", "uglify", "cssmin"]);
 };
