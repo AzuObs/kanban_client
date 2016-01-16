@@ -20,7 +20,6 @@ module.exports = function(config) {
 			"Chrome"
 		],
 
-
 		frameworks: ["jasmine"],
 
 		plugins: [
