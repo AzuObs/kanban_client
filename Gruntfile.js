@@ -1,4 +1,3 @@
-// optimize Karma by Grunt
 // create an 'on save' that lints JS, CSS, HTML and applies style guides
 // grunt-watch?
 // grunt-newer?
@@ -153,6 +152,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-replace");
   grunt.loadNpmTasks("grunt-exec");
   grunt.loadNpmTasks("grunt-protractor-runner");
+
 
   grunt.registerTask("serve", ["exec:serve"]);
   grunt.registerTask("unit-test", ["karma"]);
