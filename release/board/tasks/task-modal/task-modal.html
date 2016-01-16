@@ -1,0 +1,82 @@
+<div class="modal-container task-modal" ng-click="endAllEditing($event)">
+  <div class="modal-close">
+    <button class="btn glyphicon glyphicon-remove" ng-click="closeModal()"></button>
+  </div>
+
+  <div class="modal-title">
+    <input class="form-control task-name-edit" ng-keypress="editTaskName($event)" ng-model="task.name" ng-show="isEditingTaskName" type="text">
+    <h3 class="task-name-edit" ng-click="editTaskName($event)" ng-hide="isEditingTaskName">{{task.name}}</h3>
+    <h4 class="text-muted">in list <b>{{category.name | uppercase}}</b></h4>
+  </div>
+
+  <div class="modal-content-container">
+    <div class="modal-left-content">
+      <div class="modal-user-list">
+        <kb-user id="modal-user" ng-repeat="user in task.users"></kb-user>
+      </div>
+
+      <div class="modal-newcomment">
+        <b>Activity</b>
+        <div class="form-group">
+          <textarea class="form-control" ng-model="commentInput" placeholder="Add a comment..."></textarea>
+          <button class="btn btn-black btn-block" ng-click="createComment()">Add Comment</button>
+        </div>
+      </div>
+
+      <div class="comment-list ui-fancy-scrollbar">
+        <div class="comment-container" ng-repeat="comment in task.comments">
+          <div class="comment-img"><img ng-src="{{comment.userPicUrl}}"></div>
+          <div class="comment-content">
+            <div><b>{{comment.username}}</b></div>
+            <div>{{comment.content}}</div>
+            <small class="text-muted">{{ageOfPost(comment.date)}}</small>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-options modal-right-content">
+      <button class="btn btn-block btn-grey task-name-edit" ng-click="editTaskName($event)">Rename Task</button>
+      <div class="button-group" dropdown is-open="status.aMemIsOpen">
+        <button class="btn btn-block btn-grey" dropdown-toggle ng-disabled="task.users.length===5">Add Member
+          <span class="caret" ng-hide="status.aMemIsOpen"></span>
+          <span class="dropup" ng-show="status.aMemIsOpen"><span class="caret"></span></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-click="addUserToTask(user)" ng-repeat="user in addableUsers"><a href>{{user.username}}</a></li>
+        </ul>
+      </div>
+
+      <div class="button-group" dropdown is-open="status.cCatIsOpen">
+        <button class="btn btn-block btn-grey" dropdown-toggle ng-disabled="!changeableCategories.length">Change Category
+          <span class="caret" ng-hide="status.cCatIsOpen"></span>
+          <span class="dropup" ng-show="status.cCatIsOpen"><span class="caret"></span></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-click="moveTaskToCategory(category)" ng-repeat="category in changeableCategories"><a href>{{category.name}}</a></li>
+        </ul>
+      </div>
+      <hr>
+
+      <div class="button-group" dropdown is-open="status.rMemIsOpen">
+        <button class="btn btn-block btn-danger" dropdown-toggle ng-disabled="!task.users.length">Remove Member
+          <span class="caret" ng-hide="status.rMemIsOpen"></span>
+          <span class="dropup" ng-show="status.rMemIsOpen"><span class="caret"></span></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-click="removeUserFromTask(user)" ng-repeat="user in task.users"><a href>{{user.username}}</a></li>
+        </ul>
+      </div>
+
+      <button class="btn btn-block btn-danger delete-task" ng-click="deleteTask($event)">Delete Task</button>
+      <em class="text-danger" ng-show="isDeletingTask">Type the name of the task and press enter.</em>
+      <div class="input-group" ng-show="isDeletingTask">
+        <span class="input-group-btn">
+        <button ng-click="deleteTask($event)" class="btn btn-black delete-task delete-task-button">!</button>
+      </span>
+        <input class="delete-task form-control" ng-keypress="deleteTask($event)" ng-model="repeatTaskName" placeholder="enter task name" type="text">
+      </div>
+    </div>
+  </div>
+</div>

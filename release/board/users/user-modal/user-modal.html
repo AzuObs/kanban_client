@@ -1,0 +1,40 @@
+<div class="modal-container user-modal" ng-click="cancelEditing($event)">
+  <div class="modal-close">
+    <button class="btn glyphicon glyphicon-remove" ng-click="closeModal()"></button>
+  </div>
+
+  <div class="modal-title">
+    <h3>{{modalUser.username}}</h3>
+    <h4 class="text-muted">in board <b>{{board.name | uppercase}}</b></h4>
+  </div>
+
+  <div class="modal-user-list">
+    <kb-user id="modal-user" ng-repeat="user in [modalUser]"></kb-user>
+  </div>
+
+  <hr>
+  <div class="modal-options">
+    <h4>Options</h4>
+
+    <button class="btn btn-block btn-default change-rbac" ng-click="changeUserRBAC($event)">Change Priviledges</button>
+    <div class="change-rbac" ng-show="isEditingRBAC">
+      <div class="change-rbac checkbox">
+        <label class="change-rbac">
+          <input class="change-rbac" ng-false-value="'member'" ng-model="userRBAC" ng-true-value="'admin'" type="checkbox">Admin
+        </label>
+      </div>
+      <div class="change-rbac checkbox">
+        <label class="change-rbac">
+          <input class="change-rbac" ng-false-value="'admin'" ng-model="userRBAC" ng-true-value="'member'" type="checkbox">Member
+        </label>
+      </div>
+      <em class="change-rbac text-muted">This feature is under development and is currently unavailable.</em>
+      <button class="btn btn-block btn-default change-rbac" ng-click="changeUserRBAC($event)" ng-disabled="true">Submit</button>
+    </div>
+
+    <em class="remove-user text-muted" ng-show="userIsAdmin()">Cannot remove an admin from the board.</em>
+    <button class="btn btn-block btn-danger remove-user" ng-click="removeUser($event)" ng-disabled="userIsAdmin()">Remove User</button>
+    <em class="remove-user text-danger" ng-show="isDeleting && !userIsAdmin()">You are about to remove the user "{{modalUser.username}}" from your board. Confirm by typing the name of the user and press by enter.</em>
+    <input class="remove-user form-control" ng-keypress="removeUser($event)" ng-model="repeatUsername" ng-show="isDeleting" placeholder="name of user" type="text">
+  </div>
+</div>

@@ -2,6 +2,8 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
+
+    //grunt unit-test
     karma: {
       unit: {
         configFile: "karma.conf.js",
@@ -11,7 +13,13 @@ module.exports = function(grunt) {
       }
     },
 
-    // CONCAT, UGLIFY, CSSMIN, AND MODIFY REFERENCES IN INDEX.HTML
+
+    //grunt exec
+    exec: {
+      start: "http-server -a localhost -p 3000"
+    },
+
+    //grunt build 
     useminPrepare: {
       html: "src/index.html",
       options: {
@@ -24,6 +32,10 @@ module.exports = function(grunt) {
 
     // COPY
     copy: {
+      favicon: {
+        src: "src/favicon.png",
+        dest: "release/favicon.png"
+      },
       html: {
         expand: true,
         cwd: "src/",
@@ -34,15 +46,14 @@ module.exports = function(grunt) {
         expand: true,
         cwd: "src/bower_components",
         src: [
-          "angular/angular.min.js", //CDN
-          "bootstrap/dist/css/bootstrap.min.css", //CDN
-          "jquery/dist/jquery.min.js" //CDN
+          "angular/angular.js", //CDN
+          "bootstrap/dist/css/bootstrap.css", //CDN
+          "jquery/dist/jquery.js" //CDN
         ],
         dest: "release/bower_components"
       }
     },
 
-    // MINIFICATION HTML
     htmlmin: {
       build: {
         options: {
@@ -72,8 +83,8 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks("grunt-karma");
 
+  grunt.loadNpmTasks("grunt-karma");
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-cssmin");
@@ -81,7 +92,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-usemin");
-  grunt.loadNpmTasks("grunt-filerev");
+  grunt.loadNpmTasks("grunt-exec");
 
   grunt.registerTask("unit-test", ["karma"]);
   grunt.registerTask("build", [
