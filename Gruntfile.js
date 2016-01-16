@@ -15,6 +15,24 @@ module.exports = function(grunt) {
     },
 
 
+    // grunt e2e-test
+    protractor: {
+      options: {
+        configFile: "e2e/conf.js",
+        keepAlive: true,
+        noColor: false
+      },
+      all: {},
+      about: {
+        options: {
+          args: {
+            suite: "about"
+          }
+        }
+      }
+    },
+
+
     //grunt exec
     exec: {
       serve: "http-server -a localhost -p 3000"
@@ -116,10 +134,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-usemin");
   grunt.loadNpmTasks("grunt-replace");
   grunt.loadNpmTasks("grunt-exec");
-
+  grunt.loadNpmTasks("grunt-protractor-runner");
 
   grunt.registerTask("serve", ["exec:serve"]);
   grunt.registerTask("unit-test", ["karma"]);
+  grunt.registerTask("e2e-test", ["protractor:all"]);
   grunt.registerTask("build", [
     "copy",
     "useminPrepare",

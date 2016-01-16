@@ -5,7 +5,7 @@
 		var oauthPage = $(".oauth-container");
 
 		this.get = function() {
-			browser.get("http://localhost:3000/app/#/kanban/identity");
+			browser.get("http://localhost:3000/src/#/kanban/identity");
 		};
 
 		this.isPresent = function() {

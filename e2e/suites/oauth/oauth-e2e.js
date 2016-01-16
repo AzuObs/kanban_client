@@ -32,9 +32,9 @@
 		});
 
 		it("sends the user to 'kanban/user/:username' on successful login", function() {
-			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/identity");
+			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
 			oauthPage.clickLogin();
-			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/user/sheldon");
+			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/user/sheldon");
 		});
 	});
 })();

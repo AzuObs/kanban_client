@@ -7,7 +7,7 @@
 		aboutPage = $(".about-container");
 
 		config = {
-			aboutPageUrl: "http://localhost:3000/app/#/kanban/about",
+			aboutPageUrl: "http://localhost:3000/src/#/kanban/about",
 			KB_EXPLANATION_TITLE: /what is a kanban?/i,
 			KB_EXPLANATION_YOUTUBE: "https://www.youtube.com/watch?v=R8dYLbJiTUE",
 			REPO_URL: "https://github.com/AzuObs/To-Do-App"

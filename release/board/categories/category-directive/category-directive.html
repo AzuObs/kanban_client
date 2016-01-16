@@ -1,11 +1,1 @@
-<div class="category-wrapper">
-  <div class="category-container">
-    <div class="category-header">
-      <h4>{{category.name | uppercase}}</h4>
-      <button class="close-category" ng-click="$parent.deleteCategory(category._id)"><span class='glyphicon glyphicon-remove'></span></button>
-    </div>
-    <div class="task-view" ui-view="task-view"></div>
-  </div>
-
-  <div class="white-space"></div>
-</div>
+<div class="category-wrapper"><div class="category-container"><div class="category-header"><h4>{{category.name | uppercase}}</h4><button class="close-category" ng-click="$parent.deleteCategory(category._id)"><span class="glyphicon glyphicon-remove"></span></button></div><div class="task-view" ui-view="task-view"></div></div><div class="white-space"></div></div>

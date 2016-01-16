@@ -10,8 +10,8 @@
 		createBoardInput = boardList.element(by.model("boardName"));
 
 		config = {
-			identityPageUrl: "http://localhost:3000/app/#/kanban/identity",
-			boardListPageUrl: "http://localhost:3000/app/#/kanban/user/sheldon"
+			identityPageUrl: "http://localhost:3000/src/#/kanban/identity",
+			boardListPageUrl: "http://localhost:3000/src/#/kanban/user/sheldon"
 		};
 
 		this.cleanUpAndExit = function() {

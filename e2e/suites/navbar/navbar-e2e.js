@@ -33,24 +33,24 @@
 			});
 
 			it("link 'Login' redirects to #/kanban/myidentity", function() {
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/identity");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
 				pageObject.clickDropdown();
 				expect(pageObject.getLinkName(0)).toEqual("Login");
 				pageObject.clickLink(0);
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/identity");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
 			});
 
 			it("link 'My Boards' redirects to #/kanban/user without prior login", function() {
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/identity");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
 				browser.executeScript('window.sessionStorage.clear();');
 				pageObject.clickDropdown();
 				expect(pageObject.getLinkName(1)).toEqual("Visit Boards");
 				pageObject.clickLink(1);
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/identity");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
 			});
 
 			it("link 'My Boards' redirects to #/kanban/user/sheldon after login", function() {
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/identity");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
 
 				//get token from server
 				$("button[ng-click='authenticate()']").click();
@@ -58,15 +58,15 @@
 				pageObject.clickDropdown();
 				expect(pageObject.getLinkName(1)).toEqual("Visit Boards");
 				pageObject.clickLink(1);
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/user/sheldon");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/user/sheldon");
 			});
 
 			it("link 'About' redirects to #/kanban/about", function() {
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/identity");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
 				pageObject.clickDropdown();
 				expect(pageObject.getLinkName(2)).toEqual("About");
 				pageObject.clickLink(2);
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/about");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/about");
 			});
 		});
 	});

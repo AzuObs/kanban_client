@@ -1,14 +1,1 @@
-<div class="task-container">
-  <button class="close-task" ng-click="deleteTask(category, task._id)"><span class="glyphicon glyphicon-remove"></span></button>
-
-  <h5>{{task.name}}</h5>
-
-  <div class="user-list-container">
-    <div ui-sortable="userSortOpts" ng-model="task.users" class="user-list" ng-class="{background: showUserList}">
-      <kb-user ng-repeat="user in task.users">
-      </kb-user>
-    </div>
-  </div>
-
-  <span class="glyphicon glyphicon-comment task-comment text-muted" ng-show="task.comments.length"><span>{{task.comments.length}}</span></span>
-</div>
+<div class="task-container"><button class="close-task" ng-click="deleteTask(category, task._id)"><span class="glyphicon glyphicon-remove"></span></button><h5>{{task.name}}</h5><div class="user-list-container"><div ui-sortable="userSortOpts" ng-model="task.users" class="user-list" ng-class="{background: showUserList}"><kb-user ng-repeat="user in task.users"></kb-user></div></div><span class="glyphicon glyphicon-comment task-comment text-muted" ng-show="task.comments.length"><span>{{task.comments.length}}</span></span></div>

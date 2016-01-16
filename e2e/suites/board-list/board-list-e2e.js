@@ -35,9 +35,9 @@
 			expect(boardListPO.hasModal()).toEqual(true);
 		});
 
-		it("can redirect to app/#/board/:boardname after clicking on a board", function() {
+		it("can redirect to src/#/board/:boardname after clicking on a board", function() {
 			boardListPO.clickBoard("foobar");
-			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/app/#/kanban/board/foobar");
+			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/board/foobar");
 		});
 
 		it("cleans up and exits after the test is done", function() {
