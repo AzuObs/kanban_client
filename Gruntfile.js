@@ -4,7 +4,28 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON("package.json"),
     karma: {
       unit: {
-        configFile: "karma.conf.js"
+        configFile: "karma.conf.js",
+        background: true,
+        singleRun: true
+      }
+    },
+    concat: {
+      css: {
+
+      },
+      js: {
+
+      }
+    },
+    uglify: {
+      js: {
+
+      },
+      css: {
+
+      },
+      html: {
+
       }
     }
   });
@@ -13,6 +34,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-cssmin");
   grunt.loadNpmTasks("grunt-contrib-uglify");
-  grunt.registerTask("unit-test", ["karma"]);
+  grunt.loadNpmTasks("grunt-contrib-watch");
 
+  grunt.registerTask("unit-test", ["karma"]);
 };
