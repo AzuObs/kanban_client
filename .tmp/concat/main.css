@@ -1,0 +1,841 @@
+/**
+* body-height : 100% viewport height;
+ */
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.navbar-view {
+  flex: 0 0 auto;
+}
+
+.state-info-view {
+  flex: 0 0 auto;
+}
+
+.body-view {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 295px;
+  padding: 0px 10px 2px 10px;
+}
+
+.footer-view {
+  display: flex;
+  flex: 0 1 auto;
+  min-height: 18px;
+  flex-direction: column;
+}
+
+
+/**
+* ui-fancy-scrollbarbar only available in webkit 
+ */
+
+.btn-black {
+  background-color: #222 !important;
+  border: 1px solid #000;
+  color: #fff !important;
+}
+
+.btn-black:hover {
+  box-shadow: 0px 0px 7px #888;
+}
+
+.btn-grey {
+  background-color: #ddd;
+  border: 1px solid #666;
+}
+
+.btn-grey:hover {
+  background-color: #fff;
+  box-shadow: 0px 0px 7px #888;
+}
+
+.ui-fancy-scrollbar::-webkit-scrollbar {
+  height: 9px;
+  width: 9px;
+}
+
+.ui-fancy-scrollbar::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 5px;
+}
+
+.ui-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 5px;
+}
+
+.no-script {
+  border: 3px solid #f00;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.modal {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.modal-dialog {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-height: 0px;
+  width: auto;
+}
+
+.modal-content {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.modal-container {
+  display: flex;
+  flex: 0 1 auto;
+  min-height: 0px;
+  flex-direction: column;
+}
+
+.modal-title {
+  flex: 0 0 auto;
+}
+
+.modal-close {
+  flex: 0 1 auto;
+  height: 0px;
+}
+
+.modal-close button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  background-color: #eee;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.modal-close button:hover {
+  border-color: #aaa;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.modal-title > input {
+  height: 26px;
+  width: 40%;
+}
+
+.modal-title h3 {
+  margin-top: 0px;
+}
+
+.modal-user-list {
+  display: block;
+  height: 52px;
+  margin-top: 15px;
+}
+
+.modal-user {
+  float: left;
+  margin-right: 3px;
+}
+
+#modal-user img {
+  border: 1px solid #aaa;
+  height: 50px;
+  width: 50px;
+}
+
+.modal-options > * {
+  margin-bottom: 3px;
+}
+
+.about-container {
+  flex: 1 1 auto;
+  margin: 10px 0px;
+  min-height: 0px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.about-column-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.about-left-column {
+  flex: 0 0 auto;
+  min-width: 300px;
+  width: 40%;
+}
+
+.about-right-column {
+  min-width: 300px;
+  flex: 0 0 auto;
+  width: 40%;
+}
+
+.oauth-container {
+  display: flex;
+  flex: 0 1 auto;
+  justify-content: space-around;
+  min-height: 295px;
+}
+
+.oauth-container h3 {
+  align-self: center;
+  margin-bottom: 15px;
+}
+
+.newaccount-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  width: 37%;
+}
+
+.vertical-divider-container {
+  display: flex;
+  flex-direction: column;
+  height: 295px;
+  justify-content: space-around;
+}
+
+.vertical-or {
+  align-self: center;
+}
+
+.vertical-line {
+  align-self: center;
+  background: #333;
+  height: 60px;
+  width: 1px;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  width: 37%;
+}
+
+.login-help-box {
+  background-color: #fee;
+  border: 1px dashed #888;
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  margin-bottom: 15px;
+  min-width: 0px;
+}
+
+.login-help-title {
+  align-self: center;
+  flex: 0 1 auto;
+}
+
+.login-help-credentials {
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+.oauth-container .form-group {
+  margin-bottom: 5px;
+}
+
+.board-list {
+  margin: 15px 0 30px 0;
+  font-size: 25px;
+}
+
+.board-list > * {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.board-list .open-board-modal {
+  color: #000;
+  font-size: 16px;
+  margin-left: 4px;
+  text-decoration: none;
+}
+
+span[ng-hide="$last"] {
+  white-space: pre;
+}
+
+.board-modal {
+  width: 410px;
+}
+
+.board-modal .edit-board:hover {
+  cursor: pointer;
+}
+
+.user-view {
+  flex: 0 0 auto;
+}
+
+.category-view {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 147px;
+  min-width: 0px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+}
+
+.user-menu-container {
+  height: 90px;
+  width: 300px;
+}
+
+.board-member-container {
+  display: block;
+  height: 40px;
+}
+
+.add-member-dropdown {
+  margin-top: 13px;
+  width: 180px;
+}
+
+.user-selection > .user-container:hover {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.board-member-container .form-group {
+  margin-top: 10px;
+  width: 190px;
+}
+
+.user-menu-container input {
+  display: inline;
+  width: 180px;
+}
+
+.user-menu-container input::-webkit-input-placeholder {
+  font-size: 13px;
+  font-style: italic;
+}
+
+.user-menu-container button {
+  display: inline;
+  width: 100px;
+}
+
+.user-container {
+  float: left;
+  margin: 0px 1px;
+}
+
+.user-container img {
+  border: 1px solid #aaa;
+  height: 32px;
+  width: 32px;
+}
+
+.user-modal {
+  width: 410px;
+}
+
+em.text-muted {
+  font-size: 12px;
+}
+
+.category-list {
+  align-items: start;
+  display: flex;
+  flex: 0 1 auto;
+  min-height: 0px;
+}
+
+
+/**
+ * !important used to overwrite the style attribute in the ui-sortable populated HTML
+ */
+
+.category-list > .ui-sortable-placeholder {
+  background-color: #ddf;
+  border: none;
+  visibility: visible !important;
+}
+
+.category-create {
+  background-color: #eee;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  flex: 0 0 auto;
+  height: 90px;
+  padding: 5px 5px 5px 5px;
+  width: 240px;
+}
+
+.category-create > .form-group > input {
+  margin-bottom: 1px;
+}
+
+.category-wrapper {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  margin-right: 10px;
+  min-height: 0px;
+  width: 240px;
+}
+
+.category-container {
+  background-color: #eee;
+  border: 2px solid #aaa;
+  border-radius: 3px;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-height: 90px;
+  overflow: hidden;
+  padding: 5px;
+  width: 240px;
+}
+
+.category-container:hover {
+  border: 2px solid #777;
+}
+
+.category-header {
+  flex: 0 0 auto;
+  height: 32px;
+}
+
+.category-header:hover {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.category-header > h4 {
+  margin: 5px 0px 0px 0px;
+  height: 19px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre;
+}
+
+.category-header > .close-category {
+  position: relative;
+  bottom: 31px;
+  left: 218px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  color: rgba(0, 0, 0, 0);
+  font-size: 10px;
+  height: 0px;
+  padding: 0px;
+}
+
+.category-container:hover .close-category {
+  color: #aaa;
+}
+
+.category-container:hover .close-category:hover {
+  color: #333;
+}
+
+.task-view {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-height: 0px;
+}
+
+.category-container > .white-space {
+  flex: 1 1 auto;
+  min-height: 0px;
+}
+
+.task-list {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 50px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 3px;
+  width: 226px;
+}
+
+
+/**
+ * !important to overwrite HTML style attrb that's populated by ui-sortable
+ */
+
+.task-list > .ui-sortable-placeholder {
+  background-color: #cec;
+  border: none;
+  box-shadow: none;
+  visibility: visible !important;
+}
+
+.task-view > input {
+  flex: 0 1 auto;
+  min-height: 32px;
+  margin-top: 5px;
+  margin-bottom: 1px;
+  background-color: #eee;
+}
+
+.task-view > input:hover,
+.task-view > input:focus {
+  background-color: #fff;
+}
+
+.task-container {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px #ccc;
+  flex: 1 0 auto;
+  min-height: 60px;
+  margin-bottom: 3px;
+  padding: 0px 5px 0px 5px;
+  width: 100%;
+}
+
+.task-container:hover {
+  border: 1px solid #777;
+  cursor: pointer;
+}
+
+.close-task {
+  position: absolute;
+  top: 1px;
+  right: 3px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  color: rgba(0, 0, 0, 0);
+  font-size: 8px;
+  height: 0px;
+  padding: 0px;
+}
+
+.task-container:hover .close-task {
+  color: #aaa;
+}
+
+.task-container:hover .close-task:hover {
+  color: #333;
+}
+
+.task-container .user-list-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-direciton: row;
+  margin: 0px 0px 2px 35px;
+  max-width: 174px;
+}
+
+.task-container .user-list {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  min-width: 17px;
+  min-height: 36px;
+  padding: 2px;
+}
+
+.task-container .background {
+  background-color: #fdd;
+}
+
+.user-list > .user-container:hover {
+  cursor: -webkit-grab;
+  cursor: drag;
+}
+
+.task-comment {
+  position: absolute;
+  bottom: 2px;
+  top: auto;
+  font-size: 12px;
+}
+
+.task-comment span {
+  position: relative;
+  bottom: 1px;
+  left: 2px;
+}
+
+/* hack: can't set min-height of .task-modal; .modal-content will go lower than min-height*/
+
+.modal-lg > .modal-content {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-height: 400px;
+}
+
+.task-modal {
+  width: 560px;
+}
+
+.task-modal .modal-title h3:hover {
+  cursor: pointer;
+}
+
+.modal-content-container {
+  flex: 1 1 auto;
+  display: flex;
+  max-width: 560px;
+  min-height: 250px;
+}
+
+.modal-left-content {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  width: 380px;
+}
+
+.modal-right-content {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+}
+
+.comment-list {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-height: 0px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.comment-container {
+  display: flex;
+  flex: 0 1 auto;
+  max-width: 100%;
+  min-width: 0px;
+}
+
+.modal-newcomment {
+  margin-top: 20px;
+}
+
+.modal-newcomment textarea {
+  flex: 1 0 auto;
+  height: 50px;
+  margin: 3px 0px;
+  max-width: 380px;
+  max-height: 200px;
+  min-height: 50px;
+  width: 380px;
+}
+
+.modal .input-group {
+  margin-top: 2px;
+}
+
+.comment-img img {
+  height: 45px;
+  width: 45px;
+}
+
+.comment-content {
+  align-items: stretch;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-width: 0px;
+  overflow: hidden;
+}
+
+.comment-content:nth-child(2) {
+  text-overflow: ellipsis;
+  white-space: pre-line;
+}
+
+.nav {
+  cursor: pointer;
+}
+
+.navbar .navbar-nav .navbar-link {
+  color: #fff;
+  font-size: 32px;
+  text-decoration: none;
+}
+
+.glyphicon-menu-hamburger {
+  border: 2px solid #fff;
+  border-radius: 5px;
+  font-size: 24px;
+  padding: 3px;
+}
+
+.navbar .navbar-nav .dropdown-toggle {
+  padding: 8px 10px;
+}
+
+.navbar .navbar-nav .dropdown-menu {
+  color: #000;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.navbar-fixed-padding {
+  padding-top: 50px;
+}
+
+.footer-view > h6 {
+  align-self: center;
+  font-size: 11px;
+  margin: 2px 0px 4px 0px;
+  padding: 0px;
+}
+
+/* Make clicks pass-through */
+
+#loading-bar,
+#loading-bar-spinner {
+  pointer-events: none;
+  -webkit-pointer-events: none;
+  -webkit-transition: 350ms linear all;
+  -moz-transition: 350ms linear all;
+  -o-transition: 350ms linear all;
+  transition: 350ms linear all;
+}
+
+#loading-bar.ng-enter,
+#loading-bar.ng-leave.ng-leave-active,
+#loading-bar-spinner.ng-enter,
+#loading-bar-spinner.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+#loading-bar.ng-enter.ng-enter-active,
+#loading-bar.ng-leave,
+#loading-bar-spinner.ng-enter.ng-enter-active,
+#loading-bar-spinner.ng-leave {
+  opacity: 1;
+}
+
+#loading-bar .bar {
+  -webkit-transition: width 350ms;
+  -moz-transition: width 350ms;
+  -o-transition: width 350ms;
+  transition: width 350ms;
+  background: #29d;
+  position: fixed;
+  z-index: -1;
+  top: 51px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-bottom-right-radius: 1px;
+  border-top-right-radius: 1px;
+}
+
+
+/* Fancy blur effect */
+
+#loading-bar .peg {
+  position: absolute;
+  width: 70px;
+  right: 0;
+  top: 0;
+  height: 2px;
+  opacity: .45;
+  -moz-box-shadow: #29d 1px 0 6px 1px;
+  -ms-box-shadow: #29d 1px 0 6px 1px;
+  -webkit-box-shadow: #29d 1px 0 6px 1px;
+  box-shadow: #29d 1px 0 6px 1px;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+}
+
+#loading-bar-spinner {
+  display: block;
+  position: fixed;
+  z-index: -1;
+  top: 10px;
+  left: 10px;
+}
+
+#loading-bar-spinner .spinner-icon {
+  width: 14px;
+  height: 14px;
+  border: solid 2px transparent;
+  border-top-color: #29d;
+  border-left-color: #29d;
+  border-radius: 50%;
+  -webkit-animation: loading-bar-spinner 400ms linear infinite;
+  -moz-animation: loading-bar-spinner 400ms linear infinite;
+  -ms-animation: loading-bar-spinner 400ms linear infinite;
+  -o-animation: loading-bar-spinner 400ms linear infinite;
+  animation: loading-bar-spinner 400ms linear infinite;
+}
+
+@-webkit-keyframes loading-bar-spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes loading-bar-spinner {
+  0% {
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes loading-bar-spinner {
+  0% {
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-ms-keyframes loading-bar-spinner {
+  0% {
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-bar-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
