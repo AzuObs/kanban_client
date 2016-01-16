@@ -1,3 +1,9 @@
+// optimize Karma by Grunt
+// create an 'on save' that lints JS, CSS, HTML and applies style guides
+// grunt-watch?
+// grunt-newer?
+// grunt-server???
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -120,6 +126,17 @@ module.exports = function(grunt) {
           dest: "release/index.html"
         }]
       }
+    },
+
+    compress: {
+      archive: {
+        options: {
+          archive: 'archive.zip'
+        },
+        expand: true,
+        src: "release/**/*",
+        dest: "upload-ready-app.zip"
+      }
     }
   });
 
@@ -131,6 +148,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-htmlmin");
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks("grunt-contrib-compress");
   grunt.loadNpmTasks("grunt-usemin");
   grunt.loadNpmTasks("grunt-replace");
   grunt.loadNpmTasks("grunt-exec");
@@ -147,6 +165,7 @@ module.exports = function(grunt) {
     "cssmin:generated",
     "usemin",
     "replace",
-    "htmlmin"
+    "htmlmin",
+    "compress"
   ]);
 };
