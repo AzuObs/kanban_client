@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
 
+
     //grunt unit-test
     karma: {
       unit: {
@@ -16,8 +17,9 @@ module.exports = function(grunt) {
 
     //grunt exec
     exec: {
-      start: "http-server -a localhost -p 3000"
+      serve: "http-server -a localhost -p 3000"
     },
+
 
     //grunt build 
     useminPrepare: {
@@ -30,7 +32,6 @@ module.exports = function(grunt) {
       html: "release/index.html"
     },
 
-    // COPY
     copy: {
       favicon: {
         src: "src/favicon.png",
@@ -80,20 +81,44 @@ module.exports = function(grunt) {
           "release/about/about.html": "release/about/about.html"
         }
       }
+    },
+
+    replace: {
+      release: {
+        options: {
+          patterns: [{
+            match: /bower_components\/bootstrap\/dist\/css\/bootstrap.css/,
+            replacement: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          }, {
+            match: /bower_components\/jquery\/dist\/jquery.js/,
+            replacement: "https://code.jquery.com/jquery-2.1.4.min.js"
+          }, {
+            match: /bower_components\/angular\/angular.js/,
+            replacement: "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"
+          }]
+        },
+        files: [{
+          src: "release/index.html",
+          dest: "release/index.html"
+        }]
+      }
     }
   });
 
 
   grunt.loadNpmTasks("grunt-karma");
-  grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-cssmin");
   grunt.loadNpmTasks("grunt-contrib-htmlmin");
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-usemin");
+  grunt.loadNpmTasks("grunt-replace");
   grunt.loadNpmTasks("grunt-exec");
 
+
+  grunt.registerTask("serve", ["exec:serve"]);
   grunt.registerTask("unit-test", ["karma"]);
   grunt.registerTask("build", [
     "copy",
@@ -101,7 +126,8 @@ module.exports = function(grunt) {
     "concat:generated",
     "uglify:generated",
     "cssmin:generated",
-    "usemin"
-    // "htmlmin"
+    "usemin",
+    "replace",
+    "htmlmin"
   ]);
 };
