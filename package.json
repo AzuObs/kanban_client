@@ -4,10 +4,6 @@
   "version": "1.0.0",
   "description": "Angular Portfolio App",
   "main": "app/index.js",
-  "scripts": {
-    "test": "karma start",
-    "start": "http-server -a localhost -p 3000"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/AzuObs/kanban_client.git"
@@ -21,11 +17,14 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.2",
     "grunt-contrib-cssmin": "^0.14.0",
     "grunt-contrib-htmlmin": "^0.6.0",
     "grunt-contrib-uglify": "^0.11.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-exec": "^0.4.6",
     "grunt-karma": "^0.12.1",
+    "grunt-usemin": "3.0.0",
     "http-server": "^0.8.5",
     "karma": "^0.13.15",
     "karma-chrome-launcher": "^0.2.2",
