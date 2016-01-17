@@ -22,9 +22,9 @@
 		"userModalModule",
 		"taskModule",
 		"taskDirectiveModule",
-		"taskModalModule"
+		"taskModalModule",
+		"constantsModule"
 	]);
-
 
 	module.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
 		function($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -48,9 +48,8 @@
 		}
 	]);
 
-	module.run(["$rootScope", "$state", function($rootScope, $state) {
-		// $rootScope.endPoint = "http://bigbangkanban.herokuapp.com/api";
-		$rootScope.endPoint = "http://localhost:8000/api";
+	module.run(["$rootScope", "$state", "ENV", function($rootScope, $state, ENV) {
+		$rootScope.endPoint = ENV.apiEndpoint;
 		$rootScope.state = $state;
 
 		// log ui-router routing errors

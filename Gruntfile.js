@@ -103,8 +103,39 @@ module.exports = function(grunt) {
         dest: "release"
       }
     },
+
     usemin: {
       html: "release/index.html"
+    },
+
+    ngconstant: {
+      options: {
+        space: '  ',
+        wrap: '"use strict";\n\n {%= __ngModule %}',
+        name: 'constantsModule',
+      },
+      development: {
+        options: {
+          dest: "src/constants.js"
+        },
+        constants: {
+          ENV: {
+            name: "development",
+            apiEndpoint: "http://localhost:8000/api"
+          }
+        }
+      },
+      production: {
+        options: {
+          dest: "src/constants.js"
+        },
+        constants: {
+          ENV: {
+            name: "production",
+            apiEndpoint: "http://bigbangkanban.herokuapp.com/api"
+          }
+        }
+      }
     },
 
     copy: {
@@ -182,7 +213,7 @@ module.exports = function(grunt) {
     compress: {
       archive: {
         options: {
-          archive: 'archive.zip'
+          archive: "archive.zip"
         },
         expand: true,
         src: "release/**/*",
@@ -202,11 +233,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-exec");
   grunt.loadNpmTasks("grunt-karma");
   grunt.loadNpmTasks("grunt-protractor-runner");
+  grunt.loadNpmTasks("grunt-ng-constant");
 
-  grunt.registerTask("serve", ["exec:serve"]);
+  grunt.registerTask("serve", ["ngconstant:development", "exec:serve"]);
   grunt.registerTask("unit-test", ["karma:unit"]);
   grunt.registerTask("e2e-test", ["exec:selenium", "exec:sleep5", "protractor"]);
   grunt.registerTask("build", [
+    "ngconstant:production",
     "copy",
     "useminPrepare",
     "concat:generated",
