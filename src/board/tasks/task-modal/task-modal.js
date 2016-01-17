@@ -219,7 +219,9 @@
 				$scope.categoryIndex = $scope.getCatIndex();
 
 				return $scope.board.categories[$scope.categoryIndex].tasks.findIndex(function(element, i, array) {
-					if (element._id === taskId) return true;
+					if (element._id === taskId) {
+						return true;
+					}
 				});
 			};
 
