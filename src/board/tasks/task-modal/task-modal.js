@@ -153,7 +153,6 @@
 
 			$scope.createComment = function(keyEvent) {
 				if (!keyEvent || keyEvent.which === 13) {
-
 					boardAPI
 						.createComment($scope.commentInput, $scope.user.username, $scope.user.pictureUrl, $scope.board._id, $scope.category._id, $scope.task._id)
 						.then(function(res) {
@@ -210,7 +209,9 @@
 
 			$scope.getCatIndex = function() {
 				return $scope.board.categories.findIndex(function(element, i, array) {
-					if (element._id === catId) return true;
+					if (element._id === catId) {
+						return true;
+					}
 				});
 			};
 
