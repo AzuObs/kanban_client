@@ -8,17 +8,18 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
 
-
-    //grunt unit-test
+    // grunt unit-test
     karma: {
       unit: {
         configFile: "karma.conf.js",
-        // background: true, //uncomment once I have contrib-watch figured out
-        // singleRun: true
         autoWatch: true
+      },
+      watchUnit: {
+        configFile: "karma.conf.js",
+        background: true,
+        singleRun: true
       }
     },
-
 
     // grunt e2e-test
     protractor: {
@@ -27,23 +28,78 @@ module.exports = function(grunt) {
         keepAlive: true,
         noColor: false
       },
-      all: {},
+      navbar: {
+        options: {
+          args: {
+            suite: "navbar"
+          }
+        }
+      },
+      footer: {
+        options: {
+          args: {
+            suite: "footer"
+          }
+        }
+      },
       about: {
         options: {
           args: {
             suite: "about"
           }
         }
+      },
+      oauth: {
+        options: {
+          args: {
+            suite: "oauth"
+          }
+        }
+      },
+      boardList: {
+        options: {
+          args: {
+            suite: "boardList"
+          }
+        }
+      },
+      boardModal: {
+        options: {
+          args: {
+            suite: "boardModal"
+          }
+        }
+      },
+      board: {
+        options: {
+          args: {
+            suite: "board"
+          }
+        }
+      },
+      taskModal: {
+        options: {
+          args: {
+            suite: "taskModal"
+          }
+        }
+      },
+      userModal: {
+        options: {
+          args: {
+            suite: "userModal"
+          }
+        }
       }
     },
-
 
     //grunt exec
     exec: {
       serve: "http-server -a localhost -p 3000",
-      rmTmp: "rm -r .tmp"
+      rmTmp: "rm -r .tmp",
+      selenium: "gnome-terminal -e 'bash -c \"webdriver-manager start; exec bash\"'",
+      sleep5: "sleep 5"
     },
-
 
     //grunt build 
     useminPrepare: {
@@ -140,24 +196,21 @@ module.exports = function(grunt) {
     }
   });
 
-
-  grunt.loadNpmTasks("grunt-karma");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-cssmin");
   grunt.loadNpmTasks("grunt-contrib-htmlmin");
   grunt.loadNpmTasks("grunt-contrib-uglify");
-  grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-contrib-compress");
   grunt.loadNpmTasks("grunt-usemin");
   grunt.loadNpmTasks("grunt-replace");
   grunt.loadNpmTasks("grunt-exec");
+  grunt.loadNpmTasks("grunt-karma");
   grunt.loadNpmTasks("grunt-protractor-runner");
 
-
   grunt.registerTask("serve", ["exec:serve"]);
-  grunt.registerTask("unit-test", ["karma"]);
-  grunt.registerTask("e2e-test", ["protractor:all"]);
+  grunt.registerTask("unit-test", ["karma:unit"]);
+  grunt.registerTask("e2e-test", ["exec:selenium", "exec:sleep5", "protractor"]);
   grunt.registerTask("build", [
     "copy",
     "useminPrepare",

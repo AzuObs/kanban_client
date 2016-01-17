@@ -25,6 +25,7 @@
 		"taskModalModule"
 	]);
 
+
 	module.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
 		function($stateProvider, $urlRouterProvider, $httpProvider) {
 			$urlRouterProvider.otherwise("/kanban/identity");
