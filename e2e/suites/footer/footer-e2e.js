@@ -24,7 +24,7 @@
 		});
 
 		it("features a link to the author's github account", function() {
-			expect(footer.getAnchorLink()).toEqual("https://github.com/AzuObs/kanban");
+			expect(footer.getAnchorLink()).toEqual("https://github.com/AzuObs");
 		});
 	});
 
