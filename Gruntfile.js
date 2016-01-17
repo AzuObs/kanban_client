@@ -40,7 +40,8 @@ module.exports = function(grunt) {
 
     //grunt exec
     exec: {
-      serve: "http-server -a localhost -p 3000"
+      serve: "http-server -a localhost -p 3000",
+      rmTmp: "rm -r .tmp"
     },
 
 
@@ -134,7 +135,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         src: "release/**/*",
-        dest: "upload-ready-app.zip"
+        dest: ""
       }
     }
   });
@@ -164,8 +165,9 @@ module.exports = function(grunt) {
     "uglify:generated",
     "cssmin:generated",
     "usemin",
+    "exec:rmTmp",
     "replace",
     "htmlmin",
-    "compress"
+    "compress:archive"
   ]);
 };
