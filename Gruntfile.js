@@ -1,8 +1,3 @@
-// create an 'on save' that lints JS, CSS, HTML and applies style guides
-// grunt-watch?
-// grunt-newer?
-// grunt-server???
-
 module.exports = function(grunt) {
 
   grunt.initConfig({
