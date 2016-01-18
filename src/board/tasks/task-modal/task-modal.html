@@ -12,7 +12,7 @@
   <div class="modal-content-container">
     <div class="modal-left-content">
       <div class="modal-user-list">
-        <kb-user id="modal-user" ng-repeat="user in task.users"></kb-user>
+        <kb-user ng-model="user" id="modal-user" ng-repeat="user in task.users"></kb-user>
       </div>
 
       <div class="modal-newcomment">
