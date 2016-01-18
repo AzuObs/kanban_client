@@ -10,28 +10,25 @@
 			$scope.isDeleting = false;
 			$scope.repeatUsername = "";
 			$scope.userRBAC = undefined; // initialized at the bottom of this block
-
-
-			$scope.userIsAdmin = function() {
-				return $scope.getUserRBAC() === "admin";
-			};
+			$scope.userIsAdmin = false; // initialized at the bottom of this block
 
 			$scope.cancelEditing = function(e) {
 				if (!e) {
 					return $log.error("no event passed to userModalCtrl.cancelEditing");
 				}
 
-				if (!angular.element(e.target).hasClass("change-rbac")) {
+				if (!angular.element(e.target)
+					.hasClass("change-rbac")) {
 					$scope.isEditingRBAC = false;
 					$scope.userRBAC = $scope.getUserRBAC();
 				}
 
-				if (!angular.element(e.target).hasClass("remove-user")) {
+				if (!angular.element(e.target)
+					.hasClass("remove-user")) {
 					$scope.isDeleting = false;
 					$scope.repeatUsername = "";
 				}
 			};
-
 
 			$scope.changeUserRBAC = function(e) {
 				if (!e) {
@@ -39,7 +36,6 @@
 				}
 				$scope.isEditingRBAC = !$scope.isEditingRBAC;
 			};
-
 
 			$scope.removeUser = function(e) {
 				if (!e) {
@@ -51,7 +47,8 @@
 					$scope.repeatUsername = "";
 
 					setTimeout(function() {
-						angular.element("input.remove-user").focus();
+						angular.element("input.remove-user")
+							.focus();
 					}, 0);
 				}
 
@@ -126,11 +123,9 @@
 				}
 			};
 
-
 			$scope.closeModal = function() {
 				$modalInstance.dismiss();
 			};
-
 
 			$scope.getUserRBAC = function() {
 				var user = $scope.modalUser;
@@ -148,9 +143,11 @@
 				}
 
 				$log.error("user does not have RBAC");
-				throw "user does not have RBAC";
 			};
 
+			$scope.$watch("userRBAC", function(newVal, oldVal) {
+				$scope.userIsAdmin = newVal === "admin";
+			});
 			$scope.userRBAC = $scope.getUserRBAC();
 		}
 	]);

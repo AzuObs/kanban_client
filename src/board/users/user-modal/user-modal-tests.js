@@ -35,25 +35,29 @@
 			});
 		}));
 
-		describe("$scope.userIsAdmin()", function() {
+		describe("$scope.userIsAdmin", function() {
 			it("should be defined", function() {
 				expect($scope.userIsAdmin).toBeDefined();
 			});
 
-			it("should be a function", function() {
-				expect(typeof $scope.userIsAdmin).toEqual("function");
+			it("should be a boolean", function() {
+				expect(typeof $scope.userIsAdmin).toEqual("boolean");
 			});
 
 			it("should return true is a user is an admin", function() {
-				expect($scope.userIsAdmin()).toEqual(true);
+				$scope.$apply(function() {
+					$scope.userRBAC = "admin";
+				});
+
+				expect($scope.userIsAdmin).toEqual(true);
 			});
 
 			it("should return false is a user is a member", function() {
-				$scope.board.admins = [];
-				$scope.board.members = [{
-					_id: user._id
-				}];
-				expect($scope.userIsAdmin()).toEqual(false);
+				$scope.$apply(function() {
+					$scope.userRBAC = "member";
+				});
+
+				expect($scope.userIsAdmin).toEqual(false);
 			});
 		});
 
@@ -381,7 +385,6 @@
 			});
 		});
 
-
 		describe("$scope.changeUserRBAC()", function() {
 			it("is defined", function() {
 				expect($scope.changeUserRBAC).toBeDefined();
@@ -405,7 +408,6 @@
 				expect($scope.isEditingRBAC).toEqual(false);
 			});
 		});
-
 
 		describe("$scope.cancelEditing()", function() {
 			it("is defined", function() {
@@ -483,7 +485,6 @@
 			});
 		});
 
-
 		describe("$scope.getUserRBAC()", function() {
 			it("is defined", function() {
 				expect($scope.getUserRBAC).toBeDefined();
@@ -510,7 +511,6 @@
 			});
 		});
 
-
 		describe("$scope.userRBAC", function() {
 			it("is defined", function() {
 				expect($scope.userRBAC).toBeDefined();
@@ -524,7 +524,6 @@
 				expect($scope.userRBAC).toEqual("admin");
 			});
 		});
-
 
 		describe("$scope.repeatUsername", function() {
 			it("is defined", function() {
@@ -540,7 +539,6 @@
 			});
 		});
 
-
 		describe("$scope.isDeleting", function() {
 			it("is defined", function() {
 				expect($scope.isDeleting).toBeDefined();
@@ -555,7 +553,6 @@
 			});
 		});
 
-
 		describe("$scope.isEditingRBAC", function() {
 			it("is defined", function() {
 				expect($scope.isEditingRBAC).toBeDefined();
@@ -569,7 +566,6 @@
 				expect($scope.isEditingRBAC).toEqual(false);
 			});
 		});
-
 
 		describe("$scope.modalUser", function() {
 			it("is defined", function() {
