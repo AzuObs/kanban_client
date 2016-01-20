@@ -33,7 +33,6 @@
 
 			expect(element.html()).toEqual("<span kb-user=\"\"></span>");
 
-
 			$rootScope.$apply(function() {
 				element = $compile("<div><kb-user></kb-user></div>")($rootScope);
 			});
@@ -70,6 +69,27 @@
 			});
 
 			expect(element.find("img").length).toEqual(1);
+		});
+
+		it("takes a ng-model value for it's scope.user variable", function() {
+			var element;
+
+			$rootScope.$apply(function() {
+				element = $compile("<kb-user></kb-user>")($rootScope);
+			});
+
+			expect(element.find("img").attr("tooltip")).toEqual("");
+
+			$rootScope.user = {
+				username: "foo"
+			};
+
+			$rootScope.$apply(function() {
+				element = $compile("<kb-user ng-model='user'></kb-user>")($rootScope);
+			});
+
+			expect(element.find("img").attr("tooltip")).toEqual("foo");
+
 		});
 	});
 })();
