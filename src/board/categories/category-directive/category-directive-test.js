@@ -118,9 +118,9 @@
 		describe("$scope.deleteCategory", function() {
 			var apiCalled, defer;
 
-			beforeEach(inject(function(serverAPI, $q) {
+			beforeEach(inject(function(boardAPI, $q) {
 				apiCalled = false;
-				spyOn(serverAPI, "deleteCategory").and.callFake(function() {
+				spyOn(boardAPI, "deleteCategory").and.callFake(function() {
 					apiCalled = true;
 					defer = $q.defer();
 					return defer.promise;

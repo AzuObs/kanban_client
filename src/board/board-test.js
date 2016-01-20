@@ -56,7 +56,7 @@
 				});
 			});
 
-			describe("$scope.board.update()", function() {
+			describe("boardAPI.updateBoard()", function() {
 				var argsAPI, deferAPI;
 
 				beforeEach(inject(function(serverAPI, $q) {
@@ -70,21 +70,21 @@
 				}));
 
 				it("is defined", function() {
-					expect($scope.board.update).toBeDefined();
+					expect(boardAPI.updateBoard).toBeDefined();
 				});
 
 				it("is a function", function() {
-					expect(typeof $scope.board.update).toEqual("function");
+					expect(typeof boardAPI.updateBoard).toEqual("function");
 				});
 
 				it("calls serverAPI.updateBoard with board as argument", function() {
-					$scope.board.update();
+					boardAPI.updateBoard();
 					expect(argsAPI[0]).toEqual(board);
 				});
 
 				it("increments board version on resolve", function() {
 					$scope.board._v = 0;
-					$scope.board.update();
+					boardAPI.updateBoard();
 					$scope.$apply(function() {
 						deferAPI.resolve();
 					});
@@ -96,7 +96,7 @@
 					var msg = "error";
 
 					$log.reset();
-					$scope.board.update();
+					boardAPI.updateBoard();
 					$scope.$apply(function() {
 						deferAPI.reject(msg);
 					});

@@ -33,9 +33,9 @@
 		describe("$scope.createCategory", function() {
 			var apiCalled, defer;
 
-			beforeEach(inject(function(serverAPI, $q) {
+			beforeEach(inject(function(boardAPI, $q) {
 				apiCalled = false;
-				spyOn(serverAPI, "createCategory").and.callFake(function() {
+				spyOn(boardAPI, "createCategory").and.callFake(function() {
 					apiCalled = true;
 					defer = $q.defer();
 					return defer.promise;

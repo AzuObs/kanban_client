@@ -118,10 +118,10 @@
 				expect(called).toEqual(true);
 			});
 
-			it("it adds task to server on keypress enter", inject(function(serverAPI, $q) {
+			it("it adds task to server on keypress enter", inject(function(boardAPI, $q) {
 				var called, e;
 
-				spyOn(serverAPI, "createTask").and.callFake(function() {
+				spyOn(boardAPI, "createTask").and.callFake(function() {
 					called = true;
 					return $q.defer().promise;
 				});
@@ -135,10 +135,10 @@
 				expect(called).toEqual(true);
 			}));
 
-			it("it adds task locally on resolve", inject(function(serverAPI, $q) {
+			it("it adds task locally on resolve", inject(function(boardAPI, $q) {
 				var task, addTaskArg, e, defer;
 
-				spyOn(serverAPI, "createTask").and.callFake(function() {
+				spyOn(boardAPI, "createTask").and.callFake(function() {
 					defer = $q.defer();
 					return defer.promise;
 				});
@@ -159,10 +159,10 @@
 				expect(addTaskArg).toEqual(task);
 			}));
 
-			it("logs an error on reject", inject(function(serverAPI, $q, $log) {
+			it("logs an error on reject", inject(function(boardAPI, $q, $log) {
 				var e, defer, msg;
 
-				spyOn(serverAPI, "createTask").and.callFake(function() {
+				spyOn(boardAPI, "createTask").and.callFake(function() {
 					defer = $q.defer();
 					return defer.promise;
 				});

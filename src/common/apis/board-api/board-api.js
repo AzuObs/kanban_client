@@ -3,25 +3,56 @@
 
 	var module = angular.module("boardAPIModule", ["serverAPIModule"]);
 
-	module.factory("boardAPI", ["serverAPI", "$log", function(serverAPI, $log) {
-		var board;
+	module.factory("boardAPI", ["serverAPI", "$log", "$q", function(serverAPI, $log, $q) {
+		var board, boardUsers;
 
 		var boardInterface = {
-			getBoard: function(boardId) {
-				board = serverAPI.getBoard(boardId);
+			getBoardFromMemory: function() {
 				return board;
 			},
 
-			updateBoard: function(board) {
-				return serverAPI.updateBoard(board);
+			getBoardFromServer: function(boardId) {
+				var defer = $q.defer();
+				serverAPI
+					.getBoard(boardId)
+					.then(function(res) {
+						board = res;
+						defer.resolve(res);
+					}, function(err) {
+						$log.error(err);
+						defer.reject(err);
+					});
+
+				return defer.promise;
+			},
+
+			getBoardUsers: function() {
+				boardUsers = board.admins.concat(board.members);
+				return boardUsers;
+			},
+
+			updateBoard: function() {
+				var defer = $q.defer();
+
+				serverAPI
+					.updateBoard(board)
+					.then(function() {
+						board._v++;
+						defer.resolve();
+					}, function(err) {
+						$log.error(err);
+						defer.reject(err);
+					});
+
+				return defer.promise;
 			},
 
 			addMemberToUserSelection: function(userEmail) {
 				serverAPI
 					.addMemberToUserSelection(board._id, userEmail)
 					.then(function(res) {
-						$scope.board.members.push(res);
-						$scope.users.push(res);
+						board.members.push(res);
+						boardUsers.push(res);
 					}, function(err) {
 						$log.error(err);
 					});
@@ -43,14 +74,14 @@
 					});
 			},
 
-			createTask: function(content, name, task, cat) {
+			createTask: function(name, cat) {
 				serverAPI
 					.createTask(
 						name,
 						cat._id,
 						board._id)
 					.then(function(res) {
-
+						cat.tasks.push(res);
 					}, function(err) {
 						$log.error(err);
 					});
@@ -94,7 +125,7 @@
 					});
 			}
 		};
-		return boardInterface;
 
+		return boardInterface;
 	}]);
 })();

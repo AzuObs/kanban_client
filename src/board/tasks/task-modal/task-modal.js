@@ -1,11 +1,13 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("taskModalModule", ["serverAPIModule", "ui.bootstrap", "userDirectiveModule"]);
+	var module = angular.module("taskModalModule", [
+		"boardAPIModule", "ui.bootstrap", "userDirectiveModule"
+	]);
 
 
-	module.controller("taskModalCtrl", ["$scope", "$modalInstance", "$log", "serverAPI", "catId", "taskId",
-		function($scope, $modalInstance, $log, serverAPI, catId, taskId) {
+	module.controller("taskModalCtrl", ["$scope", "$modalInstance", "$log", "boardAPI", "catId", "taskId",
+		function($scope, $modalInstance, $log, boardAPI, catId, taskId) {
 			//variable initializations at the bottom of this block
 			//
 
@@ -21,13 +23,11 @@
 			$scope.removeUserFromTask = function(user) {
 				$scope.removeUserFromLocalTask(user);
 
-				serverAPI
-					.updateBoard($scope.board)
+				boardAPI.updateBoard()
 					.then(function() {
 						$scope.getAddableUsers();
-						$scope.board._v++;
 					}, function(err) {
-						$log.error(err);
+						// 
 					});
 			};
 
@@ -54,25 +54,17 @@
 			$scope.moveTaskToCategory = function(category) {
 				$scope.moveTaskToCategoryLocally(category);
 
-				serverAPI
-					.updateBoard($scope.board)
-					.then(function() {
-						$scope.board._v++;
-					}, function(err) {
-						$log.error(err);
-					});
+				boardAPI.updateBoard();
 			};
 
 			$scope.addUserToTask = function(user) {
 				$scope.task.users.push(user);
 
-				serverAPI
-					.updateBoard($scope.board)
+				boardAPI.updateBoard()
 					.then(function() {
 						$scope.getAddableUsers();
-						$scope.board._v++;
 					}, function(err) {
-						$log.error(err);
+						// 
 					});
 			};
 
@@ -93,13 +85,12 @@
 				if ((e.type = "keypress" && e.which === 13) || angular.element(e.target).hasClass("delete-task-button")) {
 					if ($scope.repeatTaskName === $scope.task.name) {
 						$scope.category.tasks.splice($scope.taskIndex, 1);
-						serverAPI
-							.updateBoard($scope.board)
+
+						boardAPI.updateBoard()
 							.then(function() {
-								$scope.board._v++;
 								$scope.closeModal();
 							}, function(err) {
-								$log.error(err);
+								// 
 							});
 					} else {
 						$log.error("your input does not match the task's name @deleteTask");
@@ -139,13 +130,7 @@
 						}, 0);
 					} else {
 						$scope.isEditingTaskName = false;
-						serverAPI
-							.updateBoard($scope.board)
-							.then(function(res) {
-								$scope.board._v++;
-							}, function(err) {
-								$log.error(err);
-							});
+						boardAPI.updateBoard();
 					}
 				}
 			};
@@ -153,13 +138,7 @@
 
 			$scope.createComment = function(keyEvent) {
 				if (!keyEvent || keyEvent.which === 13) {
-					serverAPI
-						.createComment($scope.commentInput, $scope.user.username, $scope.user.pictureUrl, $scope.board._id, $scope.category._id, $scope.task._id)
-						.then(function(res) {
-							$scope.task.comments.unshift(res);
-						}, function(err) {
-							$log.error(err);
-						});
+					boardAPI.createComment($scope.commentInput, $scope.user, $scope.task, $scope.category);
 				}
 			};
 
@@ -257,6 +236,7 @@
 			$scope.isDeletingTask = false;
 			$scope.commentInput = "";
 			$scope.repeatTaskName = "";
+			$scope.users = boardAPI.getBoardUsers();
 			$scope.addableUsers = [];
 			$scope.changeableCategories = [];
 			$scope.getAddableUsers();

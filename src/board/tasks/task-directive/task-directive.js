@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("taskDirectiveModule", ["serverAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule"]);
+	var module = angular.module("taskDirectiveModule", ["boardAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule"]);
 
 	module.directive("kbTask", function() {
 		return {
@@ -19,19 +19,9 @@
 		};
 	});
 
-	module.controller("kbTaskCtrl", ["serverAPI", "$scope", "$log", function(serverAPI, $scope, $log) {
-		$scope.deleteTask = function(category, taskId) {
-			serverAPI
-				.deleteTask($scope.board._id, category._id, taskId)
-				.then(function(res) {
-					for (var i = 0; i < category.tasks.length; i++) {
-						if (category.tasks[i]._id === taskId) {
-							category.tasks.splice(i, 1);
-						}
-					}
-				}, function(err) {
-					$log.error(err);
-				});
+	module.controller("kbTaskCtrl", ["boardAPI", "$scope", "$log", function(boardAPI, $scope, $log) {
+		$scope.deleteTask = function(category, task) {
+			boardAPI.deleteTask(category, task);
 		};
 	}]);
 })();

@@ -40,7 +40,8 @@
 		});
 	}]);
 
-	module.controller("boardListCtrl", ["$scope", "$modal", "$state", "$log", "user", "boards", "serverAPI",
+	module.controller("boardListCtrl", [
+		"$scope", "$modal", "$state", "$log", "user", "boards", "serverAPI",
 		function($scope, $modal, $state, $log, user, boards, serverAPI) {
 			$scope.user = user;
 			$scope.boardName = "";

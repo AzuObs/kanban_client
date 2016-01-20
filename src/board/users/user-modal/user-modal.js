@@ -1,11 +1,12 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("userModalModule", ["serverAPIModule", "ui.bootstrap", "ui.router", "userDirectiveModule"]);
+	var module = angular.module("userModalModule", ["serverAPIModule", "boardAPIModule", "ui.bootstrap", "ui.router", "userDirectiveModule"]);
 
-	module.controller("userModalCtrl", ["$state", "$log", "$scope", "$modalInstance", "serverAPI", "user",
-		function($state, $log, $scope, $modalInstance, serverAPI, user) {
+	module.controller("userModalCtrl", ["$state", "$log", "$scope", "$modalInstance", "boardAPI", "serverAPI", "user",
+		function($state, $log, $scope, $modalInstance, boardAPI, serverAPI, user) {
 			$scope.modalUser = user;
+			$scope.boardUsers = boardAPI.getBoardUsers();
 			$scope.isEditingRBAC = false;
 			$scope.isDeleting = false;
 			$scope.repeatUsername = "";
@@ -94,14 +95,8 @@
 						}
 
 						if ($scope.users.length) {
-							serverAPI
-								.updateBoard($scope.board)
-								.then(function(res) {
-									$scope.board._v++;
-									$modalInstance.dismiss();
-								}, function(err) {
-									$log.error(err);
-								});
+							boardAPI.updateBoard();
+							$scope.closeModal();
 						} else {
 							// no users left
 							serverAPI

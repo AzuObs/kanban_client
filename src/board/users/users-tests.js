@@ -14,9 +14,9 @@
 
 		describe("$scope.addMember()", function() {
 			var apiArgs, apiDefer;
-			beforeEach(inject(function(serverAPI, $q) {
+			beforeEach(inject(function(boardAPI, $q) {
 				apiArgs = undefined;
-				spyOn(serverAPI, "addMemberToUserSelection").and.callFake(function() {
+				spyOn(boardAPI, "addMemberToUserSelection").and.callFake(function() {
 					apiDefer = $q.defer();
 					apiArgs = arguments;
 					return apiDefer.promise;

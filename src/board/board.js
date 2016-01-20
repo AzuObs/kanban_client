@@ -3,6 +3,7 @@
 
 	var module = angular.module("boardModule", [
 		"serverAPIModule",
+		"boardAPIModule",
 		"navbarModule",
 		"stateInfoModule",
 		"ui.bootstrap",
@@ -30,8 +31,8 @@
 						user: ["serverAPI", function(serverAPI) {
 							return serverAPI.getUser(sessionStorage.userId);
 						}],
-						board: ["serverAPI", function(serverAPI) {
-							return serverAPI.getBoard(sessionStorage.boardId);
+						board: ["boardAPI", function(boardAPI) {
+							return boardAPI.getBoardFromServer(sessionStorage.boardId);
 						}]
 					}
 				},
@@ -55,24 +56,13 @@
 		});
 	}]);
 
-	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "user", "serverAPI",
-		function($scope, $log, $modal, board, user, serverAPI, USER_SELECTION_HEIGHT) {
-			// used in categoryCtrl, taskCtrl, userPanerCtrl, commentModalCtrl
+	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "user", "boardAPI", "USER_SELECTION_HEIGHT",
+		function($scope, $log, $modal, board, user, boardAPI, USER_SELECTION_HEIGHT) {
+			// used in categoryCtrl, taskCtrl, userPanerCtrl
 			$scope.user = user;
 			$scope.board = board;
-			$scope.users = $scope.board.admins.concat($scope.board.members);
+			$scope.users = boardAPI.getBoardUsers();
 			$scope.showUserList = false;
-
-			// used by categoryCtrl, taskCtrl and userMenuCtrl
-			$scope.board.update = function() {
-				serverAPI
-					.updateBoard($scope.board)
-					.then(function(res) {
-						$scope.board._v++;
-					}, function(err) {
-						$log.error(err);
-					});
-			};
 
 			// used by tasks and userMenu (connectedList)
 			$scope.userSortOpts = {
@@ -115,7 +105,7 @@
 				},
 				stop: function(e, ui) {
 					$scope.users = $scope.board.admins.concat($scope.board.members);
-					$scope.board.update();
+					boardAPI.updateBoard();
 				}
 			};
 		}

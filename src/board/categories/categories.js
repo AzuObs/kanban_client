@@ -1,21 +1,14 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("categoryModule", ["serverAPIModule", "categoryDirectiveModule", "ui.bootstrap", "ui.sortable"]);
+	var module = angular.module("categoryModule", ["boardAPIModule", "categoryDirectiveModule", "ui.bootstrap", "ui.sortable"]);
 
-	module.controller("categoryCtrl", ["$scope", "$log", "serverAPI", function($scope, $log, serverAPI) {
+	module.controller("categoryCtrl", ["$scope", "$log", "boardAPI", function($scope, $log, boardAPI) {
 		$scope.newCat = "";
 
 		$scope.createCategory = function(keyEvent) {
 			if (!keyEvent || keyEvent.which === 13) {
-				serverAPI
-					.createCategory($scope.board._id, $scope.newCat)
-					.then(function(res) {
-						$scope.board.categories.push(res);
-					}, function(err) {
-						$log.error(err);
-					});
-
+				boardAPI.createCategory($scope.newCat);
 				$scope.newCat = "";
 			}
 		};
@@ -34,7 +27,7 @@
 				$(ui.placeholder[0]).css("height", height);
 			},
 			stop: function(e, ui) {
-				$scope.board.update();
+				boardAPI.updateBoard();
 			}
 		};
 
