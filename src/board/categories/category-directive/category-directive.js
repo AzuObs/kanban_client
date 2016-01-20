@@ -26,7 +26,6 @@
 		};
 
 		$scope.deleteCategory = function(catId) {
-			console.log("ping");
 			boardAPI
 				.deleteCategory($scope.board._id, catId)
 				.then(function(res) {
