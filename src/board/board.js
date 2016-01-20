@@ -28,11 +28,8 @@
 					templateUrl: "board/board.html",
 					controller: "boardCtrl",
 					resolve: {
-						user: ["serverAPI", function(serverAPI) {
-							return serverAPI.getUser(sessionStorage.userId);
-						}],
 						board: ["boardAPI", function(boardAPI) {
-							return boardAPI.getBoardFromServer(sessionStorage.boardId);
+							return boardAPI.getBoard(sessionStorage.boardId);
 						}]
 					}
 				},
@@ -56,10 +53,8 @@
 		});
 	}]);
 
-	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "user", "boardAPI", "USER_SELECTION_HEIGHT",
-		function($scope, $log, $modal, board, user, boardAPI, USER_SELECTION_HEIGHT) {
-			// used in categoryCtrl, taskCtrl, userPanerCtrl
-			$scope.user = user;
+	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "boardAPI", "USER_SELECTION_HEIGHT",
+		function($scope, $log, $modal, board, boardAPI, USER_SELECTION_HEIGHT) {
 			$scope.board = board;
 			$scope.users = boardAPI.getBoardUsers();
 			$scope.showUserList = false;

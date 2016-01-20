@@ -7,11 +7,11 @@
 		var board, boardUsers;
 
 		var boardInterface = {
-			getBoardFromMemory: function() {
-				return board;
+			setBoard: function(_board_) {
+				board = _board_;
 			},
 
-			getBoardFromServer: function(boardId) {
+			getBoard: function(boardId) {
 				var defer = $q.defer();
 				serverAPI
 					.getBoard(boardId)
@@ -27,6 +27,7 @@
 			},
 
 			getBoardUsers: function() {
+				console.log(board);
 				boardUsers = board.admins.concat(board.members);
 				return boardUsers;
 			},

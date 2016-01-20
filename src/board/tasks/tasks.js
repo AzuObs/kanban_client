@@ -41,7 +41,10 @@
 						},
 						taskId: function() {
 							return _task._id;
-						}
+						},
+						user: ["serverAPI", function(serverAPI) {
+							return serverAPI.getUser(sessionStorage.userId);
+						}]
 					}
 				});
 			};

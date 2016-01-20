@@ -6,8 +6,9 @@
 	]);
 
 
-	module.controller("taskModalCtrl", ["$scope", "$modalInstance", "$log", "boardAPI", "catId", "taskId",
-		function($scope, $modalInstance, $log, boardAPI, catId, taskId) {
+	module.controller("taskModalCtrl", [
+		"$scope", "$modalInstance", "$log", "boardAPI", "user", "catId", "taskId",
+		function($scope, $modalInstance, $log, boardAPI, user, catId, taskId) {
 			//variable initializations at the bottom of this block
 			//
 
@@ -236,6 +237,7 @@
 			$scope.isDeletingTask = false;
 			$scope.commentInput = "";
 			$scope.repeatTaskName = "";
+			$scope.user = user;
 			$scope.users = boardAPI.getBoardUsers();
 			$scope.addableUsers = [];
 			$scope.changeableCategories = [];

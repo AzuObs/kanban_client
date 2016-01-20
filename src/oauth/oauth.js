@@ -39,7 +39,6 @@
 			$scope.newAccUsr = "";
 			$scope.newAccPwd = "";
 			$scope.newAccPwdVerify = "";
-
 			$scope.loginUsername = "sheldon";
 			$scope.loginPwd = "123";
 
@@ -49,6 +48,7 @@
 					.then(function(res) {
 						sessionStorage.userId = res.user._id;
 						sessionStorage.token = res.token;
+
 						$state.go("kanban.boardList", {
 							username: res.user.username
 						});
@@ -57,7 +57,6 @@
 						$log.error(err);
 					});
 			};
-
 
 			$scope.authenticate = function() {
 				oauthAPI

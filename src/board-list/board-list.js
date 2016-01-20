@@ -3,6 +3,7 @@
 
 	var module = angular.module("boardListModule", [
 		"serverAPIModule",
+		"boardAPIModule",
 		"navbarModule",
 		"stateInfoModule",
 		"ui.bootstrap",
@@ -24,11 +25,11 @@
 					templateUrl: "board-list/board-list.html",
 					controller: "boardListCtrl",
 					resolve: {
-						user: ["serverAPI", function(serverAPI) {
-							return serverAPI.getUser(sessionStorage.userId);
-						}],
 						boards: ["serverAPI", function(serverAPI) {
 							return serverAPI.getBoardsForUser(sessionStorage.userId);
+						}],
+						user: ["serverAPI", function(serverAPI) {
+							return serverAPI.getUser(sessionStorage.userId);
 						}]
 					}
 				},
@@ -41,8 +42,8 @@
 	}]);
 
 	module.controller("boardListCtrl", [
-		"$scope", "$modal", "$state", "$log", "user", "boards", "serverAPI",
-		function($scope, $modal, $state, $log, user, boards, serverAPI) {
+		"$scope", "boardAPI", "$modal", "$state", "$log", "boards", "user", "serverAPI",
+		function($scope, boardAPI, $modal, $state, $log, boards, user, serverAPI) {
 			$scope.user = user;
 			$scope.boardName = "";
 			$scope.boards = boards;
