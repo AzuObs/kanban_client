@@ -1,9 +1,9 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("taskModule", ["boardAPIModule", "ui.bootstrap", "ui.sortable", "taskDirectiveModule", "taskModalModule"]);
+	var module = angular.module("taskModule", ["serverAPIModule", "ui.bootstrap", "ui.sortable", "taskDirectiveModule", "taskModalModule"]);
 
-	module.controller("taskCtrl", ["$scope", "boardAPI", "$modal", "$log", function($scope, boardAPI, $modal, $log) {
+	module.controller("taskCtrl", ["$scope", "serverAPI", "$modal", "$log", function($scope, serverAPI, $modal, $log) {
 		$scope.taskName = "";
 
 		$scope.taskSortOpts = {
@@ -49,7 +49,7 @@
 			}
 
 			if (keyEvent.which === 13) {
-				boardAPI
+				serverAPI
 					.createTask($scope.board._id, category._id, $scope.taskName, category.tasks.length)
 					.then(function(res) {
 						$scope.addTask(category, res);

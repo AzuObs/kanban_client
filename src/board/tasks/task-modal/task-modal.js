@@ -1,11 +1,11 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("taskModalModule", ["boardAPIModule", "ui.bootstrap", "userDirectiveModule"]);
+	var module = angular.module("taskModalModule", ["serverAPIModule", "ui.bootstrap", "userDirectiveModule"]);
 
 
-	module.controller("taskModalCtrl", ["$scope", "$modalInstance", "$log", "boardAPI", "catId", "taskId",
-		function($scope, $modalInstance, $log, boardAPI, catId, taskId) {
+	module.controller("taskModalCtrl", ["$scope", "$modalInstance", "$log", "serverAPI", "catId", "taskId",
+		function($scope, $modalInstance, $log, serverAPI, catId, taskId) {
 			//variable initializations at the bottom of this block
 			//
 
@@ -21,7 +21,7 @@
 			$scope.removeUserFromTask = function(user) {
 				$scope.removeUserFromLocalTask(user);
 
-				boardAPI
+				serverAPI
 					.updateBoard($scope.board)
 					.then(function() {
 						$scope.getAddableUsers();
@@ -54,7 +54,7 @@
 			$scope.moveTaskToCategory = function(category) {
 				$scope.moveTaskToCategoryLocally(category);
 
-				boardAPI
+				serverAPI
 					.updateBoard($scope.board)
 					.then(function() {
 						$scope.board._v++;
@@ -66,7 +66,7 @@
 			$scope.addUserToTask = function(user) {
 				$scope.task.users.push(user);
 
-				boardAPI
+				serverAPI
 					.updateBoard($scope.board)
 					.then(function() {
 						$scope.getAddableUsers();
@@ -93,7 +93,7 @@
 				if ((e.type = "keypress" && e.which === 13) || angular.element(e.target).hasClass("delete-task-button")) {
 					if ($scope.repeatTaskName === $scope.task.name) {
 						$scope.category.tasks.splice($scope.taskIndex, 1);
-						boardAPI
+						serverAPI
 							.updateBoard($scope.board)
 							.then(function() {
 								$scope.board._v++;
@@ -139,7 +139,7 @@
 						}, 0);
 					} else {
 						$scope.isEditingTaskName = false;
-						boardAPI
+						serverAPI
 							.updateBoard($scope.board)
 							.then(function(res) {
 								$scope.board._v++;
@@ -153,7 +153,7 @@
 
 			$scope.createComment = function(keyEvent) {
 				if (!keyEvent || keyEvent.which === 13) {
-					boardAPI
+					serverAPI
 						.createComment($scope.commentInput, $scope.user.username, $scope.user.pictureUrl, $scope.board._id, $scope.category._id, $scope.task._id)
 						.then(function(res) {
 							$scope.task.comments.unshift(res);

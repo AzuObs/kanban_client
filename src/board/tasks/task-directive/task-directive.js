@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("taskDirectiveModule", ["boardAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule"]);
+	var module = angular.module("taskDirectiveModule", ["serverAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule"]);
 
 	module.directive("kbTask", function() {
 		return {
@@ -19,9 +19,9 @@
 		};
 	});
 
-	module.controller("kbTaskCtrl", ["boardAPI", "$scope", "$log", function(boardAPI, $scope, $log) {
+	module.controller("kbTaskCtrl", ["serverAPI", "$scope", "$log", function(serverAPI, $scope, $log) {
 		$scope.deleteTask = function(category, taskId) {
-			boardAPI
+			serverAPI
 				.deleteTask($scope.board._id, category._id, taskId)
 				.then(function(res) {
 					for (var i = 0; i < category.tasks.length; i++) {

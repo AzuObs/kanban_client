@@ -1,14 +1,14 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("categoryModule", ["boardAPIModule", "categoryDirectiveModule", "ui.bootstrap", "ui.sortable"]);
+	var module = angular.module("categoryModule", ["serverAPIModule", "categoryDirectiveModule", "ui.bootstrap", "ui.sortable"]);
 
-	module.controller("categoryCtrl", ["$scope", "$log", "boardAPI", function($scope, $log, boardAPI) {
+	module.controller("categoryCtrl", ["$scope", "$log", "serverAPI", function($scope, $log, serverAPI) {
 		$scope.newCat = "";
 
 		$scope.createCategory = function(keyEvent) {
 			if (!keyEvent || keyEvent.which === 13) {
-				boardAPI
+				serverAPI
 					.createCategory($scope.board._id, $scope.newCat)
 					.then(function(res) {
 						$scope.board.categories.push(res);

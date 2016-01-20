@@ -21,7 +21,6 @@
 			});
 		}));
 
-
 		describe("$scope.closeModal()", function() {
 			var modalArgs;
 
@@ -46,14 +45,13 @@
 			});
 		});
 
-
 		describe("$scope.renameBoard()", function() {
 			var argsAPI, deferAPI, $log;
 
-			beforeEach(inject(function(boardAPI, $q, _$log_) {
+			beforeEach(inject(function(serverAPI, $q, _$log_) {
 				$log = _$log_;
 				argsAPI = undefined;
-				spyOn(boardAPI, "updateBoard").and.callFake(function() {
+				spyOn(serverAPI, "updateBoard").and.callFake(function() {
 					deferAPI = $q.defer();
 					argsAPI = arguments;
 					return deferAPI.promise;
@@ -85,7 +83,7 @@
 				expect($scope.isEditingName).toEqual(true);
 			});
 
-			it("calls boardAPI with argument board on keypress enter", function() {
+			it("calls serverAPI with argument board on keypress enter", function() {
 				var e;
 
 				e = {
@@ -133,15 +131,14 @@
 			});
 		});
 
-
 		describe("$scope.deleteBoard()", function() {
 			var $log, boardArgs, deferBoard, modalArgs;
 
-			beforeEach(inject(function(_$log_, boardAPI, $q) {
+			beforeEach(inject(function(_$log_, serverAPI, $q) {
 				$log = _$log_;
 
 				boardArgs = undefined;
-				spyOn(boardAPI, "deleteBoard").and.callFake(function() {
+				spyOn(serverAPI, "deleteBoard").and.callFake(function() {
 					deferBoard = $q.defer();
 					boardArgs = arguments;
 					return deferBoard.promise;
@@ -259,7 +256,6 @@
 			});
 		});
 
-
 		describe("$scope.cancelEditing()", function() {
 			var $log;
 
@@ -330,7 +326,6 @@
 			});
 		});
 
-
 		describe("$scope.isDeletingBoard", function() {
 			it("is defined", function() {
 				expect($scope.isDeletingBoard).toBeDefined();
@@ -344,7 +339,6 @@
 				expect($scope.isDeletingBoard).toEqual(false);
 			});
 		});
-
 
 		describe("$scope.isEditingName", function() {
 			it("is defined", function() {
@@ -360,7 +354,6 @@
 			});
 		});
 
-
 		describe("$scope.repeatBoardName", function() {
 			it("is defined", function() {
 				expect($scope.repeatBoardName).toBeDefined();
@@ -374,7 +367,6 @@
 				expect($scope.repeatBoardName).toEqual("");
 			});
 		});
-
 
 		describe("$scope.board", function() {
 			it("is defined", function() {

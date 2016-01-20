@@ -234,12 +234,12 @@
 
 		describe("$scope.createComment()", function() {
 			var defer, apiCalled;
-			beforeEach(inject(function($q, boardAPI) {
+			beforeEach(inject(function($q, serverAPI) {
 				$scope.user = {
 					username: "foo",
 					pictureUrl: "foo"
 				};
-				spyOn(boardAPI, "createComment").and.callFake(function() {
+				spyOn(serverAPI, "createComment").and.callFake(function() {
 					apiCalled = true;
 					defer = $q.defer();
 					return defer.promise;
@@ -290,10 +290,10 @@
 		describe("$scope.editTaskName()", function() {
 			var defer, apiCalled;
 
-			beforeEach(inject(function(boardAPI, $q) {
+			beforeEach(inject(function(serverAPI, $q) {
 				apiCalled = false;
 
-				spyOn(boardAPI, "updateBoard").and.callFake(function() {
+				spyOn(serverAPI, "updateBoard").and.callFake(function() {
 					apiCalled = true;
 					defer = $q.defer();
 					return defer.promise;
@@ -490,8 +490,8 @@
 		describe("$scope.deleteTask()", function() {
 			var defer, apiCalled;
 
-			beforeEach(inject(function($q, boardAPI) {
-				spyOn(boardAPI, "updateBoard").and.callFake(function() {
+			beforeEach(inject(function($q, serverAPI) {
+				spyOn(serverAPI, "updateBoard").and.callFake(function() {
 					apiCalled = true;
 					defer = $q.defer();
 					return defer.promise;
@@ -621,9 +621,9 @@
 		describe("$scope.addUserToTask", function() {
 			var defer, apiCalled;
 
-			beforeEach(inject(function($q, boardAPI) {
+			beforeEach(inject(function($q, serverAPI) {
 				apiCalled = false;
-				spyOn(boardAPI, "updateBoard").and.callFake(function() {
+				spyOn(serverAPI, "updateBoard").and.callFake(function() {
 					apiCalled = true;
 					defer = $q.defer();
 					return defer.promise;
@@ -699,9 +699,9 @@
 		describe("$scope.moveTaskToCategory", function() {
 			var defer, apiCalled;
 
-			beforeEach(inject(function(boardAPI, $q) {
+			beforeEach(inject(function(serverAPI, $q) {
 				apiCalled = false;
-				spyOn(boardAPI, "updateBoard").and.callFake(function() {
+				spyOn(serverAPI, "updateBoard").and.callFake(function() {
 					apiCalled = true;
 					defer = $q.defer();
 					return defer.promise;
@@ -752,14 +752,14 @@
 
 
 		describe("$scope.removeUserFromTask()", function() {
-			var defer, boardApiCalled;
+			var defer, serverAPICalled;
 
-			beforeEach(inject(function($q, boardAPI) {
-				boardApiCalled = false;
+			beforeEach(inject(function($q, serverAPI) {
+				serverAPICalled = false;
 
-				spyOn(boardAPI, "updateBoard").and.callFake(function() {
+				spyOn(serverAPI, "updateBoard").and.callFake(function() {
 					defer = $q.defer();
-					boardApiCalled = true;
+					serverAPICalled = true;
 					return defer.promise;
 				});
 			}));
@@ -784,7 +784,7 @@
 
 			it("updates the server version of the board", function() {
 				$scope.removeUserFromTask("foo");
-				expect(boardApiCalled).toEqual(true);
+				expect(serverAPICalled).toEqual(true);
 			});
 
 			it("increments local board verson on resolve", function() {

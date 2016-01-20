@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("categoryDirectiveModule", ["ui.router", "boardAPIModule"]);
+	var module = angular.module("categoryDirectiveModule", ["ui.router", "serverAPIModule"]);
 
 	module.directive("kbCategory", function() {
 		return {
@@ -16,7 +16,7 @@
 		};
 	});
 
-	module.controller("kbCategoryController", ["$scope", "boardAPI", "$log", function($scope, boardAPI, $log) {
+	module.controller("kbCategoryController", ["$scope", "serverAPI", "$log", function($scope, serverAPI, $log) {
 		$scope.deleteCategoryLocally = function(catId) {
 			for (var i = 0; i < $scope.board.categories.length; i++) {
 				if ($scope.board.categories[i]._id === catId) {
@@ -26,7 +26,7 @@
 		};
 
 		$scope.deleteCategory = function(catId) {
-			boardAPI
+			serverAPI
 				.deleteCategory($scope.board._id, catId)
 				.then(function(res) {
 					$scope.deleteCategoryLocally(catId);

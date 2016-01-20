@@ -1,11 +1,10 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("userMenuModule", ["boardAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule", "userModalModule"]);
+	var module = angular.module("userMenuModule", ["serverAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule", "userModalModule"]);
 
-
-	module.controller("userMenuCtrl", ["$scope", "$modal", "$log", "boardAPI",
-		function($scope, $modal, $log, boardAPI) {
+	module.controller("userMenuCtrl", ["$scope", "$modal", "$log", "serverAPI",
+		function($scope, $modal, $log, serverAPI) {
 			$scope.addMemberInput = "";
 			$scope.membersSuggestions = [{
 				email: "sheldon@mail.com"
@@ -53,7 +52,7 @@
 						}
 					}
 
-					boardAPI.addMemberToBoard($scope.board, $scope.addMemberInput)
+					serverAPI.addMemberToUserSelection($scope.board, $scope.addMemberInput)
 						.then(function(res) {
 							$scope.board.members.push(res);
 							$scope.users.push(res);

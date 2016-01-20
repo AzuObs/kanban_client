@@ -1,7 +1,6 @@
 (function() {
 	"use strict";
 
-
 	describe("boardListModule", function() {
 		describe("$stateProvider", function() {
 			var stateArgs;
@@ -34,7 +33,6 @@
 			});
 		});
 
-
 		describe("boardListCtrl", function() {
 			var $scope, user, boards;
 
@@ -53,7 +51,6 @@
 				});
 			}));
 
-
 			describe("$scope.user", function() {
 				it("exists", function() {
 					expect($scope.user).toBeDefined();
@@ -67,7 +64,6 @@
 					expect($scope.user).toEqual(user);
 				});
 			});
-
 
 			describe("$scope.boards", function() {
 				it("exists", function() {
@@ -83,7 +79,6 @@
 				});
 			});
 
-
 			describe("$scope.boardName", function() {
 				it("exist", function() {
 					expect($scope.boardName).toBeDefined();
@@ -98,15 +93,14 @@
 				});
 			});
 
-
 			describe("$scope.createBoard()", function() {
 				var $log, createBoardArgs, createBoardDefer;
 
-				beforeEach(inject(function(_$log_, boardAPI, $q) {
+				beforeEach(inject(function(_$log_, serverAPI, $q) {
 					$log = _$log_;
 
 					createBoardArgs = undefined;
-					spyOn(boardAPI, "createBoard").and.callFake(function() {
+					spyOn(serverAPI, "createBoard").and.callFake(function() {
 						createBoardDefer = $q.defer();
 						createBoardArgs = arguments;
 						return createBoardDefer.promise;
@@ -121,7 +115,7 @@
 					expect(typeof $scope.createBoard).toEqual("function");
 				});
 
-				it("calls to boardAPI.createBoard with {userid, boardname}", function() {
+				it("calls to serverAPI.createBoard with {userid, boardname}", function() {
 					$scope.boardName = "foo";
 					$scope.createBoard();
 					expect(createBoardArgs[0]).toEqual($scope.user._id);
@@ -153,7 +147,6 @@
 				});
 			});
 
-
 			describe("$scope.openBoardModal()", function() {
 				var modalWasCalled;
 
@@ -177,7 +170,6 @@
 					expect(modalWasCalled).toEqual(true);
 				});
 			});
-
 
 			describe("$scope.goToBoard()", function() {
 				var stateArgs, board;

@@ -2,13 +2,12 @@
 	"use strict";
 
 	var module = angular.module("boardListModule", [
-		"boardAPIModule",
+		"serverAPIModule",
 		"navbarModule",
 		"stateInfoModule",
 		"ui.bootstrap",
 		"ui.router"
 	]);
-
 
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.boardList", {
@@ -25,11 +24,11 @@
 					templateUrl: "board-list/board-list.html",
 					controller: "boardListCtrl",
 					resolve: {
-						user: ["boardAPI", function(boardAPI) {
-							return boardAPI.getUser(sessionStorage.userId);
+						user: ["serverAPI", function(serverAPI) {
+							return serverAPI.getUser(sessionStorage.userId);
 						}],
-						boards: ["boardAPI", function(boardAPI) {
-							return boardAPI.getBoardsForUser(sessionStorage.userId);
+						boards: ["serverAPI", function(serverAPI) {
+							return serverAPI.getBoardsForUser(sessionStorage.userId);
 						}]
 					}
 				},
@@ -41,15 +40,14 @@
 		});
 	}]);
 
-
-	module.controller("boardListCtrl", ["$scope", "$modal", "$state", "$log", "user", "boards", "boardAPI",
-		function($scope, $modal, $state, $log, user, boards, boardAPI) {
+	module.controller("boardListCtrl", ["$scope", "$modal", "$state", "$log", "user", "boards", "serverAPI",
+		function($scope, $modal, $state, $log, user, boards, serverAPI) {
 			$scope.user = user;
 			$scope.boardName = "";
 			$scope.boards = boards;
 
 			$scope.createBoard = function() {
-				boardAPI
+				serverAPI
 					.createBoard($scope.user._id, $scope.boardName)
 					.then(function(res) {
 						$scope.boards.push(res);

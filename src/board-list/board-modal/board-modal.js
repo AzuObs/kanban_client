@@ -1,11 +1,10 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("boardModalModule", ["boardAPIModule", "ui.bootstrap"]);
+	var module = angular.module("boardModalModule", ["serverAPIModule", "ui.bootstrap"]);
 
-
-	module.controller("boardModalCtrl", ["$log", "boardAPI", "$scope", "$modalInstance", "board",
-		function($log, boardAPI, $scope, $modalInstance, board) {
+	module.controller("boardModalCtrl", ["$log", "serverAPI", "$scope", "$modalInstance", "board",
+		function($log, serverAPI, $scope, $modalInstance, board) {
 			$scope.board = board;
 			$scope.repeatBoardName = "";
 			$scope.isEditingName = false;
@@ -34,7 +33,6 @@
 				}
 			};
 
-
 			$scope.deleteBoard = function(e) {
 				if (!e) {
 					return $log.error("no event passed to deleteBoard");
@@ -50,7 +48,7 @@
 
 				if (e.type === "keypress" && e.which === 13) {
 					if ($scope.repeatBoardName === $scope.board.name) {
-						boardAPI
+						serverAPI
 							.deleteBoard($scope.board._id)
 							.then(function(res) {
 								for (var i = 0; i < $scope.boards.length; i++) {
@@ -68,7 +66,6 @@
 				}
 			};
 
-
 			$scope.renameBoard = function(e) {
 				if (!e) {
 					return $log.error("no event passed to renameBoard");
@@ -82,7 +79,7 @@
 				}
 
 				if (e.type === "keypress" & e.which === 13) {
-					boardAPI
+					serverAPI
 						.updateBoard($scope.board)
 						.then(function() {
 							board._v++;
@@ -92,7 +89,6 @@
 						});
 				}
 			};
-
 
 			$scope.closeModal = function() {
 				$modalInstance.dismiss();

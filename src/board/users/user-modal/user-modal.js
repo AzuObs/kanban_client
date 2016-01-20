@@ -1,10 +1,10 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("userModalModule", ["boardAPIModule", "ui.bootstrap", "ui.router", "userDirectiveModule"]);
+	var module = angular.module("userModalModule", ["serverAPIModule", "ui.bootstrap", "ui.router", "userDirectiveModule"]);
 
-	module.controller("userModalCtrl", ["$state", "$log", "$scope", "$modalInstance", "boardAPI", "user",
-		function($state, $log, $scope, $modalInstance, boardAPI, user) {
+	module.controller("userModalCtrl", ["$state", "$log", "$scope", "$modalInstance", "serverAPI", "user",
+		function($state, $log, $scope, $modalInstance, serverAPI, user) {
 			$scope.modalUser = user;
 			$scope.isEditingRBAC = false;
 			$scope.isDeleting = false;
@@ -94,7 +94,7 @@
 						}
 
 						if ($scope.users.length) {
-							boardAPI
+							serverAPI
 								.updateBoard($scope.board)
 								.then(function(res) {
 									$scope.board._v++;
@@ -104,7 +104,7 @@
 								});
 						} else {
 							// no users left
-							boardAPI
+							serverAPI
 								.deleteBoard($scope.board._id)
 								.then(function() {
 									$state.go("kanban.boardList", {

@@ -189,7 +189,7 @@
 				expect($scope.board.categories[0].tasks[0].users.length).toEqual(0);
 			});
 
-			it("updates server board after local updates", inject(function(boardAPI, $q) {
+			it("updates server board after local updates", inject(function(serverAPI, $q) {
 				var e, apiCalled, apiDefer;
 
 				e = {
@@ -205,7 +205,7 @@
 					_id: "456"
 				}];
 
-				spyOn(boardAPI, "updateBoard").and.callFake(function() {
+				spyOn(serverAPI, "updateBoard").and.callFake(function() {
 					apiDefer = $q.defer();
 					apiCalled = true;
 					return apiDefer.promise;
@@ -215,7 +215,7 @@
 				expect(apiCalled).toEqual(true);
 			}));
 
-			it("increments board version and closes the modal on resolve", inject(function(boardAPI, $q) {
+			it("increments board version and closes the modal on resolve", inject(function(serverAPI, $q) {
 				var e, apiDefer, modalCalled;
 
 				e = {
@@ -223,7 +223,7 @@
 					which: 13
 				};
 
-				spyOn(boardAPI, "updateBoard").and.callFake(function() {
+				spyOn(serverAPI, "updateBoard").and.callFake(function() {
 					apiDefer = $q.defer();
 					return apiDefer.promise;
 				});
@@ -250,7 +250,7 @@
 				expect(modalCalled).toEqual(true);
 			}));
 
-			it("logs an error on reject", inject(function(boardAPI, $q, $log) {
+			it("logs an error on reject", inject(function(serverAPI, $q, $log) {
 				var e, apiDefer, msg;
 
 				e = {
@@ -259,7 +259,7 @@
 				};
 				msg = "error";
 
-				spyOn(boardAPI, "updateBoard").and.callFake(function() {
+				spyOn(serverAPI, "updateBoard").and.callFake(function() {
 					apiDefer = $q.defer();
 					return apiDefer.promise;
 				});
@@ -281,7 +281,7 @@
 				expect($log.error.logs[0][0]).toEqual(msg);
 			}));
 
-			it("deletes the server board if there are no users left", inject(function(boardAPI, $q) {
+			it("deletes the server board if there are no users left", inject(function(serverAPI, $q) {
 				var e, apiCalled, apiDefer;
 
 				e = {
@@ -290,7 +290,7 @@
 				};
 
 				apiCalled = false;
-				spyOn(boardAPI, "deleteBoard").and.callFake(function() {
+				spyOn(serverAPI, "deleteBoard").and.callFake(function() {
 					apiDefer = $q.defer();
 					apiCalled = true;
 					return apiDefer.promise;
@@ -304,7 +304,7 @@
 				expect(apiCalled).toEqual(true);
 			}));
 
-			it("it routes to kanban.boardList/:username on resolve", inject(function($q, boardAPI, $state) {
+			it("it routes to kanban.boardList/:username on resolve", inject(function($q, serverAPI, $state) {
 				var e, stateCalled, stateArgs, apiDefer;
 
 				e = {
@@ -312,7 +312,7 @@
 					which: 13
 				};
 
-				spyOn(boardAPI, "deleteBoard").and.callFake(function() {
+				spyOn(serverAPI, "deleteBoard").and.callFake(function() {
 					apiDefer = $q.defer();
 					return apiDefer.promise;
 				});
@@ -339,7 +339,7 @@
 				expect(stateArgs[1].username).toEqual($scope.user.username);
 			}));
 
-			it("it logs an error on reject", inject(function(boardAPI, $q, $log) {
+			it("it logs an error on reject", inject(function(serverAPI, $q, $log) {
 				var e, apiDefer, msg;
 
 				msg = "error";
@@ -348,7 +348,7 @@
 					which: 13
 				};
 
-				spyOn(boardAPI, "deleteBoard").and.callFake(function() {
+				spyOn(serverAPI, "deleteBoard").and.callFake(function() {
 					apiDefer = $q.defer();
 					return apiDefer.promise;
 				});

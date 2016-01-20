@@ -2,7 +2,7 @@
 	"use strict";
 
 	var module = angular.module("boardModule", [
-		"boardAPIModule",
+		"serverAPIModule",
 		"navbarModule",
 		"stateInfoModule",
 		"ui.bootstrap",
@@ -27,11 +27,11 @@
 					templateUrl: "board/board.html",
 					controller: "boardCtrl",
 					resolve: {
-						user: ["boardAPI", function(boardAPI) {
-							return boardAPI.getUser(sessionStorage.userId);
+						user: ["serverAPI", function(serverAPI) {
+							return serverAPI.getUser(sessionStorage.userId);
 						}],
-						board: ["boardAPI", function(boardAPI) {
-							return boardAPI.getBoard(sessionStorage.boardId);
+						board: ["serverAPI", function(serverAPI) {
+							return serverAPI.getBoard(sessionStorage.boardId);
 						}]
 					}
 				},
@@ -55,8 +55,8 @@
 		});
 	}]);
 
-	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "user", "boardAPI",
-		function($scope, $log, $modal, board, user, boardAPI, USER_SELECTION_HEIGHT) {
+	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "user", "serverAPI",
+		function($scope, $log, $modal, board, user, serverAPI, USER_SELECTION_HEIGHT) {
 			// used in categoryCtrl, taskCtrl, userPanerCtrl, commentModalCtrl
 			$scope.user = user;
 			$scope.board = board;
@@ -65,7 +65,7 @@
 
 			// used by categoryCtrl, taskCtrl and userMenuCtrl
 			$scope.board.update = function() {
-				boardAPI
+				serverAPI
 					.updateBoard($scope.board)
 					.then(function(res) {
 						$scope.board._v++;

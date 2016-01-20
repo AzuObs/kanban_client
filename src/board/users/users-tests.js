@@ -12,12 +12,11 @@
 			});
 		}));
 
-
 		describe("$scope.addMember()", function() {
 			var apiArgs, apiDefer;
-			beforeEach(inject(function(boardAPI, $q) {
+			beforeEach(inject(function(serverAPI, $q) {
 				apiArgs = undefined;
-				spyOn(boardAPI, "addMemberToBoard").and.callFake(function() {
+				spyOn(serverAPI, "addMemberToUserSelection").and.callFake(function() {
 					apiDefer = $q.defer();
 					apiArgs = arguments;
 					return apiDefer.promise;
@@ -129,7 +128,6 @@
 			}));
 		});
 
-
 		describe("$scope.setAddMember()", function() {
 			it("is defined", function() {
 				expect($scope.setAddMember).toBeDefined();
@@ -151,7 +149,6 @@
 				expect($scope.addMemberInput).toEqual("foo");
 			});
 		});
-
 
 		describe("$scope.editUser()", function() {
 			var modalArgs, $log;
@@ -187,7 +184,6 @@
 				expect(Object.keys(modalArgs).length).toBeGreaterThan(0);
 			});
 		});
-
 
 		describe("$scope.membersSuggestions", function() {
 			it("is defined", function() {
