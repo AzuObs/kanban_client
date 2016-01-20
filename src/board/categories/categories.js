@@ -34,7 +34,7 @@
 				$(ui.placeholder[0]).css("height", height);
 			},
 			stop: function(e, ui) {
-				$scope.updateBoard();
+				$scope.board.update();
 			}
 		};
 

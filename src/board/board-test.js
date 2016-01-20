@@ -42,7 +42,6 @@
 				});
 			}));
 
-
 			describe("$scope.userSortOpts", function() {
 				it("is defined", function() {
 					expect($scope.userSortOpts).toBeDefined();
@@ -57,8 +56,7 @@
 				});
 			});
 
-
-			describe("$scope.updateBoard()", function() {
+			describe("$scope.board.update()", function() {
 				var argsAPI, deferAPI;
 
 				beforeEach(inject(function(boardAPI, $q) {
@@ -72,21 +70,21 @@
 				}));
 
 				it("is defined", function() {
-					expect($scope.updateBoard).toBeDefined();
+					expect($scope.board.update).toBeDefined();
 				});
 
 				it("is a function", function() {
-					expect(typeof $scope.updateBoard).toEqual("function");
+					expect(typeof $scope.board.update).toEqual("function");
 				});
 
 				it("calls boardAPI.updateBoard with board as argument", function() {
-					$scope.updateBoard();
+					$scope.board.update();
 					expect(argsAPI[0]).toEqual(board);
 				});
 
 				it("increments board version on resolve", function() {
 					$scope.board._v = 0;
-					$scope.updateBoard();
+					$scope.board.update();
 					$scope.$apply(function() {
 						deferAPI.resolve();
 					});
@@ -98,7 +96,7 @@
 					var msg = "error";
 
 					$log.reset();
-					$scope.updateBoard();
+					$scope.board.update();
 					$scope.$apply(function() {
 						deferAPI.reject(msg);
 					});
@@ -106,7 +104,6 @@
 					expect($log.error.logs[0][0]).toEqual(msg);
 				}));
 			});
-
 
 			describe("$scope.users", function() {
 				it("is defined", function() {
@@ -153,7 +150,6 @@
 				});
 			});
 
-
 			describe("$scope.showUserList", function() {
 				it("is defined", function() {
 					expect($scope.showUserList).toBeDefined();
@@ -168,7 +164,6 @@
 				});
 			});
 		});
-
 
 		describe("$stateProvider", function() {
 			var stateArgs;

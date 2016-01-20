@@ -3,7 +3,6 @@
 
 	var module = angular.module("taskModule", ["boardAPIModule", "ui.bootstrap", "ui.sortable", "taskDirectiveModule", "taskModalModule"]);
 
-
 	module.controller("taskCtrl", ["$scope", "boardAPI", "$modal", "$log", function($scope, boardAPI, $modal, $log) {
 		$scope.taskName = "";
 
@@ -14,7 +13,7 @@
 			opacity: 0.4,
 			connectWith: ".task-list",
 			stop: function(e, ui) {
-				$scope.updateBoard();
+				$scope.board.update();
 			}
 		};
 

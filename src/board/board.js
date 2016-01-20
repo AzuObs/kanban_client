@@ -10,9 +10,7 @@
 		"ui.sortable"
 	]);
 
-
 	module.constant("USER_SELECTION_HEIGHT", 150);
-
 
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.board", {
@@ -57,7 +55,6 @@
 		});
 	}]);
 
-
 	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "user", "boardAPI",
 		function($scope, $log, $modal, board, user, boardAPI, USER_SELECTION_HEIGHT) {
 			// used in categoryCtrl, taskCtrl, userPanerCtrl, commentModalCtrl
@@ -67,7 +64,7 @@
 			$scope.showUserList = false;
 
 			// used by categoryCtrl, taskCtrl and userMenuCtrl
-			$scope.updateBoard = function() {
+			$scope.board.update = function() {
 				boardAPI
 					.updateBoard($scope.board)
 					.then(function(res) {
@@ -118,7 +115,7 @@
 				},
 				stop: function(e, ui) {
 					$scope.users = $scope.board.admins.concat($scope.board.members);
-					$scope.updateBoard();
+					$scope.board.update();
 				}
 			};
 		}
