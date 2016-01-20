@@ -3,7 +3,6 @@
 
 	var module = angular.module("categoryModule", ["boardAPIModule", "categoryDirectiveModule", "ui.bootstrap", "ui.sortable"]);
 
-
 	module.controller("categoryCtrl", ["$scope", "$log", "boardAPI", function($scope, $log, boardAPI) {
 		$scope.newCat = "";
 
@@ -19,24 +18,6 @@
 
 				$scope.newCat = "";
 			}
-		};
-
-		$scope.deleteLocalCategory = function(catId) {
-			for (var i = 0; i < $scope.board.categories.length; i++) {
-				if ($scope.board.categories[i]._id === catId) {
-					$scope.board.categories.splice(i, 1);
-				}
-			}
-		};
-
-		$scope.deleteCategory = function(catId) {
-			boardAPI
-				.deleteCategory($scope.board._id, catId)
-				.then(function(res) {
-					$scope.deleteLocalCategory(catId);
-				}, function(err) {
-					$log.error(err);
-				});
 		};
 
 		$scope.categorySortOpts = {
@@ -56,6 +37,7 @@
 				$scope.updateBoard();
 			}
 		};
+
 	}]);
 
 })();

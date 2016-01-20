@@ -1,5 +1,5 @@
 <div class="category-list" ng-model="board.categories" ui-sortable="categorySortOpts">
-  <kb-category ng-repeat="category in board.categories">
+  <kb-category category-model="category" board-model="board" ng-repeat="category in board.categories">
   </kb-category>
 </div>
 <div class="category-create">

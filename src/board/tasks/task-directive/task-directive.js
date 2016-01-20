@@ -5,6 +5,13 @@
 
 	module.directive("kbTask", function() {
 		return {
+			// require = "^category-dir",
+			// scope : {
+			// 	task: "=ngModel"
+			// 	deleteTask: "&deleteTask",
+			// 	
+			// 	
+			// }
 			restrict: "E",
 			replace: true,
 			templateUrl: "board/tasks/task-directive/task-directive.html",

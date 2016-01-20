@@ -78,4 +78,92 @@
 			expect(dom.find(".task-view").length).toEqual(1);
 		});
 	});
+
+	describe("kbCategoryController", function() {
+		var $scope;
+
+		beforeEach(function() {
+			module("categoryDirectiveModule");
+			inject(function($controller, $rootScope) {
+				$scope = $rootScope.$new();
+				$scope.board = {
+					_id: 123
+				};
+
+				$controller("kbCategoryController", {
+					$scope: $scope
+				});
+			});
+		});
+
+		describe("$scope.deleteCategoryLocally", function() {
+			it("is defined", function() {
+				expect($scope.deleteCategoryLocally).toBeDefined();
+			});
+
+			it("is a function", function() {
+				expect(typeof $scope.deleteCategoryLocally).toEqual("function");
+			});
+
+			it("deletes a category locally", function() {
+				$scope.board.categories = [{
+					_id: 123
+				}];
+				$scope.deleteCategoryLocally(123);
+
+				expect($scope.board.categories.length).toEqual(0);
+			});
+		});
+
+		describe("$scope.deleteCategory", function() {
+			var apiCalled, defer;
+
+			beforeEach(inject(function(boardAPI, $q) {
+				apiCalled = false;
+				spyOn(boardAPI, "deleteCategory").and.callFake(function() {
+					apiCalled = true;
+					defer = $q.defer();
+					return defer.promise;
+				});
+			}));
+
+			it("is defined", function() {
+				expect($scope.deleteCategory).toBeDefined();
+			});
+
+			it("is a function", function() {
+				expect(typeof $scope.deleteCategory).toEqual("function");
+			});
+
+			it("makes a call to delete a category on the server", function() {
+				$scope.deleteCategory();
+				expect(apiCalled).toEqual(true);
+			});
+
+			it("deletes the category locally on resolve", function() {
+				var localDeleteCalled = false;
+				spyOn($scope, "deleteCategoryLocally").and.callFake(function() {
+					localDeleteCalled = true;
+				});
+
+				$scope.deleteCategory();
+				$scope.$apply(function() {
+					defer.resolve();
+				});
+				expect(localDeleteCalled).toEqual(true);
+			});
+
+			it("logs an error on reject", inject(function($log) {
+				var msg = "error";
+
+				$scope.deleteCategory();
+				$log.reset();
+				$scope.$apply(function() {
+					defer.reject(msg);
+				});
+
+				expect($log.error.logs[0][0]).toEqual(msg);
+			}));
+		});
+	});
 })();
