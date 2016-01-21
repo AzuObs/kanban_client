@@ -10,11 +10,13 @@
 			$scope.taskName = "";
 
 			$scope.taskSortOpts = {
-				horizontal: false,
-				tolerance: "pointer",
+				appendTo: "body",
 				cursor: "move",
-				opacity: 0.4,
 				connectWith: ".task-list",
+				helper: "clone",
+				horizontal: false,
+				opacity: 0.4,
+				tolerance: "pointer",
 				stop: function(e, ui) {
 					boardAPI.updateBoard();
 				}
@@ -42,8 +44,8 @@
 						taskId: function() {
 							return _task._id;
 						},
-						user: ["serverAPI", function(serverAPI) {
-							return serverAPI.getUser(sessionStorage.userId);
+						user: ["boardAPI", function(boardAPI) {
+							return boardAPI.getUser(sessionStorage.userId);
 						}]
 					}
 				});
@@ -55,8 +57,11 @@
 				}
 
 				if (keyEvent.which === 13) {
-					boardAPI.createTask($scope.taskName, category);
-					$scope.resetTaskName();
+					boardAPI
+						.createTask($scope.taskName, category)
+						.then(function() {
+							$scope.resetTaskName();
+						});
 				}
 			};
 

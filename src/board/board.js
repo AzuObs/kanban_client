@@ -2,7 +2,6 @@
 	"use strict";
 
 	var module = angular.module("boardModule", [
-		"serverAPIModule",
 		"boardAPIModule",
 		"navbarModule",
 		"stateInfoModule",
@@ -10,8 +9,6 @@
 		"ui.router",
 		"ui.sortable"
 	]);
-
-	module.constant("USER_SELECTION_HEIGHT", 150);
 
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.board", {
@@ -53,37 +50,36 @@
 		});
 	}]);
 
-	module.controller("boardCtrl", ["$scope", "$log", "$modal", "board", "boardAPI", "USER_SELECTION_HEIGHT",
-		function($scope, $log, $modal, board, boardAPI, USER_SELECTION_HEIGHT) {
-			$scope.board = board;
-			$scope.users = boardAPI.getBoardUsers();
-			$scope.showUserList = false;
+	module.controller("boardCtrl", [
+		"$rootScope", "$scope", "$log", "$modal", "board", "boardAPI",
+		function($rootScope, $scope, $log, $modal, board, boardAPI) {
 
-			// used by tasks and userMenu (connectedList)
+			var USER_SELECTION_HEIGHT = 150;
 			$scope.userSortOpts = {
-				horizontal: true,
+				appendTo: "body",
+				connectWith: ".user-list",
 				cursor: "move",
-				helper: "clone",
-				scroll: false,
 				cursorAt: {
 					left: 16,
 					top: 16
 				},
+				helper: "clone",
+				horizontal: true,
+				scroll: false,
 				tolerance: "pointer",
-				connectWith: ".user-list",
 				activate: function(e, ui) {
 					if (e.clientY < USER_SELECTION_HEIGHT) {
-						$(ui.placeholder[0]).css("display", "none"); //hide placeholder
-						$(ui.helper.prevObject[0]).css("display", "block"); //show clone
+						$(ui.placeholder[0]).css("display", "none");
+						$(ui.helper.prevObject[0]).css("display", "block");
 					}
 					$(ui.placeholder[0]).css("margin", "0px");
 					$scope.showUserList = true;
 				},
 				change: function(e, ui) {
-					if (e.clientY < USER_SELECTION_HEIGHT) {
-						$(ui.placeholder[0]).css("display", "none");
-					} else {
+					if (e.clientY > USER_SELECTION_HEIGHT) {
 						$(ui.placeholder[0]).css("display", "block");
+					} else {
+						$(ui.placeholder[0]).css("display", "none");
 					}
 				},
 				update: function(e, ui) {
@@ -103,6 +99,10 @@
 					boardAPI.updateBoard();
 				}
 			};
+
+			$scope.board = board;
+			$scope.users = boardAPI.getBoardUsers();
+			$scope.showUserList = false;
 		}
 	]);
 })();

@@ -39,13 +39,13 @@
 .task-container .user-list-container {
   display: flex;
   justify-content: flex-end;
-  flex-direciton: row;
   margin: 0px 0px 2px 35px;
   max-width: 174px;
 }
 
 .task-container .user-list {
   display: inline-flex;
+  flex: 0 1 auto;
   flex-direction: row;
   justify-content: flex-end;
   min-width: 17px;
@@ -53,13 +53,13 @@
   padding: 2px;
 }
 
-.task-container .background {
-  background-color: #fdd;
-}
-
 .user-list > .user-container:hover {
   cursor: -webkit-grab;
   cursor: drag;
+}
+
+.task-container .background {
+  background-color: #fdd;
 }
 
 .task-comment {

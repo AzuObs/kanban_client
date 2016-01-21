@@ -59,10 +59,10 @@
 			describe("boardAPI.updateBoard()", function() {
 				var argsAPI, deferAPI;
 
-				beforeEach(inject(function(serverAPI, $q) {
+				beforeEach(inject(function(boardAPI, $q) {
 					argsAPI = undefined;
 
-					spyOn(serverAPI, "updateBoard").and.callFake(function() {
+					spyOn(boardAPI, "updateBoard").and.callFake(function() {
 						deferAPI = $q.defer();
 						argsAPI = arguments;
 						return deferAPI.promise;
@@ -77,7 +77,7 @@
 					expect(typeof boardAPI.updateBoard).toEqual("function");
 				});
 
-				it("calls serverAPI.updateBoard with board as argument", function() {
+				it("calls boardAPI.updateBoard with board as argument", function() {
 					boardAPI.updateBoard();
 					expect(argsAPI[0]).toEqual(board);
 				});

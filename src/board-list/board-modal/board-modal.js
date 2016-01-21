@@ -1,10 +1,11 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("boardModalModule", ["serverAPIModule", "ui.bootstrap"]);
+	var module = angular.module("boardModalModule", ["boardAPIModule", "ui.bootstrap"]);
 
-	module.controller("boardModalCtrl", ["$log", "serverAPI", "$scope", "$modalInstance", "board",
-		function($log, serverAPI, $scope, $modalInstance, board) {
+	module.controller("boardModalCtrl", [
+		"$log", "boardAPI", "$scope", "$modalInstance", "board",
+		function($log, boardAPI, $scope, $modalInstance, board) {
 			$scope.board = board;
 			$scope.repeatBoardName = "";
 			$scope.isEditingName = false;
@@ -48,17 +49,10 @@
 
 				if (e.type === "keypress" && e.which === 13) {
 					if ($scope.repeatBoardName === $scope.board.name) {
-						serverAPI
+						boardAPI
 							.deleteBoard($scope.board._id)
 							.then(function(res) {
-								for (var i = 0; i < $scope.boards.length; i++) {
-									if ($scope.boards[i]._id === $scope.board._id) {
-										$scope.boards.splice(i, 1);
-									}
-								}
 								$modalInstance.dismiss();
-							}, function(err) {
-								$log.error(err);
 							});
 					} else {
 						$log.error("board name does not match input");
@@ -79,13 +73,10 @@
 				}
 
 				if (e.type === "keypress" & e.which === 13) {
-					serverAPI
+					boardAPI
 						.updateBoard($scope.board)
 						.then(function() {
-							board._v++;
 							$scope.isEditingName = false;
-						}, function(err) {
-							$log.error(err);
 						});
 				}
 			};

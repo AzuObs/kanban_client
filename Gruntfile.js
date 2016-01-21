@@ -90,7 +90,7 @@ module.exports = function(grunt) {
 
     //grunt exec
     exec: {
-      serve: "http-server -a localhost -p 3000",
+      serve: "python -m SimpleHTTPServer 3000",
       rmTmp: "rm -r .tmp",
       selenium: "gnome-terminal -e 'bash -c \"webdriver-manager start; exec bash\"'",
       sleep5: "sleep 5"
@@ -116,7 +116,7 @@ module.exports = function(grunt) {
       },
       development: {
         options: {
-          dest: "src/constants.js"
+          dest: "src/common/globals/constants.js"
         },
         constants: {
           ENV: {
@@ -127,7 +127,7 @@ module.exports = function(grunt) {
       },
       production: {
         options: {
-          dest: "src/constants.js"
+          dest: "src/common/globals/constants.js"
         },
         constants: {
           ENV: {

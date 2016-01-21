@@ -31,46 +31,6 @@ body {
   flex-direction: column;
 }
 
-
-/**
-* ui-fancy-scrollbarbar only available in webkit 
- */
-
-.btn-black {
-  background-color: #222 !important;
-  border: 1px solid #000;
-  color: #fff !important;
-}
-
-.btn-black:hover {
-  box-shadow: 0px 0px 7px #888;
-}
-
-.btn-grey {
-  background-color: #ddd;
-  border: 1px solid #666;
-}
-
-.btn-grey:hover {
-  background-color: #fff;
-  box-shadow: 0px 0px 7px #888;
-}
-
-.ui-fancy-scrollbar::-webkit-scrollbar {
-  height: 9px;
-  width: 9px;
-}
-
-.ui-fancy-scrollbar::-webkit-scrollbar-track {
-  background: #ddd;
-  border-radius: 5px;
-}
-
-.ui-fancy-scrollbar::-webkit-scrollbar-thumb {
-  background: #aaa;
-  border-radius: 5px;
-}
-
 .no-script {
   border: 3px solid #f00;
   margin: 50px auto;

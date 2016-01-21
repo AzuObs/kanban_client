@@ -1,27 +1,34 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("taskDirectiveModule", ["boardAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule"]);
+	var module = angular.module("taskDirectiveModule", [
+		"boardAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule"
+	]);
+
 
 	module.directive("kbTask", function() {
-		return {
-			// require = "^category-dir",
-			// scope : {
-			// 	task: "=ngModel"
-			// 	deleteTask: "&deleteTask",
-			// 	
-			// 	
-			// }
+		var directiveDefinition = {
 			restrict: "E",
 			replace: true,
 			templateUrl: "board/tasks/task-directive/task-directive.html",
-			controller: "kbTaskCtrl"
+			controller: "kbTaskCtrl",
+			link: function(scope, elem, attr) {
+				scope.$on("$destroy", function() {
+					//cleanup
+				});
+			}
 		};
+
+		return directiveDefinition;
 	});
 
-	module.controller("kbTaskCtrl", ["boardAPI", "$scope", "$log", function(boardAPI, $scope, $log) {
-		$scope.deleteTask = function(category, task) {
-			boardAPI.deleteTask(category, task);
-		};
-	}]);
+
+	module.controller("kbTaskCtrl", [
+		"boardAPI", "$scope",
+		function(boardAPI, $scope) {
+			$scope.deleteTask = function(category, task) {
+				boardAPI.deleteTask(category, task);
+			};
+		}
+	]);
 })();
