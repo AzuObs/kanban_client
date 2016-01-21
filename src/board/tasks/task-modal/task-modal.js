@@ -238,7 +238,7 @@
 			$scope.commentInput = "";
 			$scope.repeatTaskName = "";
 			$scope.user = user;
-			$scope.users = boardAPI.getBoardUsers();
+			$scope.users = boardAPI.getBoardUsersFromMemory();
 			$scope.addableUsers = [];
 			$scope.changeableCategories = [];
 			$scope.getAddableUsers();

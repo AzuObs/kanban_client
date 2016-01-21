@@ -9,7 +9,7 @@
 		"$state", "$log", "$scope", "$modalInstance", "boardAPI", "user",
 		function($state, $log, $scope, $modalInstance, boardAPI, user) {
 			$scope.modalUser = user;
-			$scope.boardUsers = boardAPI.getBoardUsers();
+			$scope.boardUsers = boardAPI.getBoardUsersFromMemory();
 			$scope.isEditingRBAC = false;
 			$scope.isDeleting = false;
 			$scope.repeatUsername = "";

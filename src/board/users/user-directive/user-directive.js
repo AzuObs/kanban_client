@@ -5,6 +5,9 @@
 
 	module.directive("kbUser", function() {
 		var directiveDefinitionObject = {
+			scope: {
+				user: "=ngModel"
+			},
 			restrict: "E",
 			replace: true,
 			templateUrl: "board/users/user-directive/user-directive.html",

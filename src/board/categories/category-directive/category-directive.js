@@ -6,6 +6,9 @@
 
 	module.directive("kbCategory", function() {
 		var directiveDefinition = {
+			scope: {
+				category: "=ngModel"
+			},
 			restrict: "E",
 			replace: true,
 			templateUrl: "board/categories/category-directive/category-directive.html",
@@ -22,8 +25,8 @@
 
 
 	module.controller("kbCategoryController", [
-		"$scope", "boardAPI", "$log",
-		function($scope, boardAPI, $log) {
+		"$scope", "boardAPI",
+		function($scope, boardAPI) {
 			$scope.deleteCategory = function(cat) {
 				boardAPI.deleteCategory(cat);
 			};

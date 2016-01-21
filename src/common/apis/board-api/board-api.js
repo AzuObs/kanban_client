@@ -22,6 +22,11 @@
 				return defer.promise;
 			},
 
+			getBoardFromMemory: function() {
+				return board;
+			},
+
+
 			getBoard: function(boardId) {
 				var defer = $q.defer();
 
@@ -108,7 +113,7 @@
 				return defer.promise;
 			},
 
-			getBoardUsers: function() {
+			getBoardUsersFromMemory: function() {
 				boardUsers = board.admins.concat(board.members);
 				return boardUsers;
 			},
