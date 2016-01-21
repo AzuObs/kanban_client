@@ -1,6 +1,21 @@
 (function() {
 	"use strict";
 
+
+	/*
+	 * assign logic to execute on update	
+	 * toggle editing on / off by assigned isEditing true or false
+	 * prevent default ng-blur behavior by adding class 'edit-text-toggle' to an any element
+	 *
+	 *
+	 * ex: 
+	 * 
+	 * <h5 editable-text='title' update='callToUpdateTitleOnTheServer()' is-editing='isEditingTitle'>
+	 * {{title}}</h5> 
+	 * <button class='edit-text-toggle' ng-click='toggleIsEditingTitle()'>
+	 */
+
+
 	var module = angular.module("editableTextDirectiveModule", []);
 
 	module.directive("editableText", function() {
