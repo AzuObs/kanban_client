@@ -97,7 +97,9 @@
 				return defer.promise;
 			},
 
-			updateBoard: function() {
+			updateBoard: function(_board_) {
+				var board = board || _board_;
+
 				var defer = $q.defer();
 
 				serverAPI

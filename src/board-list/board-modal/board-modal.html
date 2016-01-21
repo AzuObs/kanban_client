@@ -4,8 +4,7 @@
   </div>
 
   <div class="modal-title">
-    <h3 class="edit-board" ng-click="renameBoard($event)" ng-hide="isEditingName">{{board.name}}</h3>
-    <input class="board-name edit-board form-control" ng-keypress="renameBoard($event)" ng-model="board.name" ng-show="isEditingName" type="text">
+    <h3 editable-text="board.name" update="updateTitle()" is-editing="isEditingTitle">{{board.name}}</h3>
     <h4 class="text-muted">in user <b>{{user.username | uppercase}}</b></h4>
   </div>
   <div class="modal-user-list">
@@ -15,7 +14,7 @@
 
   <div class="modal-options">
     <h4>Options</h4>
-    <button class="btn btn-block btn-default edit-board" ng-click="renameBoard($event)">Rename Board</button>
+    <button class="btn btn-block btn-default edit-text-toggle" ng-click="toggleIsEditingTitle($event)">Rename Board</button>
     <button class="btn btn-block btn-danger" ng-disabled="true">Transfer Ownership</button>
     <button class="btn btn-block btn-danger delete-board" ng-click="deleteBoard($event)">Delete Board</button>
     <p ng-show="isDeletingBoard"><em class="delete-board text-danger">Are you sure? Deleting a board is permanent. Confirm by typing the name of the board and press enter.</em></p>
