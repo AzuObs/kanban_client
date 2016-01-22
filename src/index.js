@@ -22,8 +22,7 @@
 		"userModalModule",
 		"taskModule",
 		"taskDirectiveModule",
-		"taskModalModule",
-		"constantsModule"
+		"taskModalModule"
 	]);
 
 	module.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
@@ -48,11 +47,13 @@
 		}
 	]);
 
-	module.run(["$rootScope", "$state", "ENV", function($rootScope, $state, ENV) {
-		$rootScope.endPoint = ENV.apiEndpoint;
-		$rootScope.state = $state;
+	module.run([
+		"$rootScope", "$state",
+		function($rootScope, $state) {
+			$rootScope.state = $state;
 
-		// log ui-router routing errors
-		$rootScope.$on("$stateChangeError", console.log.bind(console));
-	}]);
+			// log ui-router routing errors
+			$rootScope.$on("$stateChangeError", console.log.bind(console));
+		}
+	]);
 })();

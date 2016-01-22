@@ -43,34 +43,11 @@
 			$scope.loginPwd = "123";
 
 			$scope.createUser = function() {
-				oauthAPI
-					.createUser($scope.newAccUsr, $scope.newAccPwd)
-					.then(function(res) {
-						sessionStorage.userId = res.user._id;
-						sessionStorage.token = res.token;
-
-						$state.go("kanban.boardList", {
-							username: res.user.username
-						});
-
-					}, function(err) {
-						$log.error(err);
-					});
+				oauthAPI.createUser($scope.newAccUsr, $scope.newAccPwd);
 			};
 
 			$scope.authenticate = function() {
-				oauthAPI
-					.authenticate($scope.loginUsername, $scope.loginPwd)
-					.then(function(res) {
-						sessionStorage.userId = res.user._id;
-						sessionStorage.token = res.token;
-
-						$state.go("kanban.boardList", {
-							username: res.user.username
-						});
-					}, function(err) {
-						$log.error(err);
-					});
+				oauthAPI.authenticate($scope.loginUsername, $scope.loginPwd);
 			};
 		}
 	]);

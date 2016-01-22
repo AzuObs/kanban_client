@@ -110,9 +110,9 @@ module.exports = function(grunt) {
 
     ngconstant: {
       options: {
-        space: '  ',
-        wrap: '"use strict";\n\n {%= __ngModule %}',
-        name: 'constantsModule',
+        space: "  ",
+        wrap: "'use strict';\n\n {%= __ngModule %}",
+        name: "globalConstantsModule",
       },
       development: {
         options: {

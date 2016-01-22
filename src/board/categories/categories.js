@@ -8,7 +8,7 @@
 	module.controller("categoryCtrl", [
 		"$scope", "$log", "boardAPI",
 		function($scope, $log, boardAPI) {
-			$scope.board = boardAPI.getBoardFromMemory();
+			$scope.board = boardAPI.getBoardSync();
 			$scope.newCat = "";
 
 			$scope.createCategory = function(keyEvent) {

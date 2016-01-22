@@ -22,7 +22,7 @@
 				return defer.promise;
 			},
 
-			getBoardFromMemory: function() {
+			getBoardSync: function() {
 				return board;
 			},
 
@@ -115,7 +115,7 @@
 				return defer.promise;
 			},
 
-			getBoardUsersFromMemory: function() {
+			getBoardUsersSync: function() {
 				boardUsers = board.admins.concat(board.members);
 				return boardUsers;
 			},

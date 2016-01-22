@@ -10,8 +10,8 @@
 	module.controller("userMenuCtrl", [
 		"$scope", "$modal", "$log", "boardAPI", "USER_SELECTION_HEIGHT",
 		function($scope, $modal, $log, boardAPI, USER_SELECTION_HEIGHT) {
-			$scope.board = boardAPI.getBoardFromMemory();
-			$scope.users = boardAPI.getBoardUsersFromMemory();
+			$scope.board = boardAPI.getBoardSync();
+			$scope.users = boardAPI.getBoardUsersSync();
 			$scope.addMemberInput = "";
 			$scope.membersSuggestions = [{
 				email: "sheldon@mail.com"
@@ -100,7 +100,7 @@
 					}
 				},
 				stop: function(e, ui) {
-					$scope.users = boardAPI.getBoardUsersFromMemory();
+					$scope.users = boardAPI.getBoardUsersSync();
 					boardAPI.updateBoard();
 				}
 			};

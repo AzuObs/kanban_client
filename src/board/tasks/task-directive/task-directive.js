@@ -33,7 +33,7 @@
 				boardAPI.deleteTask(category, task);
 			};
 
-			$scope.board = boardAPI.getBoardFromMemory();
+			$scope.board = boardAPI.getBoardSync();
 			$scope.showUserList = false;
 			$scope.userSortOpts = {
 				appendTo: "body",
@@ -75,7 +75,7 @@
 					$scope.showUserList = false;
 				},
 				stop: function(e, ui) {
-					boardAPI.getBoardUsersFromMemory();
+					boardAPI.getBoardUsersSync();
 					boardAPI.updateBoard();
 				}
 			};
