@@ -2,7 +2,7 @@
 	"use strict";
 
 	var module = angular.module("taskModalModule", [
-		"boardAPIModule", "ui.bootstrap", "userDirectiveModule"
+		"boardAPIModule", "ui.bootstrap", "userDirectiveModule", "editableTextDirectiveModule"
 	]);
 
 
@@ -69,7 +69,6 @@
 					});
 			};
 
-
 			$scope.closeModal = function() {
 				$modalInstance.dismiss();
 			};
@@ -104,17 +103,9 @@
 				$scope.repeatTaskName = "";
 			};
 
-			$scope.stopEditingTaskName = function(e) {
-				$scope.editTaskName(e);
-			};
-
 			$scope.endAllEditing = function(e) {
 				if (!e || (e.type != "click")) {
 					$log.error("invalid input @endAllEditing");
-				}
-
-				if ($scope.isEditingTaskName && !angular.element(e.target).hasClass("task-name-edit")) {
-					$scope.stopEditingTaskName(e);
 				}
 
 				if ($scope.isDeletingTask && !angular.element(e.target).hasClass("delete-task")) {
@@ -122,20 +113,9 @@
 				}
 			};
 
-			$scope.editTaskName = function(e) {
-				if ((e.type === "keypress" && e.which === 13) || e.type === "click") {
-					if (!$scope.isEditingTaskName) {
-						$scope.isEditingTaskName = true;
-						setTimeout(function() {
-							angular.element(".modal-title input").focus();
-						}, 0);
-					} else {
-						$scope.isEditingTaskName = false;
-						boardAPI.updateBoard();
-					}
-				}
+			$scope.toggleIsEditingTitle = function() {
+				$scope.isEditingTitle = !$scope.isEditingTitle;
 			};
-
 
 			$scope.createComment = function(keyEvent) {
 				if (!keyEvent || keyEvent.which === 13) {
@@ -205,7 +185,6 @@
 				});
 			};
 
-
 			$scope.getChangeableCategories = function() {
 				var i = $scope.board.categories.findIndex(function(e) {
 					return e._id === $scope.category._id;
@@ -216,7 +195,7 @@
 			};
 
 			$scope.getAddableUsers = function() {
-				$scope.addableUsers = JSON.parse(JSON.stringify($scope.users));
+				$scope.addableUsers = JSON.parse(JSON.stringify(boardAPI.getBoardUsersSync()));
 
 				for (var i = 0; i < $scope.addableUsers.length; i++) {
 					for (var j = 0; j < $scope.task.users.length; j++) {
@@ -229,16 +208,18 @@
 				}
 			};
 
+			$scope.board = boardAPI.getBoardSync();
 			$scope.category = $scope.board.categories[$scope.getCatIndex()];
 			$scope.categoryIndex = $scope.getCatIndex();
 			$scope.task = $scope.category.tasks[$scope.getTaskIndex()];
 			$scope.taskIndex = $scope.getTaskIndex();
-			$scope.isEditingTaskName = false;
+			$scope.isEditingTitle = false;
+			$scope.updateTitle = boardAPI.updateBoard;
 			$scope.isDeletingTask = false;
 			$scope.commentInput = "";
 			$scope.repeatTaskName = "";
 			$scope.user = user;
-			$scope.users = boardAPI.getBoardUsersSync();
+			$scope.users = $scope.task.users;
 			$scope.addableUsers = [];
 			$scope.changeableCategories = [];
 			$scope.getAddableUsers();

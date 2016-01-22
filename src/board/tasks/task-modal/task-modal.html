@@ -4,8 +4,7 @@
   </div>
 
   <div class="modal-title">
-    <input class="form-control task-name-edit" ng-keypress="editTaskName($event)" ng-model="task.name" ng-show="isEditingTaskName" type="text">
-    <h3 class="task-name-edit" ng-click="editTaskName($event)" ng-hide="isEditingTaskName">{{task.name}}</h3>
+    <h3 editable-text="task.name" update="updateTitle" is-editing="isEditingTitle">{{task.name}}</h3>
     <h4 class="text-muted">in list <b>{{category.name | uppercase}}</b></h4>
   </div>
 
@@ -37,7 +36,7 @@
     </div>
 
     <div class="modal-options modal-right-content">
-      <button class="btn btn-block btn-grey task-name-edit" ng-click="editTaskName($event)">Rename Task</button>
+      <button class="btn btn-block btn-grey edit-text-toggle" ng-click="toggleIsEditingTitle()">Rename Task</button>
       <div class="button-group" dropdown is-open="status.aMemIsOpen">
         <button class="btn btn-block btn-grey" dropdown-toggle ng-disabled="task.users.length===5">Add Member
           <span class="caret" ng-hide="status.aMemIsOpen"></span>
