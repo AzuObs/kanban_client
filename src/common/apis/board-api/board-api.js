@@ -4,11 +4,9 @@
 	var module = angular.module("boardAPIModule", ["serverAPIModule"]);
 
 	module.factory("boardAPI", ["serverAPI", "$log", "$q", function(serverAPI, $log, $q) {
-		var user, board, boards, boardUsers;
+		var board, boardUsers;
 
 		var boardInterface = {
-
-
 			getBoardSync: function() {
 				return board;
 			},
