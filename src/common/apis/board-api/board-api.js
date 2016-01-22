@@ -8,6 +8,7 @@
 
 		var boardInterface = {
 			getBoardSync: function() {
+
 				return board;
 			},
 
@@ -28,12 +29,11 @@
 			},
 
 			updateBoard: function(_board_) {
-				var board = board || _board_;
-
+				var target = _board_ || board;
 				var defer = $q.defer();
 
 				serverAPI
-					.updateBoard(board)
+					.updateBoard(target)
 					.then(function() {
 						board._v++;
 						defer.resolve();
@@ -132,7 +132,7 @@
 
 				serverAPI
 					.deleteCategory(board._id, cat._id)
-					.then(function() {
+					.then(function(res) {
 						for (var i = 0; i < board.categories.length; i++) {
 							if (board.categories[i]._id === cat._id) {
 								board.categories.splice(i, 1);
@@ -153,7 +153,7 @@
 
 				serverAPI
 					.deleteTask(board._id, cat._id, task._id)
-					.then(function() {
+					.then(function(res) {
 						for (var i = 0; i < cat.tasks.length; i++) {
 							if (cat.tasks[i]._id === task._id) {
 								cat.tasks.splice(i, 1);
