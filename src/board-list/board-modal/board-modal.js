@@ -2,12 +2,12 @@
 	"use strict";
 
 	var module = angular.module("boardModalModule", [
-		"boardAPIModule", "ui.bootstrap", "editableTextDirectiveModule"
+		"boardAPIModule", "userAPIModule", "ui.bootstrap", "editableTextDirectiveModule"
 	]);
 
 	module.controller("boardModalCtrl", [
-		"$log", "boardAPI", "$scope", "$modalInstance", "board",
-		function($log, boardAPI, $scope, $modalInstance, board) {
+		"$log", "boardAPI", "userAPI", "$scope", "$modalInstance", "board",
+		function($log, boardAPI, userAPI, $scope, $modalInstance, board) {
 			$scope.board = board;
 			$scope.isEditingTitle = false;
 			$scope.isDeletingBoard = false;
@@ -48,7 +48,7 @@
 
 				if (e.type === "keypress" && e.which === 13) {
 					if ($scope.repeatBoardName === $scope.board.name) {
-						boardAPI
+						userAPI
 							.deleteBoard($scope.board._id)
 							.then(function(res) {
 								$modalInstance.dismiss();

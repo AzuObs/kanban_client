@@ -360,20 +360,20 @@
 			});
 		});
 
-		describe("getBoardsForUser", function() {
+		describe("getUserBoards", function() {
 			var userId = "foo";
 
 			it("is defined", function() {
-				expect(serverAPI.getBoardsForUser).toBeDefined();
+				expect(serverAPI.getUserBoards).toBeDefined();
 			});
 
 			it("is a function", function() {
-				expect(typeof serverAPI.getBoardsForUser).toEqual("function");
+				expect(typeof serverAPI.getUserBoards).toEqual("function");
 			});
 
 			it("returns a promise", function() {
 				var fn = function() {
-					serverAPI.getBoardsForUser(userId).then();
+					serverAPI.getUserBoards(userId).then();
 				};
 
 				expect(fn).not.toThrow();
@@ -385,7 +385,7 @@
 					.respond(200);
 
 				$rootScope.$apply(function() {
-					serverAPI.getBoardsForUser(userId);
+					serverAPI.getUserBoards(userId);
 				});
 			});
 		});

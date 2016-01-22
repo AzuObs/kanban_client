@@ -7,25 +7,11 @@
 		var user, board, boards, boardUsers;
 
 		var boardInterface = {
-			getUser: function(userId) {
-				var defer = $q.defer();
 
-				serverAPI
-					.getUser(userId)
-					.then(function(res) {
-						user = res;
-						defer.resolve(res);
-					}, function(err) {
-						defer.reject(err);
-					});
-
-				return defer.promise;
-			},
 
 			getBoardSync: function() {
 				return board;
 			},
-
 
 			getBoard: function(boardId) {
 				var defer = $q.defer();
@@ -34,60 +20,6 @@
 					.getBoard(boardId)
 					.then(function(res) {
 						board = res;
-						defer.resolve(res);
-					}, function(err) {
-						$log.error(err);
-						defer.reject(err);
-					});
-
-				return defer.promise;
-			},
-
-			getBoardsForUser: function(userId) {
-				var defer = $q.defer();
-
-				serverAPI
-					.getBoardsForUser(userId)
-					.then(function(res) {
-						boards = res;
-						defer.resolve(res);
-					}, function(err) {
-						defer.reject(err);
-					});
-
-				return defer.promise;
-			},
-
-
-			createBoard: function(name) {
-				var defer = $q.defer();
-
-				serverAPI
-					.createBoard(user._id, name)
-					.then(function(res) {
-						if (boards) {
-							boards.unshift(res);
-						}
-						defer.resolve(res);
-					}, function(err) {
-						$log.error(err);
-						defer.reject(err);
-					});
-
-				return defer.promise;
-			},
-
-			deleteBoard: function(boardId) {
-				var defer = $q.defer();
-
-				serverAPI
-					.deleteBoard(boardId)
-					.then(function(res) {
-						for (var i = 0; i < boards.length; i++) {
-							if (boards[i]._id === boardId) {
-								boards.splice(i, 1);
-							}
-						}
 						defer.resolve(res);
 					}, function(err) {
 						$log.error(err);

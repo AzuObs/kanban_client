@@ -2,11 +2,11 @@
 	"use strict";
 
 	var module = angular.module("taskModule", [
-		"boardAPIModule", "ui.bootstrap", "ui.sortable", "taskDirectiveModule", "taskModalModule"
+		"boardAPIModule", "userAPIModule", "ui.bootstrap", "ui.sortable", "taskDirectiveModule", "taskModalModule"
 	]);
 
-	module.controller("taskCtrl", ["$scope", "boardAPI", "$modal", "$log",
-		function($scope, boardAPI, $modal, $log) {
+	module.controller("taskCtrl", ["$scope", "userAPI", "boardAPI", "$modal", "$log",
+		function($scope, userAPI, boardAPI, $modal, $log) {
 			$scope.taskName = "";
 
 			$scope.taskSortOpts = {
@@ -44,8 +44,8 @@
 						taskId: function() {
 							return _task._id;
 						},
-						user: ["boardAPI", function(boardAPI) {
-							return boardAPI.getUser(sessionStorage.userId);
+						user: ["userAPI", function(userAPI) {
+							return userAPI.getUser(sessionStorage.userId);
 						}]
 					}
 				});

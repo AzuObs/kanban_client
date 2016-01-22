@@ -115,7 +115,7 @@
 					expect(typeof $scope.createBoard).toEqual("function");
 				});
 
-				it("calls to boardAPI.createBoard with {userid, boardname}", function() {
+				it("calls to userAPI.createBoard with {userid, boardname}", function() {
 					$scope.boardName = "foo";
 					$scope.createBoard();
 					expect(createBoardArgs[0]).toEqual($scope.user._id);

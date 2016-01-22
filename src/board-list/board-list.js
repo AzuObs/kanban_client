@@ -2,6 +2,7 @@
 	"use strict";
 
 	var module = angular.module("boardListModule", [
+		"userAPIModule",
 		"boardAPIModule",
 		"navbarModule",
 		"stateInfoModule",
@@ -24,11 +25,11 @@
 					templateUrl: "board-list/board-list.html",
 					controller: "boardListCtrl",
 					resolve: {
-						boards: ["boardAPI", function(boardAPI) {
-							return boardAPI.getBoardsForUser(sessionStorage.userId);
+						boards: ["userAPI", function(userAPI) {
+							return userAPI.getUserBoards(sessionStorage.userId);
 						}],
-						user: ["boardAPI", function(boardAPI) {
-							return boardAPI.getUser(sessionStorage.userId);
+						user: ["userAPI", function(userAPI) {
+							return userAPI.getUser(sessionStorage.userId);
 						}]
 					}
 				},
@@ -41,14 +42,14 @@
 	}]);
 
 	module.controller("boardListCtrl", [
-		"$scope", "boardAPI", "$modal", "$state", "$log", "boards", "user",
-		function($scope, boardAPI, $modal, $state, $log, boards, user) {
+		"$scope", "userAPI", "$modal", "$state", "$log", "boards", "user",
+		function($scope, userAPI, $modal, $state, $log, boards, user) {
 			$scope.boardName = "";
 			$scope.user = user;
 			$scope.boards = boards;
 
 			$scope.createBoard = function() {
-				boardAPI.createBoard($scope.boardName);
+				userAPI.createBoard($scope.boardName);
 			};
 
 			$scope.openBoardModal = function(board) {

@@ -58,7 +58,7 @@
 				return defer.promise;
 			};
 
-			this.getBoardsForUser = function(userId) {
+			this.getUserBoards = function(userId) {
 				var q = $q.defer();
 
 				$http
@@ -253,6 +253,8 @@
 					}, function(err) {
 						defer.reject(err);
 					});
+
+				return defer.promise;
 			};
 		}
 	]);

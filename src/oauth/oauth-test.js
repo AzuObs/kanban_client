@@ -58,7 +58,7 @@
 
 		beforeEach(module("oauthModule"));
 
-		beforeEach(inject(function($controller, $q, oauthAPI, $rootScope, _$log_, $state) {
+		beforeEach(inject(function($controller, $q, userAPI, $rootScope, _$log_, $state) {
 			$scope = $rootScope.$new();
 			defer = $q.defer();
 			$log = _$log_;
@@ -67,12 +67,12 @@
 				stateArgs = arguments;
 			});
 
-			spyOn(oauthAPI, "createUser").and.returnValue(defer.promise);
-			spyOn(oauthAPI, "authenticate").and.returnValue(defer.promise);
+			spyOn(userAPI, "createUser").and.returnValue(defer.promise);
+			spyOn(userAPI, "authenticate").and.returnValue(defer.promise);
 
 			$controller("oauthCtrl", {
 				$scope: $scope,
-				oauthAPI: oauthAPI,
+				userAPI: userAPI,
 				$state: $state,
 				$log: $log
 			});

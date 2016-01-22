@@ -1,13 +1,13 @@
 (function() {
 	"use strict";
 
-	describe("aouthAPI", function() {
-		var $httpBackend, oauthAPI, $rootScope;
+	describe("userAPI", function() {
+		var $httpBackend, userAPI, $rootScope;
 
-		beforeEach(module("oauthAPIModule"));
-		beforeEach(inject(function(_$httpBackend_, _oauthAPI_, _$rootScope_) {
+		beforeEach(module("userAPIModule"));
+		beforeEach(inject(function(_$httpBackend_, _userAPI_, _$rootScope_) {
 			$httpBackend = _$httpBackend_;
-			oauthAPI = _oauthAPI_;
+			userAPI = _userAPI_;
 			$rootScope = _$rootScope_;
 			$rootScope.endPoint = "http://foo.com";
 		}));
@@ -15,23 +15,23 @@
 
 		describe("createUser()", function() {
 			it("exists", function() {
-				expect(oauthAPI.createUser).toBeDefined();
+				expect(userAPI.createUser).toBeDefined();
 			});
 
 			it("is a function", function() {
-				expect(typeof oauthAPI.createUser).toEqual("function");
+				expect(typeof userAPI.createUser).toEqual("function");
 			});
 
 			it("returns a promise", function() {
 				expect(function() {
-					oauthAPI.createUser().then();
+					userAPI.createUser().then();
 				}).not.toThrow();
 			});
 
 			it("sends a POST request to '$rootScope.endPoint' + '/user'", function() {
 				$httpBackend.expect("POST", $rootScope.endPoint + "/user").respond();
 				$rootScope.$apply(function() {
-					oauthAPI.createUser();
+					userAPI.createUser();
 				});
 			});
 
@@ -43,7 +43,7 @@
 
 				$httpBackend.expectPOST($rootScope.endPoint + "/user", req).respond();
 				$rootScope.$apply(function() {
-					oauthAPI.createUser(req.username, req.pwd);
+					userAPI.createUser(req.username, req.pwd);
 				});
 			});
 
@@ -51,7 +51,7 @@
 				var defer, test;
 
 				$httpBackend.whenPOST().respond(200, "");
-				defer = oauthAPI.createUser();
+				defer = userAPI.createUser();
 				$rootScope.$apply(function() {
 					defer.then(function(res) {
 						test = true;
@@ -69,7 +69,7 @@
 				var defer, test;
 
 				$httpBackend.whenPOST().respond(404, "");
-				defer = oauthAPI.createUser();
+				defer = userAPI.createUser();
 				$rootScope.$apply(function() {
 					defer.then(function(res) {
 						test = true;

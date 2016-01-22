@@ -10,7 +10,7 @@
 		"stateInfoModule",
 		"angular-loading-bar",
 		"oauthModule",
-		"oauthAPIModule",
+		"userAPIModule",
 		"boardAPIModule",
 		"boardListModule",
 		"boardModalModule",
