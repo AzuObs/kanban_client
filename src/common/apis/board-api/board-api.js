@@ -29,11 +29,11 @@
 			},
 
 			updateBoard: function(_board_) {
-				var target = _board_ || board;
+				board = _board_ || board;
 				var defer = $q.defer();
 
 				serverAPI
-					.updateBoard(target)
+					.updateBoard(board)
 					.then(function() {
 						board._v++;
 						defer.resolve();
