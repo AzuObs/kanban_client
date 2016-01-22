@@ -2,7 +2,7 @@
 	"use strict";
 
 	var module = angular.module("categoryDirectiveModule", [
-		"ui.router", "boardAPIModule"
+		"ui.router", "boardFactoryModule"
 	]);
 
 
@@ -27,10 +27,10 @@
 
 
 	module.controller("kbCategoryController", [
-		"$scope", "boardAPI",
-		function($scope, boardAPI) {
+		"$scope", "boardFactory",
+		function($scope, boardFactory) {
 			$scope.deleteCategory = function(cat) {
-				boardAPI.deleteCategory(cat);
+				boardFactory.deleteCategory(cat);
 			};
 		}
 	]);

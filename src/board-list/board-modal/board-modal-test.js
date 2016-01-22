@@ -48,10 +48,10 @@
 		describe("$scope.renameBoard()", function() {
 			var argsAPI, deferAPI, $log;
 
-			beforeEach(inject(function(boardAPI, $q, _$log_) {
+			beforeEach(inject(function(boardFactory, $q, _$log_) {
 				$log = _$log_;
 				argsAPI = undefined;
-				spyOn(boardAPI, "updateBoard").and.callFake(function() {
+				spyOn(boardFactory, "updateBoard").and.callFake(function() {
 					deferAPI = $q.defer();
 					argsAPI = arguments;
 					return deferAPI.promise;
@@ -83,7 +83,7 @@
 				expect($scope.isEditingName).toEqual(true);
 			});
 
-			it("calls boardAPI with argument board on keypress enter", function() {
+			it("calls boardFactory with argument board on keypress enter", function() {
 				var e;
 
 				e = {
@@ -134,11 +134,11 @@
 		describe("$scope.deleteBoard()", function() {
 			var $log, boardArgs, deferBoard, modalArgs;
 
-			beforeEach(inject(function(_$log_, boardAPI, $q) {
+			beforeEach(inject(function(_$log_, boardFactory, $q) {
 				$log = _$log_;
 
 				boardArgs = undefined;
-				spyOn(boardAPI, "deleteBoard").and.callFake(function() {
+				spyOn(boardFactory, "deleteBoard").and.callFake(function() {
 					deferBoard = $q.defer();
 					boardArgs = arguments;
 					return deferBoard.promise;

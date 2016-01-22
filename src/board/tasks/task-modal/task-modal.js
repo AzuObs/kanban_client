@@ -2,13 +2,13 @@
 	"use strict";
 
 	var module = angular.module("taskModalModule", [
-		"boardAPIModule", "ui.bootstrap", "userDirectiveModule", "editableTextDirectiveModule"
+		"boardFactoryModule", "ui.bootstrap", "userDirectiveModule", "editableTextDirectiveModule"
 	]);
 
 
 	module.controller("taskModalCtrl", [
-		"$scope", "$modalInstance", "$log", "boardAPI", "user", "catId", "taskId",
-		function($scope, $modalInstance, $log, boardAPI, user, catId, taskId) {
+		"$scope", "$modalInstance", "$log", "boardFactory", "user", "catId", "taskId",
+		function($scope, $modalInstance, $log, boardFactory, user, catId, taskId) {
 			//variable initializations at the bottom of this block
 			//
 
@@ -24,7 +24,7 @@
 			$scope.removeUserFromTask = function(user) {
 				$scope.removeUserFromLocalTask(user);
 
-				boardAPI.updateBoard()
+				boardFactory.updateBoard()
 					.then(function() {
 						$scope.getAddableUsers();
 					}, function(err) {
@@ -55,13 +55,13 @@
 			$scope.moveTaskToCategory = function(category) {
 				$scope.moveTaskToCategoryLocally(category);
 
-				boardAPI.updateBoard();
+				boardFactory.updateBoard();
 			};
 
 			$scope.addUserToTask = function(user) {
 				$scope.task.users.push(user);
 
-				boardAPI.updateBoard()
+				boardFactory.updateBoard()
 					.then(function() {
 						$scope.getAddableUsers();
 					}, function(err) {
@@ -86,7 +86,7 @@
 					if ($scope.repeatTaskName === $scope.task.name) {
 						$scope.category.tasks.splice($scope.taskIndex, 1);
 
-						boardAPI.updateBoard()
+						boardFactory.updateBoard()
 							.then(function() {
 								$scope.closeModal();
 							}, function(err) {
@@ -119,7 +119,7 @@
 
 			$scope.createComment = function(keyEvent) {
 				if (!keyEvent || keyEvent.which === 13) {
-					boardAPI.createComment($scope.commentInput, $scope.user, $scope.task, $scope.category);
+					boardFactory.createComment($scope.commentInput, $scope.user, $scope.task, $scope.category);
 				}
 			};
 
@@ -195,7 +195,7 @@
 			};
 
 			$scope.getAddableUsers = function() {
-				$scope.addableUsers = JSON.parse(JSON.stringify(boardAPI.getBoardUsersSync()));
+				$scope.addableUsers = JSON.parse(JSON.stringify(boardFactory.getBoardUsersSync()));
 
 				for (var i = 0; i < $scope.addableUsers.length; i++) {
 					for (var j = 0; j < $scope.task.users.length; j++) {
@@ -208,13 +208,13 @@
 				}
 			};
 
-			$scope.board = boardAPI.getBoardSync();
+			$scope.board = boardFactory.getBoardSync();
 			$scope.category = $scope.board.categories[$scope.getCatIndex()];
 			$scope.categoryIndex = $scope.getCatIndex();
 			$scope.task = $scope.category.tasks[$scope.getTaskIndex()];
 			$scope.taskIndex = $scope.getTaskIndex();
 			$scope.isEditingTitle = false;
-			$scope.updateTitle = boardAPI.updateBoard;
+			$scope.updateTitle = boardFactory.updateBoard;
 			$scope.isDeletingTask = false;
 			$scope.commentInput = "";
 			$scope.repeatTaskName = "";

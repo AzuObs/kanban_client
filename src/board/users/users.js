@@ -3,15 +3,15 @@
 
 
 	var module = angular.module("userMenuModule", [
-		"globalValuesModule", "boardAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule", "userModalModule"
+		"globalValuesModule", "boardFactoryModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule", "userModalModule"
 	]);
 
 
 	module.controller("userMenuCtrl", [
-		"$scope", "$modal", "$log", "boardAPI", "USER_SELECTION_HEIGHT",
-		function($scope, $modal, $log, boardAPI, USER_SELECTION_HEIGHT) {
-			$scope.board = boardAPI.getBoardSync();
-			$scope.users = boardAPI.getBoardUsersSync();
+		"$scope", "$modal", "$log", "boardFactory", "USER_SELECTION_HEIGHT",
+		function($scope, $modal, $log, boardFactory, USER_SELECTION_HEIGHT) {
+			$scope.board = boardFactory.getBoardSync();
+			$scope.users = boardFactory.getBoardUsersSync();
 
 			$scope.addMemberInput = "";
 			$scope.membersSuggestions = [{
@@ -60,7 +60,7 @@
 						}
 					}
 
-					boardAPI.addMemberToUserSelection($scope.addMemberInput);
+					boardFactory.addMemberToUserSelection($scope.addMemberInput);
 				}
 			};
 
@@ -101,8 +101,8 @@
 					}
 				},
 				stop: function(e, ui) {
-					$scope.users = boardAPI.getBoardUsersSync();
-					boardAPI.updateBoard();
+					$scope.users = boardFactory.getBoardUsersSync();
+					boardFactory.updateBoard();
 				}
 			};
 		}

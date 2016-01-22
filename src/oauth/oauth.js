@@ -2,7 +2,7 @@
 	"use strict";
 
 	var module = angular.module("oauthModule", [
-		"userAPIModule",
+		"userFactoryModule",
 		"navbarModule",
 		"stateInfoModule",
 		"ui.bootstrap",
@@ -34,8 +34,8 @@
 	}]);
 
 
-	module.controller("oauthCtrl", ["$log", "$scope", "userAPI", "$state",
-		function($log, $scope, userAPI, $state) {
+	module.controller("oauthCtrl", ["$log", "$scope", "userFactory", "$state",
+		function($log, $scope, userFactory, $state) {
 			$scope.newAccUsr = "";
 			$scope.newAccPwd = "";
 			$scope.newAccPwdVerify = "";
@@ -43,11 +43,11 @@
 			$scope.loginPwd = "123";
 
 			$scope.createUser = function() {
-				userAPI.createUser($scope.newAccUsr, $scope.newAccPwd);
+				userFactory.createUser($scope.newAccUsr, $scope.newAccPwd);
 			};
 
 			$scope.authenticate = function() {
-				userAPI.authenticate($scope.loginUsername, $scope.loginPwd);
+				userFactory.authenticate($scope.loginUsername, $scope.loginPwd);
 			};
 		}
 	]);

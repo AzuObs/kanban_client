@@ -2,7 +2,7 @@
 	"use strict";
 
 	var module = angular.module("taskDirectiveModule", [
-		"boardAPIModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule", "globalValuesModule"
+		"boardFactoryModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule", "globalValuesModule"
 	]);
 
 
@@ -28,13 +28,13 @@
 
 
 	module.controller("kbTaskCtrl", [
-		"boardAPI", "$scope", "$log",
-		function(boardAPI, $scope, $log, USER_SELECTION_HEIGHT) {
+		"boardFactory", "$scope", "$log",
+		function(boardFactory, $scope, $log, USER_SELECTION_HEIGHT) {
 			$scope.deleteTask = function(category, task) {
-				boardAPI.deleteTask(category, task);
+				boardFactory.deleteTask(category, task);
 			};
 
-			$scope.board = boardAPI.getBoardSync();
+			$scope.board = boardFactory.getBoardSync();
 			$scope.showUserList = false;
 			$scope.userSortOpts = {
 				appendTo: "body",
@@ -76,8 +76,8 @@
 					$scope.showUserList = false;
 				},
 				stop: function(e, ui) {
-					boardAPI.getBoardUsersSync();
-					boardAPI.updateBoard();
+					boardFactory.getBoardUsersSync();
+					boardFactory.updateBoard();
 				}
 			};
 		}

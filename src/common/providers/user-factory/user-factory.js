@@ -1,10 +1,10 @@
 (function() {
 	"user strict";
 
-	var module = angular.module("userAPIModule", ["serverAPIModule", "ui.router"]);
+	var module = angular.module("userFactoryModule", ["serverAPIModule", "ui.router"]);
 
 
-	module.factory("userAPI", [
+	module.factory("userFactory", [
 		"$q", "serverAPI", "$state",
 		function($q, serverAPI, $state) {
 			var user, boards;

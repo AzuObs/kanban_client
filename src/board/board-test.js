@@ -56,13 +56,13 @@
 				});
 			});
 
-			describe("boardAPI.updateBoard()", function() {
+			describe("boardFactory.updateBoard()", function() {
 				var argsAPI, deferAPI;
 
-				beforeEach(inject(function(boardAPI, $q) {
+				beforeEach(inject(function(boardFactory, $q) {
 					argsAPI = undefined;
 
-					spyOn(boardAPI, "updateBoard").and.callFake(function() {
+					spyOn(boardFactory, "updateBoard").and.callFake(function() {
 						deferAPI = $q.defer();
 						argsAPI = arguments;
 						return deferAPI.promise;
@@ -70,21 +70,21 @@
 				}));
 
 				it("is defined", function() {
-					expect(boardAPI.updateBoard).toBeDefined();
+					expect(boardFactory.updateBoard).toBeDefined();
 				});
 
 				it("is a function", function() {
-					expect(typeof boardAPI.updateBoard).toEqual("function");
+					expect(typeof boardFactory.updateBoard).toEqual("function");
 				});
 
-				it("calls boardAPI.updateBoard with board as argument", function() {
-					boardAPI.updateBoard();
+				it("calls boardFactory.updateBoard with board as argument", function() {
+					boardFactory.updateBoard();
 					expect(argsAPI[0]).toEqual(board);
 				});
 
 				it("increments board version on resolve", function() {
 					$scope.board._v = 0;
-					boardAPI.updateBoard();
+					boardFactory.updateBoard();
 					$scope.$apply(function() {
 						deferAPI.resolve();
 					});
@@ -96,7 +96,7 @@
 					var msg = "error";
 
 					$log.reset();
-					boardAPI.updateBoard();
+					boardFactory.updateBoard();
 					$scope.$apply(function() {
 						deferAPI.reject(msg);
 					});

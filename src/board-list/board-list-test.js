@@ -96,11 +96,11 @@
 			describe("$scope.createBoard()", function() {
 				var $log, createBoardArgs, createBoardDefer;
 
-				beforeEach(inject(function(_$log_, boardAPI, $q) {
+				beforeEach(inject(function(_$log_, boardFactory, $q) {
 					$log = _$log_;
 
 					createBoardArgs = undefined;
-					spyOn(boardAPI, "createBoard").and.callFake(function() {
+					spyOn(boardFactory, "createBoard").and.callFake(function() {
 						createBoardDefer = $q.defer();
 						createBoardArgs = arguments;
 						return createBoardDefer.promise;
@@ -115,7 +115,7 @@
 					expect(typeof $scope.createBoard).toEqual("function");
 				});
 
-				it("calls to userAPI.createBoard with {userid, boardname}", function() {
+				it("calls to userFactory.createBoard with {userid, boardname}", function() {
 					$scope.boardName = "foo";
 					$scope.createBoard();
 					expect(createBoardArgs[0]).toEqual($scope.user._id);

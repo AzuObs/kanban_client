@@ -2,18 +2,18 @@
 	"use strict";
 
 	var module = angular.module("categoryModule", [
-		"boardAPIModule", "categoryDirectiveModule", "ui.bootstrap", "ui.sortable"
+		"boardFactoryModule", "categoryDirectiveModule", "ui.bootstrap", "ui.sortable"
 	]);
 
 	module.controller("categoryCtrl", [
-		"$scope", "$log", "boardAPI",
-		function($scope, $log, boardAPI) {
-			$scope.board = boardAPI.getBoardSync();
+		"$scope", "$log", "boardFactory",
+		function($scope, $log, boardFactory) {
+			$scope.board = boardFactory.getBoardSync();
 			$scope.newCat = "";
 
 			$scope.createCategory = function(keyEvent) {
 				if (!keyEvent || keyEvent.which === 13) {
-					boardAPI.createCategory($scope.newCat);
+					boardFactory.createCategory($scope.newCat);
 					$scope.newCat = "";
 				}
 			};
@@ -32,7 +32,7 @@
 					$(ui.placeholder[0]).css("height", height);
 				},
 				stop: function(e, ui) {
-					boardAPI.updateBoard();
+					boardFactory.updateBoard();
 				}
 			};
 

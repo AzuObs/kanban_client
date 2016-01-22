@@ -2,11 +2,11 @@
 	"use strict";
 
 	var module = angular.module("taskModule", [
-		"boardAPIModule", "userAPIModule", "ui.bootstrap", "ui.sortable", "taskDirectiveModule", "taskModalModule"
+		"boardFactoryModule", "userFactoryModule", "ui.bootstrap", "ui.sortable", "taskDirectiveModule", "taskModalModule"
 	]);
 
-	module.controller("taskCtrl", ["$scope", "userAPI", "boardAPI", "$modal", "$log",
-		function($scope, userAPI, boardAPI, $modal, $log) {
+	module.controller("taskCtrl", ["$scope", "userFactory", "boardFactory", "$modal", "$log",
+		function($scope, userFactory, boardFactory, $modal, $log) {
 			$scope.taskName = "";
 
 			$scope.taskSortOpts = {
@@ -18,7 +18,7 @@
 				opacity: 0.4,
 				tolerance: "pointer",
 				stop: function(e, ui) {
-					boardAPI.updateBoard();
+					boardFactory.updateBoard();
 				}
 			};
 
@@ -44,8 +44,8 @@
 						taskId: function() {
 							return _task._id;
 						},
-						user: ["userAPI", function(userAPI) {
-							return userAPI.getUser(sessionStorage.userId);
+						user: ["userFactory", function(userFactory) {
+							return userFactory.getUser(sessionStorage.userId);
 						}]
 					}
 				});
@@ -57,7 +57,7 @@
 				}
 
 				if (keyEvent.which === 13) {
-					boardAPI
+					boardFactory
 						.createTask($scope.taskName, category)
 						.then(function() {
 							$scope.resetTaskName();

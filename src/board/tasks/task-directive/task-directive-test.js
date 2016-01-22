@@ -96,7 +96,7 @@
 		describe("kbTaskCtrl", function() {
 			var $scope, defer, apiCalled;
 
-			beforeEach(inject(function($rootScope, $controller, $q, boardAPI) {
+			beforeEach(inject(function($rootScope, $controller, $q, boardFactory) {
 				$scope = $rootScope.$new();
 				$scope.board = {
 					_id: "foo"
@@ -106,7 +106,7 @@
 					$scope: $scope
 				});
 
-				spyOn(boardAPI, "deleteTask").and.callFake(function() {
+				spyOn(boardFactory, "deleteTask").and.callFake(function() {
 					apiCalled = true;
 					defer = $q.defer();
 					return defer.promise;

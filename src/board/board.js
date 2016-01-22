@@ -2,7 +2,7 @@
 	"use strict";
 
 	var module = angular.module("boardModule", [
-		"boardAPIModule",
+		"boardFactoryModule",
 		"navbarModule",
 		"stateInfoModule",
 		"ui.bootstrap",
@@ -24,8 +24,8 @@
 				"body-view@": {
 					templateUrl: "board/board.html",
 					resolve: {
-						required: ["boardAPI", function(boardAPI) {
-							return boardAPI.getBoard(sessionStorage.boardId);
+						required: ["boardFactory", function(boardFactory) {
+							return boardFactory.getBoard(sessionStorage.boardId);
 						}]
 					}
 				},

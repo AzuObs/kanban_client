@@ -1,9 +1,9 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("boardAPIModule", ["serverAPIModule"]);
+	var module = angular.module("boardFactoryModule", ["serverAPIModule"]);
 
-	module.factory("boardAPI", ["serverAPI", "$log", "$q", function(serverAPI, $log, $q) {
+	module.factory("boardFactory", ["serverAPI", "$log", "$q", function(serverAPI, $log, $q) {
 		var board, boardUsers;
 
 		var boardInterface = {
