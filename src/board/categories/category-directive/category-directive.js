@@ -1,7 +1,9 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("categoryDirectiveModule", ["ui.router", "boardAPIModule"]);
+	var module = angular.module("categoryDirectiveModule", [
+		"ui.router", "boardAPIModule"
+	]);
 
 
 	module.directive("kbCategory", function() {

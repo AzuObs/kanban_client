@@ -12,6 +12,7 @@
 		function($scope, $modal, $log, boardAPI, USER_SELECTION_HEIGHT) {
 			$scope.board = boardAPI.getBoardSync();
 			$scope.users = boardAPI.getBoardUsersSync();
+
 			$scope.addMemberInput = "";
 			$scope.membersSuggestions = [{
 				email: "sheldon@mail.com"

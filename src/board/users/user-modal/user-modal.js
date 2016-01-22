@@ -98,6 +98,7 @@
 						}
 
 						if ($scope.users.length) {
+							console.log(boardAPI.getBoardSync());
 							boardAPI.updateBoard();
 							$scope.closeModal();
 						} else {
@@ -143,9 +144,7 @@
 				$log.error("user does not have RBAC");
 			};
 
-			$scope.$watch("userRBAC", function(newVal, oldVal) {
-				$scope.userIsAdmin = newVal === "admin";
-			});
+			$scope.userIsAdmin = $scope.getUserRBAC() === "admin";
 			$scope.userRBAC = $scope.getUserRBAC();
 		}
 	]);

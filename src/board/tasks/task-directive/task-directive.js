@@ -9,7 +9,8 @@
 	module.directive("kbTask", function() {
 		var directiveDefinition = {
 			scope: {
-				task: "=ngModel"
+				task: "=ngModel",
+				category: "=categoryModel"
 			},
 			restrict: "E",
 			replace: true,

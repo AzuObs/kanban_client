@@ -204,6 +204,8 @@
 			};
 
 			this.updateBoard = function(board) {
+
+
 				var defer = $q.defer();
 
 				$http
