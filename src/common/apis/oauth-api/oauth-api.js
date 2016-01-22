@@ -1,48 +1,52 @@
 (function() {
 	"user strict";
 
-	var module = angular.module("oauthAPIModule", ["ngResource"]);
+	var module = angular.module("oauthAPIModule", ["serverAPIModule", "ui.router"]);
 
 
-	module.service("oauthAPI", ["$http", "$rootScope", "$q", function($http, $rootScope, $q) {
-		this.createUser = function(username, pwd) {
-			var body = {
-				username: username,
-				pwd: pwd
+	module.service("oauthAPI", [
+		"$q", "serverAPI", "$state",
+		function($q, serverAPI, $state) {
+			this.onSuccessfulLoginSync = function(res) {
+				sessionStorage.userId = res.user._id;
+				sessionStorage.token = res.token;
+				$state.go("kanban.boardList", {
+					username: res.user.username
+				});
 			};
 
-			var defer = $q.defer();
-			$http
-				.post($rootScope.endPoint + "/user", body)
-				.success(function(res) {
-					defer.resolve(res);
-				})
-				.error(function(err) {
-					defer.reject(err);
-				});
+			this.createUser = function(username, pwd) {
+				var defer = $q.defer();
+				serverAPI
+					.createUser(username, pwd)
+					.then(function(res) {
+						this.onSuccessfulLoginSync(res);
+					}, function(err) {
+						$log.error(err);
+					});
 
-			return defer.promise;
-		};
-
-		this.authenticate = function(username, pwd) {
-			var body = {
-				username: username,
-				pwd: pwd
+				return defer.promise;
 			};
 
-			var defer = $q.defer();
-			$http
-				.post($rootScope.endPoint + "/user/login", body)
-				.success(function(res) {
-					defer.resolve(res);
-				})
-				.error(function(err) {
-					defer.reject(err);
-				});
+			this.authenticate = function(username, pwd) {
+				var body = {
+					username: username,
+					pwd: pwd
+				};
 
-			return defer.promise;
-		};
+				var defer = $q.defer();
+				serverAPI
+					.authenticate(username, pwd)
+					.then(function(res) {
+						this.onSuccessfulLoginSync(res);
+					}, function(err) {
+						$log.error(err);
+					});
 
-		return this;
-	}]);
+				return defer.promise;
+			};
+
+			return this;
+		}
+	]);
 })();
