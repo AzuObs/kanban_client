@@ -17,7 +17,7 @@
 	module.config([
 		"$stateProvider", "$urlRouterProvider",
 		function($stateProvider, $urlRouterProvider) {
-			$urlRouterProvider.otherwise("/kanban/error");
+			$urlRouterProvider.otherwise("kanban.error");
 
 			$stateProvider.state("kanban", {
 				abstract: true,

@@ -28,12 +28,15 @@
 			$scope.redirectClick = function() {
 				$state.go("kanban.oauth");
 			};
+			$scope.error = errorHandler.getError();
 			$scope.title = "Error - Undefined Error";
 			$scope.subtitle = "An unexpected error occured.";
 			$scope.redirectMsg = "GO TO LOGIN";
 
-			$scope.error = errorHandler.getError();
+
 			$scope.$watch("error.counter", function() {
+				console.log($scope.error.value);
+
 				switch ($scope.error.value) {
 					case "Unauthorized":
 						$scope.redirectClick = function() {
@@ -45,12 +48,21 @@
 						break;
 
 
-					case "Not found":
+					case "Not Found":
 						$scope.redirectClick = function() {
 							$window.history.back();
 						};
 						$scope.title = "404 - Not found";
 						$scope.subtitle = "The requested content could not be found.";
+						$scope.redirectMsg = "GO BACK";
+						break;
+
+					case "Internal Server Error":
+						$scope.redirectClick = function() {
+							$window.history.back();
+						};
+						$scope.title = "500 - Internal Server Error";
+						$scope.subtitle = "An error happened on the server's end.";
 						$scope.redirectMsg = "GO BACK";
 						break;
 
