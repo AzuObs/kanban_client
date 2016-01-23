@@ -16,13 +16,7 @@
 		"boardModalModule",
 		"boardModule",
 		"categoryModule",
-		"categoryDirectiveModule",
-		"userMenuModule",
-		"userDirectiveModule",
-		"userModalModule",
-		"taskModule",
-		"taskDirectiveModule",
-		"taskModalModule"
+		"categoryDirectiveModule"
 	]);
 
 	module.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",

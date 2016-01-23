@@ -2,26 +2,18 @@
 	"use strict";
 
 	var module = angular.module("taskModule", [
-		"boardFactoryModule", "userFactoryModule", "ui.bootstrap", "ui.sortable", "taskDirectiveModule", "taskModalModule"
+		"boardFactoryModule",
+		"ui.bootstrap",
+		"ui.sortable",
+		"taskDirectiveModule",
+		"taskModalModule",
+		"TaskSortOptsModule",
+		"userFactoryModule"
 	]);
 
-	module.controller("taskCtrl", ["$scope", "userFactory", "boardFactory", "$modal", "$log",
-		function($scope, userFactory, boardFactory, $modal, $log) {
-			$scope.taskName = "";
-
-			$scope.taskSortOpts = {
-				appendTo: "body",
-				cursor: "move",
-				connectWith: ".task-list",
-				helper: "clone",
-				horizontal: false,
-				opacity: 0.4,
-				tolerance: "pointer",
-				stop: function(e, ui) {
-					boardFactory.updateBoard();
-				}
-			};
-
+	module.controller("taskCtrl", [
+		"$scope", "userFactory", "boardFactory", "$modal", "$log", "TaskSortOpts",
+		function($scope, userFactory, boardFactory, $modal, $log, TaskSortOpts) {
 			$scope.openTaskModal = function(e, _board, _cat, _task) {
 				if (!e || e.type != "click") {
 					return $log.error("invalid input @openTaskModal");
@@ -68,6 +60,9 @@
 			$scope.resetTaskName = function() {
 				$scope.taskName = "";
 			};
+
+			$scope.taskName = "";
+			$scope.taskSortOpts = new TaskSortOpts();
 		}
 	]);
 })();

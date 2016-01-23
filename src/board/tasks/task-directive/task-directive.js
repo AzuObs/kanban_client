@@ -6,7 +6,7 @@
 		"ui.bootstrap",
 		"ui.sortable",
 		"userDirectiveModule",
-		"userSortOptsModule"
+		"UserSortOptsModule"
 	]);
 
 

@@ -2,7 +2,7 @@
 	"use strict";
 
 
-	var module = angular.module("userSortOptsModule", []);
+	var module = angular.module("UserSortOptsModule", []);
 
 
 	module.factory("UserSortOpts", ["$log", "boardFactory", function($log, boardFactory) {

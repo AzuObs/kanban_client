@@ -5,9 +5,11 @@
 		"boardFactoryModule",
 		"navbarModule",
 		"stateInfoModule",
+		"taskModule",
 		"ui.bootstrap",
 		"ui.router",
-		"ui.sortable"
+		"ui.sortable",
+		"userMenuModule"
 	]);
 
 	module.config(["$stateProvider", function($stateProvider) {

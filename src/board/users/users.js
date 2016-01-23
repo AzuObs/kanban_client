@@ -8,7 +8,7 @@
 		"ui.sortable",
 		"userDirectiveModule",
 		"userModalModule",
-		"userSortOptsModule"
+		"UserSortOptsModule"
 	]);
 
 
