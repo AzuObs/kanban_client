@@ -27,7 +27,7 @@
 			},
 			restrict: "A",
 			transclude: true,
-			templateUrl: "common/editable-text/editable-text.html",
+			templateUrl: "common/directives/editable-text/editable-text.html",
 			link: function(scope, elem, attr) {
 				scope.isEditing = scope.isEditing || false;
 

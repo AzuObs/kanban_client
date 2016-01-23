@@ -8,13 +8,13 @@
 		"ui.sortable",
 		"userDirectiveModule",
 		"userModalModule",
-		"sortOptsModule"
+		"userSortOptsModule"
 	]);
 
 
 	module.controller("userMenuCtrl", [
-		"$scope", "$modal", "$log", "boardFactory", "userSortOpts",
-		function($scope, $modal, $log, boardFactory, userSortOpts) {
+		"$scope", "$modal", "$log", "boardFactory", "UserSortOpts",
+		function($scope, $modal, $log, boardFactory, UserSortOpts) {
 			$scope.editUser = function(user) {
 				if (!user) {
 					return $log.error("no arguments for userMenuCtrl.editUser()");
@@ -59,7 +59,7 @@
 
 			$scope.board = boardFactory.getBoardSync();
 			$scope.users = boardFactory.getBoardUsersSync();
-			$scope.userSortOpts = userSortOpts.getSortOpts($scope.stopSort);
+			$scope.userSortOpts = new UserSortOpts($scope.stopSort);
 			$scope.addMemberInput = "";
 			$scope.membersSuggestions = [{
 				email: "sheldon@mail.com"

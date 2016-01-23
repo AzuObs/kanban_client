@@ -6,7 +6,7 @@
 		"ui.bootstrap",
 		"ui.sortable",
 		"userDirectiveModule",
-		"sortOptsModule"
+		"userSortOptsModule"
 	]);
 
 
@@ -32,12 +32,11 @@
 
 
 	module.controller("kbTaskCtrl", [
-		"boardFactory", "$scope", "$log", "userSortOpts",
-		function(boardFactory, $scope, $log, userSortOpts) {
-
+		"boardFactory", "$scope", "$log", "UserSortOpts",
+		function(boardFactory, $scope, $log, UserSortOpts) {
 			$scope.board = boardFactory.getBoardSync();
-			$scope.showUserList = userSortOpts.getShowUserLists();
-			$scope.userSortOpts = userSortOpts.getSortOpts();
+			$scope.userSortOpts = new UserSortOpts();
+			$scope.showUserList = $scope.userSortOpts.getShowUserLists();
 
 			$scope.deleteTask = function(category, task) {
 				boardFactory.deleteTask(category, task);
