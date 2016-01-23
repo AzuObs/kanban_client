@@ -18,7 +18,7 @@
 			},
 			restrict: "E",
 			replace: true,
-			templateUrl: "board/tasks/task-directive/task-directive.html",
+			templateUrl: "board-page/tasks/task-directive/task-directive.html",
 			controller: "kbTaskCtrl",
 			link: function(scope, elem, attr) {
 				scope.$on("$destroy", function() {

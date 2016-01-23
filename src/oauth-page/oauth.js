@@ -22,7 +22,7 @@
 					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
-					templateUrl: "oauth/oauth.html",
+					templateUrl: "oauth-page/oauth.html",
 					controller: "oauthCtrl"
 				},
 				"footer-view@": {

@@ -21,7 +21,7 @@
 					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
-					templateUrl: "about/about.html",
+					templateUrl: "about-page/about.html",
 					controller: "aboutCtrl"
 				},
 				"footer-view@": {

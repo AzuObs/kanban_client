@@ -183,13 +183,13 @@ module.exports = function(grunt) {
       release: {
         options: {
           patterns: [{
-            match: /bower_components\/bootstrap\/dist\/css\/bootstrap.css/,
+            match: /src\/bower-components\/bootstrap\/dist\/css\/bootstrap.css/,
             replacement: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           }, {
-            match: /bower_components\/jquery\/dist\/jquery.js/,
+            match: /src\/bower-components\/jquery\/dist\/jquery.js/,
             replacement: "https://code.jquery.com/jquery-2.1.4.min.js"
           }, {
-            match: /bower_components\/angular\/angular.js/,
+            match: /src\/bower-components\/angular\/angular.js/,
             replacement: "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"
           }]
         },

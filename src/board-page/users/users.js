@@ -22,7 +22,7 @@
 
 				$modal.open({
 					animation: true,
-					templateUrl: "board/users/user-modal/user-modal.html",
+					templateUrl: "board-page/users/user-modal/user-modal.html",
 					controller: "userModalCtrl",
 					scope: $scope,
 					resolve: {

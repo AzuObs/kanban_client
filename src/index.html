@@ -4,41 +4,41 @@
 <head>
   <title>Kanban - {{state.current.name}}</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="common/bower-components/bootstrap/dist/css/bootstrap.css">
   <!-- build:css main.css -->
   <!-- COMMENT used by "grunt build" to concat and minify css-->
   <link rel="stylesheet" type="text/css" href="index.css">
   <link rel="stylesheet" type="text/css" href="common/directives/editable-text/editable-text.css">
   <link rel="stylesheet" type="text/css" href="common/directives/loading-bar/loading-bar.css">
-  <link rel="stylesheet" type="text/css" href="common/modals/modals.css">
+  <link rel="stylesheet" type="text/css" href="common/css/modals.css">
   <link rel="stylesheet" type="text/css" href="common/css/common-css.css">
-  <link rel="stylesheet" type="text/css" href="about/about.css">
-  <link rel="stylesheet" type="text/css" href="oauth/oauth.css">
-  <link rel="stylesheet" type="text/css" href="board-list/board-list.css">
-  <link rel="stylesheet" type="text/css" href="board-list/board-modal/board-modal.css">
-  <link rel="stylesheet" type="text/css" href="board/board.css">
-  <link rel="stylesheet" type="text/css" href="board/users/users.css">
-  <link rel="stylesheet" type="text/css" href="board/users/user-directive/user-directive.css">
-  <link rel="stylesheet" type="text/css" href="board/users/user-modal/user-modal.css">
-  <link rel="stylesheet" type="text/css" href="board/categories/categories.css">
-  <link rel="stylesheet" type="text/css" href="board/categories/category-directive/category-directive.css">
-  <link rel="stylesheet" type="text/css" href="board/tasks/tasks.css">
-  <link rel="stylesheet" type="text/css" href="board/tasks/task-directive/task-directive.css">
-  <link rel="stylesheet" type="text/css" href="board/tasks/task-modal/task-modal.css">
+  <link rel="stylesheet" type="text/css" href="about-page/about.css">
+  <link rel="stylesheet" type="text/css" href="oauth-page/oauth.css">
+  <link rel="stylesheet" type="text/css" href="board-list-page/board-list.css">
+  <link rel="stylesheet" type="text/css" href="board-list-page/board-modal/board-modal.css">
+  <link rel="stylesheet" type="text/css" href="board-page/board.css">
+  <link rel="stylesheet" type="text/css" href="board-page/users/users.css">
+  <link rel="stylesheet" type="text/css" href="board-page/users/user-directive/user-directive.css">
+  <link rel="stylesheet" type="text/css" href="board-page/users/user-modal/user-modal.css">
+  <link rel="stylesheet" type="text/css" href="board-page/categories/categories.css">
+  <link rel="stylesheet" type="text/css" href="board-page/categories/category-directive/category-directive.css">
+  <link rel="stylesheet" type="text/css" href="board-page/tasks/tasks.css">
+  <link rel="stylesheet" type="text/css" href="board-page/tasks/task-directive/task-directive.css">
+  <link rel="stylesheet" type="text/css" href="board-page/tasks/task-modal/task-modal.css">
   <link rel="stylesheet" type="text/css" href="common/views/navbar/navbar.css">
   <link rel="stylesheet" type="text/css" href="common/views/footer/footer.css">
   <!-- endbuild -->
   <link rel="icon" type="image/png" href="favicon.png">
 
-  <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
-  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="common/bower-components/jquery/dist/jquery.js"></script>
+  <script type="text/javascript" src="common/bower-components/angular/angular.js"></script>
   <!-- build:js main.js -->
   <!-- COMMENT used by "grunt build" to concat and uglify js-->
-  <script type="text/javascript" src="common/modified_bower_components/jquery-ui/jquery-ui-fixed.js"></script>
-  <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-  <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
-  <script type="text/javascript" src="bower_components/angular-ui-sortable/sortable.js"></script>
-  <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script type="text/javascript" src="common/modified-bower-components/jquery-ui/jquery-ui-fixed.js"></script>
+  <script type="text/javascript" src="common/bower-components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script type="text/javascript" src="common/bower-components/angular-resource/angular-resource.js"></script>
+  <script type="text/javascript" src="common/bower-components/angular-ui-sortable/sortable.js"></script>
+  <script type="text/javascript" src="common/bower-components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script type="text/javascript" src="index.js"></script>
   <script type="text/javascript" src="common/directives/loading-bar/loading-bar.js"></script>
   <script type="text/javascript" src="common/directives/editable-text/editable-text.js"></script>
@@ -52,19 +52,19 @@
   <script type="text/javascript" src="common/providers/user-factory/user-factory.js"></script>
   <script type="text/javascript" src="common/providers/server-api/server-api.js"></script>
   <script type="text/javascript" src="common/providers/constants.js"></script>
-  <script type="text/javascript" src="about/about.js"></script>
-  <script type="text/javascript" src="oauth/oauth.js"></script>
-  <script type="text/javascript" src="board-list/board-list.js"></script>
-  <script type="text/javascript" src="board-list/board-modal/board-modal.js"></script>
-  <script type="text/javascript" src="board/board.js"></script>
-  <script type="text/javascript" src="board/users/users.js"></script>
-  <script type="text/javascript" src="board/users/user-directive/user-directive.js"></script>
-  <script type="text/javascript" src="board/users/user-modal/user-modal.js"></script>
-  <script type="text/javascript" src="board/tasks/tasks.js"></script>
-  <script type="text/javascript" src="board/tasks/task-directive/task-directive.js"></script>
-  <script type="text/javascript" src="board/tasks/task-modal/task-modal.js"></script>
-  <script type="text/javascript" src="board/categories/categories.js"></script>
-  <script type="text/javascript" src="board/categories/category-directive/category-directive.js"></script>
+  <script type="text/javascript" src="about-page/about.js"></script>
+  <script type="text/javascript" src="oauth-page/oauth.js"></script>
+  <script type="text/javascript" src="board-list-page/board-list.js"></script>
+  <script type="text/javascript" src="board-list-page/board-modal/board-modal.js"></script>
+  <script type="text/javascript" src="board-page/board.js"></script>
+  <script type="text/javascript" src="board-page/users/users.js"></script>
+  <script type="text/javascript" src="board-page/users/user-directive/user-directive.js"></script>
+  <script type="text/javascript" src="board-page/users/user-modal/user-modal.js"></script>
+  <script type="text/javascript" src="board-page/tasks/tasks.js"></script>
+  <script type="text/javascript" src="board-page/tasks/task-directive/task-directive.js"></script>
+  <script type="text/javascript" src="board-page/tasks/task-modal/task-modal.js"></script>
+  <script type="text/javascript" src="board-page/categories/categories.js"></script>
+  <script type="text/javascript" src="board-page/categories/category-directive/category-directive.js"></script>
   <!-- endbuild -->
 </head>
 

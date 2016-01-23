@@ -22,7 +22,7 @@
 					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
-					templateUrl: "board-list/board-list.html",
+					templateUrl: "board-list-page/board-list.html",
 					controller: "boardListCtrl",
 					resolve: {
 						boards: ["userFactory", function(userFactory) {
@@ -55,7 +55,7 @@
 			$scope.openBoardModal = function(board) {
 				$modal.open({
 					animation: true,
-					templateUrl: "board-list/board-modal/board-modal.html",
+					templateUrl: "board-list-page/board-modal/board-modal.html",
 					controller: "boardModalCtrl",
 					scope: $scope,
 					resolve: {

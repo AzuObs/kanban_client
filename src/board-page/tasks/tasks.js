@@ -27,7 +27,7 @@
 					animation: true,
 					scope: $scope,
 					size: "lg",
-					templateUrl: "board/tasks/task-modal/task-modal.html",
+					templateUrl: "board-page/tasks/task-modal/task-modal.html",
 					controller: "taskModalCtrl",
 					resolve: {
 						catId: function() {

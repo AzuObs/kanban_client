@@ -13,7 +13,7 @@
 			},
 			restrict: "E",
 			replace: true,
-			templateUrl: "board/categories/category-directive/category-directive.html",
+			templateUrl: "board-page/categories/category-directive/category-directive.html",
 			controller: "kbCategoryController",
 			link: function(scope, elem, attr) {
 				scope.$on("$destroy", function() {

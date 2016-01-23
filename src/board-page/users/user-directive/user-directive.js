@@ -10,7 +10,7 @@
 			},
 			restrict: "E",
 			replace: true,
-			templateUrl: "board/users/user-directive/user-directive.html",
+			templateUrl: "board-page/users/user-directive/user-directive.html",
 			link: function(scope, elem, attr) {
 				scope.$on("$destroy", function() {
 					// cleanup
