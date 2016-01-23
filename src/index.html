@@ -8,7 +8,8 @@
   <!-- build:css main.css -->
   <!-- COMMENT used by "grunt build" to concat and minify css-->
   <link rel="stylesheet" type="text/css" href="index.css">
-  <link rel="stylesheet" type="text/css" href="common/editable-text/editable-text.css">
+  <link rel="stylesheet" type="text/css" href="common/directives/editable-text/editable-text.css">
+  <link rel="stylesheet" type="text/css" href="common/directives/loading-bar/loading-bar.css">
   <link rel="stylesheet" type="text/css" href="common/modals/modals.css">
   <link rel="stylesheet" type="text/css" href="common/css/common-css.css">
   <link rel="stylesheet" type="text/css" href="about/about.css">
@@ -24,9 +25,8 @@
   <link rel="stylesheet" type="text/css" href="board/tasks/tasks.css">
   <link rel="stylesheet" type="text/css" href="board/tasks/task-directive/task-directive.css">
   <link rel="stylesheet" type="text/css" href="board/tasks/task-modal/task-modal.css">
-  <link rel="stylesheet" type="text/css" href="common/navbar/navbar.css">
-  <link rel="stylesheet" type="text/css" href="common/footer/footer.css">
-  <link rel="stylesheet" type="text/css" href="common/loading-bar/loading-bar.css">
+  <link rel="stylesheet" type="text/css" href="common/views/navbar/navbar.css">
+  <link rel="stylesheet" type="text/css" href="common/views/footer/footer.css">
   <!-- endbuild -->
   <link rel="icon" type="image/png" href="favicon.png">
 
@@ -34,21 +34,22 @@
   <script type="text/javascript" src="bower_components/angular/angular.js"></script>
   <!-- build:js main.js -->
   <!-- COMMENT used by "grunt build" to concat and uglify js-->
-  <script type="text/javascript" src="modified_bower_components/jquery-ui/jquery-ui-fixed.js"></script>
+  <script type="text/javascript" src="common/modified_bower_components/jquery-ui/jquery-ui-fixed.js"></script>
   <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
   <script type="text/javascript" src="bower_components/angular-ui-sortable/sortable.js"></script>
   <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script type="text/javascript" src="index.js"></script>
-  <script type="text/javascript" src="common/globals/constants.js"></script>
-  <script type="text/javascript" src="common/globals/values.js"></script>
-  <script type="text/javascript" src="common/editable-text/editable-text.js"></script>
-  <script type="text/javascript" src="common/navbar/navbar.js"></script>
-  <script type="text/javascript" src="common/state-info/state-info.js"></script>
-  <script type="text/javascript" src="common/loading-bar/loading-bar.js"></script>
+  <script type="text/javascript" src="common/directives/loading-bar/loading-bar.js"></script>
+  <script type="text/javascript" src="common/directives/editable-text/editable-text.js"></script>
+  <script type="text/javascript" src="common/directives/deletable-object/deletable-object.js"></script>
+  <script type="text/javascript" src="common/views/navbar/navbar.js"></script>
+  <script type="text/javascript" src="common/views/state-info/state-info.js"></script>
   <script type="text/javascript" src="common/server-api/server-api.js"></script>
+  <script type="text/javascript" src="common/providers/sort-opts-factory/sort-opts-factory.js"></script>
   <script type="text/javascript" src="common/providers/board-factory/board-factory.js"></script>
   <script type="text/javascript" src="common/providers/user-factory/user-factory.js"></script>
+  <script type="text/javascript" src="common/providers/constants.js"></script>
   <script type="text/javascript" src="about/about.js"></script>
   <script type="text/javascript" src="oauth/oauth.js"></script>
   <script type="text/javascript" src="board-list/board-list.js"></script>

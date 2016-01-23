@@ -116,7 +116,7 @@ module.exports = function(grunt) {
       },
       development: {
         options: {
-          dest: "src/common/globals/constants.js"
+          dest: "src/common/constants.js"
         },
         constants: {
           ENV: {
@@ -127,7 +127,7 @@ module.exports = function(grunt) {
       },
       production: {
         options: {
-          dest: "src/common/globals/constants.js"
+          dest: "src/common/constants.js"
         },
         constants: {
           ENV: {
@@ -148,16 +148,6 @@ module.exports = function(grunt) {
         cwd: "src/",
         src: "**/*.html",
         dest: "release/"
-      },
-      bower_components_min: {
-        expand: true,
-        cwd: "src/bower_components",
-        src: [
-          "angular/angular.js", //CDN
-          "bootstrap/dist/css/bootstrap.css", //CDN
-          "jquery/dist/jquery.js" //CDN
-        ],
-        dest: "release/bower_components"
       }
     },
 
@@ -170,9 +160,9 @@ module.exports = function(grunt) {
         files: {
           "release/index.html": "release/index.html",
           "release/oauth/oauth.html": "release/oauth/oauth.html",
-          "release/common/footer/footer.html": "release/common/footer/footer.html",
-          "release/common/navbar/navbar.html": "release/common/navbar/navbar.html",
-          "release/common/state-info/state-info.html": "release/common/state-info/state-info.html",
+          "release/common/views/footer/footer.html": "release/common/views/footer/footer.html",
+          "release/common/views/navbar/navbar.html": "release/common/views/navbar/navbar.html",
+          "release/common/views/state-info/state-info.html": "release/common/views/state-info/state-info.html",
           "release/board-list/board-list.html": "release/board-list/board-list.html",
           "release/board-list/board-modal/board-modal.html": "release/board-list/board-modal/board-modal.html",
           "release/board/board.html": "release/board/board.html",

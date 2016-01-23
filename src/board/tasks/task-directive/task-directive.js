@@ -2,7 +2,11 @@
 	"use strict";
 
 	var module = angular.module("taskDirectiveModule", [
-		"boardFactoryModule", "ui.bootstrap", "ui.sortable", "userDirectiveModule", "globalValuesModule"
+		"boardFactoryModule",
+		"ui.bootstrap",
+		"ui.sortable",
+		"userDirectiveModule",
+		"sortOptsModule"
 	]);
 
 
@@ -28,57 +32,15 @@
 
 
 	module.controller("kbTaskCtrl", [
-		"boardFactory", "$scope", "$log",
-		function(boardFactory, $scope, $log, USER_SELECTION_HEIGHT) {
-			$scope.deleteTask = function(category, task) {
-				boardFactory.deleteTask(category, task);
-			};
+		"boardFactory", "$scope", "$log", "userSortOpts",
+		function(boardFactory, $scope, $log, userSortOpts) {
 
 			$scope.board = boardFactory.getBoardSync();
-			$scope.showUserList = false;
-			$scope.userSortOpts = {
-				appendTo: "body",
-				connectWith: ".user-list",
-				cursor: "move",
-				cursorAt: {
-					left: 16,
-					top: 16
-				},
-				helper: "clone",
-				horizontal: true,
-				scroll: false,
-				tolerance: "pointer",
-				activate: function(e, ui) {
-					if (e.clientY < USER_SELECTION_HEIGHT) {
-						$(ui.placeholder[0]).css("display", "none");
-						$(ui.helper.prevObject[0]).css("display", "block");
-					}
-					$(ui.placeholder[0]).css("margin", "0px");
-					$scope.showUserList = true;
-				},
-				change: function(e, ui) {
-					if (e.clientY > USER_SELECTION_HEIGHT) {
-						$(ui.placeholder[0]).css("display", "block");
-					} else {
-						$(ui.placeholder[0]).css("display", "none");
-					}
-				},
-				update: function(e, ui) {
-					// cancel duplicates
-					for (var i = 0; i < ui.item.sortable.droptargetModel.length; i++) {
-						if (ui.item.sortable.droptargetModel[i]._id === ui.item.sortable.model._id) {
-							$log.error("duplicate already exists in that list of task users");
-							ui.item.sortable.cancel();
-						}
-					}
-				},
-				beforeStop: function(e, ui) {
-					$scope.showUserList = false;
-				},
-				stop: function(e, ui) {
-					boardFactory.getBoardUsersSync();
-					boardFactory.updateBoard();
-				}
+			$scope.showUserList = userSortOpts.getShowUserLists();
+			$scope.userSortOpts = userSortOpts.getSortOpts();
+
+			$scope.deleteTask = function(category, task) {
+				boardFactory.deleteTask(category, task);
 			};
 		}
 	]);

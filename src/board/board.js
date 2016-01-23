@@ -14,11 +14,11 @@
 		$stateProvider.state("kanban.board", {
 			views: {
 				"navbar-view@": {
-					templateUrl: "common/navbar/navbar.html",
+					templateUrl: "common/views/navbar/navbar.html",
 					controller: "navbarCtrl"
 				},
 				"state-info-view@": {
-					templateUrl: "common/state-info/state-info.html",
+					templateUrl: "common/views/state-info/state-info.html",
 					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
@@ -42,7 +42,7 @@
 					controller: "taskCtrl"
 				},
 				"footer-view@": {
-					templateUrl: "common/footer/footer.html"
+					templateUrl: "common/views/footer/footer.html"
 				}
 			},
 			url: "/board/:boardName",
