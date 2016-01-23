@@ -8,12 +8,14 @@
 		"boardListModule",
 		"oauthModule",
 		"navbarModule",
-		"angular-loading-bar"
+		"angular-loading-bar",
+		"errorPagesModule"
 	]);
 
-	module.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
-		function($stateProvider, $urlRouterProvider, $httpProvider) {
-			$urlRouterProvider.otherwise("/kanban/identity");
+
+	module.config(["$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider",
+		function($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
+			$urlRouterProvider.otherwise("/kanban/404");
 
 			$stateProvider.state("kanban", {
 				abstract: true,
@@ -40,7 +42,8 @@
 
 			// log ui-router routing errors
 			$rootScope.$on("$stateChangeError", function() {
-				$state.go("kanban.oauth");
+				console.log.bind(console);
+				$state.go("kanban.401");
 			});
 		}
 	]);

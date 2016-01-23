@@ -1,0 +1,39 @@
+.error-pages-container {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  margin: 10px 0px 50px 0px;
+  /*size of current 'bazinga' img being used*/
+  min-height: 270px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.error-pages-img {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  margin: 0px 5px;
+  width: 50%;
+}
+
+.error-pages-body {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  margin: 0px 5px;
+  width: 50%;
+}
+
+.error-pages-body .redirect {
+  color: #555;
+  font-size: 20px;
+  font-weight: 900;
+  margin-top: 80px;
+  text-decoration: none;
+}
+
+.error-pages-body .redirect:hover {
+  color: #111;
+}
