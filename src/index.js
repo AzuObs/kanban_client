@@ -2,21 +2,13 @@
 	"use strict";
 
 	var module = angular.module("kanbanApp", [
-		"ui.bootstrap",
 		"ui.router",
-		"ui.sortable",
-		"navbarModule",
 		"aboutModule",
-		"stateInfoModule",
-		"angular-loading-bar",
-		"oauthModule",
-		"userFactoryModule",
-		"boardFactoryModule",
-		"boardListModule",
-		"boardModalModule",
 		"boardModule",
-		"categoryModule",
-		"categoryDirectiveModule"
+		"boardListModule",
+		"oauthModule",
+		"navbarModule",
+		"angular-loading-bar"
 	]);
 
 	module.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
@@ -47,7 +39,9 @@
 			$rootScope.state = $state;
 
 			// log ui-router routing errors
-			$rootScope.$on("$stateChangeError", console.log.bind(console));
+			$rootScope.$on("$stateChangeError", function() {
+				$state.go("kanban.oauth");
+			});
 		}
 	]);
 })();

@@ -3,8 +3,8 @@
 
 	var module = angular.module("boardModule", [
 		"boardFactoryModule",
+		"categoryModule",
 		"navbarModule",
-		"stateInfoModule",
 		"taskModule",
 		"ui.bootstrap",
 		"ui.router",
@@ -18,10 +18,6 @@
 				"navbar-view@": {
 					templateUrl: "common/views/navbar/navbar.html",
 					controller: "navbarCtrl"
-				},
-				"state-info-view@": {
-					templateUrl: "common/views/state-info/state-info.html",
-					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
 					templateUrl: "board-page/board.html",

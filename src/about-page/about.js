@@ -2,11 +2,8 @@
 	"use strict";
 
 	var module = angular.module("aboutModule", [
-		"stateInfoModule",
-		"ui.router",
 		"navbarModule",
-		"aboutModule",
-		"stateInfoModule"
+		"ui.router"
 	]);
 
 	module.config(["$stateProvider", function($stateProvider) {
@@ -16,10 +13,6 @@
 					templateUrl: "common/views/navbar/navbar.html",
 					controller: "navbarCtrl"
 				},
-				"state-info-view@": {
-					templateUrl: "common/views/state-info/state-info.html",
-					controller: "stateInfoCtrl"
-				},
 				"body-view@": {
 					templateUrl: "about-page/about.html",
 					controller: "aboutCtrl"
@@ -27,7 +20,6 @@
 				"footer-view@": {
 					templateUrl: "common/views/footer/footer.html"
 				}
-
 			},
 			url: "/about"
 		});

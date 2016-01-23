@@ -2,12 +2,13 @@
 	"use strict";
 
 	var module = angular.module("boardListModule", [
-		"userFactoryModule",
 		"boardFactoryModule",
+		"boardModule",
+		"boardModalModule",
 		"navbarModule",
-		"stateInfoModule",
 		"ui.bootstrap",
-		"ui.router"
+		"ui.router",
+		"userFactoryModule"
 	]);
 
 	module.config(["$stateProvider", function($stateProvider) {
@@ -16,10 +17,6 @@
 				"navbar-view@": {
 					templateUrl: "common/views/navbar/navbar.html",
 					controller: "navbarCtrl"
-				},
-				"state-info-view@": {
-					templateUrl: "common/views/state-info/state-info.html",
-					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
 					templateUrl: "board-list-page/board-list.html",

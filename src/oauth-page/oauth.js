@@ -2,11 +2,11 @@
 	"use strict";
 
 	var module = angular.module("oauthModule", [
-		"userFactoryModule",
+		"boardListModule",
 		"navbarModule",
-		"stateInfoModule",
 		"ui.bootstrap",
-		"ui.router"
+		"ui.router",
+		"userFactoryModule"
 	]);
 
 
@@ -16,10 +16,6 @@
 				"navbar-view@": {
 					templateUrl: "common/views/navbar/navbar.html",
 					controller: "navbarCtrl"
-				},
-				"state-info-view@": {
-					templateUrl: "common/views/state-info/state-info.html",
-					controller: "stateInfoCtrl"
 				},
 				"body-view@": {
 					templateUrl: "oauth-page/oauth.html",
