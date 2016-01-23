@@ -3,6 +3,19 @@
 
 	var module = angular.module("serverAPIModule", ["ngResource", "globalConstantsModule"]);
 
+	module.config(["$httpProvider", function($httpProvider) {
+		$httpProvider.interceptors.push(function() {
+			return {
+				request: function(req) {
+					if (sessionStorage.token) {
+						req.headers.token = sessionStorage.token;
+					}
+					return req;
+				}
+			};
+		});
+	}]);
+
 	module.service("serverAPI", [
 		"$rootScope", "$q", "$http", "ENV",
 		function($rootScope, $q, $http, ENV) {

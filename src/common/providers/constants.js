@@ -1,7 +1,10 @@
 'use strict';
 
- angular.module('globalConstantsModule', [])
+angular.module('globalConstantsModule', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://localhost:8000/api'})
+.constant('ENV', {
+	name: 'development',
+	apiEndpoint: 'http://localhost:8000/api'
+})
 
 ;

@@ -9,41 +9,30 @@
 		"oauthModule",
 		"navbarModule",
 		"angular-loading-bar",
-		"errorPagesModule"
+		"errorPageModule",
+		"errorHandlerModule"
 	]);
 
 
-	module.config(["$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider",
-		function($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
-			$urlRouterProvider.otherwise("/kanban/404");
+	module.config([
+		"$stateProvider", "$urlRouterProvider",
+		function($stateProvider, $urlRouterProvider) {
+			$urlRouterProvider.otherwise("/kanban/error");
 
 			$stateProvider.state("kanban", {
 				abstract: true,
 				url: "/kanban"
 			});
-
-			$httpProvider.interceptors.push(function() {
-				return {
-					request: function(req) {
-						if (sessionStorage.token) {
-							req.headers.token = sessionStorage.token;
-						}
-						return req;
-					}
-				};
-			});
 		}
 	]);
 
 	module.run([
-		"$rootScope", "$state",
-		function($rootScope, $state) {
+		"$rootScope", "$state", "errorHandler",
+		function($rootScope, $state, errorHandler) {
 			$rootScope.state = $state;
 
-			// log ui-router routing errors
-			$rootScope.$on("$stateChangeError", function() {
-				console.log.bind(console);
-				$state.go("kanban.401");
+			$rootScope.$on("$stateChangeError", function(err) {
+				errorHandler.handleAppError(err);
 			});
 		}
 	]);

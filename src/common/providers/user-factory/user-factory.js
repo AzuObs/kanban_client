@@ -1,12 +1,14 @@
 (function() {
 	"user strict";
 
-	var module = angular.module("userFactoryModule", ["serverAPIModule", "ui.router"]);
+	var module = angular.module("userFactoryModule", [
+		"serverAPIModule", "errorHandlerModule", "ui.router"
+	]);
 
 
 	module.factory("userFactory", [
-		"$q", "serverAPI", "$state",
-		function($q, serverAPI, $state) {
+		"$q", "serverAPI", "errorHandler", "$state",
+		function($q, serverAPI, errorHandler, $state) {
 			var user, boards;
 
 			return {
@@ -19,7 +21,7 @@
 							user = res;
 							defer.resolve(res);
 						}, function(err) {
-							defer.reject(err);
+							errorHandler.handleHttpError(err);
 						});
 
 					return defer.promise;
@@ -34,7 +36,7 @@
 							boards = res;
 							defer.resolve(res);
 						}, function(err) {
-							defer.reject(err);
+							errorHandler.handleHttpError(err);
 						});
 
 					return defer.promise;
@@ -48,7 +50,7 @@
 						.then(function(res) {
 							that.onSuccessfulLoginSync(res);
 						}, function(err) {
-							$log.error(err);
+							errorHandler.handleHttpError(err);
 						});
 
 					return defer.promise;
@@ -65,8 +67,7 @@
 							}
 							defer.resolve(res);
 						}, function(err) {
-							$log.error(err);
-							defer.reject(err);
+							errorHandler.handleHttpError(err);
 						});
 
 					return defer.promise;
@@ -85,8 +86,7 @@
 							}
 							defer.resolve(res);
 						}, function(err) {
-							$log.error(err);
-							defer.reject(err);
+							errorHandler.handleHttpError(err);
 						});
 
 					return defer.promise;
@@ -102,7 +102,7 @@
 						.then(function(res) {
 							that.onSuccessfulLoginSync(res);
 						}, function(err) {
-							$log.error(err);
+							errorHandler.handleHttpError(err);
 						});
 
 					return defer.promise;
