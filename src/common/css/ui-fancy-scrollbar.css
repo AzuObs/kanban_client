@@ -1,0 +1,18 @@
+/**
+ * ui-fancy-scrollbarbar only available in webkit 
+ */
+
+.ui-fancy-scrollbar::-webkit-scrollbar {
+  height: 9 px;
+  width: 9 px;
+}
+
+.ui-fancy-scrollbar::-webkit-scrollbar-track {
+  background: #ddd;
+  border - radius: 5 px;
+}
+
+.ui-fancy-scrollbar::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border - radius: 5 px;
+}
