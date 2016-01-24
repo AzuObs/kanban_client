@@ -6,7 +6,7 @@
 
 	module.factory("errorHandler", ["$log", "$state", function($log, $state) {
 		var error = {
-			value: undefined,
+			value: "Not Found",
 			counter: 0
 		};
 

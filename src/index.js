@@ -17,15 +17,16 @@
 	module.config([
 		"$stateProvider", "$urlRouterProvider", "$injector",
 		function($stateProvider, $urlRouterProvider, $injector) {
+			$stateProvider.state("kanban", {
+				abstract: true,
+				url: "/kanban"
+			});
+
+
 			$urlRouterProvider.otherwise(function($injector) {
 				$injector.invoke(["errorHandler", function(errorHandler) {
 					errorHandler.handleAppError("Not Found");
 				}]);
-			});
-
-			$stateProvider.state("kanban", {
-				abstract: true,
-				url: "/kanban"
 			});
 		}
 	]);
@@ -35,8 +36,8 @@
 		function($rootScope, $state, errorHandler) {
 			$rootScope.state = $state;
 
-			$rootScope.$on("$stateChangeError", function(err) {
-				errorHandler.handleAppError(err);
+			$rootScope.$on("$stateChangeError", function() {
+				errorHandler.handleAppError("State Change Error");
 			});
 		}
 	]);

@@ -35,8 +35,6 @@
 
 
 			$scope.$watch("error.counter", function() {
-				console.log($scope.error.value);
-
 				switch ($scope.error.value) {
 					case "Unauthorized":
 						$scope.redirectClick = function() {
@@ -58,6 +56,15 @@
 						break;
 
 					case "Internal Server Error":
+						$scope.redirectClick = function() {
+							$state.go("kanban.oauth");
+						};
+						$scope.title = "500 - Internal Server Error";
+						$scope.subtitle = "An error happened on the server's end.";
+						$scope.redirectMsg = "GO TO LOGIN";
+						break;
+
+					case "State Change Error":
 						$scope.redirectClick = function() {
 							$state.go("kanban.oauth");
 						};
