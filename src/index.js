@@ -15,9 +15,13 @@
 
 
 	module.config([
-		"$stateProvider", "$urlRouterProvider",
-		function($stateProvider, $urlRouterProvider) {
-			$urlRouterProvider.otherwise("kanban.error");
+		"$stateProvider", "$urlRouterProvider", "$injector",
+		function($stateProvider, $urlRouterProvider, $injector) {
+			$urlRouterProvider.otherwise(function($injector) {
+				$injector.invoke(["errorHandler", function(errorHandler) {
+					errorHandler.handleAppError("Not Found");
+				}]);
+			});
 
 			$stateProvider.state("kanban", {
 				abstract: true,

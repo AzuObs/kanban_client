@@ -17,11 +17,13 @@
 			handleHttpError: function(err) {
 				error.value = err;
 				error.counter++;
+				$log.error(err);
 				$state.go("kanban.error");
 			},
 			handleAppError: function(err) {
 				error.value = err;
 				error.counter++;
+				$log.error(err);
 				$state.go("kanban.error");
 			}
 		};

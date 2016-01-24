@@ -50,20 +50,20 @@
 
 					case "Not Found":
 						$scope.redirectClick = function() {
-							$window.history.back();
+							$state.go("kanban.oauth");
 						};
 						$scope.title = "404 - Not found";
-						$scope.subtitle = "The requested content could not be found.";
-						$scope.redirectMsg = "GO BACK";
+						$scope.subtitle = "The requested content could not be retrieved.";
+						$scope.redirectMsg = "GO TO LOGIN";
 						break;
 
 					case "Internal Server Error":
 						$scope.redirectClick = function() {
-							$window.history.back();
+							$state.go("kanban.oauth");
 						};
 						$scope.title = "500 - Internal Server Error";
 						$scope.subtitle = "An error happened on the server's end.";
-						$scope.redirectMsg = "GO BACK";
+						$scope.redirectMsg = "GO TO LOGIN";
 						break;
 
 					default:
