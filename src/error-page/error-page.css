@@ -1,11 +1,9 @@
 .error-pages-container {
-  align-items: center;
   display: flex;
-  flex: 1 1 auto;
-  flex-direction: row;
-  margin: 10px 0px 50px 0px;
-  /*size of current 'bazinga' img being used*/
-  min-height: 270px;
+  /*flex: 1 0 auto;*/
+  margin: 10px 0px;
+  padding: 5% 0px 2% 0px;
+  min-height: 0px;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -16,6 +14,8 @@
   justify-content: center;
   margin: 0px 5px;
   width: 50%;
+  height: 270px;
+  min-height: 270px;
 }
 
 .error-pages-body {

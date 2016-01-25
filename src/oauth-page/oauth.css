@@ -1,8 +1,10 @@
 .oauth-container {
   display: flex;
-  flex: 0 1 auto;
+  margin: 10px 0px;
+  min-height: 0px;
+  overflow-x: hidden;
+  overflow-y: auto;
   justify-content: space-around;
-  min-height: 295px;
 }
 
 .oauth-container h3 {

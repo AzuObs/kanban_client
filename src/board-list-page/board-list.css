@@ -1,6 +1,13 @@
+.board-list-container {
+  margin: 10px 0px;
+  min-height: 0px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .board-list {
-  margin: 15px 0 30px 0;
   font-size: 25px;
+  margin: 15px 0 30px 0;
 }
 
 .board-list > * {
