@@ -2,10 +2,11 @@
 * body-height : 100% viewport height;
  */
 
+html,
 body {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 }
 
 .navbar-view {
@@ -17,10 +18,13 @@ body {
 }
 
 .body-view {
+  position: relative;
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 0 auto;
   flex-direction: column;
-  min-height: 295px;
+  height: 0;
+  /* would be nice but doesn't work on mozilla, so I created a directive copy-child-min-height
+   min-height: min-content;*/
   padding: 0px 10px 2px 10px;
 }
 

@@ -10,7 +10,8 @@
 		"navbarModule",
 		"angular-loading-bar",
 		"errorPageModule",
-		"errorHandlerModule"
+		"errorHandlerModule",
+		"copyChildMinHeightDirectiveModule"
 	]);
 
 

@@ -1,3 +1,10 @@
+.board-container {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 295px;
+}
+
 .user-view {
   flex: 0 0 auto;
 }

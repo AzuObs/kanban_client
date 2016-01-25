@@ -1,7 +1,7 @@
 .about-container {
   flex: 1 1 auto;
   margin: 10px 0px;
-  min-height: 0px;
+  min-height: 300px;
   overflow-x: hidden;
   overflow-y: auto;
 }
