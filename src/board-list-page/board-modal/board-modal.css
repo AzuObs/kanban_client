@@ -1,5 +1,6 @@
 .board-modal {
   width: 410px;
+  min-width: 410px;
 }
 
 .board-modal .edit-board:hover {
