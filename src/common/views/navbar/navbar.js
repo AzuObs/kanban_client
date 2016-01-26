@@ -1,22 +1,20 @@
 (function() {
 
-	var module = angular.module("navbarModule", ["ui.bootstrap", "ui.router"]);
+	var module = angular.module("navbarModule", ["expandableTextDirectiveModule"]);
 
-	module.value("APP_NAME", "kanban");
-	module.value("JP_APP_NAME", "看板");
-
-	module.controller("navbarCtrl", ["$scope", "APP_NAME", "JP_APP_NAME", function($scope, APP_NAME, JP_APP_NAME) {
-		$scope.appName = APP_NAME;
-		$scope.jpAppName = JP_APP_NAME;
-		$scope.navLinks = [{
+	module.controller("navbarCtrl", ["$scope", function($scope) {
+		$scope.appName = "KANBAN";
+		$scope.jpAppName = "看板";
+		$scope.menuLinks = [{
 			state: "kanban.oauth",
 			name: "Login"
 		}, {
 			state: "kanban.boardList",
-			name: "Visit Boards"
+			name: "Boards"
 		}, {
 			state: "kanban.about",
 			name: "About"
 		}];
+		$scope.menuIsExpanded = true;
 	}]);
 })();

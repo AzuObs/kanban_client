@@ -1,21 +1,10 @@
-<div class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav">
-      <li>
-        <a class="navbar-link app-title" ui-sref="kanban.boardList">{{appName | uppercase}} <span class="app-subtitle">{{jpAppName}}</span></a>
-      </li>
-    </ul>
+<div class="navigation-container">
+  <a ui-sref="kanban.oauth" class="navigation-title">
+    <h1>{{appName}}</h1>
+    <h3>{{jpAppName}}</h3>
+  </a>
 
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown" dropdown>
-        <a class="navbar-link" dropdown-toggle href>
-          <span class="glyphicon glyphicon-menu-hamburger"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li ng-repeat="link in navLinks"><a ui-sref="{{link.state}}">{{link.name}}</a></li>
-        </ul>
-      </li>
-    </ul>
+  <div expandable-text expanded="menuIsExpanded" class="navigation-menu">
+    <a ng-repeat="link in menuLinks" class="navigation-link" ui-sref="{{link.state}}">{{link.name}}</a>
   </div>
 </div>
-<div class="navbar-fixed-padding"></div>
