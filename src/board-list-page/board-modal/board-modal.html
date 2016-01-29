@@ -1,4 +1,4 @@
-<div class="board-modal modal-container" ng-click="cancelEditing($event)">
+<div class="board-modal modal-container">
   <div class="modal-close">
     <button class="btn glyphicon glyphicon-remove" ng-click="closeModal()"></button>
   </div>
@@ -16,8 +16,5 @@
     <h4>Options</h4>
     <button class="btn btn-block btn-default edit-text-toggle" ng-click="toggleIsEditingTitle($event)">Rename Board</button>
     <button class="btn btn-block btn-danger" ng-disabled="true">Transfer Ownership</button>
-    <button class="btn btn-block btn-danger delete-board" ng-click="deleteBoard($event)">Delete Board</button>
-    <p ng-show="isDeletingBoard"><em class="delete-board text-danger">Are you sure? Deleting a board is permanent. Confirm by typing the name of the board and press enter.</em></p>
-    <input class="delete-board delete-board-input form-control" ng-keypress="deleteBoard($event)" ng-model="repeatBoardName" ng-show="isDeletingBoard" placeholder="enter board name" type="text">
+    <deletable-object delete-fn="deleteBoard()" object-name="{{board.name}}" object-type="board"></deletable-object>
   </div>
-</div>

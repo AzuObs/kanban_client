@@ -17,7 +17,7 @@
       <div class="modal-newcomment">
         <b>Activity</b>
         <div class="form-group">
-          <textarea class="form-control" ng-model="commentInput" placeholder="Add a comment..."></textarea>d
+          <textarea class="form-control" ng-model="commentInput" placeholder="Add a comment..."></textarea>
           <button class="btn btn-black btn-block" ng-click="createComment()">Add Comment</button>
         </div>
       </div>
@@ -68,6 +68,6 @@
         </ul>
       </div>
 
-      <deletable-object delete-fn="deleteTask()" is-deleting="isDeletingTask" object-name="{{task.name}}" object-type="task"></deletable-object>
+      <deletable-object delete-fn="deleteTask()" object-name="{{task.name}}" object-type="task"></deletable-object>
     </div>
   </div>

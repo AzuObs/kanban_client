@@ -186,9 +186,7 @@
 			$scope.taskIndex = $scope.getTaskIndex();
 			$scope.isEditingTitle = false;
 			$scope.updateTitle = boardFactory.updateBoard;
-			$scope.isDeletingTask = false;
 			$scope.commentInput = "";
-			$scope.repeatTaskName = "";
 			$scope.user = user;
 			$scope.users = $scope.task.users;
 			$scope.addableUsers = [];

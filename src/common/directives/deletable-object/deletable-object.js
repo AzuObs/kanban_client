@@ -12,7 +12,7 @@
 				objectName: "@",
 				objectType: "@",
 				isDeleting: "=",
-				isDisabled: "@",
+				isDisabled: "=",
 				deleteFn: "&"
 			},
 			replace: true,

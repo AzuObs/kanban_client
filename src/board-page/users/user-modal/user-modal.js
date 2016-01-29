@@ -2,19 +2,16 @@
 	"use strict";
 
 	var module = angular.module("userModalModule", [
-		"boardFactoryModule", "ui.bootstrap", "ui.router", "userDirectiveModule"
+		"boardFactoryModule",
+		"ui.bootstrap",
+		"ui.router",
+		"userDirectiveModule",
+		"deletableObjectDirectiveModule"
 	]);
 
 	module.controller("userModalCtrl", [
 		"$state", "$log", "$scope", "$modalInstance", "boardFactory", "user",
 		function($state, $log, $scope, $modalInstance, boardFactory, user) {
-			$scope.modalUser = user;
-			$scope.boardUsers = boardFactory.getBoardUsersSync();
-			$scope.isEditingRBAC = false;
-			$scope.isDeleting = false;
-			$scope.repeatUsername = "";
-			$scope.userRBAC = undefined; // initialized at the bottom of this block
-			$scope.userIsAdmin = false; // initialized at the bottom of this block
 
 			$scope.cancelEditing = function(e) {
 				if (!e) {
@@ -26,12 +23,6 @@
 					$scope.isEditingRBAC = false;
 					$scope.userRBAC = $scope.getUserRBAC();
 				}
-
-				if (!angular.element(e.target)
-					.hasClass("remove-user")) {
-					$scope.isDeleting = false;
-					$scope.repeatUsername = "";
-				}
 			};
 
 			$scope.changeUserRBAC = function(e) {
@@ -41,84 +32,60 @@
 				$scope.isEditingRBAC = !$scope.isEditingRBAC;
 			};
 
-			$scope.removeUser = function(e) {
-				if (!e) {
-					return $log.error("no $event received @removeUser");
-				}
-
-				if (e.type === "click") {
-					$scope.isDeleting = !$scope.isDeleting;
-					$scope.repeatUsername = "";
-
-					setTimeout(function() {
-						angular.element("input.remove-user")
-							.focus();
-					}, 0);
-				}
-
-				if (e.type === "keypress" && e.which === 13) {
-					if ($scope.repeatUsername === $scope.modalUser.username) {
-						for (var i = 0; i < $scope.board.admins.length; i++) {
-							if ($scope.board.admins[i]._id === $scope.modalUser._id) {
-								$scope.board.admins.splice(i, 1);
-								break;
-							}
-						}
-
-						for (i = 0; i < $scope.board.members.length; i++) {
-							if ($scope.board.members[i]._id === $scope.modalUser._id) {
-								$scope.board.members.splice(i, 1);
-								break;
-							}
-						}
-
-						for (i = 0; i < $scope.users.length; i++) {
-							if ($scope.users[i]._id === $scope.modalUser._id) {
-								$scope.users.splice(i, 1);
-								break;
-							}
-						}
-
-						// from tasks
-						for (i = 0; i < $scope.board.categories.length; i++) {
-							var category = $scope.board.categories[i];
-
-							for (var j = 0; j < category.tasks.length; j++) {
-								var task = category.tasks[j];
-
-								for (var k = 0; k < task.users.length; k++) {
-									var user = task.users[k];
-
-									if (user._id === $scope.modalUser._id) {
-										task.users.splice(k, 1);
-										break;
-									}
-								}
-							}
-						}
-
-						if ($scope.users.length) {
-							console.log(boardFactory.getBoardSync());
-							boardFactory.updateBoard();
-							$scope.closeModal();
-						} else {
-							// no users left
-							boardFactory
-								.deleteBoard($scope.board._id)
-								.then(function() {
-									$state.go("kanban.boardList", {
-										username: $scope.user.username
-									});
-								}, function(err) {
-									$log.error(err);
-									$log.error("could not delete last user and/or board");
-								});
-						}
-
-					} else {
-						$scope.isDeleting = false;
-						$log.error("username incorrect");
+			$scope.removeUser = function() {
+				for (var i = 0; i < $scope.board.admins.length; i++) {
+					if ($scope.board.admins[i]._id === $scope.modalUser._id) {
+						$scope.board.admins.splice(i, 1);
+						break;
 					}
+				}
+
+				for (i = 0; i < $scope.board.members.length; i++) {
+					if ($scope.board.members[i]._id === $scope.modalUser._id) {
+						$scope.board.members.splice(i, 1);
+						break;
+					}
+				}
+
+				for (i = 0; i < $scope.users.length; i++) {
+					if ($scope.users[i]._id === $scope.modalUser._id) {
+						$scope.users.splice(i, 1);
+						break;
+					}
+				}
+
+				// from tasks
+				for (i = 0; i < $scope.board.categories.length; i++) {
+					var category = $scope.board.categories[i];
+
+					for (var j = 0; j < category.tasks.length; j++) {
+						var task = category.tasks[j];
+
+						for (var k = 0; k < task.users.length; k++) {
+							var user = task.users[k];
+
+							if (user._id === $scope.modalUser._id) {
+								task.users.splice(k, 1);
+								break;
+							}
+						}
+					}
+				}
+
+				if ($scope.users.length) {
+					boardFactory.updateBoard();
+					$scope.closeModal();
+				} else {
+					// no users left
+					boardFactory
+						.deleteBoard($scope.board._id)
+						.then(function() {
+							$state.go("kanban.boardList", {
+								username: $scope.user.username
+							});
+						}, function(err) {
+							$log.error("could not delete last user and/or board");
+						});
 				}
 			};
 
@@ -144,8 +111,12 @@
 				$log.error("user does not have RBAC");
 			};
 
-			$scope.userIsAdmin = $scope.getUserRBAC() === "admin";
+			$scope.modalUser = user;
+			$scope.boardUsers = boardFactory.getBoardUsersSync();
+			$scope.isEditingRBAC = false;
+			$scope.repeatUsername = "";
 			$scope.userRBAC = $scope.getUserRBAC();
+			$scope.userIsAdmin = $scope.userRBAC === "admin";
 		}
 	]);
 
