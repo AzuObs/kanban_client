@@ -8,7 +8,8 @@
 		"ui.sortable",
 		"userDirectiveModule",
 		"userModalModule",
-		"UserSortOptsModule"
+		"UserSortOptsModule",
+		"capitalizeFilterModule"
 	]);
 
 

@@ -2,7 +2,9 @@
 	"use strict";
 
 	var module = angular.module("categoryDirectiveModule", [
-		"ui.router", "boardFactoryModule"
+		"ui.router",
+		"boardFactoryModule",
+		"capitalizeFilterModule"
 	]);
 
 

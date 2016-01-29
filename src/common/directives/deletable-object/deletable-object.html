@@ -1,5 +1,5 @@
 <div>
-  <button class="btn btn-block btn-danger deletable-object-toggle" ng-click="toggleDeleting($event)" ng-disabled="isDisabled">Remove {{objectType}}</button>
+  <button class="btn btn-block btn-danger deletable-object-toggle" ng-click="toggleDeleting($event)" ng-disabled="isDisabled">Remove {{objectType | capitalize}}</button>
 
   <em class="text-danger" ng-show="isDeleting">You are about to remove your {{objectType}}. To confirm, type the name of the {{objectType}} and press enter.</em>
 

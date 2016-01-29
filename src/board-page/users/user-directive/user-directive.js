@@ -1,7 +1,10 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("userDirectiveModule", ["ui.bootstrap"]);
+	var module = angular.module("userDirectiveModule", [
+		"ui.bootstrap",
+		"capitalizeFilterModule"
+	]);
 
 	module.directive("kbUser", function() {
 		var directiveDefinitionObject = {

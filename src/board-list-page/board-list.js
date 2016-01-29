@@ -8,7 +8,8 @@
 		"navbarModule",
 		"ui.bootstrap",
 		"ui.router",
-		"userFactoryModule"
+		"userFactoryModule",
+		"capitalizeFilterModule"
 	]);
 
 	module.config(["$stateProvider", function($stateProvider) {

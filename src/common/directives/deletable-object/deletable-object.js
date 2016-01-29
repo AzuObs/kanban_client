@@ -1,7 +1,9 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("deletableObjectDirectiveModule", []);
+	var module = angular.module("deletableObjectDirectiveModule", [
+		"capitalizeFilterModule"
+	]);
 
 	// attributes is-deleting and is-disabled are optional
 	module.directive("deletableObject", ["$log", function($log) {
