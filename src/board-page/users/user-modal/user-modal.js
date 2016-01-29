@@ -6,8 +6,7 @@
 		"ui.bootstrap",
 		"ui.router",
 		"userDirectiveModule",
-		"deletableObjectDirectiveModule",
-		"capitalizeFilterModule"
+		"deletableObjectDirectiveModule"
 	]);
 
 	module.controller("userModalCtrl", [
