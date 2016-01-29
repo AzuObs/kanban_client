@@ -2,7 +2,9 @@
   <div class="category-container">
     <div class="category-header">
       <h4>{{::categoryName}}</h4>
-      <button class="close-category" ng-click="deleteCategory(category)"><span class='glyphicon glyphicon-remove'></span></button>
+      <button class="close-category" ng-click="deleteCategory(category)">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
     </div>
     <div class="task-view" ui-view="task-view"></div>
   </div>

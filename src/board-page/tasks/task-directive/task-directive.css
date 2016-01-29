@@ -19,13 +19,14 @@
 .close-task {
   position: absolute;
   top: 1px;
-  right: 3px;
+  right: 2px;
   background: rgba(0, 0, 0, 0);
   border: none;
   color: rgba(0, 0, 0, 0);
   font-size: 8px;
-  height: 0px;
-  padding: 0px;
+  height: 13px;
+  width: 13px;
+  padding: 2px;
 }
 
 .task-container:hover .close-task {

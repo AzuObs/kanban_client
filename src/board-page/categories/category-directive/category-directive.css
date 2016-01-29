@@ -30,8 +30,8 @@
 }
 
 .category-header:hover {
-  cursor: -webkit-grab;
-  cursor: grab;
+  /*cursor: -webkit-grab;*/
+  /*cursor: -moz-pointer;*/
 }
 
 .category-header > h4 {
@@ -44,14 +44,18 @@
 
 .category-header > .close-category {
   position: relative;
-  bottom: 31px;
-  left: 218px;
+  bottom: 29px;
+  left: 216px;
+  align-items: center;
   background: rgba(0, 0, 0, 0);
   border: none;
   color: rgba(0, 0, 0, 0);
+  display: flex;
   font-size: 10px;
-  height: 0px;
-  padding: 0px;
+  height: 14px;
+  justify-content: center;
+  width: 14px;
+  padding: 1px;
 }
 
 .category-container:hover .close-category {
