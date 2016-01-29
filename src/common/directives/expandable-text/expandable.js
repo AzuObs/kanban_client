@@ -7,15 +7,14 @@
 	module.directive("expandableText", [function() {
 		var directiveDefinition = {
 			restrict: "AE",
-			scope: {
-				isExpanded: "=expanded"
-			},
 			transclude: true,
 			templateUrl: "common/directives/expandable-text/expandable.html",
 			link: function(scope, elem, attr) {
 				scope.toggleIsExpanded = function() {
 					scope.isExpanded = !scope.isExpanded;
 				};
+
+				scope.isExpanded = true;
 			}
 		};
 

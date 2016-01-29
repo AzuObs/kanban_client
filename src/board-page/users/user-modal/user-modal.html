@@ -4,8 +4,8 @@
   </div>
 
   <div class="modal-title">
-    <h3>{{modalUser.username}}</h3>
-    <h4 class="text-muted">in board <b>{{board.name | uppercase}}</b></h4>
+    <h3>{{::modalUser.username}}</h3>
+    <h4 class="text-muted">in board <b>{{::board.name | uppercase}}</b></h4>
   </div>
 
   <div class="modal-user-list">
@@ -33,11 +33,7 @@
     </div>
 
     <em class="remove-user text-muted" ng-show="userIsAdmin">Cannot remove an admin from the board.</em>
-    <!-- <button class="btn btn-block btn-danger remove-user" ng-click="removeUser($event)" ng-disabled="userIsAdmin">Remove User</button>
-    <em class="remove-user text-danger" ng-show="isDeleting && !userIsAdmin">You are about to remove the user "{{modalUser.username}}" from your board. Confirm by typing the name of the user and press by enter.</em>
-    <input class="remove-user form-control" ng-keypress="removeUser($event)" ng-model="repeatUsername" ng-show="isDeleting" placeholder="name of user" type="text">
-  -->
-    <deletable-object is-disabled="userIsAdmin" delete-fn="removeUser()" object-name="{{modalUser.username}}" object-type="user"></deletable-object>
+    <deletable-object is-disabled="{{userIsAdmin}}" delete-fn="removeUser()" object-name="{{modalUser.username}}" object-type="user"></deletable-object>
 
   </div>
 </div>

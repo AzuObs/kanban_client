@@ -1,9 +1,9 @@
-<h3>{{board.name | capitalize}} Board</h3>
+<h3>{{::board.name | capitalize}} Board</h3>
 
 <div class="user-menu-container">
   <div class="board-member-container">
     <span class="user-selection" ng-model="users" ui-sortable="userSortOpts">
-      <kb-user ng-model="user" ng-click="editUser(user)" ng-repeat="user in users"></kb-user>
+      <kb-user ng-model="::user" ng-click="editUser(user)" ng-repeat="user in users"></kb-user>
     </span>
   </div>
 
@@ -11,7 +11,7 @@
     <input class="form-control input-md" dropdown-toggle ng-keypress="addMember($event)" ng-model="addMemberInput" placeholder="ex:member@mail.com" type="text">
     <ul class="add-member-dropdown dropdown-menu">
       <li ng-click="setAddMember(member.email)" ng-repeat="member in membersSuggestions">
-        <a>{{member.email}}</a>
+        <a>{{::member.email}}</a>
       </li>
     </ul>
   </span>

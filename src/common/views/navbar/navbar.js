@@ -15,6 +15,5 @@
 			state: "kanban.about",
 			name: "About"
 		}];
-		$scope.menuIsExpanded = true;
 	}]);
 })();

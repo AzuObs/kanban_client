@@ -46,8 +46,10 @@
 			$scope.user = user;
 			$scope.boards = boards;
 
-			$scope.createBoard = function() {
-				userFactory.createBoard($scope.boardName);
+			$scope.createBoard = function(e) {
+				if ((e.type === "keypress" && e.which === 13) || (e.type === "click")) {
+					userFactory.createBoard($scope.boardName);
+				}
 			};
 
 			$scope.openBoardModal = function(board) {

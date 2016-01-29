@@ -13,14 +13,12 @@
 			scope: {
 				objectName: "@",
 				objectType: "@",
-				isDeleting: "=",
-				isDisabled: "=",
+				isDisabled: "@",
 				deleteFn: "&"
 			},
 			replace: true,
 			templateUrl: "common/directives/deletable-object/deletable-object.html",
 			link: function(scope, elem, attr) {
-
 				scope.toggleDeleting = function() {
 					scope.isDeleting = !scope.isDeleting;
 					scope.repeatObjectName = "";
@@ -53,8 +51,9 @@
 					// 
 				});
 
-				scope.isDeleting = scope.isDeleting || false;
+				scope.isDeleting = false;
 				scope.isDisabled = scope.isDisabled || false;
+				console.log(scope.isDisabled);
 				scope.repeatObjectName = "";
 			}
 		};
