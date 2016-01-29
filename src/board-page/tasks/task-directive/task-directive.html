@@ -5,7 +5,7 @@
 
   <div class="user-list-container">
     <div ui-sortable="::userSortOpts" ng-model="task.users" class="user-list" ng-class="{background: showUserList.value}">
-      <kb-user ng-model="user" ng-repeat="user in task.users">
+      <kb-user ng-model="user" ng-repeat="user in task.users track by user._id">
       </kb-user>
     </div>
   </div>

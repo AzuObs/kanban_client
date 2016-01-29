@@ -1,7 +1,7 @@
 <div class="category-wrapper">
   <div class="category-container">
     <div class="category-header">
-      <h4>{{::category.name | capitalize}}</h4>
+      <h4>{{::category.name}}</h4>
       <button class="close-category" ng-click="deleteCategory(category)"><span class='glyphicon glyphicon-remove'></span></button>
     </div>
     <div class="task-view" ui-view="task-view"></div>

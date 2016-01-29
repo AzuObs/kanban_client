@@ -14,8 +14,8 @@
 
 
 	module.controller("userMenuCtrl", [
-		"$scope", "$modal", "$log", "boardFactory", "UserSortOpts",
-		function($scope, $modal, $log, boardFactory, UserSortOpts) {
+		"$scope", "$modal", "$log", "boardFactory", "UserSortOpts", "$filter",
+		function($scope, $modal, $log, boardFactory, UserSortOpts, $filter) {
 			$scope.editUser = function(user) {
 				if (!user) {
 					return $log.error("no arguments for userMenuCtrl.editUser()");
@@ -59,6 +59,7 @@
 			};
 
 			$scope.board = boardFactory.getBoardSync();
+			$scope.boardName = $filter("capitalize")($scope.board.name);
 			$scope.users = boardFactory.getBoardUsersSync();
 			$scope.userSortOpts = new UserSortOpts($scope.stopSort);
 			$scope.addMemberInput = "";

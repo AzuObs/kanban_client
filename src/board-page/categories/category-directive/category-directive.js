@@ -29,11 +29,13 @@
 
 
 	module.controller("kbCategoryController", [
-		"$scope", "boardFactory",
-		function($scope, boardFactory) {
+		"$scope", "boardFactory", "$filter",
+		function($scope, boardFactory, $filter) {
 			$scope.deleteCategory = function(cat) {
 				boardFactory.deleteCategory(cat);
 			};
+
+			$scope.categoryName = $filter("capitalize")($scope.category.name);
 		}
 	]);
 })();

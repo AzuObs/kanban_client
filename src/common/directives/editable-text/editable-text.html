@@ -1,2 +1,2 @@
 <input class="form-control editable-text" ng-blur="setEditing(false, $event)" ng-keypress="validate($event)" ng-model="text" ng-if="isEditing" type="text">
-<ng-transclude ng-click="setEditing(true)" ng-hide="isEditing"></ng-transclude>
+<ng-transclude ng-click="setEditing(true)" ng-if="!isEditing"></ng-transclude>
