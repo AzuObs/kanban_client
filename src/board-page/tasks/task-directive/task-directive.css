@@ -36,6 +36,11 @@
   color: #333;
 }
 
+.task-container h5 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .task-container .user-list-container {
   display: flex;
   justify-content: flex-end;
