@@ -18,7 +18,7 @@
 
 	var module = angular.module("editableTextDirectiveModule", []);
 
-	module.directive("editableText", function() {
+	module.directive("editableText", [function() {
 		var directiveDefinition = {
 			scope: {
 				text: "=editableText",
@@ -70,6 +70,6 @@
 		};
 
 		return directiveDefinition;
-	});
+	}]);
 
 })();

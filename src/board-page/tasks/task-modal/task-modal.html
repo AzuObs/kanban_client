@@ -1,4 +1,4 @@
-<div class="modal-container task-modal" ng-click="endAllEditing($event)">
+<div class="modal-container task-modal">
   <div class="modal-close">
     <button class="btn glyphicon glyphicon-remove" ng-click="closeModal()"></button>
   </div>
@@ -17,7 +17,7 @@
       <div class="modal-newcomment">
         <b>Activity</b>
         <div class="form-group">
-          <textarea class="form-control" ng-model="commentInput" placeholder="Add a comment..."></textarea>
+          <textarea class="form-control" ng-model="commentInput" placeholder="Add a comment..."></textarea>d
           <button class="btn btn-black btn-block" ng-click="createComment()">Add Comment</button>
         </div>
       </div>
@@ -68,14 +68,6 @@
         </ul>
       </div>
 
-      <button class="btn btn-block btn-danger delete-task" ng-click="deleteTask($event)">Delete Task</button>
-      <em class="text-danger" ng-show="isDeletingTask">Type the name of the task and press enter.</em>
-      <div class="input-group" ng-show="isDeletingTask">
-        <span class="input-group-btn">
-        <button ng-click="deleteTask($event)" class="btn btn-black delete-task delete-task-button">!</button>
-      </span>
-        <input class="delete-task form-control" ng-keypress="deleteTask($event)" ng-model="repeatTaskName" placeholder="enter task name" type="text">
-      </div>
+      <deletable-object delete-fn="deleteTask()" is-deleting="isDeletingTask" object-name="{{task.name}}" object-type="task"></deletable-object>
     </div>
   </div>
-</div>

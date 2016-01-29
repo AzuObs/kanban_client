@@ -2,7 +2,11 @@
 	"use strict";
 
 	var module = angular.module("taskModalModule", [
-		"boardFactoryModule", "ui.bootstrap", "userDirectiveModule", "editableTextDirectiveModule"
+		"boardFactoryModule",
+		"ui.bootstrap",
+		"userDirectiveModule",
+		"editableTextDirectiveModule",
+		"deletableObjectDirectiveModule"
 	]);
 
 
@@ -64,8 +68,6 @@
 				boardFactory.updateBoard()
 					.then(function() {
 						$scope.getAddableUsers();
-					}, function(err) {
-						// 
 					});
 			};
 
@@ -73,44 +75,13 @@
 				$modalInstance.dismiss();
 			};
 
-			$scope.deleteTask = function(e) {
-				if (e.type === "click" && !angular.element(e.target).hasClass("delete-task-button")) {
-					$scope.isDeletingTask = !$scope.isDeletingTask;
-					setTimeout(function() {
-						angular.element("input.delete-task").focus();
-					}, 0);
-					return;
-				}
+			$scope.deleteTask = function() {
+				$scope.category.tasks.splice($scope.taskIndex, 1);
 
-				if ((e.type = "keypress" && e.which === 13) || angular.element(e.target).hasClass("delete-task-button")) {
-					if ($scope.repeatTaskName === $scope.task.name) {
-						$scope.category.tasks.splice($scope.taskIndex, 1);
-
-						boardFactory.updateBoard()
-							.then(function() {
-								$scope.closeModal();
-							}, function(err) {
-								// 
-							});
-					} else {
-						$log.error("your input does not match the task's name @deleteTask");
-					}
-				}
-			};
-
-			$scope.stopDeletingTask = function() {
-				$scope.isDeletingTask = false;
-				$scope.repeatTaskName = "";
-			};
-
-			$scope.endAllEditing = function(e) {
-				if (!e || (e.type != "click")) {
-					$log.error("invalid input @endAllEditing");
-				}
-
-				if ($scope.isDeletingTask && !angular.element(e.target).hasClass("delete-task")) {
-					$scope.stopDeletingTask();
-				}
+				boardFactory.updateBoard()
+					.then(function() {
+						$scope.closeModal();
+					});
 			};
 
 			$scope.toggleIsEditingTitle = function() {

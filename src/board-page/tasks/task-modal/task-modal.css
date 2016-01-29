@@ -4,7 +4,7 @@
   display: flex;
   flex: 0 1 auto;
   flex-direction: column;
-  min-height: 400px;
+  min-height: 435px;
 }
 
 .task-modal {
