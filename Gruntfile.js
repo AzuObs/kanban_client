@@ -108,36 +108,6 @@ module.exports = function(grunt) {
       html: "release/index.html"
     },
 
-    ngconstant: {
-      options: {
-        space: "  ",
-        wrap: "'use strict';\n\n {%= __ngModule %}",
-        name: "globalConstantsModule",
-      },
-      development: {
-        options: {
-          dest: "src/common/constants.js"
-        },
-        constants: {
-          ENV: {
-            name: "development",
-            apiEndpoint: "http://localhost:8000/api"
-          }
-        }
-      },
-      production: {
-        options: {
-          dest: "src/common/constants.js"
-        },
-        constants: {
-          ENV: {
-            name: "production",
-            apiEndpoint: "http://bigbangkanban.herokuapp.com/api"
-          }
-        }
-      }
-    },
-
     copy: {
       favicon: {
         src: "src/favicon.png",
@@ -180,7 +150,7 @@ module.exports = function(grunt) {
     },
 
     replace: {
-      release: {
+      html: {
         options: {
           patterns: [{
             match: /src\/bower-components\/bootstrap\/dist\/css\/bootstrap.css/,
@@ -196,6 +166,21 @@ module.exports = function(grunt) {
         files: [{
           src: "release/index.html",
           dest: "release/index.html"
+        }]
+      },
+      js: {
+        options: {
+          patterns: [{
+            match: /debugApp:true/,
+            replacement: "debugApp:false"
+          }, {
+            match: /apiEndpoint:"http:\/\/localhost:8000\/api"/,
+            replacement: 'apiEndpoint:"http://kanban.heroku-app.com"'
+          }]
+        },
+        files: [{
+          src: "release/main.js",
+          dest: "release/main.js"
         }]
       }
     },
@@ -223,13 +208,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-exec");
   grunt.loadNpmTasks("grunt-karma");
   grunt.loadNpmTasks("grunt-protractor-runner");
-  grunt.loadNpmTasks("grunt-ng-constant");
 
-  grunt.registerTask("serve", ["ngconstant:development", "exec:serve"]);
+  grunt.registerTask("serve", ["exec:serve"]);
   grunt.registerTask("unit-test", ["karma:unit"]);
   grunt.registerTask("e2e-test", ["exec:selenium", "exec:sleep5", "protractor"]);
   grunt.registerTask("build", [
-    "ngconstant:production",
     "copy",
     "useminPrepare",
     "concat:generated",

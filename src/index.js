@@ -11,18 +11,21 @@
 		"angular-loading-bar",
 		"errorPageModule",
 		"errorHandlerModule",
-		"copyChildMinHeightDirectiveModule"
+		"copyChildMinHeightDirectiveModule",
+		"environmentModule"
 	]);
 
 
 	module.config([
-		"$stateProvider", "$urlRouterProvider", "$injector",
-		function($stateProvider, $urlRouterProvider, $injector) {
+		"$stateProvider", "$urlRouterProvider", "$compileProvider", "$injector", "ENV",
+		function($stateProvider, $urlRouterProvider, $compileProvider, $injector, ENV) {
 			$stateProvider.state("kanban", {
 				abstract: true,
 				url: "/kanban"
 			});
 
+			// during production
+			$compileProvider.debugInfoEnabled(ENV.debugApp);
 
 			$urlRouterProvider.otherwise(function($injector) {
 				$injector.invoke(["errorHandler", function(errorHandler) {

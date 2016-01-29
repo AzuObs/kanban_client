@@ -1,7 +1,10 @@
 (function() {
 	"use strict";
 
-	var module = angular.module("serverAPIModule", ["ngResource", "globalConstantsModule"]);
+	var module = angular.module("serverAPIModule", [
+		"ngResource", "environmentModule"
+	]);
+
 
 	module.config(["$httpProvider", function($httpProvider) {
 		$httpProvider.interceptors.push(function() {
