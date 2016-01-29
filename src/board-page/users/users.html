@@ -2,7 +2,7 @@
 
 <div class="user-menu-container">
   <div class="board-member-container">
-    <span class="user-selection" ng-model="users" ui-sortable="userSortOpts">
+    <span class="user-selection" ng-model="users" ui-sortable="::userSortOpts">
       <kb-user ng-model="::user" ng-click="editUser(user)" ng-repeat="user in users"></kb-user>
     </span>
   </div>

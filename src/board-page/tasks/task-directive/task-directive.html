@@ -4,11 +4,11 @@
   <h5>{{task.name}}</h5>
 
   <div class="user-list-container">
-    <div ui-sortable="userSortOpts" ng-model="task.users" class="user-list" ng-class="{background: showUserList.value}">
+    <div ui-sortable="::userSortOpts" ng-model="task.users" class="user-list" ng-class="{background: showUserList.value}">
       <kb-user ng-model="user" ng-repeat="user in task.users">
       </kb-user>
     </div>
   </div>
 
-  <span class="glyphicon glyphicon-comment task-comment text-muted" ng-show="task.comments.length"><span>{{task.comments.length}}</span></span>
+  <span class="glyphicon glyphicon-comment task-comment text-muted" ng-if="task.comments.length"><span>{{task.comments.length}}</span></span>
 </div>
