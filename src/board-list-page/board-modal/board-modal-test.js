@@ -137,7 +137,7 @@
 				expect(apiCallArgs[0]).toEqual($scope.board._id);
 			});
 
-			it("call $scope.closeModal on resolve", function() {
+			it("calls $scope.closeModal on resolve", function() {
 				var closeModalCalled = false;
 				spyOn($scope, "closeModal").and.callFake(function() {
 					closeModalCalled = true;
