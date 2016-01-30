@@ -11,10 +11,6 @@
 			var board, boardUsers;
 
 			var boardInterface = {
-				getBoardSync: function() {
-					return board;
-				},
-
 				getBoard: function(boardId) {
 					var defer = $q.defer();
 

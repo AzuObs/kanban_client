@@ -12,6 +12,7 @@
 		"userMenuModule"
 	]);
 
+
 	module.config(["$stateProvider", function($stateProvider) {
 		$stateProvider.state("kanban.board", {
 			views: {
@@ -21,8 +22,9 @@
 				},
 				"body-view@": {
 					templateUrl: "board-page/board.html",
+					controller: "boardCtrl",
 					resolve: {
-						required: ["boardFactory", function(boardFactory) {
+						board: ["boardFactory", function(boardFactory) {
 							return boardFactory.getBoard(sessionStorage.boardId);
 						}]
 					}
@@ -46,4 +48,12 @@
 			url: "/board-page/:boardName",
 		});
 	}]);
+
+
+	module.controller("boardCtrl", [
+		"board", "$scope",
+		function(board, $scope) {
+			$scope.board = board;
+		}
+	]);
 })();

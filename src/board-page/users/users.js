@@ -58,7 +58,6 @@
 				$scope.users = boardFactory.getBoardUsersSync();
 			};
 
-			$scope.board = boardFactory.getBoardSync();
 			$scope.boardName = $filter("capitalize")($scope.board.name);
 			$scope.users = boardFactory.getBoardUsersSync();
 			$scope.userSortOpts = new UserSortOpts($scope.stopSort);

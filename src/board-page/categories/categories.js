@@ -10,19 +10,24 @@
 	]);
 
 	module.controller("categoryCtrl", [
-		"$scope", "$log", "boardFactory", "CategorySortOpts",
-		function($scope, $log, boardFactory, CategorySortOpts) {
-
-			$scope.createCategory = function(keyEvent) {
-				if (!keyEvent || keyEvent.which === 13) {
-					boardFactory.createCategory($scope.newCat);
-					$scope.newCat = "";
+		"$scope", "boardFactory", "CategorySortOpts",
+		function($scope, boardFactory, CategorySortOpts) {
+			$scope.createCategory = function(e) {
+				if (!e || (e.type === "keypress" && e.which === 13)) {
+					boardFactory
+						.createCategory($scope.newCat)
+						.then(function() {
+							$scope.resetNewCat();
+						});
 				}
 			};
 
-			$scope.board = boardFactory.getBoardSync();
-			$scope.categorySortOpts = new CategorySortOpts();
+			$scope.resetNewCat = function() {
+				$scope.newCat = "";
+			};
+
 			$scope.newCat = "";
+			$scope.categorySortOpts = new CategorySortOpts();
 		}
 	]);
 
