@@ -39,12 +39,13 @@
 		});
 	}]);
 
+
 	module.controller("boardListCtrl", [
-		"$scope", "userFactory", "$modal", "$state", "$log", "boards", "user",
-		function($scope, userFactory, $modal, $state, $log, boards, user) {
+		"$scope", "userFactory", "$modal", "$state", "boards", "user",
+		function($scope, userFactory, $modal, $state, boards, user) {
 			$scope.createBoard = function(e) {
 				if ((e.type === "keypress" && e.which === 13) || (e.type === "click")) {
-					userFactory.createBoard($scope.boardName);
+					userFactory.createBoard($scope.newBoardName);
 				}
 			};
 
@@ -69,7 +70,7 @@
 				});
 			};
 
-			$scope.boardName = "";
+			$scope.newBoardName = "";
 			$scope.user = user;
 			$scope.boards = boards;
 		}

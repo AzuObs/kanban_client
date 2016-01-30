@@ -22,6 +22,7 @@
 				});
 			});
 
+
 			describe("$scope.user", function() {
 				it("exists", function() {
 					expect($scope.user).toBeDefined();
@@ -35,6 +36,7 @@
 					expect($scope.user).toEqual(user);
 				});
 			});
+
 
 			describe("$scope.boards", function() {
 				it("exists", function() {
@@ -50,31 +52,29 @@
 				});
 			});
 
-			describe("$scope.boardName", function() {
+
+			describe("$scope.newBoardName", function() {
 				it("exist", function() {
-					expect($scope.boardName).toBeDefined();
+					expect($scope.newBoardName).toBeDefined();
 				});
 
 				it("is a string", function() {
-					expect(typeof $scope.boardName).toEqual("string");
+					expect(typeof $scope.newBoardName).toEqual("string");
 				});
 
 				it("is empty", function() {
-					expect($scope.boardName.length).toEqual(0);
+					expect($scope.newBoardName.length).toEqual(0);
 				});
 			});
 
+
 			describe("$scope.createBoard()", function() {
-				var $log, createBoardArgs, createBoardDefer;
+				var apiCalled, apiCallArgs;
 
-				beforeEach(inject(function(_$log_, boardFactory, $q) {
-					$log = _$log_;
-
-					createBoardArgs = undefined;
-					spyOn(boardFactory, "createBoard").and.callFake(function() {
-						createBoardDefer = $q.defer();
-						createBoardArgs = arguments;
-						return createBoardDefer.promise;
+				beforeEach(inject(function(userFactory) {
+					spyOn(userFactory, "createBoard").and.callFake(function() {
+						apiCalled = true;
+						apiCallArgs = arguments;
 					});
 				}));
 
@@ -86,37 +86,25 @@
 					expect(typeof $scope.createBoard).toEqual("function");
 				});
 
-				it("calls to userFactory.createBoard with {userid, boardname}", function() {
-					$scope.boardName = "foo";
-					$scope.createBoard();
-					expect(createBoardArgs[0]).toEqual($scope.user._id);
-					expect(createBoardArgs[1]).toEqual($scope.boardName);
+				it("calls userFactory.createBoard", function() {
+					apiCalled = undefined;
+					var e = {
+						type: "click"
+					};
+					$scope.createBoard(e);
+					expect(apiCalled).toEqual(true);
 				});
 
-				it("adds a new board to $scope.boards on resolve", function() {
-					var board = "foo";
-					$scope.boards = [];
-
-					$scope.createBoard();
-					$scope.$apply(function() {
-						createBoardDefer.resolve(board);
-					});
-
-					expect($scope.boards).toEqual([board]);
-				});
-
-				it("logs an error msg on reject", function() {
-					$log.reset();
-					var res = "foo";
-
-					$scope.createBoard();
-					$scope.$apply(function() {
-						createBoardDefer.reject(res);
-					});
-
-					expect($log.error.logs[0]).toEqual([res]);
+				it("calls userFactory.createBoard with args [$scope.newBoardName]", function() {
+					$scope.newBoardName = "foobar";
+					var e = {
+						type: "click"
+					};
+					$scope.createBoard(e);
+					expect(apiCallArgs[0]).toEqual($scope.newBoardName);
 				});
 			});
+
 
 			describe("$scope.openBoardModal()", function() {
 				var modalWasCalled;
@@ -141,6 +129,7 @@
 					expect(modalWasCalled).toEqual(true);
 				});
 			});
+
 
 			describe("$scope.goToBoard()", function() {
 				var stateArgs, board;
