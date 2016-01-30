@@ -1,9 +1,39 @@
 (function() {
 	"use strict";
 
+
 	describe("boardModule", function() {
-		// the module contains no testable JS
-		// not much point in testing the config phases, as the responsbility to test views lies with
-		// e2e testing
+		var $scope, board;
+
+		beforeEach(function() {
+			module("boardModule");
+			inject(function($rootScope, $controller) {
+				$scope = $rootScope.$new();
+				board = {
+					name: "foobar"
+				};
+				$controller("boardCtrl", {
+					$scope: $scope,
+					board: board
+				});
+			});
+		});
+
+
+		describe("boardCtrl", function() {
+			describe("$scope.board", function() {
+				it("is defined", function() {
+					expect($scope.board).toBeDefined();
+				});
+
+				it("is an object", function() {
+					expect(Object.prototype.toString.call($scope.board)).toEqual("[object Object]");
+				});
+
+				it("is a copy of the board injected into the controller", function() {
+					expect($scope.board).toEqual(board);
+				});
+			});
+		});
 	});
 })();
