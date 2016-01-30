@@ -3,7 +3,9 @@
 
 	module.exports = function(config) {
 		config.set({
+			autoWatch: true,
 			basePath: "src/",
+			browsers: ["Chrome"],
 			files: [
 				"common/bower-components/angular/angular.js",
 				"common/bower-components/angular-bootstrap/ui-bootstrap-tpls.js",
@@ -25,9 +27,10 @@
 				"common/providers/**/*.js",
 				"common/views/**/*.js"
 			],
-			browsers: ["Chrome"],
-			autoWatch: true,
-			frameworks: ["jasmine"]
+			frameworks: ["jasmine"],
+			preprocessors: {
+				'**/*.html': ['ng-html2js']
+			}
 		});
 	};
 })();
