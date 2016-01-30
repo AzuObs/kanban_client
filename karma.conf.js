@@ -15,6 +15,7 @@
 				"common/bower-components/angular-ui-sortable/sortable.js",
 				"common/bower-components/jquery/dist/jquery.js",
 				"common/bower-components/jquery-ui/jquery-ui.js",
+				"**/*.html",
 				"*.js",
 				"about-page/**/*.js",
 				"board-list-page/**/*.js",
@@ -28,8 +29,18 @@
 				"common/views/**/*.js"
 			],
 			frameworks: ["jasmine"],
+			ngHtml2JsPreprocessor: {
+				stipPrefix: "src/",
+				moduleName: "html2JsModule"
+			},
+			plugins: [
+				'karma-jasmine',
+				'karma-chrome-launcher',
+				'karma-ng-html2js-preprocessor'
+			],
+			port: 9876,
 			preprocessors: {
-				'**/*.html': ['ng-html2js']
+				"**/*.html": ["ng-html2js"]
 			}
 		});
 	};
