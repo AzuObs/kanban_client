@@ -6,7 +6,7 @@
 			basePath: "src/",
 			files: [
 				"common/bower-components/angular/angular.js",
-				"common/bower-components/angular-bootstrap/ui-bootstrap.js",
+				"common/bower-components/angular-bootstrap/ui-bootstrap-tpls.js",
 				"common/bower-components/angular-mocks/angular-mocks.js",
 				"common/bower-components/angular-resource/angular-resource.js",
 				"common/bower-components/angular-ui-router/release/angular-ui-router.js",
