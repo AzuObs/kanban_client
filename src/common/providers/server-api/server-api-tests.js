@@ -18,6 +18,41 @@
 		// TESTS
 		// 
 
+		describe("$httpProvider", function() {
+			var token;
+
+			beforeEach(function() {
+				delete sessionStorage.token;
+				token = "123";
+			});
+
+			it("sends the token on any request if token is present", function() {
+				sessionStorage.token = token;
+
+				$httpBackend.expectGET("http://foo.com", function(headers) {
+					return headers.token === token;
+				}).respond({
+					foo: "foo"
+				});
+
+				$rootScope.$apply(function() {
+					$http.get("http://foo.com").then(function() {}, function() {});
+				});
+			});
+
+			it("doesn't send the token on any request if token is absent", function() {
+				$httpBackend.expectGET("http://foo.com", function(headers) {
+					return headers.token !== token;
+				}).respond({
+					foo: "foo"
+				});
+
+				$rootScope.$apply(function() {
+					$http.get("http://foo.com").then(function() {}, function() {});
+				});
+			});
+		});
+
 		describe("deleteBoard", function() {
 			it("is defined", function() {
 				expect(serverAPI.deleteBoard).toBeDefined();

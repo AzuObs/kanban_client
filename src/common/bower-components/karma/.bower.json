@@ -10,5 +10,6 @@
   },
   "_source": "git://github.com/nathankot/Karma.gs.git",
   "_target": "~0.4.6",
-  "_originalSource": "karma"
+  "_originalSource": "karma",
+  "_direct": true
 }

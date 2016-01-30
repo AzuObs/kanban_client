@@ -21,7 +21,8 @@
 		function($stateProvider, $urlRouterProvider, $compileProvider, $injector, ENV) {
 			$stateProvider.state("kanban", {
 				abstract: true,
-				url: "/kanban"
+				url: "/kanban",
+				controller: "appCtrl"
 			});
 
 			// during production
@@ -35,7 +36,7 @@
 		}
 	]);
 
-	module.run([
+	module.controller("appCtrl", [
 		"$rootScope", "$state", "errorHandler",
 		function($rootScope, $state, errorHandler) {
 			$rootScope.state = $state;

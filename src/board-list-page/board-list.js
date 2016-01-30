@@ -42,10 +42,6 @@
 	module.controller("boardListCtrl", [
 		"$scope", "userFactory", "$modal", "$state", "$log", "boards", "user",
 		function($scope, userFactory, $modal, $state, $log, boards, user) {
-			$scope.boardName = "";
-			$scope.user = user;
-			$scope.boards = boards;
-
 			$scope.createBoard = function(e) {
 				if ((e.type === "keypress" && e.which === 13) || (e.type === "click")) {
 					userFactory.createBoard($scope.boardName);
@@ -72,6 +68,10 @@
 					boardName: board.name
 				});
 			};
+
+			$scope.boardName = "";
+			$scope.user = user;
+			$scope.boards = boards;
 		}
 	]);
 })();

@@ -2,54 +2,25 @@
 	"use strict";
 
 	describe("boardListModule", function() {
-		describe("$stateProvider", function() {
-			var stateArgs;
-
-			// the following is a hack
-			// in order to test the config phase of my target module 
-			// I need to set the spies up before .config has been executed			
-			beforeEach(function() {
-				module("aboutModule", function($stateProvider) {
-					spyOn($stateProvider, "state").and.callFake(function() {
-						stateArgs = arguments;
-					});
-				});
-				module("boardListModule");
-			});
-
-			beforeEach(inject());
-
-			it("sets the state to kanban.boardList", function() {
-				expect(stateArgs[0]).toEqual("kanban.boardList");
-			});
-
-			it("sets the url to '/user/:username", function() {
-				expect(stateArgs[1].url).toEqual("/user/:username");
-			});
-
-			it("sets the view", function() {
-				expect(stateArgs[1].views).toBeDefined();
-				expect(Object.keys(stateArgs[1].views).length).not.toEqual(0);
-			});
-		});
-
 		describe("boardListCtrl", function() {
 			var $scope, user, boards;
 
-			beforeEach(module("boardListModule"));
-			beforeEach(inject(function($controller, $rootScope) {
-				$scope = $rootScope.$new();
-				boards = ["foo"];
-				user = {
-					_id: "123"
-				};
+			beforeEach(function() {
+				module("boardListModule");
+				inject(function($controller, $rootScope) {
+					$scope = $rootScope.$new();
+					boards = ["foo"];
+					user = {
+						_id: "123"
+					};
 
-				$controller("boardListCtrl", {
-					$scope: $scope,
-					user: user,
-					boards: boards
+					$controller("boardListCtrl", {
+						$scope: $scope,
+						user: user,
+						boards: boards
+					});
 				});
-			}));
+			});
 
 			describe("$scope.user", function() {
 				it("exists", function() {

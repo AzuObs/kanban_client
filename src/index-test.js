@@ -1,95 +1,44 @@
 (function() {
 	"use strict";
 
-	describe("kanbanApp.config", function() {
-		var stateArgs, urlRouterArgs, $http, $httpBackend, $rootScope;
+	describe("kanbanApp module", function() {
+		var debugInfoEnabled, $rootScope;
 
 		// the following is a hack
 		// in order to test the config phase of my target module 
 		// I need to set the spies up before .config has been executed		
 		beforeEach(function() {
-			module("aboutModule", function($stateProvider, $urlRouterProvider) {
-				spyOn($stateProvider, "state").and.callFake(function() {
-					stateArgs = arguments;
-				});
-				spyOn($urlRouterProvider, "otherwise").and.callFake(function() {
-					urlRouterArgs = arguments;
+			module("aboutModule", function($compileProvider) {
+				spyOn($compileProvider, "debugInfoEnabled").and.callFake(function() {
+					debugInfoEnabled = arguments[0];
 				});
 			});
 			module("kanbanApp");
 		});
 
-
-		beforeEach(inject(function(_$http_, _$httpBackend_, _$rootScope_) {
+		beforeEach(inject(function(_$rootScope_, $controller) {
 			$rootScope = _$rootScope_;
-			$http = _$http_;
-			$httpBackend = _$httpBackend_;
+			$controller("appCtrl", {
+				$rootScope: $rootScope
+			});
 		}));
 
-		describe("$stateProvider", function() {
-			it("exists", function() {
-				expect(stateArgs).not.toBe(undefined);
-			});
-
-			it("sets the state to 'kanban'", function() {
-				expect(stateArgs[0]).toEqual("kanban");
-			});
-
-			it("is abstract", function() {
-				expect(stateArgs[1].abstract).toEqual(true);
-			});
-
-
-			it("sets the state url to '/kanban'", function() {
-				expect(stateArgs[1].url).toEqual("/kanban");
+		describe("config phase", function() {
+			it("enables angular's debugging of the app during production", function() {
+				expect(debugInfoEnabled).toEqual(true);
 			});
 		});
 
-		describe("$urlRouteProvider", function() {
-			it("exists", function() {
-				expect(urlRouterArgs).not.toBe(undefined);
-			});
-
-			it("sets the redirect url to '/kanban/identity'", function() {
-				expect(urlRouterArgs[0]).toEqual("/kanban/identity");
-			});
-		});
-
-		describe("$httpProvider", function() {
-			var token;
-
-			beforeEach(function() {
-				delete sessionStorage.token;
-				token = "123";
-			});
-
-			it("sends the token on any request if token is present", function() {
-				sessionStorage.token = token;
-
-				$httpBackend.expectGET("http://foo.com", function(headers) {
-					return headers.token === token;
-				}).respond({
-					foo: "foo"
+		describe("appCtrl", function() {
+			describe("$rootScope.state", function() {
+				it("is defined", function() {
+					expect($rootScope.state).toBeDefined();
 				});
 
-				$rootScope.$apply(function() {
-					$http.get("http://foo.com").then(function() {}, function() {});
-				});
-			});
-
-			it("doesn't send the token on any request if token is absent", function() {
-				$httpBackend.expectGET("http://foo.com", function(headers) {
-					return headers.token !== token;
-				}).respond({
-					foo: "foo"
-				});
-
-				$rootScope.$apply(function() {
-					$http.get("http://foo.com").then(function() {}, function() {});
+				it("is an object", function() {
+					expect(Object.prototype.toString.call($rootScope.state)).toEqual("[object Object]");
 				});
 			});
 		});
 	});
-
-
 })();
