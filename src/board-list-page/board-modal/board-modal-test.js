@@ -4,30 +4,87 @@
 	describe("boardModalCtrl", function() {
 		var $scope, board, $modalInstance;
 
-		beforeEach(module("boardModalModule"));
+		beforeEach(function() {
+			module("boardModalModule");
+			inject(function($rootScope, $controller, $modal) {
+				$scope = $rootScope.$new();
+				board = {};
 
-		beforeEach(inject(function($rootScope, $controller, $modal) {
-			$scope = $rootScope.$new();
-			board = {};
+				$modalInstance = $modal.open({
+					template: "<div></div>"
+				});
 
-			$modalInstance = $modal.open({
-				template: "<div></div>"
+				$controller("boardModalCtrl", {
+					$scope: $scope,
+					board: board,
+					$modalInstance: $modalInstance
+				});
+			});
+		});
+
+
+		describe("$scope.updateTitle()", function() {
+			var apiCalled, apiCallArgs;
+
+			beforeEach(inject(function(boardFactory) {
+				spyOn(boardFactory, "updateBoard").and.callFake(function() {
+					apiCalled = true;
+					apiCallArgs = arguments;
+				});
+			}));
+
+			it("is defined", function() {
+				expect($scope.updateTitle).toBeDefined();
 			});
 
-			$controller("boardModalCtrl", {
-				$scope: $scope,
-				board: board,
-				$modalInstance: $modalInstance
+			it("is a function", function() {
+				expect(typeof $scope.updateTitle).toEqual("function");
 			});
-		}));
+
+			it("calls boardFactory.updateBoard", function() {
+				apiCalled = undefined;
+				$scope.updateTitle();
+				expect(apiCalled).toEqual(true);
+			});
+
+			it("calls boardFactory.updateBoard with args [$scope.board]", function() {
+				apiCallArgs = undefined;
+				$scope.board = {
+					name: "foobar"
+				};
+				$scope.updateTitle();
+				expect(apiCallArgs[0]).toEqual($scope.board);
+			});
+		});
+
+
+		describe("$scope.toggleIsEditingTitle()", function() {
+			it("is defined", function() {
+				expect($scope.toggleIsEditingTitle).toBeDefined();
+			});
+
+			it("is a function", function() {
+				expect(typeof $scope.toggleIsEditingTitle).toEqual("function");
+			});
+
+			it("toggles $scope.isEditingTitle", function() {
+				$scope.isEditingTitle = false;
+				$scope.toggleIsEditingTitle();
+				expect($scope.isEditingTitle).toEqual(true);
+
+				$scope.isEditingTitle = true;
+				$scope.toggleIsEditingTitle();
+				expect($scope.isEditingTitle).toEqual(false);
+			});
+		});
+
 
 		describe("$scope.closeModal()", function() {
-			var modalArgs;
+			var apiCalled;
 
 			beforeEach(inject(function() {
-				modalArgs = undefined;
 				spyOn($modalInstance, "dismiss").and.callFake(function() {
-					modalArgs = arguments;
+					apiCalled = true;
 				});
 			}));
 
@@ -40,119 +97,23 @@
 			});
 
 			it("calls closes the modal", function() {
+				apiCalled = false;
 				$scope.closeModal();
-				expect(modalArgs).not.toEqual(undefined);
+				expect(apiCalled).toEqual(true);
 			});
 		});
 
-		describe("$scope.renameBoard()", function() {
-			var argsAPI, deferAPI, $log;
-
-			beforeEach(inject(function(boardFactory, $q, _$log_) {
-				$log = _$log_;
-				argsAPI = undefined;
-				spyOn(boardFactory, "updateBoard").and.callFake(function() {
-					deferAPI = $q.defer();
-					argsAPI = arguments;
-					return deferAPI.promise;
-				});
-			}));
-
-			it("is defined", function() {
-				expect($scope.renameBoard).toBeDefined();
-			});
-
-			it("is a function", function() {
-				expect(typeof $scope.renameBoard).toEqual("function");
-			});
-
-			it("log an error when no event is passed it", function() {
-				$log.reset();
-				$scope.renameBoard();
-				expect($log.error.logs[0][0]).toBeDefined();
-			});
-
-			it("enables editing on click", function() {
-				var e;
-				e = {
-					type: "click"
-				};
-
-				$scope.isEditingName = false;
-				$scope.renameBoard(e);
-				expect($scope.isEditingName).toEqual(true);
-			});
-
-			it("calls boardFactory with argument board on keypress enter", function() {
-				var e;
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-
-				$scope.renameBoard(e);
-				expect(argsAPI[0]).toEqual($scope.board);
-			});
-
-			it("increments local board._v on API resolve", function() {
-				var e;
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-
-				$scope.board._v = 0;
-				$scope.renameBoard(e);
-				$scope.$apply(function() {
-					deferAPI.resolve();
-				});
-				expect($scope.board._v).toEqual(1);
-			});
-
-			it("logs an error on API reject", function() {
-				var e, msg;
-
-				$log.reset();
-				msg = "foo";
-				e = {
-					type: "keypress",
-					which: 13
-				};
-
-				$scope.board._v = 0;
-				$scope.renameBoard(e);
-				$scope.$apply(function() {
-					deferAPI.reject(msg);
-				});
-
-				expect($log.error.logs[0][0]).toEqual(msg);
-			});
-		});
 
 		describe("$scope.deleteBoard()", function() {
-			var $log, boardArgs, deferBoard, modalArgs;
+			var apiCalled, apiCallArgs, defer;
 
-			beforeEach(inject(function(_$log_, boardFactory, $q) {
-				$log = _$log_;
-
-				boardArgs = undefined;
-				spyOn(boardFactory, "deleteBoard").and.callFake(function() {
-					deferBoard = $q.defer();
-					boardArgs = arguments;
-					return deferBoard.promise;
+			beforeEach(inject(function(userFactory, $q) {
+				spyOn(userFactory, "deleteBoard").and.callFake(function() {
+					defer = $q.defer();
+					apiCalled = true;
+					apiCallArgs = arguments;
+					return defer.promise;
 				});
-
-				modalArgs = undefined;
-				spyOn($modalInstance, "dismiss").and.callFake(function() {
-					modalArgs = arguments;
-				});
-
-				$scope.board = {
-					_id: "123",
-					name: "foo"
-				};
 			}));
 
 			it("is defined", function() {
@@ -163,210 +124,48 @@
 				expect(typeof $scope.deleteBoard).toEqual("function");
 			});
 
-			it("logs an error if no arguments are passed to it", function() {
-				$log.reset();
+			it("makes an API call to delete the board", function() {
+				apiCalled = false;
 				$scope.deleteBoard();
-				expect($log.error.logs[0][0]).toBeDefined();
+				expect(apiCalled).toEqual(true);
 			});
 
-			it("toggles delete mode on/off if user clicks outside of .delete-board-input", function() {
-				var e;
-
-				e = {
-					type: "click",
-					target: angular.element("<div></div>")
-				};
-				$scope.isDeletingBoard = true;
-				$scope.repeatBoardName = "foo";
-				$scope.deleteBoard(e);
-
-				expect($scope.isDeletingBoard).toEqual(false);
-				expect($scope.repeatBoardName).toEqual("");
+			it("makes an API call to delete the board with args [$scope.board._id]", function() {
+				apiCallArgs = [];
+				$scope.board._id = "foobar";
+				$scope.deleteBoard();
+				expect(apiCallArgs[0]).toEqual($scope.board._id);
 			});
 
-			it("checks the repeatBoardName is equal to boardName after keypress 'enter'", function() {
-				var e;
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-
-				$scope.board.name = "foo";
-				$scope.repeatBoardName = "bar";
-				$scope.deleteBoard(e);
-				expect(boardArgs).toEqual(undefined);
-
-				$scope.repeatBoardName = "foo";
-				$scope.deleteBoard(e);
-				expect(boardArgs[0]).toEqual($scope.board._id);
-			});
-
-			it("makes an API call to delete the board with (boardId)", function() {
-				var e;
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-
-				$scope.board.name = "foo";
-				$scope.repeatBoardName = "foo";
-				$scope.deleteBoard(e);
-				expect(boardArgs[0]).toEqual($scope.board._id);
-			});
-
-			it("removes the board from local memory", function() {
-				var e;
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-
-				$scope.boards = [];
-				$scope.board.name = "foo";
-				$scope.boards.push($scope.board);
-				expect($scope.boards.length).toEqual(1);
-
-				$scope.repeatBoardName = "foo";
-				$scope.deleteBoard(e);
-				$scope.$apply(function() {
-					deferBoard.resolve();
+			it("call $scope.closeModal on resolve", function() {
+				var closeModalCalled = false;
+				spyOn($scope, "closeModal").and.callFake(function() {
+					closeModalCalled = true;
 				});
-				expect($scope.boards.length).toEqual(0);
-			});
 
-			it("closes the modal instance", function() {
-				var e;
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-
-				$scope.boards = [];
-				$scope.board.name = "foo";
-				$scope.repeatBoardName = "foo";
-				$scope.deleteBoard(e);
+				$scope.deleteBoard();
 				$scope.$apply(function() {
-					deferBoard.resolve();
+					defer.resolve();
 				});
-				expect(modalArgs).not.toEqual(undefined);
+				expect(closeModalCalled).toEqual(true);
 			});
 		});
 
-		describe("$scope.cancelEditing()", function() {
-			var $log;
 
-			beforeEach(inject(function(_$log_) {
-				$log = _$log_;
-			}));
-
+		describe("$scope.isEditingTitle", function() {
 			it("is defined", function() {
-				expect($scope.cancelEditing).toBeDefined();
-			});
-
-			it("is a function", function() {
-				expect(typeof $scope.cancelEditing).toEqual("function");
-			});
-
-			it("logs an error when no event is passed", function() {
-				$log.reset();
-				$scope.cancelEditing();
-				expect($log.error.logs[0][0]).toBeDefined();
-			});
-
-			it("only lets user edit name if he clicks on a .edit-board element", function() {
-				var e;
-
-				$scope.isEditingName = true;
-				e = {
-					target: angular.element("<div class='edit-board'></div>")
-				};
-				$scope.cancelEditing(e);
-				expect($scope.isEditingName).toEqual(true);
-
-				$scope.isEditingName = true;
-				e = {
-					target: angular.element("<div class=''></div>")
-				};
-				$scope.cancelEditing(e);
-				expect($scope.isEditingName).toEqual(false);
-			});
-
-			it("only lets user delete board if he click on a .delete-board element", function() {
-				var e;
-
-				$scope.isDeletingBoard = true;
-				e = {
-					target: angular.element("<div class='delete-board'></div>")
-				};
-				$scope.cancelEditing(e);
-				expect($scope.isDeletingBoard).toEqual(true);
-
-				$scope.isDeletingBoard = true;
-				e = {
-					target: angular.element("<div class=''></div>")
-				};
-				$scope.cancelEditing(e);
-				expect($scope.isDeletingBoard).toEqual(false);
-			});
-
-			it("resets $scope.repeatBoardName when a user clicks outside of a .delete-board element", function() {
-				var e;
-
-				$scope.isDeletingBoard = true;
-				$scope.repeatBoardName = "foo";
-				e = {
-					target: angular.element("<div></div>")
-				};
-				$scope.cancelEditing(e);
-				expect($scope.repeatBoardName).toEqual("");
-			});
-		});
-
-		describe("$scope.isDeletingBoard", function() {
-			it("is defined", function() {
-				expect($scope.isDeletingBoard).toBeDefined();
+				expect($scope.isEditingTitle).toBeDefined();
 			});
 
 			it("is a boolean", function() {
-				expect(typeof $scope.isDeletingBoard).toEqual("boolean");
+				expect(typeof $scope.isEditingTitle).toEqual("boolean");
 			});
 
 			it("is false", function() {
-				expect($scope.isDeletingBoard).toEqual(false);
+				expect($scope.isEditingTitle).toEqual(false);
 			});
 		});
 
-		describe("$scope.isEditingName", function() {
-			it("is defined", function() {
-				expect($scope.isEditingName).toBeDefined();
-			});
-
-			it("is a boolean", function() {
-				expect(typeof $scope.isEditingName).toEqual("boolean");
-			});
-
-			it("is false", function() {
-				expect($scope.isEditingName).toEqual(false);
-			});
-		});
-
-		describe("$scope.repeatBoardName", function() {
-			it("is defined", function() {
-				expect($scope.repeatBoardName).toBeDefined();
-			});
-
-			it("is a string", function() {
-				expect(typeof $scope.repeatBoardName).toEqual("string");
-			});
-
-			it("is empty", function() {
-				expect($scope.repeatBoardName).toEqual("");
-			});
-		});
 
 		describe("$scope.board", function() {
 			it("is defined", function() {

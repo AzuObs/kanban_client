@@ -9,9 +9,10 @@
 		"deletableObjectDirectiveModule"
 	]);
 
+
 	module.controller("boardModalCtrl", [
-		"$log", "boardFactory", "userFactory", "$scope", "$modalInstance", "board",
-		function($log, boardFactory, userFactory, $scope, $modalInstance, board) {
+		"boardFactory", "userFactory", "$scope", "$modalInstance", "board",
+		function(boardFactory, userFactory, $scope, $modalInstance, board) {
 			$scope.updateTitle = function() {
 				boardFactory.updateBoard($scope.board);
 			};
@@ -20,17 +21,16 @@
 				$scope.isEditingTitle = !$scope.isEditingTitle;
 			};
 
-
-			$scope.deleteBoard = function(e) {
-				userFactory
-					.deleteBoard($scope.board._id)
-					.then(function(res) {
-						$scope.closeModal();
-					});
-			};
-
 			$scope.closeModal = function() {
 				$modalInstance.dismiss();
+			};
+
+			$scope.deleteBoard = function() {
+				userFactory
+					.deleteBoard($scope.board._id)
+					.then(function() {
+						$scope.closeModal();
+					});
 			};
 
 			$scope.board = board;
