@@ -3,5 +3,5 @@
 
   <em class="text-danger" ng-if="isDeleting">You are about to remove your {{objectType}}. To confirm, type the name of the {{objectType}} and press enter.</em>
 
-  <input class="form-control" ng-blur="stopDeleting($event)" ng-keypress="deleteObject($event)" ng-model="repeatObjectName" ng-if="isDeleting" placeholder="name of {{objectType}}" type="text">
+  <input class="form-control" ng-blur="stopDeleting($event)" ng-keypress="deleteObject($event)" ng-model="repeatObjectName" ng-show="isDeleting" placeholder="name of {{objectType}}" type="text">
 </div>

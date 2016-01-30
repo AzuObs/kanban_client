@@ -53,7 +53,6 @@
 
 				scope.isDeleting = false;
 				scope.isDisabled = scope.isDisabled || false;
-				console.log(scope.isDisabled);
 				scope.repeatObjectName = "";
 			}
 		};
