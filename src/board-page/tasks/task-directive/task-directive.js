@@ -32,15 +32,15 @@
 
 
 	module.controller("kbTaskCtrl", [
-		"boardFactory", "$scope", "$log", "UserSortOpts",
-		function(boardFactory, $scope, $log, UserSortOpts) {
+		"boardFactory", "$scope", "UserSortOpts",
+		function(boardFactory, $scope, UserSortOpts) {
+			$scope.deleteTask = function() {
+				boardFactory.deleteTask($scope.category, $scope.task);
+			};
+
 			$scope.board = boardFactory.getBoardSync();
 			$scope.userSortOpts = new UserSortOpts();
 			$scope.showUserList = $scope.userSortOpts.getShowUserLists();
-
-			$scope.deleteTask = function(category, task) {
-				boardFactory.deleteTask(category, task);
-			};
 		}
 	]);
 })();

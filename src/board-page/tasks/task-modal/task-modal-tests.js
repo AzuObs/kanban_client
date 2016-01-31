@@ -35,7 +35,8 @@
 					$scope: $scope,
 					$modalInstance: $modalInstance,
 					catId: $scope.board.categories[0]._id,
-					taskId: $scope.board.categories[0].tasks[0]._id
+					taskId: $scope.board.categories[0].tasks[0]._id,
+					user: {}
 				});
 			});
 		});

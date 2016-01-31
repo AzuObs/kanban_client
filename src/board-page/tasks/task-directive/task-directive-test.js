@@ -83,9 +83,11 @@
 
 			it("contains a comments icon", function() {
 				var dom;
-
+				$scope.task = {
+					comments: ["foo"]
+				};
 				$scope.$apply(function() {
-					dom = $compile("<kb-task></kb-task>")($scope);
+					dom = $compile("<kb-task ng-model='task'></kb-task>")($scope);
 				});
 
 				expect(angular.element(dom).find(".glyphicon-comment").length).toEqual(1);
@@ -94,71 +96,111 @@
 
 
 		describe("kbTaskCtrl", function() {
-			var $scope, defer, apiCalled;
+			var dom, scope;
 
-			beforeEach(inject(function($rootScope, $controller, $q, boardFactory) {
-				$scope = $rootScope.$new();
-				$scope.board = {
-					_id: "foo"
+			beforeEach(inject(function($rootScope, $compile, boardFactory) {
+				var $scope = $rootScope.$new();
+				$scope.task = {
+					name: "foobar task",
+					users: [{
+						_id: "foobar"
+					}],
+					comments: [1]
+				};
+				$scope.category = {
+					name: "foobar category",
+					tasks: [$scope.task]
 				};
 
-				$controller("kbTaskCtrl", {
-					$scope: $scope
+				spyOn(boardFactory, "getBoardSync").and.callFake(function() {
+					return {
+						name: "foobar"
+					};
 				});
 
-				spyOn(boardFactory, "deleteTask").and.callFake(function() {
-					apiCalled = true;
-					defer = $q.defer();
-					return defer.promise;
+				dom = "<kb-task ng-model='task' category-model='category'></kb-task>";
+				$scope.$apply(function() {
+					dom = $compile(dom)($scope);
 				});
-				apiCalled = false;
+
+				scope = dom.isolateScope();
 			}));
 
-			describe("$scope.deleteTask", function() {
+
+			describe("scope.deleteTask", function() {
+				var apiCalled, apiCallArgs;
+
+				beforeEach(inject(function(boardFactory) {
+					spyOn(boardFactory, "deleteTask").and.callFake(function() {
+						apiCalled = true;
+						apiCallArgs = arguments;
+					});
+				}));
+
 				it("is defined", function() {
-					expect($scope.deleteTask).toBeDefined();
+					expect(scope.deleteTask).toBeDefined();
 				});
 
 				it("is a function", function() {
-					expect(typeof $scope.deleteTask).toEqual("function");
+					expect(typeof scope.deleteTask).toEqual("function");
 				});
 
-				it("calls delete task on the server", function() {
-					$scope.deleteTask({
-						_id: "foo"
-					});
+				it("calls boardFactory.deleteTask", function() {
+					apiCalled = false;
+					scope.deleteTask();
 					expect(apiCalled).toEqual(true);
 				});
 
-				it("removes task locally on resolve", function() {
-					var category = {
-						tasks: [{
-							_id: 123
-						}, {
-							_id: 234
-						}]
-					};
+				it("calls boardFactory.deleteTask with args [category, task]", function() {
+					apiCallArgs = [];
+					scope.deleteTask();
+					expect(apiCallArgs.length).toEqual(2);
+					expect(apiCallArgs[0].name).toEqual("foobar category");
+					expect(apiCallArgs[1].name).toEqual("foobar task");
+				});
+			});
 
-					$scope.deleteTask(category, category.tasks[0]._id);
-					$scope.$apply(function() {
-						defer.resolve();
-					});
 
-					expect(category.tasks[0]._id).toEqual(234);
+			describe("scope.board", function() {
+				it("is defined", function() {
+					expect(scope.board).toBeDefined();
 				});
 
-				it("logs an error on reject", inject(function($log) {
-					var msg = "error";
+				it("is an object", function() {
+					expect(Object.prototype.toString.call(scope.board)).toEqual("[object Object]");
+				});
 
-					$scope.deleteTask({
-						_id: "foo"
-					});
-					$log.reset();
-					$scope.$apply(function() {
-						defer.reject(msg);
-					});
+				it("is equal to boardFactory.getBoardSync()", inject(function(boardFactory) {
+					expect(scope.board).toEqual(boardFactory.getBoardSync());
+				}));
+			});
 
-					expect($log.error.logs[0][0]).toEqual(msg);
+
+			describe("scope.userSortOpts", function() {
+				it("is defined", function() {
+					expect(scope.userSortOpts).toBeDefined();
+				});
+
+				it("is an object", function() {
+					expect(Object.prototype.toString.call(scope.userSortOpts)).toEqual("[object Object]");
+				});
+
+				it("is equal to a new UserSortOpts()", inject(function(UserSortOpts) {
+					expect(scope.userSortOpts.keys).toEqual(new UserSortOpts().keys);
+				}));
+			});
+
+			describe("scope.showUserList", function() {
+				it("is defined", function() {
+					expect(scope.showUserList).toBeDefined();
+				});
+
+				it("is a boolean", function() {
+					expect(Object.prototype.toString.call(scope.showUserList)).toEqual("[object Object]");
+				});
+
+				it("is equal to a scope.userSortOpts.showUserList", inject(function(UserSortOpts) {
+					expect(scope.showUserList).toEqual(scope.userSortOpts.getShowUserLists());
 				}));
 			});
 		});
