@@ -10,6 +10,9 @@
 
 			inject(function($rootScope, _$compile_) {
 				$scope = $rootScope.$new();
+				$scope.category = {
+					name: "Foobar"
+				};
 				$compile = _$compile_;
 			});
 		});
@@ -18,7 +21,7 @@
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
 			});
 
 			expect(dom.html().length).not.toEqual(0);
@@ -28,22 +31,33 @@
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
 			});
 
 			expect(angular.element(dom).find("kb-category").length).toEqual(0);
+		});
+
+		it("throws without an ng-model attribute", function() {
+			var dom;
+			var fn = function() {
+				$scope.$apply(function() {
+					dom = $compile("<kb-category></kb-category>")($scope);
+				});
+			};
+
+			expect(fn).toThrow();
 		});
 
 		it("is limited to be an element only", function() {
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
 			});
 			expect(dom.html().length).toBeGreaterThan(0);
 
 			$scope.$apply(function() {
-				dom = $compile("<div kb-category></div>")($scope);
+				dom = $compile("<div kb-category ng-model='category'></div>")($scope);
 			});
 			expect(dom.html().length).toEqual(0);
 		});
@@ -52,118 +66,112 @@
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
 			});
-
-			expect(dom.find(".category-header").length).toEqual(1);
+			expect($(dom).find(".category-header").length).toEqual(1);
 		});
 
 		it("contains a close button", function() {
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
 			});
 
-			expect(dom.find("button.close-category").length).toEqual(1);
+			expect($(dom).find(".close-category").length).toEqual(1);
 		});
 
 		it("contains a task view", function() {
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
 			});
 
-			expect(dom.find(".task-view").length).toEqual(1);
+			expect($(dom).find(".task-view").length).toEqual(1);
 		});
 	});
 
+
 	describe("kbCategoryController", function() {
-		var $scope;
+		var dom, scope;
 
 		beforeEach(function() {
 			module("categoryDirectiveModule");
-			inject(function($controller, $rootScope) {
-				$scope = $rootScope.$new();
-				$scope.board = {
-					_id: 123
+			module("html2JsModule");
+
+			inject(function($rootScope, $compile) {
+				var $scope = $rootScope.$new();
+				$scope.category = {
+					name: "Foobar"
 				};
-
-				$controller("kbCategoryController", {
-					$scope: $scope
+				dom = angular.element("<kb-category ng-model='category'></kb-category>");
+				$scope.$apply(function() {
+					dom = $compile(dom)($scope);
 				});
+
+				scope = dom.isolateScope();
 			});
 		});
 
-		describe("$scope.deleteCategoryLocally", function() {
-			it("is defined", function() {
-				expect($scope.deleteCategoryLocally).toBeDefined();
-			});
 
-			it("is a function", function() {
-				expect(typeof $scope.deleteCategoryLocally).toEqual("function");
-			});
+		describe("scope.deleteCategory", function() {
+			var apiCalled, apiCallArgs;
 
-			it("deletes a category locally", function() {
-				$scope.board.categories = [{
-					_id: 123
-				}];
-				$scope.deleteCategoryLocally(123);
-
-				expect($scope.board.categories.length).toEqual(0);
-			});
-		});
-
-		describe("$scope.deleteCategory", function() {
-			var apiCalled, defer;
-
-			beforeEach(inject(function(boardFactory, $q) {
-				apiCalled = false;
+			beforeEach(inject(function(boardFactory) {
 				spyOn(boardFactory, "deleteCategory").and.callFake(function() {
 					apiCalled = true;
-					defer = $q.defer();
-					return defer.promise;
+					apiCallArgs = arguments;
 				});
 			}));
 
 			it("is defined", function() {
-				expect($scope.deleteCategory).toBeDefined();
+				expect(scope.deleteCategory).toBeDefined();
 			});
 
 			it("is a function", function() {
-				expect(typeof $scope.deleteCategory).toEqual("function");
+				expect(typeof scope.deleteCategory).toEqual("function");
 			});
 
-			it("makes a call to delete a category on the server", function() {
-				$scope.deleteCategory();
+			it("calls boardFactory.deleteCategory", function() {
+				apiCalled = false;
+
+				scope.deleteCategory();
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("deletes the category locally on resolve", function() {
-				var localDeleteCalled = false;
-				spyOn($scope, "deleteCategoryLocally").and.callFake(function() {
-					localDeleteCalled = true;
-				});
+			it("calls boardFactory.deleteCategory with params [category]", function() {
+				apiCallArgs = [];
 
-				$scope.deleteCategory();
-				$scope.$apply(function() {
-					defer.resolve();
-				});
-				expect(localDeleteCalled).toEqual(true);
+				scope.deleteCategory();
+				expect(apiCallArgs[0]).toEqual(scope.category);
+			});
+		});
+
+
+		describe("scope.categoryName", function() {
+			it("is defined", function() {
+				expect(scope.categoryName).toBeDefined();
 			});
 
-			it("logs an error on reject", inject(function($log) {
-				var msg = "error";
+			it("is a string", function() {
+				expect(typeof scope.categoryName).toEqual("string");
+			});
 
-				$scope.deleteCategory();
-				$log.reset();
-				$scope.$apply(function() {
-					defer.reject(msg);
-				});
+			it("is equal to $scope.category.name", function() {
+				expect(scope.categoryName).toEqual(scope.category.name);
+			});
+		});
 
-				expect($log.error.logs[0][0]).toEqual(msg);
-			}));
+
+		describe("scope.category", function() {
+			it("is defined", function() {
+				expect(dom.scope().category).toBeDefined();
+			});
+
+			it("is an object", function() {
+				expect(Object.prototype.toString.call(dom.scope().category)).toEqual("[object Object]");
+			});
 		});
 	});
 })();

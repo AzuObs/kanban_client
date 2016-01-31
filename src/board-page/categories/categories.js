@@ -26,8 +26,8 @@
 				$scope.newCat = "";
 			};
 
-			$scope.board = boardFactory.getBoardSync();
 			$scope.newCat = "";
+			$scope.board = boardFactory.getBoardSync();
 			$scope.categorySortOpts = new CategorySortOpts();
 		}
 	]);

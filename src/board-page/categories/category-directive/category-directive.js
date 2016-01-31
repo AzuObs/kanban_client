@@ -31,8 +31,9 @@
 	module.controller("kbCategoryController", [
 		"$scope", "boardFactory", "$filter",
 		function($scope, boardFactory, $filter) {
-			$scope.deleteCategory = function(cat) {
-				boardFactory.deleteCategory(cat);
+
+			$scope.deleteCategory = function() {
+				boardFactory.deleteCategory($scope.category);
 			};
 
 			$scope.categoryName = $filter("capitalize")($scope.category.name);
