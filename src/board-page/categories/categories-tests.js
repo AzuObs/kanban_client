@@ -7,10 +7,14 @@
 
 		beforeEach(function() {
 			module("categoryModule");
+
 			inject(function($rootScope, $controller, boardFactory) {
-				boardFactory.setBoardSyncTestOnly({
-					name: "foobar"
+				spyOn(boardFactory, "getBoardSync").and.callFake(function() {
+					return {
+						name: "foobar"
+					};
 				});
+
 				$scope = $rootScope.$new();
 				$controller("categoryCtrl", {
 					$scope: $scope
