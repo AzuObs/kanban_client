@@ -22,7 +22,6 @@
 				},
 				"body-view@": {
 					templateUrl: "board-page/board.html",
-					controller: "boardCtrl",
 					resolve: {
 						board: ["boardFactory", function(boardFactory) {
 							return boardFactory.getBoard(sessionStorage.boardId);
@@ -48,12 +47,4 @@
 			url: "/board-page/:boardName",
 		});
 	}]);
-
-
-	module.controller("boardCtrl", [
-		"board", "$scope",
-		function(board, $scope) {
-			$scope.board = board;
-		}
-	]);
 })();
