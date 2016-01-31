@@ -3,13 +3,14 @@
 
 
 	describe("categoryCtrl", function() {
-		var $scope, defer, board = {
-			name: "foobar"
-		};
+		var $scope;
 
 		beforeEach(function() {
 			module("categoryModule");
-			inject(function($rootScope, $controller) {
+			inject(function($rootScope, $controller, boardFactory) {
+				boardFactory.setBoardSyncTestOnly({
+					name: "foobar"
+				});
 				$scope = $rootScope.$new();
 				$controller("categoryCtrl", {
 					$scope: $scope
@@ -112,6 +113,21 @@
 			it("is an empty string", function() {
 				expect($scope.newCat).toEqual("");
 			});
+		});
+
+
+		describe("$scope.board", function() {
+			it("is defined", function() {
+				expect($scope.board).toBeDefined();
+			});
+
+			it("is an object", function() {
+				expect(Object.prototype.toString.call($scope.board)).toEqual("[object Object]");
+			});
+
+			it("is equal to the board contained without boardFactory", inject(function(boardFactory) {
+				expect($scope.board).toEqual(boardFactory.getBoardSync());
+			}));
 		});
 	});
 })();

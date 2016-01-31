@@ -11,6 +11,14 @@
 			var board, boardUsers;
 
 			var boardInterface = {
+				// we need to be able to set the board without a call to the API
+				// so that .getBoardSync will have something to return when
+				// we are testing controllers such as 
+				// boardModalCtrl, categoryCtrl, userCtrl, etc...
+				setBoardSyncTestOnly: function(obj) {
+					board = obj;
+				},
+
 				getBoardSync: function() {
 					return board;
 				},
