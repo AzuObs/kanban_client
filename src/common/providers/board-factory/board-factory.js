@@ -56,18 +56,36 @@
 				},
 
 
-				addMemberToUserSelection: function(userEmail) {
+				addMemberToBoard: function(email) {
 					var defer = $q.defer();
+					var memberIsDuplicate = function(email) {
+						for (var i = 0; i < board.members.length; i++) {
+							if (board.members[i].email === email) {
+								return true;
+							}
+						}
 
-					serverAPI
-						.addMemberToUserSelection(board, userEmail)
-						.then(function(res) {
-							board.members.push(res);
-							boardUsers.push(res);
-							defer.resolve(res);
-						}, function(err) {
-							errorHandler.handleHttpError(err);
-						});
+						for (i = 0; i < board.admins.length; i++) {
+							if (board.admins[i].email === email) {
+								return true;
+							}
+						}
+					};
+
+					if (memberIsDuplicate(email)) {
+						$log.error("member is already exists in the board object");
+						defer.reject();
+					} else {
+						serverAPI
+							.addMemberToUserSelection(board, email)
+							.then(function(res) {
+								board.members.push(res);
+								boardUsers.push(res);
+								defer.resolve(res);
+							}, function(err) {
+								errorHandler.handleHttpError(err);
+							});
+					}
 
 					return defer;
 				},

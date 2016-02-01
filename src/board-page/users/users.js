@@ -14,13 +14,17 @@
 
 
 	module.controller("userMenuCtrl", [
-		"$scope", "$modal", "$log", "boardFactory", "UserSortOpts", "$filter",
-		function($scope, $modal, $log, boardFactory, UserSortOpts, $filter) {
-			$scope.editUser = function(user) {
-				if (!user) {
-					return $log.error("no arguments for userMenuCtrl.editUser()");
-				}
+		"$scope", "$modal", "boardFactory", "UserSortOpts", "$filter",
+		function($scope, $modal, boardFactory, UserSortOpts, $filter) {
 
+			$scope.addMember = function(e) {
+				if (e.type === "click" || (e.type === "keypress" && e.which === 13)) {
+					boardFactory.addMemberToBoard($scope.addMemberInput);
+				}
+			};
+
+
+			$scope.openUserModal = function(user) {
 				$modal.open({
 					animation: true,
 					templateUrl: "board-page/users/user-modal/user-modal.html",
@@ -34,33 +38,20 @@
 				});
 			};
 
-			$scope.setAddMember = function(value) {
-				if (!value) {
-					return $log.error("no arguments userMenuCtrl.setAddMember()");
-				}
 
+			$scope.setAddMember = function(value) {
 				$scope.addMemberInput = value;
 			};
 
-			$scope.addMember = function(e) {
-				if (e.type === "click" || (e.type === "keypress" && e.which === 13)) {
-					for (var i = 0; i < $scope.users.length; i++) {
-						if ($scope.addMemberInput === $scope.users[i].email) {
-							return $log.error("avoiding duplicate: user already exists");
-						}
-					}
-
-					boardFactory.addMemberToUserSelection($scope.addMemberInput);
-				}
-			};
 
 			$scope.stopSort = function() {
 				$scope.users = boardFactory.getBoardUsersSync();
 			};
 
+
 			$scope.board = boardFactory.getBoardSync();
-			$scope.boardName = $filter("capitalize")($scope.board.name);
 			$scope.users = boardFactory.getBoardUsersSync();
+			$scope.boardName = $filter("capitalize")($scope.board.name);
 			$scope.userSortOpts = new UserSortOpts($scope.stopSort);
 			$scope.addMemberInput = "";
 			$scope.membersSuggestions = [{

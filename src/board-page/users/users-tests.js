@@ -2,29 +2,42 @@
 	"use strict";
 
 	describe("userMenuCtrl", function() {
-		var $scope;
+		var $scope, getBoardUsersSyncCalled;
 
-		beforeEach(module("userMenuModule"));
-		beforeEach(inject(function($controller, $rootScope) {
-			$scope = $rootScope.$new();
-			$controller("userMenuCtrl", {
-				$scope: $scope
+		beforeEach(function() {
+			module("userMenuModule");
+			inject(function($controller, $rootScope, boardFactory) {
+				spyOn(boardFactory, "getBoardSync").and.callFake(function() {
+					return {
+						members: [],
+						admins: [],
+						name: "my board"
+					};
+				});
+
+				spyOn(boardFactory, "getBoardUsersSync").and.callFake(function() {
+					getBoardUsersSyncCalled = true;
+					return [];
+				});
+
+				$scope = $rootScope.$new();
+				$controller("userMenuCtrl", {
+					$scope: $scope
+				});
 			});
-		}));
+		});
+
 
 		describe("$scope.addMember()", function() {
-			var apiArgs, apiDefer;
+			var apiCallArgs, apiCalled, defer;
+
 			beforeEach(inject(function(boardFactory, $q) {
-				apiArgs = undefined;
-				spyOn(boardFactory, "addMemberToUserSelection").and.callFake(function() {
-					apiDefer = $q.defer();
-					apiArgs = arguments;
-					return apiDefer.promise;
+				spyOn(boardFactory, "addMemberToBoard").and.callFake(function() {
+					apiCalled = true;
+					apiCallArgs = arguments;
+					defer = $q.defer();
+					return defer.promise;
 				});
-				$scope.user = {};
-				$scope.users = [{
-					email: "foo"
-				}];
 			}));
 
 			it("is defined", function() {
@@ -35,98 +48,78 @@
 				expect(typeof $scope.addMember).toEqual("function");
 			});
 
-			it("checks that there is either a click or a keypress enter event", function() {
-				var e;
-
-				expect(function() {
-					$scope.addMember();
-				}).toThrow();
-
-				e = {
-					type: ""
+			it("does nothing if there isn't a click or a keypress 'enter' event", function() {
+				var e = {
+					type: "",
+					which: 0
 				};
-				apiArgs = undefined;
+				apiCalled = false;
 				$scope.addMember(e);
-				expect(apiArgs).toEqual(undefined);
-
-				e = {
-					type: "keypress"
-				};
-				apiArgs = undefined;
-				$scope.addMember(e);
-				expect(apiArgs).toEqual(undefined);
-
-				e = {
-					type: "keypress",
-					which: 10
-				};
-				apiArgs = undefined;
-				$scope.addMember(e);
-				expect(apiArgs).toEqual(undefined);
+				expect(apiCalled).toEqual(false);
 
 				e = {
 					type: "keypress",
 					which: 13
 				};
-				apiArgs = undefined;
+				apiCalled = false;
 				$scope.addMember(e);
-				expect(apiArgs).not.toEqual(undefined);
+				expect(apiCalled).toEqual(true);
 
 				e = {
 					type: "click"
 				};
-				apiArgs = undefined;
+				apiCalled = false;
 				$scope.addMember(e);
-				expect(apiArgs).not.toEqual(undefined);
+				expect(apiCalled).toEqual(true);
 			});
 
-			it("$logs error if user being added is already in the list", inject(function($log) {
-				$log.reset();
-				$scope.addMemberInput = "foo";
-				$scope.addMember({
+			it("calls boardFactory.addMemberToBoard", function() {
+				var e = {
 					type: "click"
-				});
-				expect($log.error.logs[0][0]).toBeDefined();
-			}));
-
-			it("updates the server model", function() {
-				$scope.addMember({
-					type: "click"
-				});
-				expect(apiArgs).not.toEqual(undefined);
-			});
-
-			it("updates the local model on resolve", function() {
-				var user = "foo";
-				$scope.users = [];
-				$scope.board = {
-					members: []
 				};
-				$scope.addMember({
-					type: "click"
-				});
-				$scope.$apply(function() {
-					apiDefer.resolve(user);
-				});
+				apiCalled = false;
 
-				expect($scope.users[0]).toEqual(user);
-				expect($scope.board.members[0]).toEqual(user);
+				$scope.addMember(e);
+				expect(apiCalled).toEqual(true);
 			});
 
-			it("logs an error on reject", inject(function($log) {
-				$log.reset();
-				var msg = "error";
-
-				$scope.addMember({
+			it("calls boardFactory.addMemberToBoard with args [addMemberInput]", function() {
+				var e = {
 					type: "click"
-				});
-				$scope.$apply(function() {
-					apiDefer.reject(msg);
-				});
+				};
+				apiCallArgs = [];
 
-				expect($log.error.logs[0][0]).toBeDefined();
-			}));
+				$scope.addMember(e);
+				expect(apiCallArgs.length).toEqual(1);
+				expect(apiCallArgs[0]).toEqual($scope.addMemberInput);
+			});
 		});
+
+
+		describe("$scope.openUserModal()", function() {
+			var apiCalled;
+
+			beforeEach(inject(function($modal) {
+				spyOn($modal, "open").and.callFake(function() {
+					apiCalled = true;
+				});
+			}));
+
+			it("is defined", function() {
+				expect($scope.openUserModal).toBeDefined();
+			});
+
+			it("is a function", function() {
+				expect(typeof $scope.openUserModal).toEqual("function");
+			});
+
+			it("opens a modal", function() {
+				apiCalled = false;
+				$scope.openUserModal();
+				expect(apiCalled).toEqual(true);
+			});
+		});
+
 
 		describe("$scope.setAddMember()", function() {
 			it("is defined", function() {
@@ -137,79 +130,94 @@
 				expect(typeof $scope.setAddMember).toEqual("function");
 			});
 
-			it("logs an error if not arguments are received", inject(function($log) {
-				$log.reset();
-				$scope.setAddMember();
-				expect($log.error.logs[0][0]).toBeDefined();
-			}));
-
-			it("sets $scope.addMemberInput to received argument", function() {
+			it("sets $scope.addMemberInput to it's function argument", function() {
 				$scope.addMemberInput = "";
 				$scope.setAddMember("foo");
 				expect($scope.addMemberInput).toEqual("foo");
 			});
 		});
 
-		describe("$scope.editUser()", function() {
-			var modalArgs, $log;
 
-			beforeEach(inject(function($modal) {
-				modalArgs = undefined;
-				spyOn($modal, "open").and.callFake(function() {
-					modalArgs = arguments;
-				});
-			}));
+		describe("$scope.stopSort()", function() {
+			//  var getBoardUsersSyncCalled is defined at the top of the document
+			//  under describe("userCtrl")
 
 			it("is defined", function() {
-				expect($scope.editUser).toBeDefined();
+				expect($scope.stopSort).toBeDefined();
 			});
 
 			it("is a function", function() {
-				expect(typeof $scope.editUser).toEqual("function");
+				expect(typeof $scope.stopSort).toEqual("function");
 			});
 
-			it("logs an error if not arguments are received", inject(function($log) {
-				$log.reset();
-				$scope.editUser();
-				expect($log.error.logs[0][0]).toBeDefined();
-			}));
-
-			it("opens a modal", function() {
-				$scope.editUser({});
-				expect(modalArgs).not.toEqual(undefined);
-			});
-
-			it("configures a modal", function() {
-				$scope.editUser({});
-				expect(Object.keys(modalArgs).length).toBeGreaterThan(0);
+			it("calls boardFactory.getBoardUsersSync", function() {
+				getBoardUsersSyncCalled = false;
+				$scope.stopSort();
+				expect(getBoardUsersSyncCalled).toEqual(true);
 			});
 		});
 
-		describe("$scope.membersSuggestions", function() {
+
+		describe("$scope.board", function() {
 			it("is defined", function() {
-				expect($scope.membersSuggestions).toBeDefined();
+				expect($scope.board).toBeDefined();
+			});
+
+			it("is an object", function() {
+				expect(Object.prototype.toString.call($scope.board)).toEqual("[object Object]");
+			});
+
+			it("Equals boardFactory.getBoardSync", inject(function(boardFactory) {
+				expect($scope.board).toEqual(boardFactory.getBoardSync());
+			}));
+		});
+
+
+		describe("$scope.users", function() {
+			it("is defined", function() {
+				expect($scope.users).toBeDefined();
 			});
 
 			it("is an array", function() {
-				expect(Object.prototype.toString.call($scope.membersSuggestions)).toEqual("[object Array]");
+				expect(Object.prototype.toString.call($scope.users)).toEqual("[object Array]");
 			});
 
-			it("has preset values", function() {
-				var preset = [{
-					email: "sheldon@mail.com"
-				}, {
-					email: "raj@mail.com"
-				}, {
-					email: "penny@mail.com"
-				}, {
-					email: "leonard@mail.com"
-				}, {
-					email: "wolowitz@mail.com"
-				}];
-
-				expect($scope.membersSuggestions).toEqual(preset);
-			});
+			it("is Equal to boardFactory.getBoardUsersSync", inject(function(boardFactory) {
+				expect($scope.users).toEqual(boardFactory.getBoardUsersSync());
+			}));
 		});
+
+
+		describe("$scope.boardName", function() {
+			it("is defined", function() {
+				expect($scope.boardName).toBeDefined();
+			});
+
+			it("is a string", function() {
+				expect(typeof $scope.boardName).toEqual("string");
+			});
+
+			it("is Equal to the Capitalized filtered $scope.board.name", inject(function($filter) {
+				expect($scope.boardName).not.toEqual($scope.board.name);
+				expect($scope.boardName).toEqual($filter("capitalize")($scope.board.name));
+			}));
+		});
+
+
+		describe("$scope.userSortOpts", function() {
+			it("is defined", function() {
+				expect($scope.userSortOpts).toBeDefined();
+			});
+
+			it("is an object", function() {
+				expect(Object.prototype.toString.call($scope.userSortOpts)).toEqual("[object Object]");
+			});
+
+			it("is Equal to an instance of UserSortOpts", inject(function(UserSortOpts) {
+				expect($scope.userSortOpts.keys).toEqual(new UserSortOpts($scope.stopSort).keys);
+			}));
+		});
+
 
 		describe("$scope.addMemberInput", function() {
 			it("is defined", function() {
@@ -222,6 +230,33 @@
 
 			it("is empty", function() {
 				expect($scope.addMemberInput).toEqual("");
+			});
+		});
+
+
+		describe("$scope.membersSuggestions", function() {
+			it("is defined", function() {
+				expect($scope.membersSuggestions).toBeDefined();
+			});
+
+			it("is an array", function() {
+				expect(Object.prototype.toString.call($scope.membersSuggestions)).toEqual("[object Array]");
+			});
+
+			it("has preset values", function() {
+				var preSet = [{
+					email: "sheldon@mail.com"
+				}, {
+					email: "raj@mail.com"
+				}, {
+					email: "penny@mail.com"
+				}, {
+					email: "leonard@mail.com"
+				}, {
+					email: "wolowitz@mail.com"
+				}];
+
+				expect($scope.membersSuggestions).toEqual(preSet);
 			});
 		});
 	});
