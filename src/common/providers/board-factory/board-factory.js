@@ -73,6 +73,59 @@
 				},
 
 
+				removeUserFromBoard: function(user) {
+					var removeUserLocally = function(user) {
+						var i, j, k;
+
+						// remove from board.admins
+						for (i = 0; i < board.admins.length; i++) {
+							if (board.admins[i]._id === user._id) {
+								board.admins.splice(i, 1);
+								break;
+							}
+						}
+
+						// remove from board.members
+						for (i = 0; i < board.members.length; i++) {
+							if (board.members[i]._id === user._id) {
+								board.members.splice(i, 1);
+								break;
+							}
+						}
+
+						// remove from tasks
+						for (i = 0; i < board.categories.length; i++) {
+							var category = board.categories[i];
+
+							for (j = 0; j < category.tasks.length; j++) {
+								var task = category.tasks[j];
+
+								for (k = 0; k < task.users.length; k++) {
+									var taskUser = task.users[k];
+
+									if (taskUser._id === user._id) {
+										task.users.splice(k, 1);
+										break;
+									}
+								}
+							}
+						}
+					};
+
+					removeUserLocally(user);
+
+					var defer = $q.defer;
+
+					that
+						.updateBoard()
+						.then(function() {
+							defer.resolve();
+						});
+
+					return defer.promise;
+				},
+
+
 				createComment: function(content, user, task, cat) {
 					var defer = $q.defer();
 
