@@ -4,62 +4,110 @@
 	describe("userModalCtrl", function() {
 		var $scope, user, $modalInstance;
 
-		beforeEach(module("userModalModule"));
+		beforeEach(function() {
+			module("userModalModule");
 
-		beforeEach(inject(function($controller, $rootScope, $modal) {
-			user = {
-				_id: "123",
-				username: "foo"
-			};
-			$scope = $rootScope.$new();
-			$scope.board = {
-				admins: [{
-					_id: user._id
-				}],
-				members: [],
-				categories: [{
-					tasks: [{
-						users: [{}]
-					}]
-				}]
-			};
-			$scope.users = [];
-			$modalInstance = $modal.open({
-				template: "<div></div>"
-			});
-
-			$controller("userModalCtrl", {
-				$scope: $scope,
-				$modalInstance: $modalInstance,
-				user: user
-			});
-		}));
-
-		describe("$scope.userIsAdmin", function() {
-			it("should be defined", function() {
-				expect($scope.userIsAdmin).toBeDefined();
-			});
-
-			it("should be a boolean", function() {
-				expect(typeof $scope.userIsAdmin).toEqual("boolean");
-			});
-
-			it("should return true is a user is an admin", function() {
-				$scope.$apply(function() {
-					$scope.userRBAC = "admin";
+			inject(function($controller, $rootScope, $modal, boardFactory) {
+				// VAR INIT
+				user = {
+					_id: "user"
+				};
+				$scope = $rootScope.$new();
+				$scope.board = {
+					admins: [{
+						_id: "user"
+					}],
+					members: []
+				};
+				$modalInstance = $modal.open({
+					template: "<div></div>"
 				});
 
-				expect($scope.userIsAdmin).toEqual(true);
-			});
-
-			it("should return false is a user is a member", function() {
-				$scope.$apply(function() {
-					$scope.userRBAC = "member";
+				// SPY
+				spyOn(boardFactory, "getBoardUsersSync").and.callFake(function() {
+					return [{
+						_id: "user 1"
+					}];
 				});
 
-				expect($scope.userIsAdmin).toEqual(false);
+				// CTRL
+				$controller("userModalCtrl", {
+					$scope: $scope,
+					$modalInstance: $modalInstance,
+					user: user
+				});
 			});
 		});
+
+		////
+		//// TESTING
+		////
+
+
+		describe("$scope.cancelEditing()", function() {
+			it("is defined", function() {
+				expect($scope.cancelEditing).toBeDefined();
+			});
+
+			it("is a function", function() {
+				expect(typeof $scope.cancelEditing).toEqual("function");
+			});
+
+			it("does nothing if event click is outside of .change-rbac", function() {
+				var e;
+
+				e = {
+					target: angular.element("<div class='change-rbac'></div>")
+				};
+				$scope.isEditingRBAC = true;
+				$scope.cancelEditing(e);
+				expect($scope.isEditingRBAC).toEqual(true);
+			});
+
+			it("set isEditingRBAC to false", function() {
+				var e = {
+					target: angular.element("<div></div>")
+				};
+
+				$scope.isEditingRBAC = true;
+
+				$scope.cancelEditing(e);
+				expect($scope.isEditingRBAC).toEqual(false);
+			});
+
+			it("resets userRBAC", function() {
+				var e = {
+					target: angular.element("<div></div>")
+				};
+
+				$scope.userRBAC = undefined;
+
+				$scope.cancelEditing(e);
+				$scope.userRBAC = "admin";
+			});
+		});
+
+
+		describe("$scope.changeUserRBAC()", function() {
+			it("is defined", function() {
+				expect($scope.changeUserRBAC).toBeDefined();
+			});
+
+			it("is a function", function() {
+				expect(typeof $scope.changeUserRBAC).toEqual("function");
+			});
+
+			it("toggles $scope.isEditingRBAC", function() {
+				$scope.isEditingRBAC = false;
+				$scope.changeUserRBAC();
+				expect($scope.isEditingRBAC).toEqual(true);
+
+				$scope.isEditingRBAC = true;
+				$scope.changeUserRBAC();
+				expect($scope.isEditingRBAC).toEqual(false);
+			});
+		});
+
 
 		describe("$scope.removeUser", function() {
 			it("is defined", function() {
@@ -385,105 +433,6 @@
 			});
 		});
 
-		describe("$scope.changeUserRBAC()", function() {
-			it("is defined", function() {
-				expect($scope.changeUserRBAC).toBeDefined();
-			});
-
-			it("is a function", function() {
-				expect(typeof $scope.changeUserRBAC).toEqual("function");
-			});
-
-			it("logs an error if no argument is received", inject(function($log) {
-				$log.reset();
-				$scope.changeUserRBAC();
-				expect($log.error.logs[0][0]).toBeDefined();
-			}));
-
-			it("toggles $scope.isEditingRBAC", function() {
-				$scope.isEditingRBAC = false;
-				$scope.changeUserRBAC(1);
-				expect($scope.isEditingRBAC).toEqual(true);
-				$scope.changeUserRBAC(1);
-				expect($scope.isEditingRBAC).toEqual(false);
-			});
-		});
-
-		describe("$scope.cancelEditing()", function() {
-			it("is defined", function() {
-				expect($scope.cancelEditing).toBeDefined();
-			});
-
-			it("is a function", function() {
-				expect(typeof $scope.cancelEditing).toEqual("function");
-			});
-
-			it("logs an error if not event argument is received", inject(function($log) {
-				$log.reset();
-				$scope.cancelEditing();
-				expect($log.error.logs[0][0]).toBeDefined();
-			}));
-
-			it("cancels editing RBAC when a click is outside of .change-rbac", function() {
-				var e;
-
-				e = {
-					target: angular.element("<div class='change-rbac'></div>")
-				};
-				$scope.isEditingRBAC = true;
-				$scope.cancelEditing(e);
-				expect($scope.isEditingRBAC).toEqual(true);
-
-				e = {
-					target: angular.element("<div></div>")
-				};
-				$scope.isEditingRBAC = true;
-				$scope.cancelEditing(e);
-				expect($scope.isEditingRBAC).toEqual(false);
-			});
-
-			it("recalculates userRBAC when it cancels editing", function() {
-				var e = {
-					target: angular.element("<div></div>")
-				};
-				$scope.board.members = [{
-					_id: user._id
-				}];
-				$scope.board.admins = [];
-				$scope.userRBAC = "admin";
-				$scope.isEditingRBAC = true;
-				$scope.cancelEditing(e);
-				expect($scope.userRBAC).toEqual("member");
-			});
-
-			it("cancels deleting when click is outside of .remove-user", function() {
-				var e;
-
-				e = {
-					target: angular.element("<div class='remove-user'></div>")
-				};
-				$scope.isDeleting = true;
-				$scope.cancelEditing(e);
-				expect($scope.isDeleting).toEqual(true);
-
-				e = {
-					target: angular.element("<div></div>")
-				};
-				$scope.isDeleting = true;
-				$scope.cancelEditing(e);
-				expect($scope.isDeleting).toEqual(false);
-			});
-
-			it("resets repeatUsername when it cancels deleting", function() {
-				var e = {
-					target: angular.element("<div></div>")
-				};
-				$scope.repeatUsername = "foo";
-				$scope.isDeleting = true;
-				$scope.cancelEditing(e);
-				expect($scope.repeatUsername).toEqual("");
-			});
-		});
 
 		describe("$scope.getUserRBAC()", function() {
 			it("is defined", function() {
@@ -579,6 +528,56 @@
 			it("is the user that is injected into the controller", function() {
 				expect($scope.modalUser).toEqual(user);
 			});
+		});
+
+		describe("$scope.userIsAdmin", function() {
+			it("is defined", function() {
+				expect($scope.userIsAdmin).toBeDefined();
+			});
+
+			it("is a boolean", function() {
+				expect(typeof $scope.userIsAdmin).toEqual("boolean");
+			});
+
+			it("is true if user is an admin", inject(function($controller) {
+				$scope.board = {
+					members: [],
+					admins: [{
+						_id: "user"
+					}]
+				};
+				user = {
+					_id: "user"
+				};
+
+				$controller("userModalCtrl", {
+					$scope: $scope,
+					user: user,
+					$modalInstance: $modalInstance
+				});
+
+				expect($scope.userIsAdmin).toEqual(true);
+			}));
+
+			it("is true if user is a member", inject(function($controller) {
+				$scope.board = {
+					admins: [],
+					members: [{
+						_id: "user"
+					}]
+				};
+				user = {
+					_id: "user"
+				};
+
+				$controller("userModalCtrl", {
+					$scope: $scope,
+					user: user,
+					$modalInstance: $modalInstance
+				});
+
+				expect($scope.userIsAdmin).toEqual(false);
+			}));
 		});
 	});
 })();

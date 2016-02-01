@@ -14,23 +14,17 @@
 		function($state, $log, $scope, $modalInstance, boardFactory, user) {
 
 			$scope.cancelEditing = function(e) {
-				if (!e) {
-					return $log.error("no event passed to userModalCtrl.cancelEditing");
-				}
-
-				if (!angular.element(e.target)
-					.hasClass("change-rbac")) {
+				if (!angular.element(e.target).hasClass("change-rbac")) {
 					$scope.isEditingRBAC = false;
 					$scope.userRBAC = $scope.getUserRBAC();
 				}
 			};
 
+
 			$scope.changeUserRBAC = function(e) {
-				if (!e) {
-					return $log.error("no event received @changeUserRBAC @userModalCtrl");
-				}
 				$scope.isEditingRBAC = !$scope.isEditingRBAC;
 			};
+
 
 			$scope.removeUser = function() {
 				for (var i = 0; i < $scope.board.admins.length; i++) {
@@ -89,9 +83,6 @@
 				}
 			};
 
-			$scope.closeModal = function() {
-				$modalInstance.dismiss();
-			};
 
 			$scope.getUserRBAC = function() {
 				var user = $scope.modalUser;
@@ -107,16 +98,19 @@
 						return "admin";
 					}
 				}
-
-				$log.error("user does not have RBAC");
 			};
+
+
+			$scope.closeModal = function() {
+				$modalInstance.dismiss();
+			};
+
 
 			$scope.modalUser = user;
 			$scope.boardUsers = boardFactory.getBoardUsersSync();
 			$scope.isEditingRBAC = false;
-			$scope.repeatUsername = "";
 			$scope.userRBAC = $scope.getUserRBAC();
-			$scope.userIsAdmin = $scope.userRBAC === "admin";
+			$scope.userIsAdmin = ($scope.userRBAC === "admin");
 		}
 	]);
 
