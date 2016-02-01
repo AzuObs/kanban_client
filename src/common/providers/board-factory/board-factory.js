@@ -8,12 +8,14 @@
 	module.factory("boardFactory", [
 		"serverAPI", "errorHandler", "$log", "$q",
 		function(serverAPI, errorHandler, $log, $q) {
-			var board, boardUsers;
+			var board, boardUsers, that;
+			that = this;
 
 			var boardInterface = {
 				getBoardSync: function() {
 					return board;
 				},
+
 
 				getBoard: function(boardId) {
 					var defer = $q.defer();
@@ -29,6 +31,7 @@
 
 					return defer.promise;
 				},
+
 
 				updateBoard: function(_board_) {
 					board = _board_ || board;
@@ -46,10 +49,12 @@
 					return defer.promise;
 				},
 
+
 				getBoardUsersSync: function() {
 					boardUsers = board.admins.concat(board.members);
 					return boardUsers;
 				},
+
 
 				addMemberToUserSelection: function(userEmail) {
 					var defer = $q.defer();
@@ -66,6 +71,7 @@
 
 					return defer;
 				},
+
 
 				createComment: function(content, user, task, cat) {
 					var defer = $q.defer();
@@ -102,6 +108,50 @@
 							defer.resolve(res);
 						}, function(err) {
 							errorHandler.handleHttpError(err);
+						});
+
+					return defer.promise;
+				},
+
+
+				addUserToTask: function(task, user) {
+					var defer = $q.defer();
+
+					var addUserLocally = function(task, user) {
+						task.users.push(user);
+					};
+
+					addUserLocally(task, user);
+
+					that
+						.updateBoard()
+						.then(function() {
+							defer.resolve();
+						});
+
+					return defer;
+				},
+
+
+				removeUserFromTask: function(task, user) {
+					var defer = $q.defer();
+
+					var removeUserFromTaskLocally = function(task, user) {
+						var i = task.users.findIndex(function(e) {
+							return e._id === user._id;
+						});
+
+						if (i > -1) {
+							task.users.splice(i, 1);
+						}
+					};
+
+					removeUserFromTaskLocally(task, user);
+
+					that
+						.updateBoard()
+						.then(function() {
+							defer.resolve();
 						});
 
 					return defer.promise;

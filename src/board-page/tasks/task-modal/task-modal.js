@@ -54,9 +54,10 @@
 			};
 
 
-			$scope.getCatIndex = function() {
+			$scope.getCatIndex = function(index) {
+				var _catId_ = index || catId;
 				return $scope.board.categories.findIndex(function(element, i, array) {
-					if (element._id === catId) {
+					if (element._id === _catId_) {
 						return true;
 					}
 				});
@@ -118,10 +119,6 @@
 
 
 			$scope.deleteTask = function() {
-				// var category, task;
-				// var taskIndex = $scope.getTaskIndex();
-				// $scope.category.tasks.splice(taskIndex, 1);
-
 				boardFactory.deleteTask($scope.category, $scope.task)
 					.then(function() {
 						$scope.closeModal();
@@ -135,9 +132,7 @@
 
 
 			$scope.addUserToTask = function(user) {
-				$scope.task.users.push(user);
-
-				boardFactory.updateBoard()
+				boardFactory.addUserToTask($scope.task, user)
 					.then(function() {
 						$scope.getAddableUsers();
 					});
@@ -145,51 +140,34 @@
 
 
 			$scope.moveTaskToCategoryLocally = function(destCat) {
-				var srcTaskIdx, srcCatIndex, destCatIdx;
-				srcTaskIdx = $scope.getTaskIndex;
-				srcCatIndex = $scope.getCatIndex();
-				catId = destCat._id;
-
 				//remove task from old category
-				$scope.category.tasks.splice(srcTaskIdx, 1);
+				$scope.category.tasks.splice($scope.getTaskIndex(), 1);
 
 				//change category
-				destCatIdx = $scope.getCatIndex($scope, catId);
-				$scope.category = $scope.board.categories[destCatIdx];
+				catId = destCat._id;
+				$scope.category = $scope.board.categories[$scope.getCatIndex()];
 
 				//add task to new category
 				$scope.category.tasks.push($scope.task);
-
-				//get new task index and changeable categories
-				$scope.getChangeableCategories();
 			};
 
 
 			$scope.moveTaskToCategory = function(category) {
 				$scope.moveTaskToCategoryLocally(category);
 
-				boardFactory.updateBoard();
-			};
-
-
-			$scope.removeUserFromTask = function(user) {
-				$scope.removeUserFromTaskLocally(user);
-
-				boardFactory.updateBoard()
+				boardFactory
+					.updateBoard()
 					.then(function() {
-						$scope.getAddableUsers();
+						$scope.getChangeableCategories();
 					});
 			};
 
 
-			$scope.removeUserFromTaskLocally = function(user) {
-				var i = $scope.task.users.findIndex(function(e) {
-					return e._id === user._id;
-				});
-
-				if (i > -1) {
-					$scope.task.users.splice(i, 1);
-				}
+			$scope.removeUserFromTask = function(user) {
+				boardFactory.removeUserFromTask($scope.task, user)
+					.then(function() {
+						$scope.getAddableUsers();
+					});
 			};
 
 			$scope.toggleIsEditingTitle = function() {

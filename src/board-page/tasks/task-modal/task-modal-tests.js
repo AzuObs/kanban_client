@@ -297,7 +297,6 @@
 				spyOn(boardFactory, "deleteTask").and.callFake(function() {
 					apiCalled = true;
 					apiCallArgs = arguments;
-
 					defer = $q.defer();
 					return defer.promise;
 				});
@@ -318,7 +317,14 @@
 			});
 
 			it("calls boardFactory.deleteTask with args [category, task]", function() {
+				apiCallArgs = [];
+				$scope.category = "category";
+				$scope.task = "task";
 
+				$scope.deleteTask();
+				expect(apiCallArgs.length).toEqual(2);
+				expect(apiCallArgs[0]).toEqual("category");
+				expect(apiCallArgs[1]).toEqual("task");
 			});
 
 			it("calls $scope.closeModal on resolve", function() {
@@ -359,12 +365,12 @@
 
 
 		describe("$scope.addUserToTask", function() {
-			var defer, apiCalled;
+			var defer, apiCalled, apiCallArgs;
 
 			beforeEach(inject(function($q, boardFactory) {
-				apiCalled = false;
-				spyOn(boardFactory, "updateBoard").and.callFake(function() {
+				spyOn(boardFactory, "addUserToTask").and.callFake(function() {
 					apiCalled = true;
+					apiCallArgs = arguments;
 					defer = $q.defer();
 					return defer.promise;
 				});
@@ -378,17 +384,22 @@
 				expect(typeof $scope.addUserToTask).toEqual("function");
 			});
 
-			it("adds a user to the task", function() {
-				expect($scope.task.users.length).toEqual(1);
-				$scope.addUserToTask("foo");
-				expect($scope.task.users.length).toEqual(2);
-			});
-
-			it("calls boardFactory.updateBoard", function() {
+			it("calls boardFactory.addUserToTask", function() {
 				apiCalled = false;
 				$scope.addUserToTask();
 				expect(apiCalled).toEqual(true);
 			});
+
+			it("calls boardFactory.addUserToTask with args [task, user]", function() {
+				apiCallArgs = [];
+				$scope.task = "task";
+
+				$scope.addUserToTask("user");
+				expect(apiCallArgs.length).toEqual(2);
+				expect(apiCallArgs[0]).toEqual("task");
+				expect(apiCallArgs[1]).toEqual("user");
+			});
+
 
 			it("calls $scope.getAddableUsers on resolve", function() {
 				var getAddbleUsersCalled = false;
@@ -464,6 +475,23 @@
 				$scope.moveTaskToCategory($scope.board.categories[0]);
 				expect(apiCalled).toEqual(true);
 			});
+
+
+			it("calls $scope.getChangeableCategories() on resolve", function() {
+				var called = false;
+
+				spyOn($scope, "getChangeableCategories").and.callFake(function() {
+					called = true;
+				});
+
+
+				$scope.moveTaskToCategory($scope.board.categories[0]);
+				$scope.$apply(function() {
+					defer.resolve();
+				});
+
+				expect(called).toEqual(true);
+			});
 		});
 
 
@@ -489,12 +517,13 @@
 
 
 		describe("$scope.removeUserFromTask()", function() {
-			var defer, apiCalled;
+			var defer, apiCalled, apiCallArgs;
 
 			beforeEach(inject(function($q, boardFactory) {
-				spyOn(boardFactory, "updateBoard").and.callFake(function() {
-					defer = $q.defer();
+				spyOn(boardFactory, "removeUserFromTask").and.callFake(function() {
 					apiCalled = true;
+					apiCallArgs = arguments;
+					defer = $q.defer();
 					return defer.promise;
 				});
 			}));
@@ -507,20 +536,19 @@
 				expect(typeof $scope.removeUserFromTask).toEqual("function");
 			});
 
-			it("calls $scope.removeUserFromTaskLocally", function() {
-				var called = false;
-				spyOn($scope, "removeUserFromTaskLocally").and.callFake(function() {
-					called = true;
-				});
-
-				$scope.removeUserFromTask({});
-				expect(called).toEqual(true);
+			it("calls boardFactory.removeUserFromTask", function() {
+				apiCalled = false;
+				$scope.removeUserFromTask();
+				expect(apiCalled).toEqual(true);
 			});
 
-			it("calls boardFactory.updateBoard", function() {
-				apiCalled = false;
-				$scope.removeUserFromTask({});
-				expect(apiCalled).toEqual(true);
+			it("calls boardFactory.removeUserFromTask with args [task,user]", function() {
+				apiCallArgs = [];
+				$scope.task = "task";
+				$scope.removeUserFromTask("user");
+				expect(apiCallArgs.length).toEqual(2);
+				expect(apiCallArgs[0]).toEqual("task");
+				expect(apiCallArgs[1]).toEqual("user");
 			});
 
 			it("calls $scope.getAddableUsers on resolve", function() {
@@ -535,34 +563,6 @@
 					defer.resolve();
 				});
 				expect(called).toEqual(true);
-			});
-		});
-
-
-		describe("$scope.removeUserFromTaskLocally", function() {
-			it("is defined", function() {
-				expect($scope.removeUserFromTaskLocally).toBeDefined();
-			});
-
-			it("is a function", function() {
-				expect(typeof $scope.removeUserFromTaskLocally).toEqual("function");
-			});
-
-			it("removes a user from the task", function() {
-				$scope.task.users = [{
-					_id: "user 1"
-				}, {
-					_id: "user 2"
-				}];
-
-				expect($scope.task.users.length).toEqual(2);
-				expect($scope.task.users[0]._id).toEqual("user 1");
-
-				$scope.removeUserFromTaskLocally({
-					_id: "user 1"
-				});
-				expect($scope.task.users.length).toEqual(1);
-				expect($scope.task.users[0]._id).toEqual("user 2");
 			});
 		});
 
