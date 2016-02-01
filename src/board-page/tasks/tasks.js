@@ -12,14 +12,11 @@
 	]);
 
 	module.controller("taskCtrl", [
-		"$scope", "userFactory", "boardFactory", "$modal", "$log", "TaskSortOpts",
-		function($scope, userFactory, boardFactory, $modal, $log, TaskSortOpts) {
-			$scope.openTaskModal = function(e, _board, _cat, _task) {
-				if (!e || e.type != "click") {
-					return $log.error("invalid input @openTaskModal");
-				}
+		"$scope", "userFactory", "boardFactory", "$modal", "TaskSortOpts",
+		function($scope, userFactory, boardFactory, $modal, TaskSortOpts) {
 
-				if (angular.element(e.target).hasClass("glyphicon-remove")) {
+			$scope.openTaskModal = function(e, _board, _cat, _task) {
+				if (e && angular.element(e.target).hasClass("glyphicon-remove")) {
 					return;
 				}
 
@@ -43,12 +40,9 @@
 				});
 			};
 
-			$scope.createTask = function(category, keyEvent) {
-				if (!keyEvent || keyEvent.type != "keypress" || !category) {
-					return $log.error("invalid input @createTask");
-				}
 
-				if (keyEvent.which === 13) {
+			$scope.createTask = function(category, e) {
+				if (e && e.type === "keypress" && e.which === 13) {
 					boardFactory
 						.createTask($scope.taskName, category)
 						.then(function() {
@@ -57,9 +51,11 @@
 				}
 			};
 
+
 			$scope.resetTaskName = function() {
 				$scope.taskName = "";
 			};
+
 
 			$scope.taskName = "";
 			$scope.taskSortOpts = new TaskSortOpts();

@@ -9,12 +9,12 @@
 
 			inject(function($rootScope, $controller) {
 				$scope = $rootScope.$new();
-
 				$controller("taskCtrl", {
 					$scope: $scope
 				});
 			});
 		});
+
 
 		describe("$scope.resetTaskName()", function() {
 			it("is defined", function() {
@@ -34,46 +34,18 @@
 		});
 
 
-		describe("$scope.addTask()", function() {
-			it("is defined", function() {
-				expect($scope.addTask).toBeDefined();
-			});
-
-			it("is a function", function() {
-				expect(typeof $scope.addTask).toEqual("function");
-			});
-
-			it("checks for invalid input", inject(function($log) {
-				$log.reset();
-				$scope.addTask();
-				expect($log.error.logs[0][0]).toBeDefined();
-
-				$log.reset();
-				$scope.addTask("foo");
-				expect($log.error.logs[0][0]).toBeDefined();
-			}));
-
-			it("adds a task to the board", function() {
-				var category = {
-					tasks: []
-				};
-
-				$scope.addTask(category, "foo");
-				expect(category.tasks.length).toEqual(1);
-			});
-		});
-
-
 		describe("$scope.createTask()", function() {
-			beforeEach(function() {
-				$scope.board = {
-					_id: 123,
-					categories: {
-						_id: 123,
-						tasks: []
-					}
-				};
-			});
+			var apiCalled, apiCallArgs, defer;
+
+			beforeEach(inject(function($q, boardFactory) {
+				spyOn(boardFactory, "createTask").and.callFake(function() {
+					apiCalled = true;
+					apiCallArgs = arguments;
+
+					defer = $q.defer();
+					return defer.promise;
+				});
+			}));
 
 			it("is defined", function() {
 				expect($scope.createTask).toBeDefined();
@@ -83,105 +55,63 @@
 				expect(typeof $scope.createTask).toEqual("function");
 			});
 
-			it("checks for invalid input", inject(function($log) {
-				var e;
-
-				$log.reset();
-				$scope.createTask();
-				expect($log.error.logs[0][0]).toBeDefined();
-
-				$log.reset();
-				$scope.createTask($scope.board.categories);
-				expect($log.error.logs[0][0]).toBeDefined();
-
-				$log.reset();
-				e = {
-					type: "click"
+			it("calls boardFactory.createTask on keypress enter", function() {
+				apiCalled = false;
+				var e = {
+					type: "keypress",
+					which: 13
 				};
-				$scope.createTask($scope.board.categories, e);
-				expect($log.error.logs[0][0]).toBeDefined();
-			}));
 
-			it("it resets taskName on keypress enter", function() {
-				var called, e;
+				$scope.createTask("category", e);
+				expect(apiCalled).toEqual(true);
+			});
+
+			it("calls boardFactory.createTask with args [taskname, category]", function() {
+				apiCallArgs = [];
+				var e = {
+					type: "keypress",
+					which: 13
+				};
+				$scope.taskName = "task name";
+
+				$scope.createTask("category", e);
+				expect(apiCallArgs.length).toEqual(2);
+				expect(apiCallArgs[0]).toEqual("task name");
+				expect(apiCallArgs[1]).toEqual("category");
+			});
+
+			it("calls $scope.resetTaskName on resolve", function() {
+				var e, called;
+
+				e = {
+					type: "keypress",
+					which: 13
+				};
 
 				spyOn($scope, "resetTaskName").and.callFake(function() {
 					called = true;
 				});
 
 				called = false;
-				e = {
-					type: "keypress",
-					which: 13
-				};
-				$scope.createTask($scope.board.categories, e);
+				$scope.createTask("category", e);
+				$scope.$apply(function() {
+					defer.resolve();
+				});
+
 				expect(called).toEqual(true);
 			});
-
-			it("it adds task to server on keypress enter", inject(function(boardFactory, $q) {
-				var called, e;
-
-				spyOn(boardFactory, "createTask").and.callFake(function() {
-					called = true;
-					return $q.defer().promise;
-				});
-
-				called = false;
-				e = {
-					type: "keypress",
-					which: 13
-				};
-				$scope.createTask($scope.board.categories, e);
-				expect(called).toEqual(true);
-			}));
-
-			it("it adds task locally on resolve", inject(function(boardFactory, $q) {
-				var task, addTaskArg, e, defer;
-
-				spyOn(boardFactory, "createTask").and.callFake(function() {
-					defer = $q.defer();
-					return defer.promise;
-				});
-
-				spyOn($scope, "addTask").and.callFake(function() {
-					addTaskArg = arguments[1];
-				});
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-				$scope.createTask($scope.board.categories, e);
-				task = "foo";
-				$scope.$apply(function() {
-					defer.resolve(task);
-				});
-				expect(addTaskArg).toEqual(task);
-			}));
-
-			it("logs an error on reject", inject(function(boardFactory, $q, $log) {
-				var e, defer, msg;
-
-				spyOn(boardFactory, "createTask").and.callFake(function() {
-					defer = $q.defer();
-					return defer.promise;
-				});
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-				$scope.createTask($scope.board.categories, e);
-				msg = "error";
-				$scope.$apply(function() {
-					defer.reject(msg);
-				});
-				expect($log.error.logs[0][0]).toEqual(msg);
-			}));
 		});
 
 
 		describe("$scope.openTaskModal()", function() {
+			var apiCalled;
+
+			beforeEach(inject(function($modal) {
+				spyOn($modal, "open").and.callFake(function() {
+					apiCalled = true;
+				});
+			}));
+
 			it("is defined", function() {
 				expect($scope.openTaskModal).toBeDefined();
 			});
@@ -190,58 +120,27 @@
 				expect(typeof $scope.openTaskModal).toEqual("function");
 			});
 
-			it("doesn't open a modal if no event or no mouse click event is received", inject(function($modal) {
-				var modalCalled, e;
+			it("doesn't call $modal.open if the element clicked has class .glyphicon-remove",
+				inject(function($modal) {
+					var e = {
+						target: angular.element("<div class='glyphicon-remove'></div>")
+					};
 
-				spyOn($modal, "open").and.callFake(function() {
-					modalCalled = true;
-				});
+					apiCalled = false;
+					$scope.openTaskModal(e);
 
-				modalCalled = false;
-				$scope.openTaskModal();
-				expect(modalCalled).toEqual(false);
+					expect(apiCalled).toEqual(false);
+				}));
 
-				modalCalled = false;
-				e = {
-					type: "keypress"
-				};
-				$scope.openTaskModal(e);
-				expect(modalCalled).toEqual(false);
-			}));
-
-			it("doesn't open a modal if user wants to delete task", inject(function($modal) {
-				var modalCalled, e;
-
-				spyOn($modal, "open").and.callFake(function() {
-					modalCalled = true;
-				});
-
-				modalCalled = false;
-				e = {
-					type: "click",
-					target: angular.element("<div class='glyphicon-remove'></div>")
+			it("calls $modal.open", inject(function($modal) {
+				var e = {
+					target: angular.element("<div></div>")
 				};
 
+				apiCalled = false;
 				$scope.openTaskModal(e);
-				expect(modalCalled).toEqual(false);
-			}));
 
-			it("opens a modal", inject(function($modal) {
-				var modalCalled, e;
-
-				modalCalled = false;
-				spyOn($modal, "open").and.callFake(function() {
-					modalCalled = true;
-				});
-
-				modalCalled = false;
-				e = {
-					type: "click",
-					target: angular.element("<div class='foobar'></div>")
-				};
-
-				$scope.openTaskModal(e);
-				expect(modalCalled).toEqual(true);
+				expect(apiCalled).toEqual(true);
 			}));
 		});
 
@@ -255,9 +154,9 @@
 				expect(Object.prototype.toString.call($scope.taskSortOpts)).toEqual("[object Object]");
 			});
 
-			it("is not empty", function() {
-				expect(Object.keys($scope.taskSortOpts).length).toBeGreaterThan(0);
-			});
+			it("equals an instance of TaskSortOpts", inject(function(TaskSortOpts) {
+				expect($scope.taskSortOpts.keys).toEqual(new TaskSortOpts().keys);
+			}));
 		});
 
 
