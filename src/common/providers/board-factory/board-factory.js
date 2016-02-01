@@ -159,6 +159,7 @@
 						}, function(err) {
 							errorHandler.handleHttpError(err);
 						});
+
 					return defer.promise;
 				}
 			};

@@ -71,6 +71,7 @@
 .task-comment {
   position: absolute;
   bottom: 2px;
+  display: flex;
   top: auto;
   font-size: 12px;
 }

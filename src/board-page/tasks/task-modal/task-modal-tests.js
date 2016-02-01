@@ -2,49 +2,67 @@
 	"use strict";
 
 	describe("taskModalCtrl", function() {
-		var $scope, $modalInstance;
+		var $scope, $modalInstance, user, board;
 
 		beforeEach(function() {
 			module("taskModalModule");
 
-			inject(function($rootScope, $controller, $modal) {
-				$modalInstance = $modal.open({
-					template: "<h1></h1>"
+			inject(function($rootScope, $controller, $modal, boardFactory) {
+				// SPIES 
+				spyOn(boardFactory, "getBoardSync").and.callFake(function() {
+					return board;
 				});
 
-				$scope = $rootScope.$new();
-				$scope.board = {
-					_id: 123,
+				spyOn(boardFactory, "getBoardUsersSync").and.callFake(function() {
+					return board.admins.concat(board.members);
+				});
+
+
+				// VARIABLE INIT
+				board = {
+					_id: "foobar Board",
+					admins: [{
+						_id: "foobar Admin"
+					}],
+					members: [{
+						_id: "foobar Member"
+					}],
 					categories: [{
-						_id: 456,
+						_id: "foobar Category",
 						tasks: [{
-							_id: 789,
-							name: "foo",
+							_id: "foobar Task",
+							name: "foobar Task name",
 							users: [{
-								_id: 123
+								_id: "foobar Admin"
 							}],
 							comments: []
 						}]
 					}]
 				};
-				$scope.users = [{
-					_id: 123
-				}];
 
+				user = {
+					pictureUrl: "http://foobar.com",
+					username: "foobar"
+				};
+				$modalInstance = $modal.open({
+					template: "<h1></h1>"
+				});
+				$scope = $rootScope.$new();
+
+
+				// CONTROLLER INIT
 				$controller("taskModalCtrl", {
 					$scope: $scope,
 					$modalInstance: $modalInstance,
-					catId: $scope.board.categories[0]._id,
-					taskId: $scope.board.categories[0].tasks[0]._id,
-					user: {}
+					catId: board.categories[0]._id,
+					taskId: board.categories[0].tasks[0]._id,
+					user: user
 				});
 			});
 		});
 
-		///
-		// TESTS BEGIN HERE 
-		///
 
+		// TESTING
 		describe("$scope.getAddableUsers()", function() {
 			it("is defined", function() {
 				expect($scope.getAddableUsers).toBeDefined();
@@ -55,15 +73,19 @@
 			});
 
 			it("gets the users that can be added to the task", function() {
-				var users = [{
-					_id: "bar"
-				}, {
-					_id: "foo"
+				$scope.board.admins = [{
+					_id: 123
 				}];
-				$scope.users = (users);
+				$scope.board.members = [{
+					_id: 234
+				}];
+				$scope.task.users = [{
+					_id: 123
+				}];
 
 				$scope.getAddableUsers();
-				expect($scope.addableUsers).toEqual(users);
+				expect($scope.addableUsers.length).toEqual(1);
+				expect($scope.addableUsers[0].keys).toEqual($scope.board.members[0].keys);
 			});
 		});
 
@@ -163,10 +185,6 @@
 				expect(typeof $scope.ageOfPost).toEqual("function");
 			});
 
-			it("checks for invalid input", function() {
-				expect($scope.ageOfPost()).toEqual("no timestamp");
-			});
-
 			it("returns 'just now' when date is less than one second old", function() {
 				expect($scope.ageOfPost(t)).toEqual("just now");
 			});
@@ -234,19 +252,13 @@
 
 
 		describe("$scope.createComment()", function() {
-			var defer, apiCalled;
-			beforeEach(inject(function($q, boardFactory) {
-				$scope.user = {
-					username: "foo",
-					pictureUrl: "foo"
-				};
+			var apiCalled, apiCallArgs;
+
+			beforeEach(inject(function(boardFactory) {
 				spyOn(boardFactory, "createComment").and.callFake(function() {
 					apiCalled = true;
-					defer = $q.defer();
-					return defer.promise;
+					apiCallArgs = arguments;
 				});
-
-				apiCalled = false;
 			}));
 
 			it("is defined", function() {
@@ -257,243 +269,35 @@
 				expect(typeof $scope.createComment).toEqual("function");
 			});
 
-			it("makes a server call to create comment", function() {
-				$scope.createComment();
-				expect(apiCalled).toEqual(true);
-			});
-
-			it("unshifts comment on resolve", function() {
-				var comment = "foo";
-				$scope.task.comments = ["bar"];
-				$scope.createComment();
-				$scope.$apply(function() {
-					defer.resolve(comment);
-				});
-
-				expect($scope.task.comments.length).toEqual(2);
-				expect($scope.task.comments[0]).toEqual(comment);
-			});
-
-			it("logs an error on reject", inject(function($log) {
-				var msg = "error";
-
-				$scope.createComment();
-				$log.reset();
-				$scope.$apply(function() {
-					defer.reject(msg);
-				});
-
-				expect($log.error.logs[0][0]).toEqual(msg);
-			}));
-		});
-
-
-		describe("$scope.editTaskName()", function() {
-			var defer, apiCalled;
-
-			beforeEach(inject(function(boardFactory, $q) {
+			it("calls boardFactory.createComment", function() {
 				apiCalled = false;
-
-				spyOn(boardFactory, "updateBoard").and.callFake(function() {
-					apiCalled = true;
-					defer = $q.defer();
-					return defer.promise;
-				});
-			}));
-
-			it("is defined", function() {
-				expect($scope.editTaskName).toBeDefined();
-			});
-
-			it("is a function", function() {
-				expect(typeof $scope.editTaskName).toEqual("function");
-			});
-
-			it("checks for valid event input", function() {
-				var e;
-
-				e = {
-					type: "click"
-				};
-				$scope.isEditingTaskName = false;
-				$scope.editTaskName(e);
-				expect($scope.isEditingTaskName).toEqual(true);
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-				$scope.isEditingTaskName = false;
-				$scope.editTaskName(e);
-				expect($scope.isEditingTaskName).toEqual(true);
-			});
-
-			it("starts editing if editing wasn't already happening", function() {
-				var e;
-
-				e = {
-					type: "click"
-				};
-				$scope.isEditingTaskName = false;
-				$scope.editTaskName(e);
-				expect($scope.isEditingTaskName).toEqual(true);
-			});
-
-			it("ends editing and updates the board on the server", function() {
-				var e;
-
-				e = {
-					type: "click"
-				};
-				$scope.isEditingTaskName = true;
-				$scope.editTaskName(e);
-				expect($scope.isEditingTaskName).toEqual(false);
+				$scope.createComment();
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("increments board version on resolve", function() {
-				var e;
+			it("calls boardFactory with args ['$scope.commentInput, user, $scope.task, $scope.category']", function() {
+				$scope.commentInput = "commentInput";
+				$scope.task = "task";
+				$scope.category = "category";
 
-				e = {
-					type: "click"
-				};
-				$scope.isEditingTaskName = true;
-				$scope.board._v = 0;
-				$scope.editTaskName(e);
-				$scope.$apply(function() {
-					defer.resolve();
-				});
+				$scope.createComment();
 
-				expect($scope.board._v).toEqual(1);
-			});
-
-			it("logs an error on reject", inject(function($log) {
-				var e, msg;
-
-				msg = "error";
-				e = {
-					type: "click"
-				};
-				$scope.isEditingTaskName = true;
-				$scope.board._v = 0;
-				$scope.editTaskName(e);
-				$log.reset();
-				$scope.$apply(function() {
-					defer.reject(msg);
-				});
-
-				expect($log.error.logs[0][0]).toEqual(msg);
-			}));
-		});
-
-
-		describe("$scope.stopDeletingTask()", function() {
-			it("is defined", function() {
-				expect($scope.stopDeletingTask).toBeDefined();
-			});
-
-			it("is a function", function() {
-				expect(typeof $scope.stopDeletingTask).toEqual("function");
-			});
-
-			it("stops deleting the task", function() {
-				$scope.isDeletingTask = true;
-				$scope.repeatTaskName = "foo";
-
-				$scope.stopDeletingTask();
-
-				expect($scope.isDeletingTask).toEqual(false);
-				expect($scope.repeatTaskName).toEqual("");
-			});
-		});
-
-
-		describe("$scope.stopEditingTaskName()", function() {
-			it("is defined", function() {
-				expect($scope.stopEditingTaskName).toBeDefined();
-			});
-
-			it("is a function", function() {
-				expect(typeof $scope.stopEditingTaskName).toEqual("function");
-			});
-
-			it("stops deleting the task", function() {
-				var e = {
-					type: "click",
-					target: angular.element("<div></div>")
-				};
-				$scope.isEditingTaskName = true;
-				$scope.stopEditingTaskName(e);
-
-				expect($scope.isEditingTaskName).toEqual(false);
-			});
-		});
-
-		describe("$scope.endAllEditing()", function() {
-			it("is defined", function() {
-				expect($scope.endAllEditing).toBeDefined();
-			});
-
-			it("is a function", function() {
-				expect(typeof $scope.endAllEditing).toEqual("function");
-			});
-
-			it("logs an error if invalid arguments are passed", inject(function($log) {
-				var e = {
-					type: "keypress"
-				};
-
-				$log.reset();
-				$scope.endAllEditing();
-				expect($log.error.logs[0][0]).toBeDefined();
-
-				$log.reset();
-				$scope.endAllEditing(e);
-				expect($log.error.logs[0][0]).toBeDefined();
-			}));
-
-			it("stops editing task name", function() {
-				var e, called;
-
-				e = {
-					type: "click",
-					target: angular.element("<div></div>")
-				};
-				called = false;
-				$scope.isEditingTaskName = true;
-				spyOn($scope, "stopEditingTaskName").and.callFake(function() {
-					called = true;
-				});
-
-				$scope.endAllEditing(e);
-				expect(called).toEqual(true);
-			});
-
-			it("stops deleting", function() {
-				var e, called;
-
-				e = {
-					type: "click",
-					target: angular.element("<div></div>")
-				};
-				called = false;
-				$scope.isDeletingTask = true;
-				spyOn($scope, "stopDeletingTask").and.callFake(function() {
-					called = true;
-				});
-
-				$scope.endAllEditing(e);
-				expect(called).toEqual(true);
+				expect(apiCallArgs[0]).toEqual("commentInput");
+				expect(apiCallArgs[1]).toEqual(user);
+				expect(apiCallArgs[2]).toEqual("task");
+				expect(apiCallArgs[3]).toEqual("category");
 			});
 		});
 
 
 		describe("$scope.deleteTask()", function() {
-			var defer, apiCalled;
+			var defer, apiCalled, apiCallArgs;
 
 			beforeEach(inject(function($q, boardFactory) {
-				spyOn(boardFactory, "updateBoard").and.callFake(function() {
+				spyOn(boardFactory, "deleteTask").and.callFake(function() {
 					apiCalled = true;
+					apiCallArgs = arguments;
+
 					defer = $q.defer();
 					return defer.promise;
 				});
@@ -507,94 +311,29 @@
 				expect(typeof $scope.deleteTask).toEqual("function");
 			});
 
-			it("toggles isDeleting when clicked", function() {
-				$scope.isDeletingTask = false;
-
-				var e = {
-					type: "click",
-					target: undefined
-				};
-
-				$scope.deleteTask(e);
-				expect($scope.isDeletingTask).toEqual(true);
-			});
-
-			it("deletes task locally if repeat-input is equal to task and and keypress is equal to enter", function() {
-				var e = {
-					type: "keypress",
-					which: 13
-				};
-				$scope.repeatTaskName = $scope.task.name;
-
-				expect($scope.category.tasks.length).toEqual(1);
-				$scope.deleteTask(e);
-				expect($scope.category.tasks.length).toEqual(0);
-			});
-
-			it("deletes task on server", function() {
-				var e = {
-					type: "keypress",
-					which: 13
-				};
-				$scope.repeatTaskName = $scope.task.name;
-
-				$scope.deleteTask(e);
+			it("calls boardFactory.deleteTask", function() {
+				apiCalled = false;
+				$scope.deleteTask();
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("increments board version on resolve", function() {
-				var e = {
-					type: "keypress",
-					which: 13
-				};
-				$scope.board._v = 0;
-				$scope.repeatTaskName = $scope.task.name;
+			it("calls boardFactory.deleteTask with args [category, task]", function() {
 
-				$scope.deleteTask(e);
-				$scope.$apply(function() {
-					defer.resolve();
-				});
-
-				expect($scope.board._v).toEqual(1);
 			});
 
-			it("closes modal on resolve", function() {
-				var e, called;
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
+			it("calls $scope.closeModal on resolve", function() {
+				var closeModalCalled = false;
 				spyOn($scope, "closeModal").and.callFake(function() {
-					called = true;
+					closeModalCalled = true;
 				});
-				called = false;
-				$scope.repeatTaskName = $scope.task.name;
 
-				$scope.deleteTask(e);
+				$scope.deleteTask();
 				$scope.$apply(function() {
 					defer.resolve();
 				});
 
-				expect(called).toEqual(true);
+				expect(closeModalCalled).toEqual(true);
 			});
-
-			it("logs error on reject", inject(function($log) {
-				var e, msg;
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-				msg = "error";
-				$scope.repeatTaskName = $scope.task.name;
-
-				$scope.deleteTask(e);
-				$scope.$apply(function() {
-					defer.reject(msg);
-				});
-				expect($log.error.logs[0][0]).toEqual(msg);
-			}));
 		});
 
 
@@ -607,14 +346,14 @@
 				expect(typeof $scope.closeModal).toEqual("function");
 			});
 
-			it("closes the modal", function() {
-				var called = false;
+			it("calls $modalInstance.dismiss()", function() {
+				var dismissCalled = false;
 				spyOn($modalInstance, "dismiss").and.callFake(function() {
-					called = true;
+					dismissCalled = true;
 				});
 				$scope.closeModal();
 
-				expect(called).toEqual(true);
+				expect(dismissCalled).toEqual(true);
 			});
 		});
 
@@ -641,35 +380,29 @@
 
 			it("adds a user to the task", function() {
 				expect($scope.task.users.length).toEqual(1);
-				$scope.addUserToTask();
+				$scope.addUserToTask("foo");
 				expect($scope.task.users.length).toEqual(2);
 			});
 
-			it("updates the server's board model", function() {
+			it("calls boardFactory.updateBoard", function() {
+				apiCalled = false;
 				$scope.addUserToTask();
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("increments board on resolve", function() {
-				$scope.board._v = 0;
+			it("calls $scope.getAddableUsers on resolve", function() {
+				var getAddbleUsersCalled = false;
+				spyOn($scope, "getAddableUsers").and.callFake(function() {
+					getAddbleUsersCalled = true;
+				});
+
 				$scope.addUserToTask();
 				$scope.$apply(function() {
 					defer.resolve();
 				});
-				expect($scope.board._v).toEqual(1);
+
+				expect(getAddbleUsersCalled).toEqual(true);
 			});
-
-			it("logs an error on reject", inject(function($log) {
-				var msg = "error";
-
-				$scope.addUserToTask();
-				$log.reset();
-				$scope.$apply(function() {
-					defer.reject(msg);
-				});
-
-				expect($log.error.logs[0][0]).toEqual(msg);
-			}));
 		});
 
 
@@ -726,41 +459,42 @@
 				expect(called).toEqual(true);
 			});
 
-			it("updates the server board", function() {
+			it("calls boardFactory.updateBoard", function() {
+				apiCalled = false;
 				$scope.moveTaskToCategory($scope.board.categories[0]);
 				expect(apiCalled).toEqual(true);
 			});
+		});
 
-			it("increment board version on api resolve", function() {
-				$scope.board._v = 0;
-				$scope.moveTaskToCategory($scope.board.categories[0]);
-				$scope.$apply(function() {
-					defer.resolve();
-				});
-				expect($scope.board._v).toEqual(1);
+
+		describe("$scope.toggleIsEditingTitle", function() {
+			it("is defined", function() {
+				expect($scope.toggleIsEditingTitle).toBeDefined();
 			});
 
-			it("logs an error on api reject", inject(function($log) {
-				var msg = "error";
-				$scope.moveTaskToCategory($scope.board.categories[0]);
-				$log.reset();
-				$scope.$apply(function() {
-					defer.reject(msg);
-				});
-				expect($log.error.logs[0][0]).toEqual(msg);
-			}));
+			it("is a function", function() {
+				expect(typeof $scope.toggleIsEditingTitle).toEqual("function");
+			});
+
+			it("toggle isEditingTitle", function() {
+				$scope.isEditingTitle = false;
+				$scope.toggleIsEditingTitle();
+				expect($scope.isEditingTitle).toEqual(true);
+
+				$scope.isEditingTitle = true;
+				$scope.toggleIsEditingTitle();
+				expect($scope.isEditingTitle).toEqual(false);
+			});
 		});
 
 
 		describe("$scope.removeUserFromTask()", function() {
-			var defer, boardFactoryCalled;
+			var defer, apiCalled;
 
 			beforeEach(inject(function($q, boardFactory) {
-				boardFactoryCalled = false;
-
 				spyOn(boardFactory, "updateBoard").and.callFake(function() {
 					defer = $q.defer();
-					boardFactoryCalled = true;
+					apiCalled = true;
 					return defer.promise;
 				});
 			}));
@@ -773,75 +507,99 @@
 				expect(typeof $scope.removeUserFromTask).toEqual("function");
 			});
 
-			it("updates the local version of the board", function() {
+			it("calls $scope.removeUserFromTaskLocally", function() {
 				var called = false;
-				spyOn($scope, "removeUserFromLocalTask").and.callFake(function() {
+				spyOn($scope, "removeUserFromTaskLocally").and.callFake(function() {
 					called = true;
 				});
 
-				$scope.removeUserFromTask("foo");
+				$scope.removeUserFromTask({});
 				expect(called).toEqual(true);
 			});
 
-			it("updates the server version of the board", function() {
-				$scope.removeUserFromTask("foo");
-				expect(boardFactoryCalled).toEqual(true);
+			it("calls boardFactory.updateBoard", function() {
+				apiCalled = false;
+				$scope.removeUserFromTask({});
+				expect(apiCalled).toEqual(true);
 			});
 
-			it("increments local board verson on resolve", function() {
-				$scope.board._v = 0;
-				$scope.removeUserFromTask("foo");
+			it("calls $scope.getAddableUsers on resolve", function() {
+				var called = false;
+
+				spyOn($scope, "getAddableUsers").and.callFake(function() {
+					called = true;
+				});
+
+				$scope.removeUserFromTask({});
 				$scope.$apply(function() {
 					defer.resolve();
 				});
+				expect(called).toEqual(true);
+			});
+		});
 
-				expect($scope.board._v).toEqual(1);
+
+		describe("$scope.removeUserFromTaskLocally", function() {
+			it("is defined", function() {
+				expect($scope.removeUserFromTaskLocally).toBeDefined();
 			});
 
-			it("updates the possible users that can be added to the task on resolve", function() {
+			it("is a function", function() {
+				expect(typeof $scope.removeUserFromTaskLocally).toEqual("function");
+			});
+
+			it("removes a user from the task", function() {
+				$scope.task.users = [{
+					_id: "user 1"
+				}, {
+					_id: "user 2"
+				}];
+
+				expect($scope.task.users.length).toEqual(2);
+				expect($scope.task.users[0]._id).toEqual("user 1");
+
+				$scope.removeUserFromTaskLocally({
+					_id: "user 1"
+				});
 				expect($scope.task.users.length).toEqual(1);
+				expect($scope.task.users[0]._id).toEqual("user 2");
+			});
+		});
 
-				var user = {
-					_id: 123
-				};
-				$scope.removeUserFromTask(user);
-				$scope.$apply(function() {
-					defer.resolve();
-				});
-				expect($scope.task.users.length).toEqual(0);
+
+		describe("$scope.updateTitle", function() {
+			it("is defined", function() {
+				expect($scope.updateTitle).toBeDefined();
 			});
 
-			it("logs an error on reject", inject(function($log) {
-				var msg = "error";
+			it("is a function", function() {
+				expect(typeof $scope.updateTitle).toEqual("function");
+			});
 
-				$scope.removeUserFromTask("foo");
-				$scope.$apply(function() {
-					defer.reject(msg);
+			it("calls boardFactory.updateBoard", inject(function(boardFactory) {
+				var called = false;
+
+				spyOn(boardFactory, "updateBoard").and.callFake(function() {
+					called = true;
 				});
-				expect($log.error.logs[0][0]).toEqual(msg);
+
+				$scope.updateTitle();
+				expect(called).toEqual(true);
 			}));
 		});
 
 
-		describe("$scope.removeUserFromLocalTask", function() {
+		describe("$scope.board", function() {
 			it("is defined", function() {
-				expect($scope.removeUserFromLocalTask).toBeDefined();
+				expect($scope.board).toBeDefined();
 			});
 
-			it("is a function", function() {
-				expect(typeof $scope.removeUserFromLocalTask).toEqual("function");
+			it("is an object", function() {
+				expect(Object.prototype.toString.call($scope.board)).toEqual("[object Object]");
 			});
 
-			it("removes a user from the task", function() {
-				var user = {
-					_id: 123
-				};
-
-				expect($scope.task.users.length).toEqual(1);
-				expect($scope.task.users[0]._id).toEqual(123);
-
-				$scope.removeUserFromLocalTask(user);
-				expect($scope.task.users.length).toEqual(0);
+			it("equals the board injected into the controller", function() {
+				expect($scope.board).toEqual(board);
 			});
 		});
 
@@ -861,21 +619,6 @@
 		});
 
 
-		describe("$scope.categoryIndex", function() {
-			it("is defined", function() {
-				expect($scope.categoryIndex).toBeDefined();
-			});
-
-			it("is an object", function() {
-				expect(typeof($scope.categoryIndex)).toEqual("number");
-			});
-
-			it("is equal to the index of $scope.category in $scope.board.categories", function() {
-				expect($scope.categoryIndex).toEqual(0);
-			});
-		});
-
-
 		describe("$scope.task", function() {
 			it("is defined", function() {
 				expect($scope.task).toBeDefined();
@@ -891,46 +634,17 @@
 		});
 
 
-		describe("$scope.taskIndex", function() {
+		describe("$scope.isEditingTitle", function() {
 			it("is defined", function() {
-				expect($scope.taskIndex).toBeDefined();
-			});
-
-			it("is an object", function() {
-				expect(typeof($scope.taskIndex)).toEqual("number");
-			});
-
-			it("is equal to the index of $scope.task in $scope.board.categories.task", function() {
-				expect($scope.taskIndex).toEqual(0);
-			});
-		});
-
-		describe("$scope.isEditingTaskName", function() {
-			it("is defined", function() {
-				expect($scope.isEditingTaskName).toBeDefined();
+				expect($scope.isEditingTitle).toBeDefined();
 			});
 
 			it("is a boolean", function() {
-				expect(typeof $scope.isEditingTaskName).toEqual("boolean");
+				expect(typeof $scope.isEditingTitle).toEqual("boolean");
 			});
 
 			it("is false", function() {
-				expect($scope.isEditingTaskName).toEqual(false);
-			});
-		});
-
-
-		describe("$scope.isDeletingTask", function() {
-			it("is defined", function() {
-				expect($scope.isDeletingTask).toBeDefined();
-			});
-
-			it("is a boolean", function() {
-				expect(typeof $scope.isDeletingTask).toEqual("boolean");
-			});
-
-			it("is false", function() {
-				expect($scope.isDeletingTask).toEqual(false);
+				expect($scope.isEditingTitle).toEqual(false);
 			});
 		});
 
@@ -950,21 +664,6 @@
 		});
 
 
-		describe("$scope.repeatTaskName", function() {
-			it("is defined", function() {
-				expect($scope.repeatTaskName).toBeDefined();
-			});
-
-			it("is a string", function() {
-				expect(typeof $scope.repeatTaskName).toEqual("string");
-			});
-
-			it("is empty", function() {
-				expect($scope.repeatTaskName).toEqual("");
-			});
-		});
-
-
 		describe("$scope.addableUsers", function() {
 			it("is defined", function() {
 				expect($scope.addableUsers).toBeDefined();
@@ -975,7 +674,7 @@
 			});
 
 			it("is empty", function() {
-				expect($scope.addableUsers.length).toEqual(0);
+				expect($scope.addableUsers.length).toEqual(1);
 			});
 		});
 
