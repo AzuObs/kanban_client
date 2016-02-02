@@ -8,10 +8,9 @@
 	module.factory("boardFactory", [
 		"serverAPI", "errorHandler", "$log", "$q",
 		function(serverAPI, errorHandler, $log, $q) {
-			var board, boardUsers, that;
-			that = this;
+			var board, boardUsers, boardFactory;
 
-			var boardInterface = {
+			boardFactory = {
 				getBoardSync: function() {
 					return board;
 				},
@@ -24,6 +23,8 @@
 						.getBoard(boardId)
 						.then(function(res) {
 							board = res;
+							boardFactory.getBoardUsersSync();
+
 							defer.resolve(res);
 						}, function(err) {
 							errorHandler.handleHttpError(err);
@@ -51,13 +52,13 @@
 
 
 				getBoardUsersSync: function() {
-					boardUsers = board.admins.concat(board.members);
-					return boardUsers;
+					return (boardUsers = board.admins.concat(board.members));
 				},
 
 
 				addMemberToBoard: function(email) {
 					var defer = $q.defer();
+
 					var memberIsDuplicate = function(email) {
 						for (var i = 0; i < board.members.length; i++) {
 							if (board.members[i].email === email) {
@@ -77,7 +78,7 @@
 						defer.reject();
 					} else {
 						serverAPI
-							.addMemberToUserSelection(board, email)
+							.addMemberToBoard(board, email)
 							.then(function(res) {
 								board.members.push(res);
 								boardUsers.push(res);
@@ -134,7 +135,7 @@
 
 					var defer = $q.defer;
 
-					that
+					boardFactory
 						.updateBoard()
 						.then(function() {
 							defer.resolve();
@@ -194,7 +195,7 @@
 
 					addUserLocally(task, user);
 
-					that
+					boardFactory
 						.updateBoard()
 						.then(function() {
 							defer.resolve();
@@ -219,7 +220,7 @@
 
 					removeUserFromTaskLocally(task, user);
 
-					that
+					boardFactory
 						.updateBoard()
 						.then(function() {
 							defer.resolve();
@@ -248,14 +249,18 @@
 				deleteCategory: function(cat) {
 					var defer = $q.defer();
 
+					var deleteCategoryLocally = function(cat) {
+						for (var i = 0; i < board.categories.length; i++) {
+							if (board.categories[i]._id === cat._id) {
+								board.categories.splice(i, 1);
+							}
+						}
+					};
+
 					serverAPI
 						.deleteCategory(board._id, cat._id)
 						.then(function(res) {
-							for (var i = 0; i < board.categories.length; i++) {
-								if (board.categories[i]._id === cat._id) {
-									board.categories.splice(i, 1);
-								}
-							}
+							deleteCategoryLocally();
 							defer.resolve(res);
 						}, function(err) {
 							errorHandler.handleHttpError(err);
@@ -268,14 +273,18 @@
 				deleteTask: function(cat, task) {
 					var defer = $q.defer();
 
+					var deleteTaskLocally = function(cat, task) {
+						for (var i = 0; i < cat.tasks.length; i++) {
+							if (cat.tasks[i]._id === task._id) {
+								cat.tasks.splice(i, 1);
+							}
+						}
+					};
+
 					serverAPI
 						.deleteTask(board._id, cat._id, task._id)
 						.then(function(res) {
-							for (var i = 0; i < cat.tasks.length; i++) {
-								if (cat.tasks[i]._id === task._id) {
-									cat.tasks.splice(i, 1);
-								}
-							}
+							deleteTaskLocally(cat, task);
 							defer.resolve(res);
 						}, function(err) {
 							errorHandler.handleHttpError(err);
@@ -285,7 +294,7 @@
 				}
 			};
 
-			return boardInterface;
+			return boardFactory;
 		}
 	]);
 })();

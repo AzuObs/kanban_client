@@ -105,7 +105,7 @@
 				return defer.promise;
 			};
 
-			this.addMemberToUserSelection = function(board, userEmail) {
+			this.addMemberToBoard = function(board, userEmail) {
 				var q = $q.defer();
 
 				var body = {
