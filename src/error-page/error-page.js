@@ -23,63 +23,56 @@
 
 
 	module.controller("errorPageCtrl", [
-		"$scope", "$state", "$window", "errorHandler",
-		function($scope, $state, $window, errorHandler) {
+		"$scope", "$state", "errorHandler",
+		function($scope, $state, errorHandler) {
+
 			$scope.redirectClick = function() {
-				$state.go("kanban.oauth");
+				$state.go($scope.redirectState);
 			};
+
+
 			$scope.error = errorHandler.getError();
 			$scope.title = "Error - Undefined Error";
 			$scope.subtitle = "An unexpected error occured.";
 			$scope.redirectMsg = "GO TO LOGIN";
+			$scope.redirectState = "kanban.oauth";
 
 
 			$scope.$watch("error.counter", function() {
 				switch ($scope.error.value) {
 					case "Unauthorized":
-						$scope.redirectClick = function() {
-							$state.go("kanban.oauth");
-						};
 						$scope.title = "401 - Unauthorized Access";
 						$scope.subtitle = "You tried to access content that you were not allowed to.";
 						$scope.redirectMsg = "GO TO LOGIN";
+						$scope.redirectState = "kanban.oauth";
 						break;
 
-
 					case "Not Found":
-						$scope.redirectClick = function() {
-							$state.go("kanban.oauth");
-						};
-						$scope.title = "404 - Not found";
+						$scope.title = "404 - Not Found";
 						$scope.subtitle = "The requested content could not be retrieved.";
 						$scope.redirectMsg = "GO TO LOGIN";
+						$scope.redirectState = "kanban.oauth";
 						break;
 
 					case "Internal Server Error":
-						$scope.redirectClick = function() {
-							$state.go("kanban.oauth");
-						};
 						$scope.title = "500 - Internal Server Error";
 						$scope.subtitle = "An error happened on the server's end.";
 						$scope.redirectMsg = "GO TO LOGIN";
+						$scope.redirectState = "kanban.oauth";
 						break;
 
 					case "State Change Error":
-						$scope.redirectClick = function() {
-							$state.go("kanban.oauth");
-						};
 						$scope.title = "500 - Internal Server Error";
 						$scope.subtitle = "An error happened on the server's end.";
 						$scope.redirectMsg = "GO TO LOGIN";
+						$scope.redirectState = "kanban.oauth";
 						break;
 
 					default:
-						$scope.redirectClick = function() {
-							$state.go("kanban.oauth");
-						};
-						$scope.title = "Error - Undefined Error";
-						$scope.subtitle = "An unexpected error occured.";
+						$scope.title = "Error - Unrecognized Error";
+						$scope.subtitle = "An unrecognized error occured.";
 						$scope.redirectMsg = "GO TO LOGIN";
+						$scope.redirectState = "kanban.oauth";
 				}
 			});
 		}
