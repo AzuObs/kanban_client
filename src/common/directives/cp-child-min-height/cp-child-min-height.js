@@ -8,10 +8,13 @@
 		var directiveDefinition = {
 			restrict: "A",
 			link: function(scope, elem, attr) {
-				var childElem, childMinHeight;
-				childElem = angular.element(elem).children()[0];
-				childMinHeight = angular.element(childElem).css("min-height");
-				angular.element(elem).css("min-height", childMinHeight);
+				scope.setMinHeight = function(height) {
+					elem.css("min-height", height);
+				};
+
+				scope.childElem = angular.element(elem).children()[0];
+				scope.childMinHeight = angular.element(scope.childElem).css("min-height");
+				scope.setMinHeight(scope.childMinHeight);
 			}
 		};
 
