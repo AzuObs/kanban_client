@@ -1,54 +1,6 @@
 (function() {
 	"use strict";
 
-	describe("JP_APP_NAME constant", function() {
-		var constant;
-
-		beforeEach(function() {
-			module("navbarModule");
-			inject(function(JP_APP_NAME) {
-				constant = JP_APP_NAME;
-			});
-		});
-
-		it("is defined", function() {
-			expect(constant).toBeDefined();
-		});
-
-		it("is a string", function() {
-			expect(typeof constant).toEqual("string");
-		});
-
-		it("is equal to 'kanban'", function() {
-			expect(constant).toEqual("看板");
-		});
-	});
-
-
-	describe("APP_NAME constant", function() {
-		var APP_NAME;
-
-		beforeEach(function() {
-			module("navbarModule");
-			inject(function(_APP_NAME_) {
-				APP_NAME = _APP_NAME_;
-			});
-		});
-
-		it("is defined", function() {
-			expect(APP_NAME).toBeDefined();
-		});
-
-		it("is a string", function() {
-			expect(typeof APP_NAME).toEqual("string");
-		});
-
-		it("is equal to 'kanban'", function() {
-			expect(APP_NAME).toEqual("kanban");
-		});
-	});
-
-
 	describe("navbarCtrl", function() {
 		var $scope;
 
@@ -63,18 +15,18 @@
 		});
 
 
-		describe("$scope.navLinks", function() {
+		describe("$scope.menuLinks", function() {
 			it("is defined", function() {
-				expect($scope.navLinks).toBeDefined();
+				expect($scope.menuLinks).toBeDefined();
 			});
 
 			it("is an array of objects", function() {
-				expect(Object.prototype.toString.call($scope.navLinks)).toEqual("[object Array]");
-				expect(Object.prototype.toString.call($scope.navLinks[0])).toEqual("[object Object]");
+				expect(Object.prototype.toString.call($scope.menuLinks)).toEqual("[object Array]");
+				expect(Object.prototype.toString.call($scope.menuLinks[0])).toEqual("[object Object]");
 			});
 
 			it("is not empty", function() {
-				expect($scope.navLinks.length).toBeGreaterThan(0);
+				expect($scope.menuLinks.length).toBeGreaterThan(0);
 			});
 		});
 
@@ -88,8 +40,8 @@
 				expect(typeof $scope.appName).toEqual("string");
 			});
 
-			it("equals 'kanban'", function() {
-				expect($scope.appName).toEqual("kanban");
+			it("equals 'KANBAN'", function() {
+				expect($scope.appName).toEqual("KANBAN");
 			});
 		});
 
@@ -103,7 +55,7 @@
 				expect(typeof $scope.jpAppName).toEqual("string");
 			});
 
-			it("equals 'Kanban'", function() {
+			it("equals '看板'", function() {
 				expect($scope.jpAppName).toEqual("看板");
 			});
 		});
