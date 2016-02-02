@@ -14,6 +14,10 @@
 					scope.isExpanded = !scope.isExpanded;
 				};
 
+				scope.$on("$destroy", function() {
+					// placeholder
+				});
+
 				scope.isExpanded = true;
 			}
 		};
