@@ -15,6 +15,7 @@
 				"common/bower-components/angular-resource/angular-resource.js",
 				"common/bower-components/angular-ui-router/release/angular-ui-router.js",
 				"common/bower-components/angular-ui-sortable/sortable.js",
+				"common/bower-components/angular-loading-bar/build/loading-bar.js",
 				"**/*.html",
 				"*.js",
 				"about-page/**/*.js",
