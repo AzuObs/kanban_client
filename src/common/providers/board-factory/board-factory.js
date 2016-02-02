@@ -260,7 +260,7 @@
 					serverAPI
 						.deleteCategory(board._id, cat._id)
 						.then(function(res) {
-							deleteCategoryLocally();
+							deleteCategoryLocally(cat);
 							defer.resolve(res);
 						}, function(err) {
 							errorHandler.handleHttpError(err);

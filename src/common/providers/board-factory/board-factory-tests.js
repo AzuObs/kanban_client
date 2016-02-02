@@ -901,22 +901,45 @@
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("calls serverAPI with args[boardid,catid,taskid]", function() {
-
+			it("calls serverAPI with args[boardid,catid]", function() {
+				var board = boardFactory.getBoardSync();
+				apiCallArgs = [];
+				boardFactory.deleteCategory(board.categories[0]);
+				expect(apiCallArgs.length).toEqual(2);
+				expect(apiCallArgs[0]).toEqual("boardid");
+				expect(apiCallArgs[1]).toEqual("categoryid");
 			});
 
 			it("deletes task locally on resolve", function() {
+				var board = boardFactory.getBoardSync();
+				expect(board.categories.length).toEqual(1);
 
+				boardFactory.deleteCategory(board.categories[0]);
+				$scope.$apply(function() {
+					defer.resolve();
+				});
+
+				expect(board.categories.length).toEqual(0);
 			});
 
 			it("calls errorHandler on reject", function() {
+				var called = false;
+				spyOn(errorHandler, "handleHttpError").and.callFake(function() {
+					called = true;
+				});
 
+				boardFactory.deleteCategory({});
+				$scope.$apply(function() {
+					defer.reject();
+				});
+
+				expect(called).toEqual(true);
 			});
 		});
 
 
-		describe("", function() {
-			var apiCalled, defer;
+		describe("boardFactory.deleteTask", function() {
+			var apiCalled, apiCallArgs, defer;
 
 			beforeEach(inject(function($q) {
 				spyOn(serverAPI, "getBoard").and.callFake(function() {
@@ -939,8 +962,9 @@
 					return def.promise;
 				});
 
-				spyOn(boardFactory, "updateBoard").and.callFake(function() {
+				spyOn(serverAPI, "deleteTask").and.callFake(function() {
 					apiCalled = true;
+					apiCallArgs = arguments;
 					defer = $q.defer();
 					return defer.promise;
 				});
@@ -950,27 +974,55 @@
 				});
 			}));
 
-			it("", function() {
-
+			it("is defined", function() {
+				expect(boardFactory.deleteTask).toBeDefined();
 			});
 
-			it("", function() {
-
+			it("is a function", function() {
+				expect(typeof boardFactory.deleteTask).toEqual("function");
 			});
 
-			it("", function() {
-
+			it("calls serverAPI.createTask", function() {
+				apiCalled = false;
+				boardFactory.deleteTask({}, {});
+				expect(apiCalled).toEqual(true);
 			});
 
-			it("", function() {
+			it("calls serverAPI with args[boardid, catid, taskid]", function() {
+				var board = boardFactory.getBoardSync();
+				apiCallArgs = [];
 
+				boardFactory.deleteTask(board.categories[0], board.categories[0].tasks[0]);
+				expect(apiCallArgs.length).toEqual(3);
+				expect(apiCallArgs[0]).toEqual("boardid");
+				expect(apiCallArgs[1]).toEqual("categoryid");
+				expect(apiCallArgs[2]).toEqual("taskid");
 			});
 
-			it("", function() {
+			it("delete the task locally on resolve", function() {
+				var board = boardFactory.getBoardSync();
+				expect(board.categories[0].tasks.length).toEqual(1);
 
+				boardFactory.deleteTask(board.categories[0], board.categories[0].tasks[0]);
+				$scope.$apply(function() {
+					defer.resolve();
+				});
+
+				expect(board.categories[0].tasks.length).toEqual(0);
 			});
-			it("", function() {
 
+			it("calls errorHandler on reject", function() {
+				var called = false;
+				spyOn(errorHandler, "handleHttpError").and.callFake(function() {
+					called = true;
+				});
+
+				boardFactory.deleteTask({}, {});
+				$scope.$apply(function() {
+					defer.reject();
+				});
+
+				expect(called).toEqual(true);
 			});
 		});
 	});
