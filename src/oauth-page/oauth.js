@@ -30,21 +30,24 @@
 	}]);
 
 
-	module.controller("oauthCtrl", ["$log", "$scope", "userFactory", "$state",
-		function($log, $scope, userFactory, $state) {
-			$scope.newAccUsr = "";
-			$scope.newAccPwd = "";
-			$scope.newAccPwdVerify = "";
-			$scope.loginUsername = "sheldon";
-			$scope.loginPwd = "123";
+	module.controller("oauthCtrl", ["$scope", "userFactory",
+		function($scope, userFactory) {
 
 			$scope.createUser = function() {
 				userFactory.createUser($scope.newAccUsr, $scope.newAccPwd);
 			};
 
+
 			$scope.authenticate = function() {
 				userFactory.authenticate($scope.loginUsername, $scope.loginPwd);
 			};
+
+
+			$scope.newAccUsr = "";
+			$scope.newAccPwd = "";
+			$scope.newAccPwdVerify = "";
+			$scope.loginUsername = "sheldon";
+			$scope.loginPwd = "123";
 		}
 	]);
 })();
