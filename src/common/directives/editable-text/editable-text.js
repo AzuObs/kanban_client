@@ -22,14 +22,13 @@
 		var directiveDefinition = {
 			scope: {
 				text: "=editableText",
-				isEditing: "=isEditing",
+				isEditing: "=isEditing", //optional
 				update: "&update"
 			},
 			restrict: "A",
 			transclude: true,
 			templateUrl: "common/directives/editable-text/editable-text.html",
 			link: function(scope, elem, attr) {
-				scope.isEditing = scope.isEditing || false;
 
 				scope.setEditing = function(value, e) {
 					if (!e) {
@@ -39,15 +38,18 @@
 					}
 				};
 
+
 				scope.startEditing = function() {
 					setTimeout(function() {
 						elem.find("input").focus();
 					}, 0);
 				};
 
+
 				scope.stopEditing = function() {
 					scope.update();
 				};
+
 
 				scope.validate = function(e) {
 					if (e.type === "keypress" && e.which === 13) {
@@ -55,7 +57,8 @@
 					}
 				};
 
-				var unregisterWatch = scope.$watch("isEditing", function(newV, oldV) {
+
+				scope.unregisterWatch = scope.$watch("isEditing", function(newV, oldV) {
 					if (newV) {
 						scope.startEditing();
 					} else {
@@ -63,9 +66,13 @@
 					}
 				});
 
+
 				scope.$on("$destroy", function() {
-					unregisterWatch();
+					scope.unregisterWatch();
 				});
+
+
+				scope.isEditing = scope.isEditing || false;
 			}
 		};
 
