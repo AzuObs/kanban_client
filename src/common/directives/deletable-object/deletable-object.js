@@ -5,7 +5,7 @@
 		"capitalizeFilterModule"
 	]);
 
-	// attributes is-deleting and is-disabled are optional
+
 	module.directive("deletableObject", ["$log", function($log) {
 
 		var directiveDefinition = {
@@ -13,7 +13,7 @@
 			scope: {
 				objectName: "@",
 				objectType: "@",
-				isDisabled: "@",
+				isDisabled: "@", //optional
 				deleteFn: "&"
 			},
 			replace: true,
