@@ -2,7 +2,7 @@
 	"use strict";
 
 	describe("kanbanApp module", function() {
-		var debugInfoEnabled, $rootScope;
+		var debugInfoEnabled, cfpLoadingBarProvider, $rootScope;
 
 		// the following is a hack
 		// in order to test the config phase of my target module 
@@ -13,7 +13,9 @@
 					debugInfoEnabled = arguments[0];
 				});
 			});
-			module("kanbanApp");
+			module("kanbanApp", function(_cfpLoadingBarProvider_) {
+				cfpLoadingBarProvider = _cfpLoadingBarProvider_;
+			});
 		});
 
 		beforeEach(inject(function(_$rootScope_, $controller) {
@@ -23,11 +25,26 @@
 			});
 		}));
 
+
 		describe("config phase", function() {
-			it("enables angular's debugging of the app during production", function() {
-				expect(debugInfoEnabled).toEqual(true);
+
+			describe("debugInfoEnabled", function() {
+				it("is enabled during production", function() {
+					expect(debugInfoEnabled).toEqual(true);
+				});
+			});
+
+			describe("cfpLoadingBarProvider", function() {
+				it("has a disabled spinner", function() {
+					expect(cfpLoadingBarProvider.includeSpinner).toEqual(false);
+				});
+
+				it("has a latency treshold to 250ms", function() {
+					expect(cfpLoadingBarProvider.latencyTreshold).toEqual(250);
+				});
 			});
 		});
+
 
 		describe("appCtrl", function() {
 			describe("$rootScope.state", function() {

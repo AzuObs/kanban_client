@@ -17,22 +17,25 @@
 
 
 	module.config([
-		"$stateProvider", "$urlRouterProvider", "$compileProvider", "$injector", "ENV",
-		function($stateProvider, $urlRouterProvider, $compileProvider, $injector, ENV) {
+		"$stateProvider", "$urlRouterProvider", "$compileProvider", "$injector", "ENV", "cfpLoadingBarProvider",
+		function($stateProvider, $urlRouterProvider, $compileProvider, $injector, ENV, cfpLoadingBarProvider) {
 			$stateProvider.state("kanban", {
 				abstract: true,
 				url: "/kanban",
 				controller: "appCtrl"
 			});
 
-			// during production
-			$compileProvider.debugInfoEnabled(ENV.debugApp);
-
 			$urlRouterProvider.otherwise(function($injector) {
 				$injector.invoke(["errorHandler", function(errorHandler) {
 					errorHandler.handleAppError("Not Found");
 				}]);
 			});
+
+			// during production
+			$compileProvider.debugInfoEnabled(ENV.debugApp);
+
+			cfpLoadingBarProvider.includeSpinner = false;
+			cfpLoadingBarProvider.latencyTreshold = 250;
 		}
 	]);
 
