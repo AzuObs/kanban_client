@@ -2,16 +2,18 @@
 	"user strict";
 
 	var module = angular.module("userFactoryModule", [
-		"serverAPIModule", "errorHandlerModule", "ui.router"
+		"serverAPIModule",
+		"errorHandlerModule",
+		"ui.router"
 	]);
 
 
 	module.factory("userFactory", [
 		"$q", "serverAPI", "errorHandler", "$state",
 		function($q, serverAPI, errorHandler, $state) {
-			var user, boards;
+			var user, boards, userFactory;
 
-			return {
+			userFactory = {
 				getUser: function(userId) {
 					var defer = $q.defer();
 
@@ -26,6 +28,7 @@
 
 					return defer.promise;
 				},
+
 
 				getUserBoards: function(userId) {
 					var defer = $q.defer();
@@ -42,19 +45,20 @@
 					return defer.promise;
 				},
 
+
 				createUser: function(username, pwd) {
-					var that = this;
 					var defer = $q.defer();
 					serverAPI
 						.createUser(username, pwd)
 						.then(function(res) {
-							that.onSuccessfulLoginSync(res);
+							userFactory.onSuccessfulLoginSync(res);
 						}, function(err) {
 							errorHandler.handleHttpError(err);
 						});
 
 					return defer.promise;
 				},
+
 
 				createBoard: function(name) {
 					var defer = $q.defer();
@@ -73,17 +77,22 @@
 					return defer.promise;
 				},
 
+
 				deleteBoard: function(boardId) {
 					var defer = $q.defer();
+
+					var deleteBoardLocally = function(boadId) {
+						for (var i = 0; i < boards.length; i++) {
+							if (boards[i]._id === boardId) {
+								boards.splice(i, 1);
+							}
+						}
+					};
 
 					serverAPI
 						.deleteBoard(boardId)
 						.then(function(res) {
-							for (var i = 0; i < boards.length; i++) {
-								if (boards[i]._id === boardId) {
-									boards.splice(i, 1);
-								}
-							}
+							deleteBoardLocally(boardId);
 							defer.resolve(res);
 						}, function(err) {
 							errorHandler.handleHttpError(err);
@@ -94,19 +103,19 @@
 
 
 				authenticate: function(username, pwd) {
-					var that = this;
 					var defer = $q.defer();
 
 					serverAPI
 						.authenticate(username, pwd)
 						.then(function(res) {
-							that.onSuccessfulLoginSync(res);
+							userFactory.onSuccessfulLoginSync(res);
 						}, function(err) {
 							errorHandler.handleHttpError(err);
 						});
 
 					return defer.promise;
 				},
+
 
 				onSuccessfulLoginSync: function(res) {
 					sessionStorage.userId = res.user._id;
@@ -116,6 +125,8 @@
 					});
 				}
 			};
+
+			return userFactory;
 		}
 	]);
 })();
