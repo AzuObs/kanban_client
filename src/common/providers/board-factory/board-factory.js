@@ -145,7 +145,7 @@
 				},
 
 
-				createComment: function(content, user, task, cat) {
+				createComment: function(cat, task, user, content) {
 					var defer = $q.defer();
 
 					serverAPI
@@ -167,7 +167,7 @@
 				},
 
 
-				createTask: function(name, cat) {
+				createTask: function(cat, name) {
 					var defer = $q.defer();
 
 					serverAPI

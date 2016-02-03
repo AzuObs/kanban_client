@@ -66,7 +66,7 @@
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("calls boardFactory.createTask with args [taskname, category]", function() {
+			it("calls boardFactory.createTask with args [category, taskname]", function() {
 				apiCallArgs = [];
 				var e = {
 					type: "keypress",
@@ -76,8 +76,8 @@
 
 				$scope.createTask("category", e);
 				expect(apiCallArgs.length).toEqual(2);
-				expect(apiCallArgs[0]).toEqual("task name");
-				expect(apiCallArgs[1]).toEqual("category");
+				expect(apiCallArgs[0]).toEqual("category");
+				expect(apiCallArgs[1]).toEqual("task name");
 			});
 
 			it("calls $scope.resetTaskName on resolve", function() {

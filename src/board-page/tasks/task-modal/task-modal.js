@@ -114,7 +114,7 @@
 
 
 			$scope.createComment = function() {
-				boardFactory.createComment($scope.commentInput, user, $scope.task, $scope.category);
+				boardFactory.createComment($scope.category, $scope.task, user, $scope.commentInput);
 			};
 
 

@@ -479,7 +479,7 @@
 					};
 
 					apiCallArgs = [];
-					boardFactory.createComment(args.content, args.user, args.task, args.cat);
+					boardFactory.createComment(args.cat, args.task, args.user, args.content);
 					expect(apiCallArgs.length).toEqual(6);
 					expect(apiCallArgs[0]).toEqual("boardid");
 					expect(apiCallArgs[1]).toEqual("categoryid");
@@ -496,7 +496,7 @@
 				comments = task.comments;
 				expect(comments.length).toEqual(0);
 
-				boardFactory.createComment({}, {}, task, comments);
+				boardFactory.createComment({}, task, {}, comments);
 				$scope.$apply(function() {
 					defer.resolve("comment");
 				});
@@ -580,7 +580,7 @@
 				};
 				apiCallArgs = [];
 
-				boardFactory.createTask(args.name, args.cat);
+				boardFactory.createTask(args.cat, args.name);
 				expect(apiCallArgs.length).toEqual(3);
 				expect(apiCallArgs[0]).toEqual("boardid");
 				expect(apiCallArgs[1]).toEqual("categoryid");
@@ -595,7 +595,7 @@
 				expect(tasks[0]._id).toEqual("taskid");
 
 
-				boardFactory.createTask({}, category);
+				boardFactory.createTask(category, {});
 				$scope.$apply(function() {
 					defer.resolve({
 						_id: "new taskid"

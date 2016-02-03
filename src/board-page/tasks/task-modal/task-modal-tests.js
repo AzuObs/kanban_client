@@ -275,17 +275,17 @@
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("calls boardFactory with args ['$scope.commentInput, user, $scope.task, $scope.category']", function() {
+			it("calls boardFactory with args [category, task, user, commentInput]", function() {
 				$scope.commentInput = "commentInput";
 				$scope.task = "task";
 				$scope.category = "category";
 
 				$scope.createComment();
 
-				expect(apiCallArgs[0]).toEqual("commentInput");
-				expect(apiCallArgs[1]).toEqual(user);
-				expect(apiCallArgs[2]).toEqual("task");
-				expect(apiCallArgs[3]).toEqual("category");
+				expect(apiCallArgs[0]).toEqual("category");
+				expect(apiCallArgs[1]).toEqual("task");
+				expect(apiCallArgs[2]).toEqual(user);
+				expect(apiCallArgs[3]).toEqual("commentInput");
 			});
 		});
 
