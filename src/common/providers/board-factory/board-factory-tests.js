@@ -321,7 +321,7 @@
 
 
 		describe("boardFactory.removeUserFromBoard()", function() {
-			var apiCalled;
+			var apiCalled, defer;
 
 			beforeEach(inject(function($q) {
 
@@ -348,7 +348,8 @@
 
 				spyOn(boardFactory, "updateBoard").and.callFake(function() {
 					apiCalled = true;
-					return $q.defer().promise;
+					defer = $q.defer();
+					return defer.promise;
 				});
 
 				$scope.$apply(function() {
@@ -409,6 +410,22 @@
 				});
 
 				expect(apiCalled).toEqual(true);
+			});
+
+			it("calls boardFactory.getBoardUsersSync() on resolve", function() {
+				var called = false;
+				spyOn(boardFactory, "getBoardUsersSync").and.callFake(function() {
+					called = true;
+				});
+
+
+				boardFactory.removeUserFromBoard({
+					_id: "user"
+				});
+				$scope.$apply(function() {
+					defer.resolve();
+				});
+				expect(called).toEqual(true);
 			});
 		});
 

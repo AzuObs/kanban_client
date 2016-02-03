@@ -8,7 +8,9 @@
 	module.factory("boardFactory", [
 		"serverAPI", "errorHandler", "$log", "$q",
 		function(serverAPI, errorHandler, $log, $q) {
-			var board, boardUsers, boardFactory;
+			var board = {},
+				boardUsers = [],
+				boardFactory;
 
 			boardFactory = {
 				getBoardSync: function() {
@@ -52,7 +54,22 @@
 
 
 				getBoardUsersSync: function() {
-					return (boardUsers = board.admins.concat(board.members));
+					// empty boardUsers
+					while (boardUsers.length) {
+						boardUsers.pop();
+					}
+
+					// add admins
+					for (var i = 0; i < board.admins.length; i++) {
+						boardUsers.push(board.admins[i]);
+					}
+
+					// add members
+					for (i = 0; i < board.members.length; i++) {
+						boardUsers.push(board.members[i]);
+					}
+
+					return boardUsers;
 				},
 
 
@@ -133,11 +150,12 @@
 
 					removeUserLocally(user);
 
-					var defer = $q.defer;
+					var defer = $q.defer();
 
 					boardFactory
 						.updateBoard()
 						.then(function() {
+							boardFactory.getBoardUsersSync();
 							defer.resolve();
 						});
 
