@@ -2,9 +2,10 @@
 
 .modal-lg > .modal-content {
   display: flex;
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   flex-direction: column;
   min-height: 435px;
+  max-height: 580px;
 }
 
 .task-modal {
