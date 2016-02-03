@@ -35,39 +35,49 @@
 				expect(taskModalPO.canEditTitle()).toEqual(true);
 				taskModalPO.setTitle("new title");
 				expect(taskModalPO.getTitle()).toEqual("new title");
+
+				// reset it to how it was before test
+				expect(taskModalPO.canEditTitle()).toEqual(true);
+				taskModalPO.setTitle("0- task");
+				expect(taskModalPO.getTitle()).toEqual("0- task");
 			});
 
 			it("stops being edited when clicked outside of the title", function() {
 				expect(taskModalPO.titleIsPresent()).toEqual(true);
 				expect(taskModalPO.canEditTitle()).toEqual(true);
-				expect(taskModalPO.getTitle()).toEqual("new title");
+				expect(taskModalPO.getTitle()).toEqual("0- task");
 
 				taskModalPO.clickOutsideOfTitle();
 				expect(taskModalPO.titleIsPresent()).toEqual(true);
 				expect(taskModalPO.canEditTitle()).toEqual(false);
-				expect(taskModalPO.getTitle()).toEqual("new title");
+				expect(taskModalPO.getTitle()).toEqual("0- task");
 			});
 
 			it("can be edited when clicking on the option 'rename task'", function() {
 				expect(taskModalPO.titleIsPresent()).toEqual(true);
 				expect(taskModalPO.canEditTitle()).toEqual(false);
-				expect(taskModalPO.getTitle()).toEqual("new title");
+				expect(taskModalPO.getTitle()).toEqual("0- task");
 
 				taskModalPO.clickRenameTaskButton();
 				expect(taskModalPO.canEditTitle()).toEqual(true);
 				taskModalPO.setTitle("foo");
 				expect(taskModalPO.getTitle()).toEqual("foo");
+
+				// reset to how it was before test
+				expect(taskModalPO.canEditTitle()).toEqual(true);
+				taskModalPO.setTitle("0- task");
+				expect(taskModalPO.getTitle()).toEqual("0- task");
 			});
 
 			it("stops being edited when reclicking on the option 'rename task'", function() {
 				expect(taskModalPO.titleIsPresent()).toEqual(true);
 				expect(taskModalPO.canEditTitle()).toEqual(true);
-				expect(taskModalPO.getTitle()).toEqual("foo");
+				expect(taskModalPO.getTitle()).toEqual("0- task");
 
 				taskModalPO.clickRenameTaskButton();
 				expect(taskModalPO.titleIsPresent()).toEqual(true);
 				expect(taskModalPO.canEditTitle()).toEqual(false);
-				expect(taskModalPO.getTitle()).toEqual("foo");
+				expect(taskModalPO.getTitle()).toEqual("0- task");
 			});
 		});
 
@@ -94,14 +104,13 @@
 		describe("category", function() {
 			it("can be changed via the 'change category' option", function() {
 				expect(taskModalPO.getCategoryCount()).toEqual(2);
-				expect(taskModalPO.categoryHasTask("0- foobar", "foo")).toEqual(true);
+				expect(taskModalPO.categoryHasTask("0- foobar", "0- task")).toEqual(true);
 
 				taskModalPO.clickChangeCategoryButton();
 				taskModalPO.selectFirstCategory();
 
 				expect(taskModalPO.getCategoryCount()).toEqual(2);
-				expect(taskModalPO.categoryHasTask("1- foobar", "foo")).toEqual(true);
-
+				expect(taskModalPO.categoryHasTask("1- foobar", "0- task")).toEqual(true);
 			});
 		});
 
@@ -135,11 +144,10 @@
 		});
 
 		it("can be deleted via the 'delete task' option", function() {
-			taskModalPO.confirmTaskDeletion("foo");
-			browser.waitForAngular();
+			taskModalPO.confirmTaskDeletion("0- task");
 			expect(taskModalPO.taskModalIsPresent()).toEqual(false);
-			expect(taskModalPO.categoryHasTask("0- foobar", "foobar")).toEqual(false);
-			expect(taskModalPO.categoryHasTask("1- foobar", "foobar")).toEqual(false);
+			expect(taskModalPO.categoryHasTask("0- foobar", "0- task")).toEqual(false);
+			expect(taskModalPO.categoryHasTask("1- foobar", "0- task")).toEqual(false);
 		});
 
 		it("exists after all tests have been run", function() {

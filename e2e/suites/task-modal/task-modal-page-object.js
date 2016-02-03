@@ -8,19 +8,19 @@
 
 	var TaskModalPageObject = function() {
 		this.confirmTaskDeletion = function(input) {
-			$(".modal-options input.delete-task").sendKeys(input + "\n");
+			$(".modal-options input[ng-model='repeatObjectName']").sendKeys(input + "\n");
 		};
 
 		this.clickDeleteTaskButton = function() {
-			$(".modal-options button.btn-danger.delete-task").click();
+			$(".modal-options .deletable-object-toggle").click();
 		};
 
 		this.hasDeletionConfirmation = function() {
-			return $(".modal-options input.delete-task").isPresent();
+			return $(".modal-options input[ng-model='repeatObjectName']").isPresent();
 		};
 
 		this.hasDeleteTaskButton = function() {
-			return $(".modal-options button.delete-task").isPresent();
+			return $(".modal-options .deletable-object-toggle").isPresent();
 		};
 
 		this.getCommentY = function(commentBody) {
@@ -118,7 +118,7 @@
 		};
 
 		this.clickRenameTaskButton = function() {
-			$(".modal-options button[ng-click='editTaskName($event)']").click();
+			$(".modal-options .edit-text-toggle").click();
 		};
 
 		this.clickOutsideOfTitle = function() {
@@ -130,7 +130,7 @@
 		};
 
 		this.clickTitle = function() {
-			$(".modal-title h3").click();
+			$(".modal-title ng-transclude").click();
 		};
 
 		this.getTitle = function() {
