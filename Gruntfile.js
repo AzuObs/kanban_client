@@ -208,7 +208,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-replace");
   grunt.loadNpmTasks("grunt-exec");
   grunt.loadNpmTasks("grunt-karma");
-  grunt.loadNpmTasks("grunt-karma-jasmine");
   grunt.loadNpmTasks("grunt-protractor-runner");
 
   grunt.registerTask("serve", ["exec:serve"]);

@@ -2,44 +2,47 @@
 	"use strict";
 
 	var NavbarObject = function() {
-		var title = element(by.css(".app-title"));
-		var dropdown = element(by.css("li[dropdown]"));
-		var dropdownLinks = element.all(by.repeater("link in navLinks"));
 
 		this.get = function() {
 			browser.get("http://localhost:3000/src/#/kanban/identity");
 		};
 
+
 		this.getTitle = function() {
-			return title.getText();
+			return $(".navigation-title h1").getText().then(function(title) {
+				return $(".navigation-title h3").getText().then(function(subtitle) {
+					return (title + " " + subtitle);
+				});
+			});
 		};
+
 
 		this.hasTitle = function() {
-			return title.isPresent();
+			return element(by.css(".navigation-title")).isPresent();
 		};
 
-		this.hasDropdownMenu = function() {
-			return dropdown.isPresent();
+
+		this.clickExpandMenuToggle = function() {
+			$(".expandable-text-toggle").click();
 		};
 
-		this.getDropdownLinksCount = function() {
-			return dropdownLinks.count();
+
+		this.hasMenu = function() {
+			return $(".navigation-menu").isPresent();
 		};
 
-		this.getDropdownLinks = function() {
-			return dropDownLinks;
+
+		this.getMenuLinksCount = function() {
+			return element.all(by.repeater("link in menuLinks")).count();
 		};
 
-		this.clickDropdown = function() {
-			return dropdown.click();
-		};
 
 		this.getLinkName = function(n) {
-			return dropdownLinks.get(n).getText();
+			return element.all(by.repeater("link in menuLinks")).get(n).getText();
 		};
 
 		this.clickLink = function(n) {
-			return dropdownLinks.get(n).click();
+			return element.all(by.repeater("link in menuLinks")).get(n).click();
 		};
 	};
 

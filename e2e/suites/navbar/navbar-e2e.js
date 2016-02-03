@@ -23,30 +23,32 @@
 		});
 
 
-		describe("dropdown menu", function() {
+		describe("menu", function() {
 			it("exists", function() {
-				expect(pageObject.hasDropdownMenu()).toEqual(true);
+				expect(pageObject.hasMenu()).toEqual(true);
 			});
 
 			it("has 3 links", function() {
-				expect(pageObject.getDropdownLinksCount()).toEqual(3);
+				expect(pageObject.getMenuLinksCount()).toEqual(3);
 			});
 
-			it("link 'Login' redirects to #/kanban/myidentity", function() {
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
-				pageObject.clickDropdown();
-				expect(pageObject.getLinkName(0)).toEqual("Login");
-				pageObject.clickLink(0);
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
+			it("retracts", function() {
+				expect(pageObject.getMenuLinksCount()).toEqual(3);
+				pageObject.clickExpandMenuToggle();
+				expect(pageObject.getMenuLinksCount()).toEqual(0);
 			});
 
-			it("link 'My Boards' redirects to #/kanban/user without prior login", function() {
+			it("expands", function() {
+
+			});
+
+			it("link 'Boards' redirects to #/kanban/user without prior login", function() {
 				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
 				browser.executeScript('window.sessionStorage.clear();');
-				pageObject.clickDropdown();
-				expect(pageObject.getLinkName(1)).toEqual("Visit Boards");
-				pageObject.clickLink(1);
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
+				expect(pageObject.getLinkName(0)).toEqual("Boards");
+				pageObject.clickLink(0);
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/error");
+				expect($(".error-page-body h3").getText()).toContain("401");
 			});
 
 			it("link 'My Boards' redirects to #/kanban/user/sheldon after login", function() {
@@ -55,17 +57,22 @@
 				//get token from server
 				$("button[ng-click='authenticate()']").click();
 
-				pageObject.clickDropdown();
-				expect(pageObject.getLinkName(1)).toEqual("Visit Boards");
-				pageObject.clickLink(1);
+				expect(pageObject.getLinkName(0)).toEqual("Boards");
+				pageObject.clickLink(0);
 				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/user/sheldon");
+			});
+
+			it("link 'Login' redirects to #/kanban/myidentity", function() {
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
+				expect(pageObject.getLinkName(2)).toEqual("Login");
+				pageObject.clickLink(2);
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
 			});
 
 			it("link 'About' redirects to #/kanban/about", function() {
 				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
-				pageObject.clickDropdown();
-				expect(pageObject.getLinkName(2)).toEqual("About");
-				pageObject.clickLink(2);
+				expect(pageObject.getLinkName(1)).toEqual("About");
+				pageObject.clickLink(1);
 				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/about");
 			});
 		});

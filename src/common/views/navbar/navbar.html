@@ -5,6 +5,6 @@
   </a>
 
   <div expandable-text class="navigation-menu">
-    <a ng-repeat="link in menuLinks" class="navigation-link" ui-sref="{{::link.state}}">{{::link.name}}</a>
+    <a ng-repeat="link in menuLinks track by link.name" class="navigation-link" ui-sref="{{::link.state}}">{{::link.name}}</a>
   </div>
 </div>
