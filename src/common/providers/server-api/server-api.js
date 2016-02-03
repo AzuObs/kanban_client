@@ -40,6 +40,7 @@
 				return q.promise;
 			};
 
+
 			this.getUser = function(userId) {
 				var defer = $q.defer();
 
@@ -54,6 +55,7 @@
 
 				return defer.promise;
 			};
+
 
 			this.createBoard = function(userId, name) {
 				var body = {
@@ -75,6 +77,7 @@
 				return defer.promise;
 			};
 
+
 			this.getUserBoards = function(userId) {
 				var q = $q.defer();
 
@@ -89,6 +92,7 @@
 
 				return q.promise;
 			};
+
 
 			this.deleteBoard = function(boardId) {
 				var defer = $q.defer();
@@ -105,11 +109,12 @@
 				return defer.promise;
 			};
 
-			this.addMemberToBoard = function(board, userEmail) {
+
+			this.addMemberToBoard = function(boardId, userEmail) {
 				var q = $q.defer();
 
 				var body = {
-					boardId: board._id,
+					boardId: boardId,
 					userEmail: userEmail
 				};
 
@@ -124,6 +129,7 @@
 
 				return q.promise;
 			};
+
 
 			this.createComment = function(content, username, userPicUrl, taskId, catId, boardId) {
 				var body = {
@@ -149,6 +155,7 @@
 				return q.promise;
 			};
 
+
 			this.createTask = function(name, categoryId, boardId) {
 				var body = {
 					boardId: boardId,
@@ -170,6 +177,7 @@
 				return defer.promise;
 			};
 
+
 			this.createCategory = function(boardId, name) {
 				var body = {
 					boardId: boardId,
@@ -190,6 +198,7 @@
 				return defer.promise;
 			};
 
+
 			this.deleteTask = function(boardId, cId, tId) {
 				var defer = $q.defer();
 
@@ -204,6 +213,7 @@
 
 				return defer.promise;
 			};
+
 
 			this.deleteCategory = function(boardId, catId) {
 				var defer = $q.defer();
@@ -220,9 +230,8 @@
 				return defer.promise;
 			};
 
+
 			this.updateBoard = function(board) {
-
-
 				var defer = $q.defer();
 
 				$http
@@ -238,6 +247,7 @@
 
 				return defer.promise;
 			};
+
 
 			this.createUser = function(username, pwd) {
 				var body = {
@@ -257,6 +267,7 @@
 
 				return defer.promise;
 			};
+
 
 			this.authenticate = function(username, pwd) {
 				var body = {

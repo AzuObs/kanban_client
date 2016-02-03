@@ -220,6 +220,7 @@
 				spyOn(serverAPI, "getBoard").and.callFake(function() {
 					var getBoardDefer = $q.defer();
 					getBoardDefer.resolve({
+						_id: "boardid",
 						name: "board",
 						members: [{
 							email: "member"
@@ -256,11 +257,11 @@
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("calls serverAPI with args [board, userEmail] ", function() {
+			it("calls serverAPI with args [boardId, userEmail] ", function() {
 				apiCallArgs = [];
 				boardFactory.addMemberToBoard("new member email");
 				expect(apiCallArgs.length).toEqual(2);
-				expect(apiCallArgs[0].name).toEqual("board");
+				expect(apiCallArgs[0]).toEqual("boardid");
 				expect(apiCallArgs[1]).toEqual("new member email");
 			});
 

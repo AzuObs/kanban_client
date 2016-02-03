@@ -78,7 +78,7 @@
 						defer.reject();
 					} else {
 						serverAPI
-							.addMemberToBoard(board, email)
+							.addMemberToBoard(board._id, email)
 							.then(function(res) {
 								board.members.push(res);
 								boardUsers.push(res);
