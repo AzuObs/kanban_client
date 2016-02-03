@@ -5,7 +5,7 @@
 
   <div class="modal-title">
     <h3 editable-text="board.name" update="updateTitle()" is-editing="isEditingTitle">{{board.name}}</h3>
-    <h4 class="text-muted">in user <b>{{user.username | uppercase}}</b></h4>
+    <h4 class="text-muted">in user <b>{{::user.username | uppercase}}</b></h4>
   </div>
   <div class="modal-user-list">
     <kb-user ng-model="user" id="modal-user"></kb-user>
