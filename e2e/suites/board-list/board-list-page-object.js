@@ -6,8 +6,8 @@
 		var boardList, createBoardButton, createBoardInput, config;
 
 		boardList = $(".board-list-container");
-		createBoardButton = boardList.element(by.css("button[ng-click='createBoard()']"));
-		createBoardInput = boardList.element(by.model("boardName"));
+		createBoardButton = $("button[ng-click='createBoard($event)']");
+		createBoardInput = $("input[ng-keypress='createBoard($event)']");
 
 		config = {
 			identityPageUrl: "http://localhost:3000/src/#/kanban/identity",
@@ -16,10 +16,9 @@
 
 		this.cleanUpAndExit = function() {
 			this.clickEditBoard("foobar");
-			$(".modal-options button.delete-board").click();
-			$(".modal-options input.delete-board-input").sendKeys("foobar" + "\n");
+			$(".deletable-object-toggle").click();
+			element(by.model("repeatObjectName")).sendKeys("foobar" + "\n");
 		};
-
 
 		this.closeModal = function() {
 			$("button.glyphicon-remove").click();
