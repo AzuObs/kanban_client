@@ -1,4 +1,4 @@
-.error-pages-container {
+.error-page-container {
   display: flex;
   /*flex: 1 0 auto;*/
   margin: 10px 0px;
@@ -8,7 +8,7 @@
   overflow-y: auto;
 }
 
-.error-pages-img {
+.error-page-img {
   display: flex;
   flex: 0 0 auto;
   justify-content: center;
@@ -18,7 +18,7 @@
   min-height: 270px;
 }
 
-.error-pages-body {
+.error-page-body {
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
@@ -26,7 +26,7 @@
   width: 50%;
 }
 
-.error-pages-body .redirect {
+.error-page-body .redirect {
   color: #555;
   font-size: 20px;
   font-weight: 900;
@@ -34,6 +34,6 @@
   text-decoration: none;
 }
 
-.error-pages-body .redirect:hover {
+.error-page-body .redirect:hover {
   color: #111;
 }
