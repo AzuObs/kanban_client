@@ -260,7 +260,7 @@
 
 
 		this.clickCloseTaskModal = function() {
-			$("button[ng-click='closeModal()']").click();
+			$(".modal .glyphicon-remove").click();
 		};
 
 
@@ -354,11 +354,6 @@
 							}
 						});
 				});
-		};
-
-
-		this.tasksHaveCommentsSection = function() {
-			return $$(".task-container").first().element(by.css(".task-comment")).isPresent();
 		};
 
 

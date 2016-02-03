@@ -265,9 +265,6 @@
 				expect(boardPO.getTaskUsersCount("new task destination")).toEqual(1);
 			});
 
-			it("contain a comments section", function() {
-				expect(boardPO.tasksHaveCommentsSection()).toEqual(true);
-			});
 
 			it("can be dropped between category task lists", function() {
 				var task, category;
