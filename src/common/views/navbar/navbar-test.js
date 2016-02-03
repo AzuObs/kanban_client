@@ -15,22 +15,6 @@
 		});
 
 
-		describe("$scope.menuLinks", function() {
-			it("is defined", function() {
-				expect($scope.menuLinks).toBeDefined();
-			});
-
-			it("is an array of objects", function() {
-				expect(Object.prototype.toString.call($scope.menuLinks)).toEqual("[object Array]");
-				expect(Object.prototype.toString.call($scope.menuLinks[0])).toEqual("[object Object]");
-			});
-
-			it("is not empty", function() {
-				expect($scope.menuLinks.length).toBeGreaterThan(0);
-			});
-		});
-
-
 		describe("$scope.appName", function() {
 			it("is defined", function() {
 				expect($scope.appName).toBeDefined();
@@ -57,6 +41,22 @@
 
 			it("equals '看板'", function() {
 				expect($scope.jpAppName).toEqual("看板");
+			});
+		});
+
+
+		describe("$scope.menuLinks", function() {
+			it("is defined", function() {
+				expect($scope.menuLinks).toBeDefined();
+			});
+
+			it("is an array of objects", function() {
+				expect(Object.prototype.toString.call($scope.menuLinks)).toEqual("[object Array]");
+				expect(Object.prototype.toString.call($scope.menuLinks[0])).toEqual("[object Object]");
+			});
+
+			it("is not empty", function() {
+				expect($scope.menuLinks.length).toBeGreaterThan(0);
 			});
 		});
 	});

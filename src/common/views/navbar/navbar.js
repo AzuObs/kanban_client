@@ -4,9 +4,11 @@
 		"expandableTextDirectiveModule"
 	]);
 
+
 	module.controller("navbarCtrl", [
 		"$scope",
 		function($scope) {
+
 			$scope.appName = "KANBAN";
 			$scope.jpAppName = "看板";
 			$scope.menuLinks = [{
