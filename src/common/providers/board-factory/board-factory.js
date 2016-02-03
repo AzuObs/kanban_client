@@ -150,12 +150,12 @@
 
 					serverAPI
 						.createComment(
-							content,
+							board._id,
+							cat._id,
+							task._id,
 							user.username,
 							user.pictureUrl,
-							task._id,
-							cat._id,
-							board._id)
+							content)
 						.then(function(res) {
 							task.comments.unshift(res);
 							defer.resolve(res);
@@ -172,9 +172,9 @@
 
 					serverAPI
 						.createTask(
-							name,
+							board._id,
 							cat._id,
-							board._id)
+							name)
 						.then(function(res) {
 							cat.tasks.push(res);
 							defer.resolve(res);

@@ -462,7 +462,7 @@
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("calls serverAPI.createComment with args [content,username,userPic,taskid, catid, boardid",
+			it("calls serverAPI.createComment with args [boardid,catid, taskid,username,userPic,content]",
 				function() {
 					var args = {
 						content: "content",
@@ -481,12 +481,12 @@
 					apiCallArgs = [];
 					boardFactory.createComment(args.content, args.user, args.task, args.cat);
 					expect(apiCallArgs.length).toEqual(6);
-					expect(apiCallArgs[0]).toEqual("content");
-					expect(apiCallArgs[1]).toEqual("username");
-					expect(apiCallArgs[2]).toEqual("userPic");
-					expect(apiCallArgs[3]).toEqual("taskid");
-					expect(apiCallArgs[4]).toEqual("categoryid");
-					expect(apiCallArgs[5]).toEqual("boardid");
+					expect(apiCallArgs[0]).toEqual("boardid");
+					expect(apiCallArgs[1]).toEqual("categoryid");
+					expect(apiCallArgs[2]).toEqual("taskid");
+					expect(apiCallArgs[3]).toEqual("username");
+					expect(apiCallArgs[4]).toEqual("userPic");
+					expect(apiCallArgs[5]).toEqual("content");
 				});
 
 			it("adds to comments on resolve", function() {
@@ -571,7 +571,7 @@
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("calls serverAPI with args[name, catid, boardid]", function() {
+			it("calls serverAPI with args[boardid, catid, name]", function() {
 				var args = {
 					name: "name",
 					cat: {
@@ -582,9 +582,9 @@
 
 				boardFactory.createTask(args.name, args.cat);
 				expect(apiCallArgs.length).toEqual(3);
-				expect(apiCallArgs[0]).toEqual("name");
+				expect(apiCallArgs[0]).toEqual("boardid");
 				expect(apiCallArgs[1]).toEqual("categoryid");
-				expect(apiCallArgs[2]).toEqual("boardid");
+				expect(apiCallArgs[2]).toEqual("name");
 			});
 
 			it("adds task on resolve", function() {

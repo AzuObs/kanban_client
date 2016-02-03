@@ -131,7 +131,7 @@
 			};
 
 
-			this.createComment = function(content, username, userPicUrl, taskId, catId, boardId) {
+			this.createComment = function(boardId, catId, taskId, username, userPicUrl, content) {
 				var body = {
 					content: content,
 					username: username,
@@ -156,7 +156,7 @@
 			};
 
 
-			this.createTask = function(name, categoryId, boardId) {
+			this.createTask = function(boardId, categoryId, name) {
 				var body = {
 					boardId: boardId,
 					categoryId: categoryId,

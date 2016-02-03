@@ -276,7 +276,9 @@
 					.respond();
 
 				$rootScope.$apply(function() {
-					serverAPI.createComment(body.content, body.username, body.userPicUrl, body.boardId, body.catId, body.taskId);
+					serverAPI.createComment(
+						body.boardId, body.catId, body.taskId, body.username, body.userPicUrl, body.content
+					);
 				});
 			});
 		});
@@ -313,7 +315,7 @@
 				$httpBackend.expectPOST($rootScope.endPoint + "/task/", JSON.stringify(body)).respond();
 
 				$rootScope.$apply(function() {
-					serverAPI.createTask(body.name, body.categoryId, body.boardId);
+					serverAPI.createTask(body.boardId, body.categoryId, body.name);
 				});
 			});
 		});
