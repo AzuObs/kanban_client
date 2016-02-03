@@ -62,11 +62,11 @@
 				expect(pageObject.removeUserConfirmationIsPresent()).toEqual(false);
 
 				pageObject.clickRemoveUserButton();
-
 				expect(pageObject.removeUserConfirmationIsPresent()).toEqual(true);
 			});
 
 			it("will remove user after confirmation", function() {
+				expect(pageObject.removeUserConfirmationIsPresent()).toEqual(true);
 				expect(pageObject.getUserCount()).toEqual(2);
 				pageObject.typeRemoveUserConfirmation("raj");
 				expect(pageObject.getUserCount()).toEqual(1);

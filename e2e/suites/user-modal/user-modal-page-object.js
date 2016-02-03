@@ -8,7 +8,7 @@
 
 	var UserModalPageObject = function() {
 		this.typeRemoveUserConfirmation = function(input) {
-			$("input.remove-user").sendKeys(input + "\n");
+			element(by.model("repeatObjectName")).sendKeys(input + "\n");
 		};
 
 
@@ -18,23 +18,17 @@
 
 
 		this.clickRemoveUserButton = function() {
-			$("button.remove-user").click();
+			$(".deletable-object-toggle").click();
 		};
 
 
 		this.removeUserConfirmationIsPresent = function() {
-			var regexNgHide = /ng-hide/;
-
-			return $("input.remove-user")
-				.getAttribute("class")
-				.then(function(res) {
-					return res.match(regexNgHide) ? false : true;
-				});
+			return element(by.model("repeatObjectName")).isDisplayed();
 		};
 
 
 		this.removeUserButtonIsPresent = function() {
-			return $("button.remove-user").isPresent();
+			return $(".deletable-object-toggle").isPresent();
 		};
 
 

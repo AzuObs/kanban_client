@@ -3,7 +3,7 @@
 <div class="user-menu-container">
   <div class="board-member-container">
     <span class="user-selection" ng-model="users" ui-sortable="::userSortOpts">
-      <kb-user ng-model="::user" ng-click="openUserModal(user)" ng-repeat="user in users track by user._id"></kb-user>
+      <kb-user ng-model="user" ng-click="openUserModal(user)" ng-repeat="user in users track by user._id"></kb-user>
     </span>
   </div>
 
