@@ -21,8 +21,7 @@
 		function($stateProvider, $urlRouterProvider, $compileProvider, $injector, ENV, cfpLoadingBarProvider) {
 			$stateProvider.state("kanban", {
 				abstract: true,
-				url: "/kanban",
-				controller: "appCtrl"
+				url: "/kanban"
 			});
 
 			$urlRouterProvider.otherwise(function($injector) {
@@ -39,11 +38,14 @@
 		}
 	]);
 
-	module.controller("appCtrl", [
-		"$rootScope", "$state", "errorHandler",
-		function($rootScope, $state, errorHandler) {
-			$rootScope.state = $state;
 
+	// 'run' cannot be replaced by 'controller' because it will only give scope to the .body-view 
+	// in the HTML, except that the TITLE of the web page needs to be the website version... hence why
+	// we need the scope to be greater than .body-view the whole ng-app
+	module.run([
+		"$rootScope", "ENV", "errorHandler",
+		function($rootScope, ENV, errorHandler) {
+			$rootScope.websiteVersion = ENV.websiteVersion;
 			$rootScope.$on("$stateChangeError", function() {
 				errorHandler.handleAppError("State Change Error");
 			});

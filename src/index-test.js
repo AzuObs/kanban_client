@@ -16,18 +16,17 @@
 			module("kanbanApp", function(_cfpLoadingBarProvider_) {
 				cfpLoadingBarProvider = _cfpLoadingBarProvider_;
 			});
-		});
 
-		beforeEach(inject(function(_$rootScope_, $controller) {
-			$rootScope = _$rootScope_;
-			$controller("appCtrl", {
-				$rootScope: $rootScope
+			inject(function(_$rootScope_) {
+				// this has to be here even if we do not inject anything
+				// or else cfpLoadingBarProvider and debugInfoEnabled will
+				// be undefined
+				$rootScope = _$rootScope_;
 			});
-		}));
+		});
 
 
 		describe("config phase", function() {
-
 			describe("debugInfoEnabled", function() {
 				it("is enabled during production", function() {
 					expect(debugInfoEnabled).toEqual(true);
@@ -46,15 +45,20 @@
 		});
 
 
-		describe("appCtrl", function() {
-			describe("$rootScope.state", function() {
+		describe("run phase", function() {
+			describe("$rootScope.websiteVersion", function() {
 				it("is defined", function() {
-					expect($rootScope.state).toBeDefined();
+					expect($rootScope.websiteVersion).toBeDefined();
 				});
 
-				it("is an object", function() {
-					expect(Object.prototype.toString.call($rootScope.state)).toEqual("[object Object]");
+				it("is a string", function() {
+					expect(typeof $rootScope.websiteVersion).toEqual("string");
 				});
+
+
+				it("it is equal to ENV.version", inject(function(ENV) {
+					expect($rootScope.websiteVersion).toEqual(ENV.websiteVersion);
+				}));
 			});
 		});
 	});
