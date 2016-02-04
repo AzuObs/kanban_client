@@ -80,7 +80,7 @@
 			});
 
 			it("stores answer into board variable on resolve", function() {
-				expect(boardFactory.getBoardSync()).toEqual(undefined);
+				expect(boardFactory.getBoardSync()).toEqual({});
 
 				boardFactory.getBoard();
 				$scope.$apply(function() {
