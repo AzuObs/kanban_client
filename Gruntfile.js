@@ -38,6 +38,13 @@ module.exports = function(grunt) {
           }
         }
       },
+      error: {
+        options: {
+          args: {
+            suite: "error"
+          }
+        }
+      },
       about: {
         options: {
           args: {

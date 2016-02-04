@@ -3,11 +3,11 @@
 
 	describe("Footer", function() {
 
-		var footer, FooterObject;
-		FooterObject = require(process.cwd() + "/e2e/suites/footer/footer-page-object.js");
+		var footer, PageObject;
+		PageObject = require(process.cwd() + "/e2e/suites/footer/footer-page-object.js");
 
 		beforeEach(function() {
-			footer = new FooterObject();
+			footer = new PageObject();
 			footer.get();
 		});
 

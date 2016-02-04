@@ -4,6 +4,7 @@ exports.config = {
 	suites: {
 		navbar: "suites/navbar/navbar-e2e.js",
 		footer: "suites/footer/footer-e2e.js",
+		error: "suites/error/error-e2e.js",
 		about: "suites/about/about-e2e.js",
 		oauth: "suites/oauth/oauth-e2e.js",
 		boardList: "suites/board-list/board-list-e2e.js",
