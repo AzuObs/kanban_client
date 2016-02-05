@@ -17,6 +17,7 @@ module.exports = function(grunt) {
       }
     },
 
+
     // grunt e2e-test
     protractor: {
       options: {
@@ -96,6 +97,7 @@ module.exports = function(grunt) {
       }
     },
 
+
     //grunt exec
     exec: {
       serve: "python -m SimpleHTTPServer 3000",
@@ -103,6 +105,7 @@ module.exports = function(grunt) {
       selenium: "gnome-terminal -e 'bash -c \"webdriver-manager start; exec bash\"'",
       sleep5: "sleep 5"
     },
+
 
     //grunt build 
     useminPrepare: {
@@ -116,10 +119,24 @@ module.exports = function(grunt) {
       html: "release/index.html"
     },
 
+    clean: {
+      build: {
+        files: {
+          src: "release/**/*"
+        }
+      }
+    },
+
     copy: {
       favicon: {
         src: "src/favicon.png",
         dest: "release/favicon.png"
+      },
+      assets: {
+        expand: true,
+        cwd: "src/common/",
+        src: "assets/**/*",
+        dest: "release/common/"
       },
       html: {
         expand: true,
@@ -137,22 +154,24 @@ module.exports = function(grunt) {
         },
         files: {
           "release/index.html": "release/index.html",
-          "release/oauth/oauth.html": "release/oauth/oauth.html",
+          "release/about-page/about.html": "release/about-page/about.html",
+          "release/board-list-page/board-list.html": "release/board-list-page/board-list.html",
+          "release/board-list-page/board-modal/board-modal.html": "release/board-list-page/board-modal/board-modal.html",
+          "release/board-page/board.html": "release/board-page/board.html",
+          "release/board-page/users/users.html": "release/board-page/users/users.html",
+          "release/board-page/users/user-directive/user-directive.html": "release/board-page/users/user-directive/user-directive.html",
+          "release/board-page/users/user-modal/user-modal.html": "release/board-page/users/user-modal/user-modal.html",
+          "release/board-page/tasks/tasks.html": "release/board-page/tasks/tasks.html",
+          "release/board-page/tasks/task-directive/task-directive.html": "release/board-page/tasks/task-directive/task-directive.html",
+          "release/board-page/tasks/task-modal/task-modal.html": "release/board-page/tasks/task-modal/task-modal.html",
+          "release/board-page/categories/categories.html": "release/board-page/categories/categories.html",
+          "release/board-page/categories/category-directive/category-directive.html": "release/board-page/categories/category-directive/category-directive.html",
+          "release/oauth-page/oauth.html": "release/oauth-page/oauth.html",
+          "release/common/directives/deletable-object/deletable-object.html": "release/common/directives/deletable-object/deletable-object.html",
+          "release/common/directives/editable-text/editable-text.html": "release/common/directives/editable-text/editable-text.html",
+          "release/common/directives/expandable-text/expandable-text.html": "release/common/directives/expandable-text/expandable-text.html",
           "release/common/views/footer/footer.html": "release/common/views/footer/footer.html",
-          "release/common/views/navbar/navbar.html": "release/common/views/navbar/navbar.html",
-          "release/common/views/state-info/state-info.html": "release/common/views/state-info/state-info.html",
-          "release/board-list/board-list.html": "release/board-list/board-list.html",
-          "release/board-list/board-modal/board-modal.html": "release/board-list/board-modal/board-modal.html",
-          "release/board/board.html": "release/board/board.html",
-          "release/board/users/users.html": "release/board/users/users.html",
-          "release/board/users/user-directive/user-directive.html": "release/board/users/user-directive/user-directive.html",
-          "release/board/users/user-modal/user-modal.html": "release/board/users/user-modal/user-modal.html",
-          "release/board/tasks/tasks.html": "release/board/tasks/tasks.html",
-          "release/board/tasks/task-directive/task-directive.html": "release/board/tasks/task-directive/task-directive.html",
-          "release/board/tasks/task-modal/task-modal.html": "release/board/tasks/task-modal/task-modal.html",
-          "release/board/categories/categories.html": "release/board/categories/categories.html",
-          "release/board/categories/category-directive/category-directive.html": "release/board/categories/category-directive/category-directive.html",
-          "release/about/about.html": "release/about/about.html"
+          "release/common/views/navbar/navbar.html": "release/common/views/navbar/navbar.html"
         }
       }
     },
@@ -161,13 +180,13 @@ module.exports = function(grunt) {
       html: {
         options: {
           patterns: [{
-            match: /src\/bower-components\/bootstrap\/dist\/css\/bootstrap.css/,
+            match: /common\/bower-components\/bootstrap\/dist\/css\/bootstrap.css/,
             replacement: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           }, {
-            match: /src\/bower-components\/jquery\/dist\/jquery.js/,
+            match: /common\/bower-components\/jquery\/dist\/jquery.js/,
             replacement: "https://code.jquery.com/jquery-2.1.4.min.js"
           }, {
-            match: /src\/bower-components\/angular\/angular.js/,
+            match: /common\/bower-components\/angular\/angular.js/,
             replacement: "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"
           }]
         },
@@ -179,12 +198,14 @@ module.exports = function(grunt) {
       js: {
         options: {
           patterns: [{
-            match: /debugApp:true/,
-            replacement: "debugApp:false"
-          }, {
-            match: /apiEndpoint:"http:\/\/localhost:8000\/api"/,
-            replacement: 'apiEndpoint:"http://kanban.heroku-app.com"'
-          }]
+              match: /debugApp:!0/,
+              replacement: "debugApp:!!0"
+            }
+            //, {
+            // match: /apiEndpoint:"http:\/\/localhost:8000\/api"/,
+            // replacement: 'apiEndpoint:"http://kanban.heroku-app.com"'
+            // }
+          ]
         },
         files: [{
           src: "release/main.js",
@@ -205,6 +226,8 @@ module.exports = function(grunt) {
     }
   });
 
+
+  grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-cssmin");
@@ -221,14 +244,18 @@ module.exports = function(grunt) {
   grunt.registerTask("unit-test", ["karma:unit"]);
   grunt.registerTask("e2e-test", ["exec:selenium", "exec:sleep5", "protractor"]);
   grunt.registerTask("build", [
-    "copy",
+    "clean:build",
+    "copy:favicon",
+    "copy:html",
+    "copy:assets", //this must be after html and favicon otherwise it'll override them...
     "useminPrepare",
     "concat:generated",
     "uglify:generated",
     "cssmin:generated",
     "usemin",
     "exec:rmTmp",
-    "replace",
+    "replace:html",
+    "replace:js",
     "htmlmin",
     "compress:archive"
   ]);
