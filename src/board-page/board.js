@@ -44,7 +44,7 @@
 					templateUrl: "common/views/footer/footer.html"
 				}
 			},
-			url: "/board-page/:boardName",
+			url: "/board/:boardName",
 		});
 	}]);
 })();

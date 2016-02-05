@@ -107,7 +107,7 @@ module.exports = function(grunt) {
     },
 
 
-    //grunt build 
+    //grunt release 
     useminPrepare: {
       html: "src/index.html",
       options: {
@@ -120,7 +120,7 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      build: {
+      release: {
         files: {
           src: "release/**/*"
         }
@@ -128,10 +128,6 @@ module.exports = function(grunt) {
     },
 
     copy: {
-      favicon: {
-        src: "src/favicon.png",
-        dest: "release/favicon.png"
-      },
       assets: {
         expand: true,
         cwd: "src/common/",
@@ -147,7 +143,7 @@ module.exports = function(grunt) {
     },
 
     htmlmin: {
-      build: {
+      release: {
         options: {
           removeComments: true,
           collapseWhitespace: true
@@ -198,14 +194,12 @@ module.exports = function(grunt) {
       js: {
         options: {
           patterns: [{
-              match: /debugApp:!0/,
-              replacement: "debugApp:!!0"
-            }
-            //, {
-            // match: /apiEndpoint:"http:\/\/localhost:8000\/api"/,
-            // replacement: 'apiEndpoint:"http://kanban.heroku-app.com"'
-            // }
-          ]
+            match: /debugApp:!0/,
+            replacement: "debugApp:!!0"
+          }, {
+            match: /apiEndpoint:"http:\/\/localhost:8000\/api"/,
+            replacement: 'apiEndpoint:"https://bigbangkanban.herokuapp.com"'
+          }]
         },
         files: [{
           src: "release/main.js",
@@ -243,11 +237,10 @@ module.exports = function(grunt) {
   grunt.registerTask("serve", ["exec:serve"]);
   grunt.registerTask("unit-test", ["karma:unit"]);
   grunt.registerTask("e2e-test", ["exec:selenium", "exec:sleep5", "protractor"]);
-  grunt.registerTask("build", [
-    "clean:build",
-    "copy:favicon",
+  grunt.registerTask("release", [
+    "clean:release",
     "copy:html",
-    "copy:assets", //this must be after html and favicon otherwise it'll override them...
+    "copy:assets", //this must be after html otherwise it'll override it...
     "useminPrepare",
     "concat:generated",
     "uglify:generated",
