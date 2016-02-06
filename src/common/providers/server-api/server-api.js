@@ -2,7 +2,8 @@
 	"use strict";
 
 	var module = angular.module("serverAPIModule", [
-		"ngResource", "environmentModule"
+		"ngResource",
+		"environmentModule"
 	]);
 
 
@@ -29,7 +30,9 @@
 				var q = $q.defer();
 
 				$http
-					.get(endPoint + "/board/" + boardId)
+					.get(endPoint + "/board/" + boardId, {
+						ignoreLoadingBar: true
+					})
 					.success(function(res) {
 						q.resolve(res);
 					})
@@ -45,7 +48,9 @@
 				var defer = $q.defer();
 
 				$http
-					.get(endPoint + "/user/" + userId)
+					.get(endPoint + "/user/" + userId, {
+						ignoreLoadingBar: true
+					})
 					.success(function(res) {
 						defer.resolve(res);
 					})
@@ -82,7 +87,9 @@
 				var q = $q.defer();
 
 				$http
-					.get(endPoint + "/board/user/" + userId)
+					.get(endPoint + "/board/user/" + userId, {
+						ignoreLoadingBar: true
+					})
 					.success(function(res) {
 						q.resolve(res);
 					})
