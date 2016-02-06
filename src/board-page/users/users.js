@@ -55,15 +55,15 @@
 			$scope.userSortOpts = new UserSortOpts($scope.stopSort);
 			$scope.addMemberInput = "";
 			$scope.membersSuggestions = [{
-				email: "sheldon@mail.com"
+				email: "Sheldon@mail.com"
 			}, {
-				email: "raj@mail.com"
+				email: "Raj@mail.com"
 			}, {
-				email: "penny@mail.com"
+				email: "Penny@mail.com"
 			}, {
-				email: "leonard@mail.com"
+				email: "Leonard@mail.com"
 			}, {
-				email: "wolowitz@mail.com"
+				email: "Wolowitz@mail.com"
 			}];
 		}
 	]);

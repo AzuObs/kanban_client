@@ -31,18 +31,18 @@
         <b>Demo Account</b>
       </div>
       <div class="login-help-credentials">
-        <p>username: sheldon</p>
-        <p>password: 123</p>
+        <p>username: {{::loginUsername}}</p>
+        <p>password: {{::loginPwd}}</p>
       </div>
     </div>
     <form>
       <div class="form-group">
         <div><b>Username</b></div>
-        <input class="form-control" ng-model="loginUsername" placeholder="sheldon" type="text">
+        <input class="form-control" ng-model="loginUsername" placeholder="{{::loginUsername}}" type="text">
       </div>
       <div class="form-group">
         <div><b>Password</b></div>
-        <input class="form-control" ng-model="loginPwd" placeholder="123" type="password">
+        <input class="form-control" ng-model="loginPwd" placeholder="{{::loginPwd}}" type="password">
       </div>
       <button class="btn btn-black btn-block" ng-click="authenticate()">Log In</button>
     </form>

@@ -198,7 +198,7 @@ module.exports = function(grunt) {
             replacement: "debugApp:!!0"
           }, {
             match: /apiEndpoint:"http:\/\/localhost:8000\/api"/,
-            replacement: 'apiEndpoint:"https://bigbangkanban.herokuapp.com"'
+            replacement: 'apiEndpoint:"https://bigbangkanban.herokuapp.com/api"'
           }]
         },
         files: [{

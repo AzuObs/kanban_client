@@ -46,7 +46,7 @@
 			$scope.newAccUsr = "";
 			$scope.newAccPwd = "";
 			$scope.newAccPwdVerify = "";
-			$scope.loginUsername = "sheldon";
+			$scope.loginUsername = "Sheldon";
 			$scope.loginPwd = "123";
 		}
 	]);
