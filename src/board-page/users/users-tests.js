@@ -93,6 +93,39 @@
 				expect(apiCallArgs.length).toEqual(1);
 				expect(apiCallArgs[0]).toEqual($scope.addMemberInput);
 			});
+
+
+			it("calls $scope.clearAddMemberInput", function() {
+				var called, e;
+				e = {
+					type: "click"
+				};
+				called = false;
+
+				spyOn($scope, "clearAddMemberInput").and.callFake(function() {
+					called = true;
+				});
+
+				$scope.addMember(e);
+				expect(called).toEqual(true);
+			});
+		});
+
+
+		describe("$scope.clearAddMemberInput()", function() {
+			it("is defined", function() {
+				expect($scope.clearAddMemberInput).toBeDefined();
+			});
+
+			it("is a function", function() {
+				expect(typeof $scope.clearAddMemberInput).toEqual("function");
+			});
+
+			it("clears $scope.addMemberInput", function() {
+				$scope.addMemberInput = "foobar";
+				$scope.clearAddMemberInput();
+				expect($scope.addMemberInput).toEqual("");
+			});
 		});
 
 

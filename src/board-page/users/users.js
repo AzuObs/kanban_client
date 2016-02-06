@@ -20,9 +20,13 @@
 			$scope.addMember = function(e) {
 				if (e.type === "click" || (e.type === "keypress" && e.which === 13)) {
 					boardFactory.addMemberToBoard($scope.addMemberInput);
+					$scope.clearAddMemberInput();
 				}
 			};
 
+			$scope.clearAddMemberInput = function() {
+				$scope.addMemberInput = "";
+			};
 
 			$scope.openUserModal = function(user) {
 				$modal.open({
