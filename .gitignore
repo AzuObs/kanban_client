@@ -1,3 +1,4 @@
-./src/constants.js
-./release
+.src/constants.js
+.release
+archive.zip
 npm-debug.log
