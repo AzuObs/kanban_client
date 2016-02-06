@@ -55,7 +55,7 @@
 				var user, task;
 
 				user = {
-					username: "raj",
+					username: "Raj",
 					element: undefined
 				};
 
@@ -66,7 +66,7 @@
 
 				boardPO.createTask("0- foobar", "new task");
 				expect(boardPO.categoryHasTask("0- foobar", "new task")).toEqual(true);
-				expect(boardPO.taskHasUser("new task", "raj")).toEqual(false);
+				expect(boardPO.taskHasUser("new task", "Raj")).toEqual(false);
 
 				boardPO.getMenuUser(user);
 				boardPO.getTaskUserList(task);
@@ -75,15 +75,15 @@
 					boardPO.dragAndDrop(user.element, task.element);
 				});
 
-				expect(boardPO.taskHasUser("new task", "raj")).toEqual(true);
-				expect(boardPO.userMenuHasUser("raj")).toEqual(true);
+				expect(boardPO.taskHasUser("new task", "Raj")).toEqual(true);
+				expect(boardPO.userMenuHasUser("Raj")).toEqual(true);
 			});
 
 			it("can be dragged and dropped from one task to another", function() {
 				var userr, task;
 
 				userr = {
-					username: "raj",
+					username: "Raj",
 					element: undefined
 				};
 
@@ -94,7 +94,7 @@
 
 				boardPO.createTask("0- foobar", "new task destination");
 				expect(boardPO.categoryHasTask("0- foobar", "new task destination")).toEqual(true);
-				expect(boardPO.taskHasUser("new task", "raj")).toEqual(true);
+				expect(boardPO.taskHasUser("new task", "Raj")).toEqual(true);
 
 				boardPO.getTaskUser("new task", userr);
 				boardPO.getTaskUserList(task);
@@ -103,15 +103,15 @@
 					boardPO.dragAndDrop(userr.element, task.element);
 				});
 
-				expect(boardPO.taskHasUser("new task destination", "raj")).toEqual(true);
-				expect(boardPO.taskHasUser("new task", "raj")).toEqual(false);
+				expect(boardPO.taskHasUser("new task destination", "Raj")).toEqual(true);
+				expect(boardPO.taskHasUser("new task", "Raj")).toEqual(false);
 			});
 
 			it("cannot be duplicated", function() {
 				var user, task;
 
 				user = {
-					username: "raj",
+					username: "Raj",
 					element: undefined
 				};
 
@@ -121,7 +121,7 @@
 				};
 
 				expect(boardPO.categoryHasTask("0- foobar", "new task destination")).toEqual(true);
-				expect(boardPO.taskHasUser("new task destination", "raj")).toEqual(true);
+				expect(boardPO.taskHasUser("new task destination", "Raj")).toEqual(true);
 
 				boardPO.getMenuUser(user);
 				boardPO.getTaskUserList(task);
@@ -130,15 +130,15 @@
 					boardPO.dragAndDrop(user.element, task.element);
 				});
 
-				expect(boardPO.taskHasUser("new task destination", "raj")).toEqual(true);
-				expect(boardPO.getTaskUserCount("new task destination", "raj")).toEqual(1);
+				expect(boardPO.taskHasUser("new task destination", "Raj")).toEqual(true);
+				expect(boardPO.getTaskUserCount("new task destination", "Raj")).toEqual(1);
 			});
 
 			it("cannot be dropped in the user section", function() {
 				var user, menu;
 
 				user = {
-					username: "raj",
+					username: "Raj",
 					element: undefined
 				};
 
@@ -147,7 +147,7 @@
 				};
 
 				expect(boardPO.categoryHasTask("0- foobar", "new task destination")).toEqual(true);
-				expect(boardPO.taskHasUser("new task destination", "raj")).toEqual(true);
+				expect(boardPO.taskHasUser("new task destination", "Raj")).toEqual(true);
 
 				boardPO.getTaskUser("new task destination", user);
 				menu.element = boardPO.getUserMenuSelection();
@@ -156,8 +156,8 @@
 					boardPO.dragAndDrop(user.element, menu.element);
 				});
 
-				expect(boardPO.taskHasUser("new task destination", "raj")).toEqual(true);
-				expect(boardPO.getMenuUserCount("raj")).toEqual(1);
+				expect(boardPO.taskHasUser("new task destination", "Raj")).toEqual(true);
+				expect(boardPO.getMenuUserCount("Raj")).toEqual(1);
 			});
 		});
 

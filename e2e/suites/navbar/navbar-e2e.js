@@ -51,7 +51,7 @@
 				expect($(".error-page-body h3").getText()).toContain("401");
 			});
 
-			it("link 'My Boards' redirects to #/kanban/user/sheldon after login", function() {
+			it("link 'My Boards' redirects to #/kanban/user/Sheldon after login", function() {
 				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
 
 				//get token from server
@@ -59,7 +59,7 @@
 
 				expect(pageObject.getLinkName(0)).toEqual("Boards");
 				pageObject.clickLink(0);
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/user/sheldon");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/user/Sheldon");
 			});
 
 			it("link 'Login' redirects to #/kanban/myidentity", function() {

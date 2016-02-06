@@ -11,7 +11,7 @@
 
 		config = {
 			identityPageUrl: "http://localhost:3000/src/#/kanban/identity",
-			boardListPageUrl: "http://localhost:3000/src/#/kanban/user/sheldon"
+			boardListPageUrl: "http://localhost:3000/src/#/kanban/user/Sheldon"
 		};
 
 		this.cleanUpAndExit = function() {

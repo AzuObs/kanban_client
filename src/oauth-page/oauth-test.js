@@ -146,7 +146,7 @@
 			});
 
 			it("is present to 'sheldon'", function() {
-				expect($scope.loginUsername).toEqual("sheldon");
+				expect($scope.loginUsername).toEqual("Sheldon");
 			});
 		});
 

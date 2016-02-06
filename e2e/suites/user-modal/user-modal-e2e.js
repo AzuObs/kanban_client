@@ -14,14 +14,14 @@
 		});
 
 		it("is present after clicking a user from the user-selection section in the board", function() {
-			pageObject.clickUser("raj");
+			pageObject.clickUser("Raj");
 			expect(pageObject.userModalIsPresent()).toEqual(true);
 		});
 
 		it("close button will close the modal when clicked", function() {
 			pageObject.clickCloseModal();
 			expect(pageObject.userModalIsPresent()).toEqual(false);
-			pageObject.clickUser("raj");
+			pageObject.clickUser("Raj");
 			expect(pageObject.userModalIsPresent()).toEqual(true);
 		});
 
@@ -68,13 +68,13 @@
 			it("will remove user after confirmation", function() {
 				expect(pageObject.removeUserConfirmationIsPresent()).toEqual(true);
 				expect(pageObject.getUserCount()).toEqual(2);
-				pageObject.typeRemoveUserConfirmation("raj");
+				pageObject.typeRemoveUserConfirmation("Raj");
 				expect(pageObject.getUserCount()).toEqual(1);
 				expect(pageObject.userModalIsPresent()).toEqual(false);
 			});
 
 			it("will not remove an admin", function() {
-				pageObject.clickUser("sheldon");
+				pageObject.clickUser("Sheldon");
 				expect(pageObject.userModalIsPresent()).toEqual(true);
 
 				pageObject.clickRemoveUserButton();

@@ -27,7 +27,7 @@
 		};
 
 		this.hasPlaceholderUsername = function() {
-			return oauthPage.element(by.css("input[placeholder='sheldon']")).isPresent();
+			return oauthPage.element(by.css("input[placeholder='Sheldon']")).isPresent();
 		};
 
 		this.hasPlaceholderPwd = function() {
