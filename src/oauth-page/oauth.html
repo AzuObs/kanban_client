@@ -1,27 +1,39 @@
 <div class="oauth-container ui-fancy-scrollbar">
-
-
-  <form class="newaccount-container" ng-if="createAccIsEnabled">
+  <form class="oauth-form-container" name="newAccForm" ng-submit="createUser()" ng-show="showNewAccForm" novalidate>
     <h3>Create a new account</h3>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error': newAccForm.username.$invalid  && newAccForm.username.$dirty}">
       <div><b>Username</b></div>
-      <input class="form-control" ng-model="newAccUsr" type="text">
+      <small class="text-danger" ng-if="newAccForm.username.$error.pattern">Username can only contain letters and spaces.</small>
+      <small class="text-danger" ng-if="newAccForm.username.$error.minlength">Username must be at least 3 characters long.</small>
+      <small class="text-danger" ng-if="newAccForm.username.$error.maxlength">Username must be at most 20 characters long.</small>
+      <small class="text-danger" ng-if="newAccForm.username.$error.required && newAccForm.username.$dirty">Username musn't be empty.</small>
+      <input class="form-control" name="username" ng-maxlength="20" ng-minlength="3" ng-model="newAccUsername" ng-model-options="{debounce: 1000}" ng-pattern="/^[a-z ]+$/i" required type="text">
     </div>
-    <div class="form-group">
+
+    <div class="form-group" ng-class="{'has-error': newAccForm.pwd.$invalid && newAccForm.pwd.$dirty}">
       <div><b>Password</b></div>
-      <input class="form-control" ng-model="newAccPwd" type="password">
+      <small class="text-danger" ng-if="newAccForm.pwd.$error.pattern">Password can only contain letters and spaces.</small>
+      <small class="text-danger" ng-if="newAccForm.pwd.$error.minlength">Password must be at least 3 characters long.</small>
+      <small class="text-danger" ng-if="newAccForm.pwd.$error.maxlength">Password must be at most 20 characters long.</small>
+      <small class="text-danger" ng-if="newAccForm.pwd.$error.required && newAccForm.pwd.$dirty">Username musn't be empty.</small>
+      <input class="form-control" name="pwd" ng-maxlength="20" ng-minlength="3" ng-model="newAccPwd" ng-model-options="{debounce: 1000}" ng-pattern="/^[a-z0-9]+$/i" required type="password">
     </div>
-    <div class="form-group">
+
+    <div class="form-group" ng-class="{'has-error': newAccForm.pwdVerify.$invalid  && newAccForm.pwdVerify.$dirty}">
       <div><b>Verify Password</b></div>
-      <input class="form-control" ng-model="newAccPwdVerify" type="password">
+      <small class="text-danger" ng-if="newAccForm.pwdVerify.$error.match">Passwords must match.</small>
+      <small class="text-danger" ng-if="newAccForm.pwdVerify.$error.minlength">Password must be at least 3 characters long.</small>
+      <small class="text-danger" ng-if="newAccForm.pwdVerify.$error.maxlength">Password must be at most 20 characters long.</small>
+      <small class="text-danger" ng-if="newAccForm.pwdVerify.$error.required && newAccForm.pwdVerify.$dirty">Username musn't be empty.</small>
+      <input class="form-control" name="pwdVerify" ng-maxlength="20" ng-minlength="3" ng-model="newAccPwdVerify" ng-model-options="{debounce: 1000}" match-validator="newAccPwd" required type="password">
     </div>
-    <button class="btn btn-black btn-block" ng-click="createUser()">Create User</button>
+
+    <button class="btn btn-black btn-block" ng-disabled="newAccForm.$invalid" type="submit">Create User</button>
   </form>
 
 
-  <form class="login-container">
+  <form class="oauth-form-container" name="loginForm" ng-submit="authenticate()" novalidate>
     <h3>Log In</h3>
-
     <div class="login-help-box">
       <div class="login-help-title">
         <b>Demo Account</b>
@@ -32,16 +44,23 @@
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error': loginForm.username.$invalid}">
       <div><b>Username</b></div>
-      <input class="form-control" ng-model="loginUsername" placeholder="{{::loginUsername}}" type="text">
+      <small class="text-danger" ng-if="loginForm.username.$error.pattern">Username can only contain letters and spaces.</small>
+      <small class="text-danger" ng-if="loginForm.username.$error.minlength">Username must be at least 3 characters long.</small>
+      <small class="text-danger" ng-if="loginForm.username.$error.maxlength">Username must be at most 20 characters long.</small>
+      <small class="text-danger" ng-if="loginForm.username.$error.required">Username musn't be empty.</small>
+      <input class="form-control" name="username" ng-minlength="3" ng-maxlength="20" ng-model="loginUsername" ng-pattern=" /^[a-z ]+$/i" required placeholder="Enter your username" type="text">
     </div>
-    <div class="form-group">
+
+    <div class="form-group" ng-class="{'has-error': loginForm.pwd.$invalid}">
       <div><b>Password</b></div>
-      <input class="form-control" ng-model="loginPwd" placeholder="{{::loginPwd}}" type="password">
+      <small class="text-danger" ng-if="loginForm.pwd.$error.pattern">Password can only contain letters and numbers.</small>
+      <small class="text-danger" ng-if="loginForm.pwd.$error.minlength">Password must be at least 3 characters long.</small>
+      <small class="text-danger" ng-if="loginForm.pwd.$error.maxlength">Password must be at most 20 characters long.</small>
+      <small class="text-danger" ng-if="loginForm.pwd.$error.required">Password musn't be empty.</small>
+      <input class="form-control" name="pwd" ng-maxlength="20" ng-minlength="3" ng-model="loginPwd" ng-pattern="/^[a-z0-9]+$/i" placeholder="Enter your password" required type="password">
     </div>
-    <button class="btn btn-black btn-block" ng-click="authenticate()">Log In</button>
+    <button type="submit " class="btn btn-black btn-block " ng-disabled="loginForm.$invalid ">Log In</button>
   </form>
-
-
 </div>

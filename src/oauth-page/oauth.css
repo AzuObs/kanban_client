@@ -7,12 +7,7 @@
   justify-content: space-around;
 }
 
-.oauth-container h3 {
-  align-self: center;
-  margin: 20px;
-}
-
-.newaccount-container {
+.oauth-form-container {
   align-items: stretch;
   display: flex;
   flex-direction: column;
@@ -20,11 +15,9 @@
   width: 37%;
 }
 
-.login-container {
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
-  width: 37%;
+.oauth-form-container h3 {
+  align-self: center;
+  margin: 20px;
 }
 
 .login-help-box {

@@ -20,12 +20,16 @@
   background-color: #eee;
   border: 1px solid #aaa;
   border-radius: 3px;
-  flex: 0 0 auto;
-  height: 90px;
+  max-height: 82px;
+  min-height: 0px;
   padding: 5px 5px 5px 5px;
   width: 240px;
 }
 
+.category-create > form {
+  margin: 0px;
+}
+
 .category-create > .form-group > input {
-  margin-bottom: 1px;
+  margin-bottom: 2px;
 }

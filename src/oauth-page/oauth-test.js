@@ -82,7 +82,7 @@
 				function() {
 					apiCallArgs = [];
 
-					$scope.newAccUsr = "username";
+					$scope.newAccUsername = "username";
 					$scope.newAccPwd = "password";
 					$scope.createUser();
 
@@ -92,18 +92,32 @@
 				});
 		});
 
-
-		describe("$scope.newAccUsr", function() {
+		describe("$scope.showNewAccForm", function() {
 			it("is defined", function() {
-				expect($scope.newAccUsr).toBeDefined();
+				expect($scope.showNewAccForm).toBeDefined();
 			});
 
 			it("is a string", function() {
-				expect(typeof($scope.newAccUsr)).toEqual("string");
+				expect(typeof $scope.showNewAccForm).toEqual("boolean");
+			});
+
+			it("is present to '123'", function() {
+				expect($scope.showNewAccForm).toEqual(true);
+			});
+		});
+
+
+		describe("$scope.newAccUsername", function() {
+			it("is defined", function() {
+				expect($scope.newAccUsername).toBeDefined();
+			});
+
+			it("is a string", function() {
+				expect(typeof($scope.newAccUsername)).toEqual("string");
 			});
 
 			it("is empty", function() {
-				expect($scope.newAccUsr).toEqual("");
+				expect($scope.newAccUsername).toEqual("");
 			});
 		});
 
@@ -164,21 +178,6 @@
 
 			it("is present to '123'", function() {
 				expect($scope.loginPwd).toEqual("123");
-			});
-		});
-
-
-		describe("$scope.createAccIsEnabled", function() {
-			it("is defined", function() {
-				expect($scope.createAccIsEnabled).toBeDefined();
-			});
-
-			it("is a string", function() {
-				expect(typeof $scope.createAccIsEnabled).toEqual("boolean");
-			});
-
-			it("is present to '123'", function() {
-				expect($scope.createAccIsEnabled).toEqual(true);
 			});
 		});
 	});

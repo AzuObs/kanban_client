@@ -8,6 +8,7 @@
 		"ui.router",
 		"userFactoryModule",
 		"environmentModule",
+		"matchValidatorDirectiveModule"
 	]);
 
 
@@ -36,21 +37,20 @@
 		function($scope, userFactory, ENV) {
 
 			$scope.createUser = function() {
-				userFactory.createUser($scope.newAccUsr, $scope.newAccPwd);
+				userFactory.createUser($scope.newAccUsername, $scope.newAccPwd);
 			};
-
 
 			$scope.authenticate = function() {
 				userFactory.authenticate($scope.loginUsername, $scope.loginPwd);
 			};
 
 
-			$scope.newAccUsr = "";
-			$scope.newAccPwd = "";
-			$scope.newAccPwdVerify = "";
-			$scope.loginUsername = "Sheldon";
 			$scope.loginPwd = "123";
-			$scope.createAccIsEnabled = (ENV.appState === "development");
+			$scope.loginUsername = "Sheldon";
+			$scope.newAccPwd = "";
+			$scope.newAccUsername = "";
+			$scope.newAccPwdVerify = "";
+			$scope.showNewAccForm = ENV.appState === "development";
 		}
 	]);
 })();
