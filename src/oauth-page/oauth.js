@@ -6,7 +6,8 @@
 		"navbarModule",
 		"ui.bootstrap",
 		"ui.router",
-		"userFactoryModule"
+		"userFactoryModule",
+		"environmentModule",
 	]);
 
 
@@ -30,8 +31,9 @@
 	}]);
 
 
-	module.controller("oauthCtrl", ["$scope", "userFactory",
-		function($scope, userFactory) {
+	module.controller("oauthCtrl", [
+		"$scope", "userFactory", "ENV",
+		function($scope, userFactory, ENV) {
 
 			$scope.createUser = function() {
 				userFactory.createUser($scope.newAccUsr, $scope.newAccPwd);
@@ -48,6 +50,7 @@
 			$scope.newAccPwdVerify = "";
 			$scope.loginUsername = "Sheldon";
 			$scope.loginPwd = "123";
+			$scope.createAccIsEnabled = (ENV.appState === "development");
 		}
 	]);
 })();

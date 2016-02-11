@@ -39,17 +39,18 @@
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("calls userFactory.authenticate with args [username, password]", function() {
-				apiCallArgs = [];
+			it("calls userFactory.authenticate with args [username, password]",
+				function() {
+					apiCallArgs = [];
 
-				$scope.loginUsername = "username";
-				$scope.loginPwd = "password";
-				$scope.authenticate();
+					$scope.loginUsername = "username";
+					$scope.loginPwd = "password";
+					$scope.authenticate();
 
-				expect(apiCallArgs.length).toEqual(2);
-				expect(apiCallArgs[0]).toEqual("username");
-				expect(apiCallArgs[1]).toEqual("password");
-			});
+					expect(apiCallArgs.length).toEqual(2);
+					expect(apiCallArgs[0]).toEqual("username");
+					expect(apiCallArgs[1]).toEqual("password");
+				});
 		});
 
 
@@ -77,17 +78,18 @@
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("calls userFactory.createUser with args [username, password]", function() {
-				apiCallArgs = [];
+			it("calls userFactory.createUser with args [username, password]",
+				function() {
+					apiCallArgs = [];
 
-				$scope.newAccUsr = "username";
-				$scope.newAccPwd = "password";
-				$scope.createUser();
+					$scope.newAccUsr = "username";
+					$scope.newAccPwd = "password";
+					$scope.createUser();
 
-				expect(apiCallArgs.length).toEqual(2);
-				expect(apiCallArgs[0]).toEqual("username");
-				expect(apiCallArgs[1]).toEqual("password");
-			});
+					expect(apiCallArgs.length).toEqual(2);
+					expect(apiCallArgs[0]).toEqual("username");
+					expect(apiCallArgs[1]).toEqual("password");
+				});
 		});
 
 
@@ -162,6 +164,21 @@
 
 			it("is present to '123'", function() {
 				expect($scope.loginPwd).toEqual("123");
+			});
+		});
+
+
+		describe("$scope.createAccIsEnabled", function() {
+			it("is defined", function() {
+				expect($scope.createAccIsEnabled).toBeDefined();
+			});
+
+			it("is a string", function() {
+				expect(typeof $scope.createAccIsEnabled).toEqual("boolean");
+			});
+
+			it("is present to '123'", function() {
+				expect($scope.createAccIsEnabled).toEqual(true);
 			});
 		});
 	});
