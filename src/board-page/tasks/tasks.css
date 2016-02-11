@@ -21,15 +21,18 @@
   visibility: visible !important;
 }
 
-.task-view > input {
+.task-view form {
   flex: 0 1 auto;
+}
+
+.task-view input {
   min-height: 32px;
   margin-top: 5px;
   margin-bottom: 1px;
   background-color: #eee;
 }
 
-.task-view > input:hover,
-.task-view > input:focus {
+.task-view input:hover,
+.task-view input:focus {
   background-color: #fff;
 }

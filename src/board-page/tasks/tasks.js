@@ -41,14 +41,12 @@
 			};
 
 
-			$scope.createTask = function(category, e) {
-				if (e && e.type === "keypress" && e.which === 13) {
-					boardFactory
-						.createTask(category, $scope.taskName)
-						.then(function() {
-							$scope.resetTaskName();
-						});
-				}
+			$scope.createTask = function(category) {
+				boardFactory
+					.createTask(category, $scope.taskName)
+					.then(function() {
+						$scope.resetTaskName();
+					});
 			};
 
 

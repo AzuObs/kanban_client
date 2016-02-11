@@ -2,5 +2,6 @@
   <kb-task ng-model="task" category-model="category" ng-click="openTaskModal($event, board, category, task)" ng-repeat="task in category.tasks track by task._id">
   </kb-task>
 </div>
-
-<input class="input-md form-control" ng-keypress="createTask(category, $event)" ng-model="taskName" placeholder="Add a task..." type="text">
+<form ng-submit="createTask(category)">
+  <input class="input-md form-control" ng-model="taskName" placeholder="Add a task..." type="text">
+</form>
