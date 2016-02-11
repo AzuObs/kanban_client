@@ -22,10 +22,10 @@
 			elem = "<deletable-object object-name='objectName'" +
 				"object-type='objectType' delete-fn='deleteFn()'></deletable-object>";
 
+
 			$scope.$apply(function() {
 				elem = $compile(elem)($scope);
 			});
-
 			scope = elem.isolateScope();
 		});
 
@@ -78,15 +78,18 @@
 				expect(scope.repeatObjectName).toEqual("");
 			});
 
-			it("does nothing if target element has the deletable-object-toggle class", function() {
-				var e = {
-					relatedTarget: angular.element("<h1 class='deletable-object-toggle'></h1>")
-				};
-				scope.isDeleting = true;
+			it(
+				"does nothing if target element has the deletable-object-toggle class",
+				function() {
+					var e = {
+						relatedTarget: angular.element(
+							"<h1 class='deletable-object-toggle'></h1>")
+					};
+					scope.isDeleting = true;
 
-				scope.stopDeleting(e);
-				expect(scope.isDeleting).toEqual(true);
-			});
+					scope.stopDeleting(e);
+					expect(scope.isDeleting).toEqual(true);
+				});
 
 			it("otherwise it assigns false to scope.isDeleting", function() {
 				var e = {
@@ -117,20 +120,21 @@
 				expect(typeof(scope.deleteObject)).toEqual("function");
 			});
 
-			it("logs an error if object name and repeat object name do not match", inject(function($log) {
-				var e = {
-					type: "keypress",
-					which: 13
-				};
+			it("logs an error if object name and repeat object name do not match",
+				inject(function($log) {
+					var e = {
+						type: "keypress",
+						which: 13
+					};
 
-				scope.objectName = "name";
-				scope.repeatObjectName = "";
+					scope.objectName = "name";
+					scope.repeatObjectName = "";
 
-				$log.reset();
-				scope.deleteObject(e);
-				expect($log.error.logs[0][0]).toBeDefined();
-				expect(null).toBeDefined();
-			}));
+					$log.reset();
+					scope.deleteObject(e);
+					expect($log.error.logs[0][0]).toBeDefined();
+					expect(null).toBeDefined();
+				}));
 
 			it("calls scope.stopDeleting()", function() {
 				var called, e;

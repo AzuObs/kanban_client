@@ -7,7 +7,7 @@
       <small class="text-danger" ng-if="newAccForm.username.$error.minlength">Username must be at least 3 characters long.</small>
       <small class="text-danger" ng-if="newAccForm.username.$error.maxlength">Username must be at most 20 characters long.</small>
       <small class="text-danger" ng-if="newAccForm.username.$error.required && newAccForm.username.$dirty">Username musn't be empty.</small>
-      <input class="form-control" name="username" ng-maxlength="20" ng-minlength="3" ng-model="newAccUsername" ng-model-options="{debounce: 1000}" ng-pattern="/^[a-z ]+$/i" required type="text">
+      <input class="form-control" name="username" ng-maxlength="20" ng-minlength="3" ng-model="newAccUsername" ng-model-options="{debounce: 500}" ng-pattern="/^[a-z ]+$/i" required type="text">
     </div>
 
     <div class="form-group" ng-class="{'has-error': newAccForm.pwd.$invalid && newAccForm.pwd.$dirty}">
@@ -16,7 +16,7 @@
       <small class="text-danger" ng-if="newAccForm.pwd.$error.minlength">Password must be at least 3 characters long.</small>
       <small class="text-danger" ng-if="newAccForm.pwd.$error.maxlength">Password must be at most 20 characters long.</small>
       <small class="text-danger" ng-if="newAccForm.pwd.$error.required && newAccForm.pwd.$dirty">Username musn't be empty.</small>
-      <input class="form-control" name="pwd" ng-maxlength="20" ng-minlength="3" ng-model="newAccPwd" ng-model-options="{debounce: 1000}" ng-pattern="/^[a-z0-9]+$/i" required type="password">
+      <input class="form-control" name="pwd" ng-maxlength="20" ng-minlength="3" ng-model="newAccPwd" ng-model-options="{debounce: 500}" ng-pattern="/^[a-z0-9]+$/i" required type="password">
     </div>
 
     <div class="form-group" ng-class="{'has-error': newAccForm.pwdVerify.$invalid  && newAccForm.pwdVerify.$dirty}">
@@ -25,7 +25,7 @@
       <small class="text-danger" ng-if="newAccForm.pwdVerify.$error.minlength">Password must be at least 3 characters long.</small>
       <small class="text-danger" ng-if="newAccForm.pwdVerify.$error.maxlength">Password must be at most 20 characters long.</small>
       <small class="text-danger" ng-if="newAccForm.pwdVerify.$error.required && newAccForm.pwdVerify.$dirty">Username musn't be empty.</small>
-      <input class="form-control" name="pwdVerify" ng-maxlength="20" ng-minlength="3" ng-model="newAccPwdVerify" ng-model-options="{debounce: 1000}" match-validator="newAccPwd" required type="password">
+      <input class="form-control" name="pwdVerify" ng-maxlength="20" ng-minlength="3" ng-model="newAccPwdVerify" ng-model-options="{debounce: 500}" match-validator="newAccPwd" required type="password">
     </div>
 
     <button class="btn btn-black btn-block" ng-disabled="newAccForm.$invalid" type="submit">Create User</button>
