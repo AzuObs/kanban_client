@@ -78,7 +78,8 @@
 					dom = $compile("<kb-task></kb-task>")($scope);
 				});
 
-				expect(angular.element(dom).find(".user-list-container").length).toEqual(1);
+				expect(angular.element(dom).find(".user-list-container").length).toEqual(
+					1);
 			});
 
 			it("contains a comments icon", function() {
@@ -90,12 +91,13 @@
 					dom = $compile("<kb-task ng-model='task'></kb-task>")($scope);
 				});
 
-				expect(angular.element(dom).find(".glyphicon-comment").length).toEqual(1);
+				expect(angular.element(dom).find(".glyphicon-comment").length).toEqual(
+					1);
 			});
 		});
 
 
-		describe("kbTaskCtrl", function() {
+		describe("kbTask scope", function() {
 			var dom, scope;
 
 			beforeEach(inject(function($rootScope, $compile, boardFactory) {
@@ -118,7 +120,8 @@
 					};
 				});
 
-				dom = "<kb-task ng-model='task' category-model='category'></kb-task>";
+				dom =
+					"<kb-task ng-model='task' category-model='category'></kb-task>";
 				$scope.$apply(function() {
 					dom = $compile(dom)($scope);
 				});
@@ -151,13 +154,14 @@
 					expect(apiCalled).toEqual(true);
 				});
 
-				it("calls boardFactory.deleteTask with args [category, task]", function() {
-					apiCallArgs = [];
-					scope.deleteTask();
-					expect(apiCallArgs.length).toEqual(2);
-					expect(apiCallArgs[0].name).toEqual("foobar category");
-					expect(apiCallArgs[1].name).toEqual("foobar task");
-				});
+				it("calls boardFactory.deleteTask with args [category, task]",
+					function() {
+						apiCallArgs = [];
+						scope.deleteTask();
+						expect(apiCallArgs.length).toEqual(2);
+						expect(apiCallArgs[0].name).toEqual("foobar category");
+						expect(apiCallArgs[1].name).toEqual("foobar task");
+					});
 			});
 
 
@@ -167,10 +171,12 @@
 				});
 
 				it("is an object", function() {
-					expect(Object.prototype.toString.call(scope.board)).toEqual("[object Object]");
+					expect(Object.prototype.toString.call(scope.board)).toEqual(
+						"[object Object]");
 				});
 
-				it("is equal to boardFactory.getBoardSync()", inject(function(boardFactory) {
+				it("is equal to boardFactory.getBoardSync()", inject(function(
+					boardFactory) {
 					expect(scope.board).toEqual(boardFactory.getBoardSync());
 				}));
 			});
@@ -182,7 +188,8 @@
 				});
 
 				it("is an object", function() {
-					expect(Object.prototype.toString.call(scope.userSortOpts)).toEqual("[object Object]");
+					expect(Object.prototype.toString.call(scope.userSortOpts)).toEqual(
+						"[object Object]");
 				});
 
 				it("is equal to a new UserSortOpts()", inject(function(UserSortOpts) {
@@ -196,10 +203,12 @@
 				});
 
 				it("is a boolean", function() {
-					expect(Object.prototype.toString.call(scope.showUserList)).toEqual("[object Object]");
+					expect(Object.prototype.toString.call(scope.showUserList)).toEqual(
+						"[object Object]");
 				});
 
-				it("is equal to a scope.userSortOpts.showUserList", inject(function(UserSortOpts) {
+				it("is equal to a scope.userSortOpts.showUserList", inject(function(
+					UserSortOpts) {
 					expect(scope.showUserList).toEqual(scope.userSortOpts.getShowUserLists());
 				}));
 			});
