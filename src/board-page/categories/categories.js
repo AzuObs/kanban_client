@@ -13,13 +13,11 @@
 		"$scope", "boardFactory", "CategorySortOpts",
 		function($scope, boardFactory, CategorySortOpts) {
 			$scope.createCategory = function(e) {
-				if (!e || (e.type === "keypress" && e.which === 13)) {
-					boardFactory
-						.createCategory($scope.newCat)
-						.then(function() {
-							$scope.resetNewCat();
-						});
-				}
+				boardFactory
+					.createCategory($scope.newCat)
+					.then(function() {
+						$scope.resetNewCat();
+					});
 			};
 
 			$scope.resetNewCat = function() {

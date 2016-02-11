@@ -3,8 +3,8 @@
   </kb-category>
 </div>
 <div class="category-create">
-  <div class="form-group">
-    <input class="input-md form-control" ng-keypress="createCategory($event)" ng-model="newCat" placeholder="Add a category..." type="text">
-    <button class="btn btn-black btn-block" ng-click="createCategory()">Add Category</button>
-  </div>
+  <form class="form-group" ng-submit="createCategory($event)">
+    <input class="input-md form-control" ng-model="newCat" placeholder="Add a category..." type="text">
+    <button type="submit" class="btn btn-black btn-block">Add Category</button>
+  </form>
 </div>
