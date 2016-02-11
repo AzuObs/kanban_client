@@ -26,14 +26,14 @@
 					boardFactory.deleteTask(scope.category, scope.task);
 				};
 
+				scope.$on("$destroy", function() {
+					//cleanup
+				});
 
 				scope.board = boardFactory.getBoardSync();
 				scope.userSortOpts = new UserSortOpts();
 				scope.showUserList = scope.userSortOpts.getShowUserLists();
 
-				scope.$on("$destroy", function() {
-					//cleanup
-				});
 			}
 		};
 

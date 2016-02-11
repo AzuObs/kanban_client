@@ -21,7 +21,8 @@
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")(
+					$scope);
 			});
 
 			expect(dom.html().length).not.toEqual(0);
@@ -31,7 +32,8 @@
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")(
+					$scope);
 			});
 
 			expect(angular.element(dom).find("kb-category").length).toEqual(0);
@@ -52,7 +54,8 @@
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")(
+					$scope);
 			});
 			expect(dom.html().length).toBeGreaterThan(0);
 
@@ -66,7 +69,8 @@
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")(
+					$scope);
 			});
 			expect($(dom).find(".category-header").length).toEqual(1);
 		});
@@ -75,7 +79,8 @@
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")(
+					$scope);
 			});
 
 			expect($(dom).find(".close-category").length).toEqual(1);
@@ -85,7 +90,8 @@
 			var dom;
 
 			$scope.$apply(function() {
-				dom = $compile("<kb-category ng-model='category'></kb-category>")($scope);
+				dom = $compile("<kb-category ng-model='category'></kb-category>")(
+					$scope);
 			});
 
 			expect($(dom).find(".task-view").length).toEqual(1);
@@ -93,7 +99,7 @@
 	});
 
 
-	describe("kbCategoryController", function() {
+	describe("kbCategory scope", function() {
 		var dom, scope;
 
 		beforeEach(function() {
@@ -105,7 +111,8 @@
 				$scope.category = {
 					name: "Foobar"
 				};
-				dom = angular.element("<kb-category ng-model='category'></kb-category>");
+				dom = angular.element(
+					"<kb-category ng-model='category'></kb-category>");
 				$scope.$apply(function() {
 					dom = $compile(dom)($scope);
 				});
@@ -170,7 +177,8 @@
 			});
 
 			it("is an object", function() {
-				expect(Object.prototype.toString.call(dom.scope().category)).toEqual("[object Object]");
+				expect(Object.prototype.toString.call(dom.scope().category)).toEqual(
+					"[object Object]");
 			});
 		});
 	});
