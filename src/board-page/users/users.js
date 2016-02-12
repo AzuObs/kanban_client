@@ -17,11 +17,9 @@
 		"$scope", "$modal", "boardFactory", "UserSortOpts", "$filter",
 		function($scope, $modal, boardFactory, UserSortOpts, $filter) {
 
-			$scope.addMember = function(e) {
-				if (e.type === "click" || (e.type === "keypress" && e.which === 13)) {
-					boardFactory.addMemberToBoard($scope.addMemberInput);
-					$scope.clearAddMemberInput();
-				}
+			$scope.addMember = function() {
+				boardFactory.addMemberToBoard($scope.addMemberInput);
+				$scope.clearAddMemberInput();
 			};
 
 			$scope.clearAddMemberInput = function() {

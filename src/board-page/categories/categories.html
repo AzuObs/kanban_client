@@ -3,8 +3,8 @@
   </kb-category>
 </div>
 <div class="category-create">
-  <form class="form-group" ng-submit="createCategory($event)">
-    <input class="input-md form-control" ng-model="newCat" placeholder="Add a category..." type="text">
+  <form autocomplete="off" name="newCatForm" class="form-group" ng-submit="newCatForm.$valid && createCategory()">
+    <input class="input-md form-control" name="catName" ng-model="newCat" placeholder="Add a category..." required type="text">
     <button type="submit" class="btn btn-black btn-block">Add Category</button>
   </form>
 </div>

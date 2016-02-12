@@ -1,6 +1,6 @@
 .user-menu-container {
   height: 90px;
-  width: 300px;
+  min-width: 400px;
 }
 
 .board-member-container {

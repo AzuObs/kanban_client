@@ -45,7 +45,6 @@
 		function($scope, userFactory, $modal, $state, boards, user) {
 
 			$scope.createBoard = function() {
-				console.log($scope.newBoardName);
 				userFactory.createBoard($scope.newBoardName);
 			};
 

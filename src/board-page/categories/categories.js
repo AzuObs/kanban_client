@@ -12,7 +12,7 @@
 	module.controller("categoryCtrl", [
 		"$scope", "boardFactory", "CategorySortOpts",
 		function($scope, boardFactory, CategorySortOpts) {
-			$scope.createCategory = function(e) {
+			$scope.createCategory = function() {
 				boardFactory
 					.createCategory($scope.newCat)
 					.then(function() {

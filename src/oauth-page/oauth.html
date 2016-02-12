@@ -1,5 +1,5 @@
 <div class="oauth-container ui-fancy-scrollbar">
-  <form class="oauth-form-container" name="newAccForm" ng-submit="newAccForm.$valid && createUser()" ng-show="showNewAccForm" novalidate>
+  <form autocomplete="off" class="oauth-form-container" name="newAccForm" ng-submit="newAccForm.$valid && createUser()" ng-show="showNewAccForm" novalidate>
     <h3>Create a new account</h3>
     <div class="form-group" ng-class="{'has-error': newAccForm.username.$invalid  && newAccForm.username.$dirty}">
       <div><b>Username</b></div>
@@ -36,7 +36,7 @@
   </form>
 
 
-  <form class="oauth-form-container" name="loginForm" ng-submit="loginForm.$valid && authenticate()" novalidate>
+  <form autocomplete="off" class="oauth-form-container" name="loginForm" ng-submit="loginForm.$valid && authenticate()" novalidate>
     <h3>Log In</h3>
     <div class="login-help-box">
       <div class="login-help-title">

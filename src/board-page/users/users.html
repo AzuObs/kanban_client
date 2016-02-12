@@ -7,13 +7,18 @@
     </span>
   </div>
 
-  <span dropdown on-toggle="dropdown">
-    <input class="form-control input-md" dropdown-toggle ng-keypress="addMember($event)" ng-model="addMemberInput" placeholder="ex:member@mail.com" type="text">
-    <ul class="add-member-dropdown dropdown-menu">
-      <li ng-click="setAddMember(member.email)" ng-repeat="member in membersSuggestions">
-        <a>{{::member.email}}</a>
-      </li>
-    </ul>
-  </span>
-  <button class="btn btn-black btn-md" ng-click="addMember($event)">Add Member</button>
+  <form autocomplete="off" name="amForm" novalidate ng-submit="amForm.$valid && addMember()">
+    <span dropdown on-toggle="dropdown">
+      <input class="form-control input-md" dropdown-toggle name="input" ng-model="addMemberInput" ng-model-options="{debounce: 250}" placeholder="ex:member@mail.com" type="email">
+      <ul class="add-member-dropdown dropdown-menu">
+        <li ng-click="setAddMember(member.email)" ng-repeat="member in membersSuggestions">
+          <a>{{::member.email}}</a>
+        </li>
+      </ul>
+    </span>
+    <button class="btn btn-black btn-md" type="submit">Add Member</button>
+    <small class="text-danger" ng-if="amForm.input.$error.email && amForm.input.$dirty">
+      Invalid email.
+    </small>
+  </form>
 </div>
