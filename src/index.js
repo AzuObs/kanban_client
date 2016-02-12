@@ -17,11 +17,14 @@
 
 
 	module.config([
-		"$stateProvider", "$urlRouterProvider", "$compileProvider", "$injector", "ENV", "cfpLoadingBarProvider",
-		function($stateProvider, $urlRouterProvider, $compileProvider, $injector, ENV, cfpLoadingBarProvider) {
+		"$stateProvider", "$urlRouterProvider", "$compileProvider", "$injector", "ENV",
+		"cfpLoadingBarProvider",
+		function($stateProvider, $urlRouterProvider, $compileProvider, $injector, ENV,
+			cfpLoadingBarProvider) {
+
 			$stateProvider.state("kanban", {
 				abstract: true,
-				url: "/kanban"
+				url: ""
 			});
 
 			$urlRouterProvider.otherwise(function($injector) {
