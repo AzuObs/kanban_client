@@ -33,7 +33,7 @@
 				}]);
 			});
 
-			// during production
+			// debugApp === true during development, === false during deployment
 			$compileProvider.debugInfoEnabled(ENV.debugApp);
 
 			cfpLoadingBarProvider.includeSpinner = false;
