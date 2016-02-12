@@ -48,65 +48,30 @@
 				expect(typeof $scope.addMember).toEqual("function");
 			});
 
-			it("does nothing if there isn't a click or a keypress 'enter' event", function() {
-				var e = {
-					type: "",
-					which: 0
-				};
-				apiCalled = false;
-				$scope.addMember(e);
-				expect(apiCalled).toEqual(false);
-
-				e = {
-					type: "keypress",
-					which: 13
-				};
-				apiCalled = false;
-				$scope.addMember(e);
-				expect(apiCalled).toEqual(true);
-
-				e = {
-					type: "click"
-				};
-				apiCalled = false;
-				$scope.addMember(e);
-				expect(apiCalled).toEqual(true);
-			});
-
 			it("calls boardFactory.addMemberToBoard", function() {
-				var e = {
-					type: "click"
-				};
 				apiCalled = false;
-
-				$scope.addMember(e);
+				$scope.addMember();
 				expect(apiCalled).toEqual(true);
 			});
 
-			it("calls boardFactory.addMemberToBoard with args [addMemberInput]", function() {
-				var e = {
-					type: "click"
-				};
-				apiCallArgs = [];
+			it("calls boardFactory.addMemberToBoard with args [addMemberInput]",
+				function() {
+					apiCallArgs = [];
 
-				$scope.addMember(e);
-				expect(apiCallArgs.length).toEqual(1);
-				expect(apiCallArgs[0]).toEqual($scope.addMemberInput);
-			});
+					$scope.addMember();
+					expect(apiCallArgs.length).toEqual(1);
+					expect(apiCallArgs[0]).toEqual($scope.addMemberInput);
+				});
 
 
 			it("calls $scope.clearAddMemberInput", function() {
-				var called, e;
-				e = {
-					type: "click"
-				};
-				called = false;
+				var called = false;
 
 				spyOn($scope, "clearAddMemberInput").and.callFake(function() {
 					called = true;
 				});
 
-				$scope.addMember(e);
+				$scope.addMember();
 				expect(called).toEqual(true);
 			});
 		});
@@ -197,7 +162,8 @@
 			});
 
 			it("is an object", function() {
-				expect(Object.prototype.toString.call($scope.board)).toEqual("[object Object]");
+				expect(Object.prototype.toString.call($scope.board)).toEqual(
+					"[object Object]");
 			});
 
 			it("Equals boardFactory.getBoardSync", inject(function(boardFactory) {
@@ -212,10 +178,12 @@
 			});
 
 			it("is an array", function() {
-				expect(Object.prototype.toString.call($scope.users)).toEqual("[object Array]");
+				expect(Object.prototype.toString.call($scope.users)).toEqual(
+					"[object Array]");
 			});
 
-			it("is Equal to boardFactory.getBoardUsersSync", inject(function(boardFactory) {
+			it("is Equal to boardFactory.getBoardUsersSync", inject(function(
+				boardFactory) {
 				expect($scope.users).toEqual(boardFactory.getBoardUsersSync());
 			}));
 		});
@@ -230,10 +198,12 @@
 				expect(typeof $scope.boardName).toEqual("string");
 			});
 
-			it("is Equal to the Capitalized filtered $scope.board.name", inject(function($filter) {
-				expect($scope.boardName).not.toEqual($scope.board.name);
-				expect($scope.boardName).toEqual($filter("capitalize")($scope.board.name));
-			}));
+			it("is Equal to the Capitalized filtered $scope.board.name", inject(
+				function($filter) {
+					expect($scope.boardName).not.toEqual($scope.board.name);
+					expect($scope.boardName).toEqual($filter("capitalize")($scope.board
+						.name));
+				}));
 		});
 
 
@@ -243,11 +213,14 @@
 			});
 
 			it("is an object", function() {
-				expect(Object.prototype.toString.call($scope.userSortOpts)).toEqual("[object Object]");
+				expect(Object.prototype.toString.call($scope.userSortOpts)).toEqual(
+					"[object Object]");
 			});
 
-			it("is Equal to an instance of UserSortOpts", inject(function(UserSortOpts) {
-				expect($scope.userSortOpts.keys).toEqual(new UserSortOpts($scope.stopSort).keys);
+			it("is Equal to an instance of UserSortOpts", inject(function(
+				UserSortOpts) {
+				expect($scope.userSortOpts.keys).toEqual(new UserSortOpts($scope.stopSort)
+					.keys);
 			}));
 		});
 
@@ -273,7 +246,8 @@
 			});
 
 			it("is an array", function() {
-				expect(Object.prototype.toString.call($scope.membersSuggestions)).toEqual("[object Array]");
+				expect(Object.prototype.toString.call($scope.membersSuggestions)).toEqual(
+					"[object Array]");
 			});
 
 			it("has preset values", function() {
