@@ -1,5 +1,5 @@
 <div class="oauth-container ui-fancy-scrollbar">
-  <form class="oauth-form-container" name="newAccForm" ng-submit="createUser()" ng-show="showNewAccForm" novalidate>
+  <form class="oauth-form-container" name="newAccForm" ng-submit="newAccForm.$valid && createUser()" ng-show="showNewAccForm" novalidate>
     <h3>Create a new account</h3>
     <div class="form-group" ng-class="{'has-error': newAccForm.username.$invalid  && newAccForm.username.$dirty}">
       <div><b>Username</b></div>
@@ -28,11 +28,15 @@
       <input class="form-control" name="pwdVerify" ng-maxlength="20" ng-minlength="3" ng-model="newAccPwdVerify" ng-model-options="{debounce: 500}" match-validator="newAccPwd" required type="password">
     </div>
 
-    <button class="btn btn-black btn-block" ng-disabled="newAccForm.$invalid" type="submit">Create User</button>
+
+    <!-- <small class="text-danger" ng-if="newAccForm.username.$invalid && newAccForm.username.$dirty">Please provide username.</small>
+    <small class="text-danger" ng-if="newAccForm.pwd.$invalid && newAccForm.pwd.$dirty">Please provide password.</small>
+    <small class="text-danger" ng-if="newAccForm.pwdVerify.$invalid && newAccForm.pwdVerify.$dirty">Please verify password.</small> -->
+    <button class="btn btn-black btn-block" type="submit">Create User</button>
   </form>
 
 
-  <form class="oauth-form-container" name="loginForm" ng-submit="authenticate()" novalidate>
+  <form class="oauth-form-container" name="loginForm" ng-submit="loginForm.$valid && authenticate()" novalidate>
     <h3>Log In</h3>
     <div class="login-help-box">
       <div class="login-help-title">

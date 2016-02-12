@@ -11,12 +11,12 @@
 
   <div>You have <b>{{boards.length}} </b><span ng-show="boards.length===1">board.</span><span ng-show="boards.length!=1">boards.</span></div>
 
-  <form class="input-group newboard-form" name="newBoard" ng-submit="createBoard()">
+  <form class="input-group newboard-form" name="newBoard" ng-submit="newBoard.$valid && createBoard()">
     <div class="input-group-btn">
-      <button class="btn btn-black btn-sm" ng-disabled="newBoard.$invalid && newBoard.$dirty" type="submit">Create Board</button>
+      <button class="btn btn-black btn-sm" type="submit">Create Board</button>
     </div>
     <div class="form-group" ng-class="{'has-error': newBoard.bname.$invalid && newBoard.bname.$dirty}">
-      <input class="form-control input-sm" name="bname" ng-maxlength="30" ng-minlength="3" ng-model="newBoardName" ng-model-options="{debounce: 500}" ng-pattern="/^[a-z ]+$/i" placeholder="type in the name of your board" required type="text">
+      <input class="form-control input-sm" name="bname" ng-maxlength="30" ng-minlength="3" ng-model="newBoardName" ng-model-options="{debounce: 500}" ng-pattern="/^[a-z ]+$/i" placeholder="Enter the name of your board" required type="text">
     </div>
   </form>
   <small class="text-danger" ng-if="newBoard.bname.$error.required && newBoard.bname.$dirty">
