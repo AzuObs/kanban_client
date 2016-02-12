@@ -1,8 +1,15 @@
 .board-list-container {
+  display: flex;
+  flex-direction: column;
   margin: 10px 0px;
-  min-height: 0px;
+  min-height: 280px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.board-list-container > * {
+  flex: 0 1 auto;
+  min-height: 0px;
 }
 
 .board-list {

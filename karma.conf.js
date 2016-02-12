@@ -5,7 +5,6 @@
 		config.set({
 			autoWatch: true,
 			basePath: "src/",
-			browsers: ["Chrome"],
 			files: [
 				"common/bower-components/jquery/dist/jquery.js",
 				"common/bower-components/jquery-ui/jquery-ui.js",
@@ -36,7 +35,6 @@
 			},
 			plugins: [
 				'karma-jasmine',
-				'karma-chrome-launcher',
 				'karma-ng-html2js-preprocessor'
 			],
 			port: 9876,
