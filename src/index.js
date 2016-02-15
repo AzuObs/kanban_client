@@ -27,6 +27,8 @@
 				url: ""
 			});
 
+			// default redirects
+			$urlRouterProvider.when("", "/identity");
 			$urlRouterProvider.otherwise(function($injector) {
 				$injector.invoke(["errorHandler", function(errorHandler) {
 					errorHandler.handleAppError("Not Found");
