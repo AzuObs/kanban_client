@@ -7,6 +7,7 @@
 	module.directive("copyChildMinHeight", [function() {
 		var directiveDefinition = {
 			restrict: "A",
+			scope: true,
 			link: function(scope, elem, attr) {
 				scope.setMinHeight = function(height) {
 					elem.css("min-height", height);

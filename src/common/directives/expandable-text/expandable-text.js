@@ -7,6 +7,7 @@
 	module.directive("expandableText", [function() {
 		var directiveDefinition = {
 			restrict: "AE",
+			scope: true,
 			transclude: true,
 			templateUrl: "common/directives/expandable-text/expandable-text.html",
 			link: function(scope, elem, attr) {
