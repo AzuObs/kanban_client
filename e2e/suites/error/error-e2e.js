@@ -12,7 +12,7 @@
 		});
 
 		it("is present", function() {
-			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/error");
+			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/error");
 			expect(pageObject.isPresent()).toEqual(true);
 		});
 
@@ -35,9 +35,9 @@
 			});
 
 			it("reidrect link send to kanban/identity", function() {
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/error");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/error");
 				pageObject.clickRedirectLink();
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/identity");
 			});
 		});
 
@@ -48,7 +48,7 @@
 			});
 
 			it("the error page is present", function() {
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/error");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/error");
 				expect(pageObject.isPresent()).toEqual(true);
 			});
 
@@ -61,20 +61,20 @@
 			});
 
 			it("reidrect link send to kanban/identity", function() {
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/error");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/error");
 				pageObject.clickRedirectLink();
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/identity");
 			});
 		});
 
 
 		describe("after an unauthorized access", function() {
 			beforeEach(function() {
-				browser.get("http://localhost:3000/src/#/kanban/user/");
+				browser.get("http://localhost:3000/src/#/user/");
 			});
 
 			it("the error page is present", function() {
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/error");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/error");
 				expect(pageObject.isPresent()).toEqual(true);
 			});
 
@@ -87,9 +87,9 @@
 			});
 
 			it("reidrect link send to kanban/identity", function() {
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/error");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/error");
 				pageObject.clickRedirectLink();
-				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
+				expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/identity");
 			});
 		});
 	});

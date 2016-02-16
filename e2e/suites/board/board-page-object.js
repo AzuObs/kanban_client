@@ -34,7 +34,7 @@
 
 
 		this.hasAddUserButton = function() {
-			return $("button[ng-click='addMember($event)']").isPresent();
+			return $("form[name='amForm'] button").isPresent();
 		};
 
 
@@ -45,12 +45,12 @@
 
 		this.addUser = function(email) {
 			element(by.model("addMemberInput")).sendKeys(email);
-			$("button[ng-click='addMember($event)']").click();
+			$("form[name='amForm']").submit();
 		};
 
 
 		this.hasCreateCategoryButton = function() {
-			return $(".form-group button[ng-click='createCategory()']").isPresent();
+			return $("form[name='newCatForm'] button").isPresent();
 		};
 
 
@@ -167,7 +167,7 @@
 		this.categoryHasCreateTaskInput = function() {
 			return $$(".category-container")
 				.first()
-				.element(by.css("input[ng-keypress='createTask(category, $event)']"))
+				.element(by.css("form[name='addTaskForm'] input"))
 				.isPresent();
 		};
 
@@ -231,7 +231,7 @@
 
 
 		this.getCategory = function(category) {
-			return $$(".category-container")
+			return $$(".category-header h4")
 				.each(function(cat) {
 					cat
 						.evaluate("category.name")

@@ -5,7 +5,7 @@
 		var footerAnchor = footer.element(by.css("a"));
 
 		this.get = function() {
-			browser.get("http://localhost:3000/src/#/kanban/identity");
+			browser.get("http://localhost:3000/src/#/identity");
 		};
 
 		this.getFooterText = function() {

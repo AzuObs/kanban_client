@@ -6,12 +6,12 @@
 		var boardList, createBoardButton, createBoardInput, config;
 
 		boardList = $(".board-list-container");
-		createBoardButton = $("button[ng-click='createBoard($event)']");
-		createBoardInput = $("input[ng-keypress='createBoard($event)']");
+		createBoardButton = $("button[type='submit']");
+		createBoardInput = $("input[ng-model='newBoardName']");
 
 		config = {
-			identityPageUrl: "http://localhost:3000/src/#/kanban/identity",
-			boardListPageUrl: "http://localhost:3000/src/#/kanban/user/Sheldon"
+			identityPageUrl: "http://localhost:3000/src/#/identity",
+			boardListPageUrl: "http://localhost:3000/src/#/user/Sheldon"
 		};
 
 		this.cleanUpAndExit = function() {
@@ -31,7 +31,7 @@
 
 		this.get = function() {
 			browser.get(config.identityPageUrl);
-			$("button[ng-click='authenticate()']").click();
+			$("form[name='loginForm'").submit();
 		};
 
 		this.isPresent = function() {

@@ -4,7 +4,7 @@
 	var NavbarObject = function() {
 
 		this.get = function() {
-			browser.get("http://localhost:3000/src/#/kanban/identity");
+			browser.get("http://localhost:3000/src/#/identity");
 		};
 
 

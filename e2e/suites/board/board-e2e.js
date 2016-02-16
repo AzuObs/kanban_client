@@ -215,25 +215,26 @@
 			});
 
 			it("can be dropped into the category container", function() {
-				var category, categoryContainer;
+				var originCat, destCat;
 
-				category = {
+				originCat = {
+					name: "0- foobar",
+					element: undefined
+				};
+				destCat = {
 					name: "2- foobar",
 					element: undefined
 				};
 
+				boardPO.getCategory(originCat);
+				boardPO.getCategory(destCat);
 				expect(boardPO.getNameOfCategoryInFirstPosition()).toEqual("0- foobar");
 
-				boardPO.getCategory(category);
-				categoryContainer = $(".category-list");
-
-				boardPO.getCategory(category);
-
 				browser.controlFlow().execute(function() {
-					boardPO.dragAndDrop(category.element, categoryContainer);
+					boardPO.dragAndDrop(originCat.element, destCat.element);
 				});
 
-				expect(boardPO.getNameOfCategoryInFirstPosition()).toEqual("2- foobar");
+				expect(boardPO.getNameOfCategoryInFirstPosition()).toEqual("1- foobar");
 			});
 		});
 

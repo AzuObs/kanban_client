@@ -5,7 +5,7 @@
 
 	PageObject = function() {
 		this.init = function() {
-			browser.get("http://localhost:3000/src/#/kanban/error");
+			browser.get("http://localhost:3000/src/#/error");
 		};
 
 		this.isPresent = function() {

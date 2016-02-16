@@ -5,7 +5,7 @@
 		var oauthPage = $(".oauth-container");
 
 		this.get = function() {
-			browser.get("http://localhost:3000/src/#/kanban/identity");
+			browser.get("http://localhost:3000/src/#/identity");
 		};
 
 		this.isPresent = function() {
@@ -19,23 +19,23 @@
 		};
 
 		this.hasLoginSection = function() {
-			return oauthPage.element(by.className("login-container")).isPresent();
+			return $("form[name='loginForm']").isPresent();
 		};
 
 		this.hasDemoCredentials = function() {
 			return oauthPage.element(by.className("login-help-credentials")).isPresent();
 		};
 
-		this.hasPlaceholderUsername = function() {
-			return oauthPage.element(by.css("input[placeholder='Sheldon']")).isPresent();
+		this.getUsername = function() {
+			return element(by.model("loginUsername")).evaluate("loginUsername");
 		};
 
-		this.hasPlaceholderPwd = function() {
-			return oauthPage.element(by.css("input[placeholder='123']")).isPresent();
+		this.getPwd = function() {
+			return element(by.model("loginPwd")).evaluate("loginPwd");
 		};
 
 		this.clickLogin = function() {
-			return oauthPage.element(by.css("button[ng-click='authenticate()']")).click();
+			return  $("form[name='loginForm'] button").click();
 		};
 	};
 

@@ -28,10 +28,6 @@
       <input class="form-control" name="pwdVerify" ng-maxlength="20" ng-minlength="3" ng-model="newAccPwdVerify" ng-model-options="{debounce: 500}" match-validator="newAccPwd" required type="password">
     </div>
 
-
-    <!-- <small class="text-danger" ng-if="newAccForm.username.$invalid && newAccForm.username.$dirty">Please provide username.</small>
-    <small class="text-danger" ng-if="newAccForm.pwd.$invalid && newAccForm.pwd.$dirty">Please provide password.</small>
-    <small class="text-danger" ng-if="newAccForm.pwdVerify.$invalid && newAccForm.pwdVerify.$dirty">Please verify password.</small> -->
     <button class="btn btn-black btn-block" type="submit">Create User</button>
   </form>
 
@@ -65,6 +61,6 @@
       <small class="text-danger" ng-if="loginForm.pwd.$error.required">Password musn't be empty.</small>
       <input class="form-control" name="pwd" ng-maxlength="20" ng-minlength="3" ng-model="loginPwd" ng-pattern="/^[a-z0-9]+$/i" placeholder="Enter your password" required type="password">
     </div>
-    <button type="submit " class="btn btn-black btn-block " ng-disabled="loginForm.$invalid ">Log In</button>
+    <button type="submit" class="btn btn-black btn-block">Log In</button>
   </form>
 </div>

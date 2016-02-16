@@ -26,15 +26,15 @@
 			expect(oauthPage.hasDemoCredentials()).toEqual(true);
 		});
 
-		it("login has placeholder credentials", function() {
-			expect(oauthPage.hasPlaceholderUsername()).toEqual(true);
-			expect(oauthPage.hasPlaceholderPwd()).toEqual(true);
+		it("login has preset credentials", function() {
+			expect(oauthPage.getUsername()).toEqual("Sheldon");
+			expect(oauthPage.getPwd()).toEqual("123");
 		});
 
 		it("sends the user to 'kanban/user/:username' on successful login", function() {
-			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/identity");
+			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/identity");
 			oauthPage.clickLogin();
-			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/kanban/user/Sheldon");
+			expect(browser.getCurrentUrl()).toEqual("http://localhost:3000/src/#/user/Sheldon");
 		});
 	});
 })();
