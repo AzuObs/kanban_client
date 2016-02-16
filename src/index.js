@@ -50,7 +50,7 @@
 	module.run([
 		"$rootScope", "ENV", "errorHandler",
 		function($rootScope, ENV, errorHandler) {
-			$rootScope.websiteVersion = ENV.websiteVersion;
+			$rootScope.websiteTitle =  "Kanban " + ENV.websiteVersion;
 			$rootScope.$on("$stateChangeError", function() {
 				errorHandler.handleAppError("State Change Error");
 			});

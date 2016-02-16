@@ -46,18 +46,18 @@
 
 
 		describe("run phase", function() {
-			describe("$rootScope.websiteVersion", function() {
+			describe("$rootScope.websiteTitle", function() {
 				it("is defined", function() {
-					expect($rootScope.websiteVersion).toBeDefined();
+					expect($rootScope.websiteTitle).toBeDefined();
 				});
 
 				it("is a string", function() {
-					expect(typeof $rootScope.websiteVersion).toEqual("string");
+					expect(typeof $rootScope.websiteTitle).toEqual("string");
 				});
 
 
 				it("it is equal to ENV.version", inject(function(ENV) {
-					expect($rootScope.websiteVersion).toEqual(ENV.websiteVersion);
+					expect($rootScope.websiteTitle).toEqual("Kanban " + ENV.websiteVersion);
 				}));
 			});
 		});

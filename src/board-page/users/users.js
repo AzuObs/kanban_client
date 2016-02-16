@@ -49,7 +49,7 @@
 			$scope.stopSort = function() {
 				$scope.users = boardFactory.getBoardUsersSync();
 			};
-
+			
 
 			$scope.board = boardFactory.getBoardSync();
 			$scope.users = boardFactory.getBoardUsersSync();

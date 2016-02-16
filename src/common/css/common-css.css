@@ -24,3 +24,8 @@
 form.ng-invalid button[type='submit']:hover {
   cursor: not-allowed;
 }
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
