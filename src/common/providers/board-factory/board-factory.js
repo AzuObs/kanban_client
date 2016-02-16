@@ -101,7 +101,7 @@
 								boardUsers.push(res);
 								defer.resolve(res);
 							}, function(err) {
-								errorHandler.handleHttpError(err);
+								errorHandler.handleHttpError("Not Found");
 							});
 					}
 

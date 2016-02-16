@@ -23,13 +23,13 @@
 
 
 	module.controller("errorPageCtrl", [
-		"$scope", "$state", "errorHandler",
-		function($scope, $state, errorHandler) {
+		"$scope", "$state", "errorHandler", "$window",
+		function($scope, $state, errorHandler, $window) {
 
 			$scope.redirectClick = function() {
 				$state.go($scope.redirectState);
 			};
-
+			
 
 			$scope.error = errorHandler.getError();
 			$scope.title = "Error - Undefined Error";

@@ -17,6 +17,7 @@
   min-height: 90px;
   overflow: hidden;
   padding: 5px;
+  box-shadow: 0px 0px 5px #ddd;
   width: 240px;
 }
 
