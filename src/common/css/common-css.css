@@ -2,6 +2,7 @@
   background-color: #222 !important;
   border: 1px solid #000;
   color: #fff !important;
+  min-height: 34px;
 }
 
 .btn-black:hover {
@@ -25,7 +26,11 @@ form.ng-invalid button[type='submit']:hover {
   cursor: not-allowed;
 }
 
-
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
   display: none !important;
 }
