@@ -128,16 +128,22 @@ module.exports = function(grunt) {
     },
 
     copy: {
+      html: {
+        expand: true,
+        cwd: "src/",
+        src: "**/*.html",
+        dest: "release/"
+      },
       assets: {
         expand: true,
         cwd: "src/common/",
         src: "assets/**/*",
         dest: "release/common/"
       },
-      html: {
+      favicon: {
         expand: true,
         cwd: "src/",
-        src: "**/*.html",
+        src: "favicon.ico",
         dest: "release/"
       }
     },
@@ -244,6 +250,7 @@ module.exports = function(grunt) {
     "clean:release",
     "copy:html",
     "copy:assets", //this must be after html otherwise it'll override it...
+    "copy:favicon",
     "useminPrepare",
     "concat:generated",
     "uglify:generated",
