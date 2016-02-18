@@ -21,6 +21,7 @@
 }
 
 .login-help-box {
+  align-items: center;
   background-color: #fee;
   border: 1px dashed #888;
   display: flex;
@@ -38,4 +39,5 @@
   display: flex;
   flex: 1 0 auto;
   justify-content: space-around;
+  width: 100%;
 }

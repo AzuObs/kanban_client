@@ -9,7 +9,6 @@
       <small class="text-danger" ng-if="newAccForm.username.$error.required && newAccForm.username.$dirty">Username musn't be empty.</small>
       <input class="form-control" name="username" ng-maxlength="20" ng-minlength="3" ng-model="newAccUsername" ng-model-options="{debounce: 500}" ng-pattern="/^[a-z ]+$/i" required type="text">
     </div>
-
     <div class="form-group" ng-class="{'has-error': newAccForm.pwd.$invalid && newAccForm.pwd.$dirty}">
       <div><b>Password</b></div>
       <small class="text-danger" ng-if="newAccForm.pwd.$error.pattern">Password can only contain letters and spaces.</small>
@@ -18,7 +17,6 @@
       <small class="text-danger" ng-if="newAccForm.pwd.$error.required && newAccForm.pwd.$dirty">Username musn't be empty.</small>
       <input class="form-control" name="pwd" ng-maxlength="20" ng-minlength="3" ng-model="newAccPwd" ng-model-options="{debounce: 500}" ng-pattern="/^[a-z0-9]+$/i" required type="password">
     </div>
-
     <div class="form-group" ng-class="{'has-error': newAccForm.pwdVerify.$invalid  && newAccForm.pwdVerify.$dirty}">
       <div><b>Verify Password</b></div>
       <small class="text-danger" ng-if="newAccForm.pwdVerify.$error.match">Passwords must match.</small>
@@ -27,11 +25,8 @@
       <small class="text-danger" ng-if="newAccForm.pwdVerify.$error.required && newAccForm.pwdVerify.$dirty">Username musn't be empty.</small>
       <input class="form-control" name="pwdVerify" ng-maxlength="20" ng-minlength="3" ng-model="newAccPwdVerify" ng-model-options="{debounce: 500}" match-validator="newAccPwd" required type="password">
     </div>
-
     <button class="btn btn-black btn-block" type="submit">Create User</button>
   </form>
-
-
   <form autocomplete="off" class="oauth-form-container" name="loginForm" ng-submit="loginForm.$valid && authenticate()" novalidate>
     <h3>Log In</h3>
     <div class="login-help-box">
@@ -42,8 +37,8 @@
         <p>username: {{::loginUsername}}</p>
         <p>password: {{::loginPwd}}</p>
       </div>
+      <small class="text-danger">The database of this app resets every hour. It's only a demo.</small>
     </div>
-
     <div class="form-group" ng-class="{'has-error': loginForm.username.$invalid}">
       <div><b>Username</b></div>
       <small class="text-danger" ng-if="loginForm.username.$error.pattern">Username can only contain letters and spaces.</small>
@@ -52,7 +47,6 @@
       <small class="text-danger" ng-if="loginForm.username.$error.required">Username musn't be empty.</small>
       <input class="form-control" name="username" ng-minlength="3" ng-maxlength="20" ng-model="loginUsername" ng-pattern=" /^[a-z ]+$/i" required placeholder="Enter your username" type="text">
     </div>
-
     <div class="form-group" ng-class="{'has-error': loginForm.pwd.$invalid}">
       <div><b>Password</b></div>
       <small class="text-danger" ng-if="loginForm.pwd.$error.pattern">Password can only contain letters and numbers.</small>
