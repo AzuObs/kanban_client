@@ -293,7 +293,7 @@
       it("calls $scope.resetCommentInput on resolve", function() {
         var called = false;
 
-        spyOn("$scope", resetCommentInput).and.callFake(function() {
+        spyOn($scope, "resetCommentInput").and.callFake(function() {
           called = true;
         });
 
