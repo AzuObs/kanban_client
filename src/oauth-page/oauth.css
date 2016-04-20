@@ -1,43 +1,44 @@
 .oauth-container {
-  display: flex;
-  margin: 10px 0px;
-  min-height: 0px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  justify-content: space-around;
+    display: flex;
+    margin: 10px 0px;
+    min-height: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    justify-content: space-around;
 }
 
 .oauth-form-container {
-  align-items: stretch;
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
-  width: 37%;
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    width: 37%;
 }
 
 .oauth-form-container h3 {
-  align-self: center;
-  margin: 20px;
+    align-self: center;
+    margin: 20px;
 }
 
 .login-help-box {
-  align-items: center;
-  background-color: #fee;
-  border: 1px dashed #888;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-  min-width: 0px;
+    align-items: center;
+    background-color: #fee;
+    border: 1px dashed #888;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    margin-bottom: 15px;
+    min-width: 0px;
 }
 
 .login-help-title {
-  align-self: center;
-  flex: 0 1 auto;
+    align-self: center;
+    flex: 0 0 auto;
 }
 
 .login-help-credentials {
-  display: flex;
-  flex: 1 0 auto;
-  justify-content: space-around;
-  width: 100%;
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: space-around;
+    width: 100%;
 }
