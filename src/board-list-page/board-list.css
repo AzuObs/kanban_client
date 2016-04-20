@@ -1,34 +1,39 @@
 .board-list-container {
-  display: flex;
-  flex-direction: column;
-  margin: 10px 0px;
-  min-height: 280px;
-  overflow-x: hidden;
-  overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+    min-height: 280px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .board-list-container > * {
-  flex: 0 1 auto;
-  min-height: 0px;
+    flex: 0 1 auto;
+    min-height: 0px;
 }
 
 .board-list {
-  font-size: 25px;
-  margin: 15px 0 30px 0;
+    font-size: 25px;
+    margin: 15px 0 30px 0;
 }
 
 .board-list > * {
-  display: inline-block;
-  margin-top: 10px;
+    display: inline-block;
+    margin-top: 10px;
 }
 
 .board-list .open-board-modal {
-  color: #000;
-  font-size: 16px;
-  margin-left: 4px;
-  text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    margin-left: 4px;
+    text-decoration: none;
 }
 
 span[ng-hide="$last"] {
-  white-space: pre;
+    white-space: pre;
+}
+
+.new-board-input {
+    width: 100%;
+    min-width: 400px;
 }
